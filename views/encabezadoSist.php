@@ -1,0 +1,58 @@
+<header>
+    <div class="escudo_Ini">
+        <img class="imagen1" src="../../img/escudosmsem.png" width="55" height="75">
+        <img class="imagen2" src="../../img/planilla2021-2024.png" width="60" height="40">
+    </div>
+    <div class="texto_Ini">
+        <div class="texfonretif_Ini">SMSEM - FONDO DE RETIRO PARA LA JUBILACION Y FALLECIMIENTO</div>
+        <div class="texSISTGE">SISTGE - FONRETyF</div>
+    </div>
+</header>
+
+<div class="fondo_menu">
+    <div class="container-fluid">
+        <nav class="navbar fixed-top headencabezado">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><img id="imgAhorro" src="../../img/cash.png" alt="" width="70" height="40"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">RETIROS</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="entregas.php">ENTREGAS</a></li>
+                                    <li><a class="dropdown-item" href="consultRetiros.php">CONSULTAS</a></li>
+                                    <li><a class="dropdown-item" href="#">PARAMETROS</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">PENDIENTES</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">MUTUALIDAD</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">CONSULTAS</a></li>
+                                    <li><a class="dropdown-item" href="#">EDOS. CTA.</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">CARTA TESTAMENTARIA</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">CONSULTAS</a></li>
+                                    <li><a class="dropdown-item" href="#">ALTA-BUSQUEDAS</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+

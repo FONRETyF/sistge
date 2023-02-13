@@ -1,0 +1,1475 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+/*@font-face {
+    font-family: Gentium;
+    src: url('http://example.com/fonts/Gentium.woff');
+    font-weight: normal;
+    font-style: normal;
+}*/
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+:root{
+  --lightgray:#efefef;
+  --blue:steelblue;
+  --white: #fff;
+  --black: rgba(0,0,0,0.8);
+  --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
+  --color-green: #00a800;
+  --color-red: #ff2a05;
+  --color-button: #fdffff;
+  --color-black: #000;
+}
+
+/*Estilos del contenidoo*/
+
+#secmenu{
+  width: 140px;
+  margin: 96px 17px 0;
+}
+#secmenu nav{
+  display: flex;
+  float:inline-end;
+  justify-content: space-between;
+  width: 1000px;
+	height: 40px;
+  border-radius: 8px;
+	font-size: 0;
+  position: absolute;
+  /*padding-left: 150px;*/
+  margin: 0 165px 0;
+}
+#secmenu a {
+	line-height: 30px;
+	height: 100%;
+	font-size: 18px;
+	display: inline-block;
+	position: relative;
+	z-index: 1;
+	text-decoration: none;
+	text-align: center;
+	color: white;
+	cursor: pointer;
+}
+#secmenu .animation {
+	position: absolute;
+	height: 100%;
+	top: 0;
+	z-index: 0;
+	transition: all .3s ease 0s;
+	border-radius: 8px;
+}
+a:nth-child(2) {
+	width: 140px;
+}
+a:nth-child(3) {
+	width: 140px;
+}
+a:nth-child(4) {
+	width: 180px;
+}
+a:nth-child(5) {
+	width: 250px;
+}
+a:nth-child(6) {
+	width: 150px;
+}
+
+
+.menu{
+  display: flex;
+  position: absolute;
+  float:right;
+  background-color: #a19f9f;
+}
+.menu a{
+  text-decoration: none;
+  font-size: 15px;
+}
+#datsentrad{
+  background-color: #28ad28;
+
+}
+/*Estulos del contenido general de la pagina*/
+.formulario{
+  display: inline-flex;
+}
+.contenidoGral{
+  min-height: 100px;
+  width: 100%;;
+  padding-top: 1px;
+  text-align: center;
+  /*display: flex;*/
+}
+#infUltEnt{
+  padding-top: 30px;
+  padding-left: 550px;
+  text-align: center;
+  font-weight: bold;
+  color:rgb(3, 6, 41)
+}
+span{
+  padding-top: 30px;
+  font-size: 18px;
+  text-align: center;
+}
+#entrNueva{
+  background-color: transparent;
+}
+
+/*Estulos del contenido general de la pagina-Retiros*/
+#Retiros{
+  margin: 55px 15px 0;
+  font-weight: bold;
+  color: #eeeeee;
+  height: 80%;
+  width: 155px;
+  text-align: center;
+  border-radius: 5px;
+  text-decoration: none;
+  border-right: thick solid #a19f9f;
+  border-width: .3em;
+}
+#Retiros ul{
+  display: block;
+  padding: 12px;
+}
+#Retiros ul a{
+  color: black;
+}
+#Retiros ul:hover{
+  background-color:#a19f9f;
+}
+#ContenEntregas{
+  width: 100%;
+}
+#form_entrega{
+  text-align: center;
+}
+#secEntregas{
+  text-align: center;
+  margin: 70px auto;
+  width: 70%;
+  font-size: 18px;
+}
+#ConsultEntregas{
+  height: 37px;
+  margin-top: 20px;
+  display: flex;
+}
+#TextConsulEntr{
+  padding: 8px;
+  padding-left: 50px;
+  font-size: 19px;
+}
+#DatConsltEntr{
+  display: inline-flex;
+  width: 250px;
+}
+#AnioEntrega{
+  font-size: 15px;
+  height: 33px;
+  padding: 4px;
+  width: 80px;
+  text-align: center;
+  margin: 3px 20px 0;
+}
+#NumEntrega {
+  font-size: 15px;
+  height: 33px;
+  padding: 4px;
+  width: 70px;
+  text-align: center;
+  margin: 3px 20px 0;
+}
+#TxtDatConsulEnt{
+  width: 100px;;
+  display: flex;
+  font-size: 14px;
+}
+#DatAnioEntr{
+  padding-left: 170px;
+}
+#DatNumEntr{
+  width: 50px;
+  float: left;
+  padding-left: 58px;
+}
+#ResultConsult{
+  border-top: thick solid #a19f9f;
+  width: 1000px;
+  margin: 3px 15px 0;
+  border-radius: 5px;
+  border-width: .2em;
+}
+#entrega_data{
+  position: relative;
+  font-size: small;
+  border-color: rgb(7, 107, 4);
+}
+/*.tabresult{
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1.5px solid rgb(2, 48, 4);
+  align-self: center;
+  font-size: 12px;
+}*/
+thead th:nth-child(1){
+  width: 15px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(2){
+  width: 30px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(3){
+  width: 130px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(4){
+  width: 70px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(5){
+  width: 50px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(6){
+  width: 40px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(7){
+  width: 10px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(8){
+  width: 10px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(9){
+  width: 10px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+#AgregaEntr{
+  float: right;
+  margin: 15px 400px 0;
+}
+#AgregaEntr img:hover{
+  cursor:pointer;
+}
+
+
+
+
+/*ESTILOS RETIROS CONSULTA*/
+#SecConsltRetr{
+  margin: 55px 0 0;
+  width: 100%;
+  /*background-color: #2c5fec;*/
+}
+#TxtTitConsl{
+  margin: 0 280px 0;
+  font-size: 17px;
+  font-weight: bold;
+  color: #042c03;
+  
+}
+#ConsltRetir {
+  margin: 35px 0 0;
+  display: flex;
+}
+#TextCSP{
+  margin: 3px 30px 0;
+  font-weight: bold;
+}
+#BttnBuscar{
+  width: 70px;
+  height: 30px;
+  border-color: #023014;
+  border-width: 0.1em;
+  border-radius: 5px;
+}
+#ResultConsltRetr{
+  /*background-color: #2c5fec;*/
+  margin: 10px 10px 0;
+  width: 90%;
+  height: 300px;
+}
+.formConsulRet{
+  width: 90%;
+  margin: 80px 100px 0;
+}
+
+#retiro_data{
+  font-size: small;
+  border-color: rgb(7, 107, 4);
+}
+
+
+
+/*ESTILOS NUEVA ENTREGA*/
+#numentrega{
+  width: 55px;
+  height: 35px;
+  border-radius: 3px;
+  margin-left: 5px;
+  text-align: center;
+}
+#DvAnioEntrNuev{
+  margin: 15px;
+  padding-left: 20px;
+  
+}
+#DvNumEntrNuev{
+  margin: 15px;
+}
+#DvStatEntrNuv{
+  margin: 15px;
+  text-align: left;
+}
+#DatsEntrNueva{
+  margin: 80px 50px 0;
+  width: 100%;
+  height: 300px;
+  font-size: 20px;
+}
+.DatsEntrNuv{
+  width: 100%;
+  display: inline-flex;
+  font-size: 20px;
+  
+  /*vertical-align: middle;*/
+
+}
+.DatsEntrNuv select{
+  margin: 0 20px 0;
+  text-align: center;
+  height: 30px;
+  font-size: 15px;
+  background-color: darkgrey;
+  border-radius: 3px;
+}
+#DescEntrNuv{
+  margin: 15px 0 0;
+}
+#descentrega{
+  margin: 20px 20px 0;
+  width: 500px;
+  height: 35px;
+  border-radius: 3px;
+  font-size: 15px;
+}
+.formulario input[type="radio"]{
+  display: none;
+}
+.formulario .radio label{
+  /*background: rgba(0,0,0,.1);*/
+  padding: 3px 12px 3px 40px;
+  display: inline-block;
+  position: relative; /*absolute por que se quieren modificar*/
+  font-size: .8em;
+  border-radius: 3px;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.formulario .radio label:hover{
+  background: rgba(0, 217, 29, 0.1);
+}
+.formulario .radio label:before{
+  content: "";
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  background: none;
+  border: 2px solid rgba(0, 0, 0, 0.623);
+  border-radius: 50%;
+  position: absolute;
+  left: 12px;
+  top:8px;
+}
+.formulario input[type="radio"]:checked + label{
+/*en el input de tipo de radio cuando este seleccionado se vana editar lo estilos del label*/
+  padding: 3px,12px;
+  background: #047721;
+  border-radius: 2px;
+  color: white;
+
+}
+.formulario input[type="radio"]:checked + label:before{
+  display: none;
+}
+.BtnAgrega{
+  width: 110px;
+  height: 30px;
+  margin: 21px 10px;
+  font-size: 15px;
+  border-color: 1px solid #2b2c2b;
+}
+#DvDescEntrNuv{
+  padding-top:18px;
+  margin: 15px;
+  align-content: center;
+  align-items: baseline;
+  display: inline-flex;
+}
+#añoenterga{
+  width: 70px;
+  height: 35px;
+  margin-left: 3px;
+  border-radius: 3px;
+  font-size: 20px;
+}
+
+
+
+
+/*ESTILOS DE DETALLE DE ENTREGAS*/
+#SecEntrDetalle{
+  width: 100%;
+  height: auto;
+  /*background-color: #FA6EF4;*/
+  margin: 30px 5px 0;
+  /*display: inline-flex;*/
+}
+.DatsEntr{
+  width: 100%;
+  height: 55px;
+  display: inline-flex;
+  justify-content: center;
+}
+.DatsEntr span, input{
+  padding: 5px 10px;
+  font-size: 17px;
+}
+.InptsEntrDetalle{
+  width: 80px;
+  height: 30px;
+  border:none;
+  background:#dddbdb;
+  border-bottom: 2px;
+  text-align: center;
+}
+.FechFol{
+  width: 130px;
+  height: 50px;
+  background-color: #2c5fec;
+}
+#procesosEntr{
+  padding-left: 70px;
+  padding-right: 0px;
+  /*padding-top: -1px;*/
+  margin:14px
+}
+#AsigFechEntr{
+  cursor: pointer;
+}
+#AsigFolCheq{
+  cursor: pointer;
+}
+#SecEntrgDetalle{
+  height: 100%;
+}
+#DetalleEntr{
+  width: 85%;
+  height: 100%;
+  margin: 10px 70px 0;
+  /*background-color: #023014;*/
+}
+#ConslEntrDetalle{
+  width: 100%;
+  height: 45px;
+  margin: 10px;
+  justify-content: center;
+  display: inline-flex;
+}
+.tabReslRetrs{
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid rgb(2, 39, 2);
+  align-self: center;
+  font-size: 12px;
+}
+.accRet{
+  display: inline-flex;
+}
+.tablaRet th:nth-child(1){
+  width: 30px;
+  border: 1.5px solid rgb(42, 43, 42);
+}
+.tablaRet th:nth-child(2){
+  width: 50px;
+  border: 1.5px solid rgb(42, 43, 42);
+}
+.tablaRet th:nth-child(3){
+  width:200px;
+  border: 1.5px solid rgb(42, 43, 42);
+}
+.tablaRet th:nth-child(4){
+  width: 30px;
+  border: 1.5px solid rgb(42, 43, 42);
+}
+.tablaRet th:nth-child(5){
+  width: 20px;
+  border: 1.5px solid rgb(42, 43, 42);
+}
+.tablaRet th:nth-child(6){
+  width: 20px;
+  border: 1.5px solid rgb(42, 43, 42);
+}
+.tablaRet th:nth-child(7){
+  width: 20px;
+  border: 1.5px solid rgb(42, 43, 42);
+}
+.tablaRet th:nth-child(8){
+  width: 20px;
+  border: 1.5px solid rgb(42, 43, 42);
+}
+.acccionRet{
+  width: 45px;
+  height: 35px;
+  margin: 2px 2px 0;
+}
+.buttonAcc{
+  cursor: pointer;
+}
+#txtconultDetalle{
+  width: 400px;
+  height: 30px;
+  border-radius: 3px;
+}
+
+
+
+/*INICIAN ESTILOS CAPTURA DE TRAMITES*/
+#SecCapturaTram{
+  width: 100%;
+  height: 100%;
+  margin: 30px 3px 0;
+  text-align: center;
+}
+#SecDatPerson{
+  width: 80%;
+  height: 270px;
+  margin: 15px auto;
+  border-top: .1em solid #034203;
+  border-bottom: .1em solid #034203;
+  border-radius: 3px;
+}
+#SecDatPerson p{
+  font-size: 1em;
+  text-align: center;
+  color:#2b2c2b;
+  font-weight: 15px;
+}
+#SecDatPerson input[type="text"],
+input[type="date"]{
+  height: 25px;
+  font-size: 15px;
+}
+.DatosCaptura{
+  height: 250px;
+  min-width: 500px;
+}
+#causaRetiro{
+  width: 100%;
+  height: 30px;
+  display: inline-flex;
+  justify-content: center;
+  font-size: 1em;
+}
+#OpcCauRetiro{
+  width: 145px;
+  height: 25px;
+  margin: 0 3px 0;
+  font-size: 12px;
+  font-weight:bold;
+  text-align: center;
+}
+#DivCveServPub{
+  margin: 5px 25px 0;
+  display: inline-flex;
+}
+#cspMaeBusq{
+  width: 130px;
+}
+#cveIMaeBusq{
+  width: 80px;
+}
+#EstatLaboral{
+  font-size: 1em;
+  margin: 0 30px;
+}
+#estLaboral{
+  width: 200px;
+}
+#infoTramite{
+  color:red;
+}
+#DivNomMae{
+  padding-top: 8px;
+}
+#DivDatsNomMae{
+  height: 25px;
+}
+.DatsNomMae{
+  width: 250px;
+  margin-left: 20px;
+}
+#nombreMae{
+  width: 300px;
+}
+#textnommae{
+  height: 25px;
+  text-align:justify;
+  display: inline-flex;
+}
+.nomMaestro{
+  font-size: 11px;
+  height: 15px;
+}
+#EditaNombre{
+  width: 30x;
+  height: 30px;
+  background-color: transparent;
+  border-color: transparent;
+}
+#TextApePat{
+  width: 300px;
+  padding-left: 100px;
+}
+#TextApeMat{
+  width: 300px;
+  padding-left: 80px;
+}
+#TextNom{
+  width: 300px;
+  padding-left: 80px;
+}
+#nomComplMae{
+  width: 550px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: #d4d1d1;  
+}
+#nomComplMae:disabled{
+  background-color: #d4d1d1;
+}
+#curpRfcMae{
+  display: inline-flex;
+  margin: 15px 0;
+}
+.curpRfcMae{
+  padding-left: 40px;
+}
+#RFCMae{
+  width: 140px;
+}
+#CURPMae{
+  width: 190PX;
+}
+#OpcRegSind{
+  width: 59px;
+  font-size: 12px;
+  text-align: center; 
+}
+
+#SecDatTramite{
+  width: 80%;
+  height: 210px;
+  margin: 1px auto;
+  border-bottom: .1em solid #034203;
+  border-radius: 3px;
+}
+.DatosCapTram{
+  height: 210px;
+}
+.DatosCapTram input{
+  height: 27px;
+}
+#DivDatSolic{
+  margin: 3px 0 0;
+  display: inline-flex;
+}
+.divNomSolic{
+  width: 550px;
+}
+#nomSolic{
+  width: 400px;
+  padding-right: 30px;
+}
+.divFechSolic{
+  width: 300px;
+}
+#DivDictBasePsgs{
+  display: inline-flex  ;
+}
+#DivDictamen{
+  width: 230px;
+  height: 120px;
+  margin: 10px 0 0;
+  display: inline-block;
+}
+#DivDictamen p{
+  font-size: 11px;
+  font-weight: bold;
+}
+#folioDictamen{
+  width: 100px;
+}
+#DivBaseBaja{
+  width: 230px;
+  height: 120px;
+  margin: 10px 0 0;
+  display: inline-block;
+}
+#DivBaseBaja p{
+  font-size: 11px;
+  font-weight: bold;
+}
+#DivPsgs{
+  width: 310px;
+  height: 120px;
+  margin: 10px 0 0;
+  display: inline-block;
+}
+#DivPsgs p{
+  font-size: 11px;
+  font-weight: bold;
+}
+#editaPSGS{
+  width: 30x;
+  height: 30px;
+  background-color: transparent;
+  border-color: transparent;
+}
+#editaBefens{
+  width: 33x;
+  height: 33px;
+  background-color: transparent;
+  border-color: transparent;
+}
+#calcDiasAnios{
+  width: 28x;
+  height: 28px;
+  background-color: transparent;
+  border-color: transparent;
+}
+#DivCalcAddPB{
+
+display: inline-flex;
+}
+#numPsgs{
+  width: 40px;
+}
+#tiempoPsgs{
+  width: 70px;
+}
+#aniosServMae{
+  width: 80px;
+  background: #dad8d8;
+}
+#divPeriLaboral{
+  display: inline-flex;
+}
+#textPrioLaboral{
+  display: inline-flex;
+}
+.textPeriodLab{
+  font-size: 9px;
+  width: 80px;
+  height: 10px;
+}
+.DatsPeriodLab{
+  padding-top: 5px;
+  width: 80px;
+}
+.DatsPeriodLab input{
+  font-weight: bold;
+  text-align: center;
+}
+#SecDatModRet{
+  width: 80%;
+  height: 330px;
+  margin: 3px auto;
+}
+#SecDatModRet input{
+  height: 28px;
+  border-radius: 3px;
+}
+#ModoRetiro{
+  width: 155px;
+  height: 25px;
+  margin: 0 3px 0;
+  font-size: 12px;
+  font-weight:bold;
+  text-align: center;
+}
+#divCalcRetiro{
+  height: 100px;
+  margin: 25px 0;
+  display: inline-block;
+}
+#divCalcRetiro input{
+  width: 130px;
+  height: 30px;
+}
+#divAgregaTram{
+  margin: 30px auto;
+  height: 80px;
+}
+.divsmonts{
+  margin: 10px auto;
+}
+
+#agregaTramite{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #0a6b1b;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px rgb(175, 174, 174);
+}
+#imprimeAcuerdo{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #0a6b1b;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px rgb(175, 174, 174);
+}
+
+/* Estilos de modal para editar nombre */
+#contenidoModal{
+  width: 500px;
+  height: 400px;
+  display: inline-block;
+}
+#modalHeader{
+margin: 0 110px;
+}
+#contenidoModal input{
+  height: 30px;
+  border-radius: 3px;
+}
+#DivApePat{
+  margin: 25px auto;
+}
+#DivApeMat{
+  margin: 25px auto;
+}
+#DivNomMae{
+  margin: 25px auto;
+}
+#DivNomCom{
+  margin: 25px auto;
+}
+#nomcomModif{
+  width: 430px;
+  background-color: #e9ebe9;
+  border-color: transparent;
+}
+/* ----------------------------------- */
+
+/* Estilos de modal para editar PSGS */
+#contenidoModal{
+  width: 550px;
+  height: 500px;
+  display: inline-block;
+}
+#modalHeader{
+margin: 0 110px;
+}
+#contenidoModal input{
+  height: 30px;
+  border-radius: 3px;
+}
+#DivNumPSGS{
+  text-align: center;
+  padding-top: 10px;
+}
+#numsPSGS{
+  width: 50px;
+  background-color: #e9ebe9;
+}
+#ContenPSGS{
+  width: 100%;
+  height: 350px;
+}
+#agregaPSGS{
+  background-color: transparent;
+  border-color: transparent;
+  margin: 0 15px;
+}
+#DivFechsPSGS{
+  padding: 35px;
+  width: 100%;
+  height: 330px;
+  display: inline-flex;
+}
+#DivFechsPSGS input{
+  height: 30px;
+  border-radius: 3px;
+  width: 150px;
+  margin: 3px 15px;
+}
+#addPSGS{
+  background-color: transparent;
+  border-color: transparent;
+}
+/* ----------------------------------- */
+#DivsinPSGS{
+  font-size: 14px;
+  float: right;
+  margin: 0 20px;
+  color: #0b4d0b;
+}
+#sinPSGS{
+  width: 15px;
+  height: 15px;
+  border-color: #023014;
+}
+#DivExcepciones{
+  margin: 10px 0 0;
+  width: 200px;
+  text-align: center;
+  display: inline-block;
+}
+#DivExcepciones p{
+  font-size: 11px;
+  font-weight: bold;
+}
+#DivExcepciones input{
+  height: 30px;
+  border-radius: 3px;
+  width: 85px;
+}
+.DatsExcepciones{
+  font-size: 11px;
+}
+#divAdeudos{
+  margin: 3px auto;
+  display: inline-block;
+}
+#DivCheckAdeudos input{
+  height: 15px;
+  width: 15px;
+  border-color: #727171;
+}
+
+#DivDatsAdeudos{
+  margin: 10px auto;
+  display: inline-flex;
+}
+#OpcProcecAdeudo{
+  width: 150px;
+  height: 25px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
+}
+#montAdeudo{
+  width:130px
+}
+#tipModRetiro{
+  margin: 10px auto;
+}
+/*TERMINAN ESTILOS CAPTURA DE TRAMITES*/
+
+
+
+/*INICIAN ESTILOS DE TRAMITES DE ENTREGAS*/
+#secRetiros{
+  width: 90%;
+  padding-top: 15px;
+  margin: 0 auto;
+}
+#InputIdentrega{
+  width: 80px;
+  font-size: 15px;
+  font-weight: bold;
+  border: none;
+}
+#ConsultRetiros{
+  margin: 10px 0;
+  height: 50px;
+  text-align: center;
+}
+#tramNuevo{
+  border-color: #0fbd0f23;
+  background-color: #0fbd0f23;
+  text-align: center;
+}
+/*#cspConsultRet{
+  height: 30px;
+  border-radius: 3px;
+}
+#TextConsulRets{
+  display: inline-flex;
+}*/
+.btnConsultRet {
+  width: 80px;
+  border-color: #30b446;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0 30px 30px #30b446 inset, 0 0 0 0 #30b446;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+}
+.btnConsultRet:hover {
+  box-shadow: 0 0 1px 0 #30b446 inset, 0 0 1px 1px #30b446;
+  background-color: #30b446;
+  color: rgb(10, 10, 10);
+}
+#ResultConsultRets{
+  border-top: thick solid #a19f9f;
+  margin: 0 auto;
+  width: 95%;
+  margin: 3px 15px 0;
+  border-radius: 5px;
+  border-width: .2em;
+}
+#retiros_data{
+  font-size: small;
+}
+thead th:nth-child(1){
+  width: 15px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(2){
+  width: 30px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(3){
+  width: 130px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(4){
+  width: 70px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(5){
+  width: 50px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(6){
+  width: 40px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(7){
+  width: 10px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(8){
+  width: 10px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(9){
+  width: 10px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(10){
+  width: 10px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+/*TERMINAN ESTILOS DE TRAMITES DE ENTREGAS*/
+
+
+
+/*INICIAN ESTILOS DE PARAMETROS PARA EL RETIRO DE ACTIVOS*/
+#titParamRetAct{
+  margin: 30px auto;
+  font-size:1.5em;
+  color: #023014;
+}
+#contParamRetAct{
+  width: 100%;
+  padding-top: 25px;
+  text-align: center;
+}
+#DicEstatParamRet{
+  padding-top: 15px;
+  text-align: right;
+}
+#datsParamRetAct{
+  width: 50%;
+  margin:0 auto;
+  border-top: 1.5px solid rgb(2, 48, 4);
+  border-radius: 3px;
+  display: inline-block;
+}
+#DivsueldosBase{
+  margin: 20px auto;
+  display: inline-block;
+  
+}
+.datsSueldosBase{
+  width: 350px;
+  display: inline-flex;
+  align-items: center;
+}
+.sueldosBase{
+  width: 150px;
+  border-radius: 3px;
+  height: 30px;
+}
+#DivsueldosBaseSp{
+  display: inline-flex;
+}
+#DivpromSueldos{
+  margin: 20px auto ;
+}
+#promSueldos{
+  background-color: #d8d2d2;
+  border: none;
+  border-radius: 3px;
+}
+#DivaniosLey{
+  width: 200px;
+  margin: 0 auto;
+}
+#aniosLey{
+  width: 50px;
+  text-align: center;
+  height: 30px;
+  background-color: #d8d2d2;
+  border-radius: 3px;
+}
+#entregasApli{
+  padding-top: 30px;
+  display: inline-flex;
+}
+.DivEntrsApli{
+  width: 200px;
+}
+#entregasApliIni{
+  margin: 30px auto;
+  display: inline-flex;
+}
+#entregasApli input{
+  height: 30px;
+  border-radius: 3px;
+}
+#DivEntrApliIni{
+  margin: 10px 20px;
+  display: inline-block;
+}
+.EntrsApliIni{
+  width: 60px;
+  text-align: center;
+}
+#DivEntrApliFin{
+  margin: 10px 20px;
+}
+.EntrsApliFin{
+  width: 80px;
+  text-align: center;
+}
+#montRetAn{
+  width: 130px;
+  height: 30px;
+  text-align: center;
+  background-color: #d8d2d2;
+}
+#divAgregaParam{
+  margin: 25px auto;
+}
+#agregaParam{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #0a6b1b;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px rgb(175, 174, 174);
+}
+/*TERMINA ESTILOS DE PARAMETROS PARA EL RETIRO DE ACTIVOS*/
+
+
+
+
+#TramActivLab{
+  display: inline-flex;
+  width: 100%;
+  height: auto;
+}
+
+#TramEstat{
+  height: auto;
+  width: 100%;
+}
+#TramMutualidad{
+  display: inline-flex;
+  width: 100%;
+  height: auto;
+  margin: 5px 0 0;
+}
+#TramEstat{
+  display: inline-flex;
+  width: 100%;
+  height: auto;
+  margin: 10px 0 0;
+  padding-left: 710px;
+}
+#descsMutu{
+  width: 50px;
+}
+#accAgrega{
+  padding-top: 8px;
+}
+#bttnAgregar{
+  width: 90px;
+  height: 30px;
+  background: #abf5c7;
+  float: right;
+}
+#DivDatBenefFallec{
+  width: 100%;
+  height: 410px;
+  display: inline-block;
+  padding-top: 15px;
+  border-bottom: .1em solid #a19f9f;
+  border-radius: 3px;
+}
+#BenefFallSolic{
+  display: inline-flex;
+}
+#nomBenefSolic{
+  width: 450px;
+}
+#FallTestamento{
+  display: inline-flex;
+  margin: 10px 50px 0;
+}
+
+#numBenef{
+  width: 45px;
+}
+#AgregaBenefs{
+  width: 30px;
+  height: auto;
+  padding-left: 70px;
+}
+#DatsBeneficiarios{
+  width: 90%;
+  height: 280px;
+  display: inline-block;
+  padding-top: 5px;
+  border-top: .2em solid #a19f9f;
+  border-radius: 3px;
+  margin: 3px 30px 0;
+}
+#encabeBenefs{
+  width: 100%;
+  height: auto;
+  display: inline-flex;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border-top: .1em solid #18862b;
+  border-bottom: .1em solid #18862b;
+  border-radius: 3px;
+  margin: 3px 1px 0;
+  font-size: 12px;
+  font-weight: bold;
+}
+.colBenefs{
+  border-right: .1em solid #18862b;
+  border-right: .1em solid #18862b;
+  text-align: center;
+}
+#idBenef{
+  width: 40px;
+}
+#nomBenef{
+  width: 380px;
+}
+#curpBenef{
+  width: 230px;
+}
+#parentBenef{
+  width: 180px;
+}
+#porcnBenef{
+  width: 80px;
+}
+.regBenefs{
+  font-size: 12px;
+  display: inline-flex;
+}
+#RegidBenef{
+  width: 30px;
+  margin: 2px 3px 0;
+}
+#RegnomBenef{
+  width: 370px;
+  margin: 2px 2px 0;
+}
+#RegcurpBenef{
+  width: 220px;
+  margin: 2px 4px 0;
+}
+#RegparentBenef{
+  width: 170px;
+}
+#RegporcnBenef{
+  width: 70px;
+
+}
+
+
+/*** ESTILOS VENTANA EDITAR ENTREGA ***/
+.editarEntrega{
+  display:flex;
+  background-color: #efefef;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  pointer-events: none;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  height: 250vw;
+  width: 300vw;
+  transition: opacity 0.3s ease;
+}
+
+.show{
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.modal{
+  background-color: rgba(255, 255, 255, 0);
+  width: 700px;
+  max-width: 100%;
+  padding: 10px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-content {
+  /*margin-right: auto;
+  margin-top: auto;
+  position: relative;*/
+  width: 730px;
+  height: 450px;
+  max-width: 800px;
+  max-height: 80vh;
+  border-radius: 5px;
+  background: var(--white);
+  overflow: auto;
+  cursor: default;
+  pointer-events: none;
+}
+#DatsEntrDetalle{
+  margin: 15px 15px 0;
+  width: 95%;
+  height: 400px;
+  font-size: 20px;
+}
+.modal-content .fechEntrEdit{
+  margin: 15px;
+  text-align: left;
+}
+.modal-content .fechEntrEdit input{
+  margin: 10px 10px 0;
+  width: 200px;
+  height: 35px;
+  border-radius: 3px;
+  font-size: 15px;
+}
+.modal-content .obsrEntrEdit{
+  margin: 15px;
+  text-align: left;
+}
+.modal-content .obsrEntrEdit input{
+  margin: 10px 10px 0;
+  width: 500px;
+  height: 35px;
+  border-radius: 3px;
+  font-size: 15px;
+}
+
+#BtnActEnt{
+  width: 95%;
+  text-align: right;
+}
+.BtnActEnt{
+  width: 100px;
+  height: 25px;
+  margin: 21px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 3px;
+  border-color: 1px solid #2b2c2b;
+}
+.titEditEntr{
+  height: 30px;
+  font-size: medium;
+  color: #06461f;  
+}
+
+
+/*estilos del Pie de pagina*/
+footer {
+	height:40px;
+  padding-top:25px;
+}
+.piepagIni {
+	padding-left:22px;
+	padding-right:22px;
+	height: 40px;
+	margin: 0 auto;
+  background-color:#a19f9f;
+	padding-top:1px;
+  border-top: solid 1px rgba(222,222,222,0.692);
+  border-radius: 5px;
+  box-shadow: 0px 2px 7px rgba(222,222,222,0.692);
+}
+.piepagIni .infdir{
+  width: 600px;
+  height: 30px;
+  float: left;
+  padding-top: 8px;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: right;
+  color:#eeeeee;
+}
+.piepagIni .direccion{
+  width: 700px;
+  height: 30px;
+  float: right;
+  padding-left: 0px;
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 8px;
+  text-align: left;
+  color:#EEEEEE;
+}
