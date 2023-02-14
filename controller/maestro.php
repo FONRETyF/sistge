@@ -111,10 +111,10 @@
             }
             break;
         
-        case 'registrar';
+        case 'registrar':
             
             break;
-        
+            
         default:
             # code...
             break;

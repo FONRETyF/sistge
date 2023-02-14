@@ -101,7 +101,7 @@
                             <input type="hidden" id="numPSGS" name="numPSGS">
                             <input type="hidden" id="numModal" name="numModal">
                             <div id="DivCalcAddPB">Agregar: 
-                                <div><button id="calcDiasAnios" onclick="validaVigenciaTram()" disabled><img src="../../img/calcula.png" alt="Calcula dias y años" title="Calcula dias y años" height="23" width="24" disabled></button></div>    
+                                <div><button id="calcDiasAnios" disabled><img src="../../img/calcula.png" alt="Calcula dias y años" title="Calcula dias y años" height="23" width="24" disabled></button></div>    
                                 <div><button id="editaPSGS" onclick="agregaPSGS()" disabled><img src="../../img/editar.png" alt="Editar PSGS" title="Editar PSGS" height="25" width="25" disabled></button></div>
                                 <div><button id="editaBefens" onclick="agregaBenefs()" disabled><img src="../../img/agrega_benef.png" alt="Edita beneficiarios" title="Editar beneficiarios" height="28" width="28" disabled></button></div>
                                 <div id="DivsinPSGS"><label for="sinPSGS"><input type="checkbox" id="sinPSGS" value="sinPSGS" disabled>Sin P.S.G.S</label></div>

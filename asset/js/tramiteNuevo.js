@@ -1,3 +1,8 @@
+function init() {
+    $("#edita_NomMae").on("submit",function(e){
+        actNomMae(e);
+    });
+}
 $(document).ready(function(){
     document.getElementById("montRetFondFall").style.display = "none";
     document.getElementById("editaBefens").style.display = "none";
@@ -148,12 +153,13 @@ $("#cspMaeBusq").change(function () {
                     }
                     
                 }else if(data.motivo == "nuevo" && data.estatlabmae == "A"){
+                    estatusMae = "ACTIVO";
                     $('#cspMaeBusq').val(data.csp);
                     $('#cveIMaeBusq').val(data.cveissemym);
                     $('#apePatMae').val(data.apepatmae);
                     $('#apeMatMae').val(data.apematmae);
                     $('#nombreMae').val(data.nommae);
-                    $('#estLaboral').val("ACTIVO");
+                    $('#estLaboral').val(estatusMae);
                     $('#nomComplMae').val(data.nomcommae);
                     $('#nomSolic').val(data.nomcommae); 
                     $('#CURPMae').val(data.curpmae);
@@ -191,25 +197,10 @@ function fechaActual() {
     return fechActRecib;    
 }
 
-$('#fechRecibido').on('change', function(){
-    var fechRecibido = $(this).val();
-});
-
-$('#fechDictamen').on('change', function () {
-    var fechDictamen = $(this).val();
-});
-
-$('#fechBaseMae').on('change', function(){
-    var fechBaseMae = $(this).val();
-});
-
-$('#fechBajaMae').on('change', function(){
-    var fechBaseMae = $(this).val();
-});
-
 const accionEditaNom = document.querySelector("#EditaNombre");
 accionEditaNom.addEventListener("click", function (evento){
     evento.preventDefault();
+    $('#modal-title').html('Modificando nombre');
     $.post("../../controller/maestro.php?op=mostrarNom",{clavemae:clavemae},function(data){       
         data = JSON.parse(data);
         $('#cvemae').val(data.csp);
@@ -221,8 +212,130 @@ accionEditaNom.addEventListener("click", function (evento){
     $('#editarNomMae').modal('show');
 });
 
-function modifNomMae(evnt){
-   /*$('#modal-title').html('Modificar Nombre');
-    */
+function actNomMae(e){
+    e.preventDefault();
+    nomComMae = $('#apepatModif').val() + " " + $('#apematModif').val() + " " + $('#nommaeModif').val();
+    $('#nomcomModif').val(nomComMae);
     
+    var formData = new FormData($("#edita_NomMae")[0]);
+    
+    $.ajax({
+        url: '../../controller/maestro.php?op=actNomMae',
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(datos){
+            $('#edita_NomMae')[0].reset();
+            $("#editarNomMae").modal('hide');
+            swal.fire(
+                'Modificacion!',
+                'Los Datos se actualizaron correctamente!!!',
+                'success'
+            );
+        }
+    });
+
+    clavemae = $("#cspMaeBusq").val();
+    $.post("../../controller/maestro.php?op=buscar",{clavemae:clavemae},function(data){ 
+        data = JSON.parse(data);
+        $('#cspMaeBusq').val(data.csp);
+        $('#cveIMaeBusq').val(data.cveissemym);
+        $('#apePatMae').val(data.apepatmae);
+        $('#apeMatMae').val(data.apematmae);
+        $('#nombreMae').val(data.nommae);
+        $('#estLaboral').val(estatusMae);
+        $('#nomComplMae').val(data.nomcommae);
+        $('#nomSolic').val(data.nomcommae); 
+    });
 }
+
+const accionCalculadora = document.querySelector('#calcDiasAnios');
+accionCalculadora.addEventListener("click", function (evento) {
+    evento.preventDefault();
+    var fechRecibido = document.getElementById('fechRecibido').value;
+    var fechDictamen = document.getElementById('fechDictamen').value;
+    var fechBaseMae = document.getElementById('fechBaseMae').value;
+    var fechBajaMae = document.getElementById('fechBajaMae').value;
+    $.post("../../controller/tramites.php?op=validaFechs",{fechRecibido:fechRecibido,fechDictamen:fechDictamen,fechBaseMae:fechBaseMae,fechBajaMae:fechBajaMae},function(data){
+
+    });
+})
+
+/*function validaAniofechas() {
+    var fechRecibido = new Date(document.getElementById('fechRecibido').value).toUTCString();
+    var fechDictamen = new Date(document.getElementById('fechDictamen').value).toUTCString();
+    var fechBaseMae = new Date(document.getElementById('fechBaseMae').value).toUTCString();
+    var fechBajaMae = new Date(document.getElementById('fechBajaMae').value).toUTCString();
+    var validsFechas = new Array();
+    
+    alert(fechBaseMae);
+    alert(fechBajaMae);
+    if (fechDictamen < fechRecibido) {
+        alert("11111111");
+        validsFechas["fecha"] = "fechDictamen"; 
+        validsFechas["Valid"] = "True"; 
+        validsFechas["errorF"] = ""; 
+    } else {
+        alert("2222222222");
+        validsFechas["fecha"] = "fechDictamen"; 
+        validsFechas["Valid"] = "False";
+        validsFechas["errorF"] = "La fecha del DICTAMEN no puede ser mayor a la fecha de recibido";  
+    }
+
+    if (fechBaseMae < fechBajaMae){
+        alert("333333333333333333333");
+    }
+
+    if (fechBaseMae < fechBajaMae) {
+        alert("aaaaaaaaaaaaaaaaaaaaaaa");
+        /*if (fechBaseMae < fechRecibido) {
+            validsFechas["fecha"] = "fechBaseMae"; 
+            validsFechas["Valid"] = "True"; 
+            validsFechas["errorF"] = ""; 
+        } else {
+            validsFechas["fecha"] = "fechBaseMae"; 
+            validsFechas["Valid"] = "False"; 
+            validsFechas["errorF"] = "La fecha de BASE no puede ser mayor a la fecha de recibido";
+        }
+    }else{
+        
+        if (fechBaseMae < fechRecibido){
+            validsFechas["fecha"] = "fechBaseMae"; 
+            validsFechas["Valid"] = "False"; 
+            validsFechas["errorF"] = "La fecha de BASE no puede ser mayor a la fecha de baja";
+        }else{
+            validsFechas["fecha"] = "fechBaseMae"; 
+            validsFechas["Valid"] = "False"; 
+            validsFechas["errorF"] = "La fecha de BASE no puede ser mayor a la fecha de baja y de recibido";
+        }
+    }
+
+    if (fechBajaMae > fechBaseMae) {
+        if (fechBajaMae < fechRecibido) {
+            validsFechas["fecha"] = "fechBajaMae"; 
+            validsFechas["Valid"] = "True"; 
+            validsFechas["errorF"] = ""; 
+        } else {
+            validsFechas["fecha"] = "fechBajaMae"; 
+            validsFechas["Valid"] = "False"; 
+            validsFechas["errorF"] = "La fecha de BAJA no puede ser mayor a la fecha de recibido"; 
+        }
+    } else {
+        if (fechBajaMae < fechRecibido) {
+            validsFechas["fecha"] = "fechBajaMae"; 
+            validsFechas["Valid"] = "False"; 
+            validsFechas["errorF"] = "La fecha de BAJA no puede ser menor a la fecha de base";
+        } else {
+            validsFechas["fecha"] = "fechBajaMae"; 
+            validsFechas["Valid"] = "False"; 
+            validsFechas["errorF"] = "La fecha de BAJA no puede ser mayor a la fecha de recibido y menor a la fecha de base";
+        }
+    }
+    
+    return validsFechas;
+}*/
+
+
+
+init();

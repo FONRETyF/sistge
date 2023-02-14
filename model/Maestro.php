@@ -44,7 +44,7 @@
 
         private function calculaRet($aniosserv,$montprom){
             $retiro = (($montprom * 24) * $aniosserv) * 0.4;
-            $dats_ret =array();
+            $dats_ret = array();
             $dats_ret[] = [
                 "montRet" => $retiro
             ];

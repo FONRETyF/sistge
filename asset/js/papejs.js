@@ -1,9 +1,7 @@
 var psgs_max = 20 ;
     
 function init() {
-    $("#edita_NomMae").on("submit",function(e){
-        actNomMae(e);
-    });
+    
     
     $("#edita_PSGS").on("submit",function(e){
         e.preventDefault();
@@ -142,43 +140,7 @@ function modifNomMae(){
     $('#editarNomMae').modal('show');
 }
 
-function actNomMae(e){
-    e.preventDefault();
-    nomComMae = $('#apepatModif').val() + " " + $('#apematModif').val() + " " + $('#nommaeModif').val();
-    $('#nomcomModif').val(nomComMae);
-    
-    var formData = new FormData($("#edita_NomMae")[0]);
-    
-    $.ajax({
-        url: '../../controller/maestro.php?op=actNomMae',
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(datos){
-            $('#edita_NomMae')[0].reset();
-            $("#editarNomMae").modal('hide');
-            swal.fire(
-                'Modificacion!',
-                'Los Datos se actualizaron correctamente!!!',
-                'success'
-            );
-        }
-    });
-    
-    clavemae = $("#cspMaeBusq").val();
-    $.post("../../controller/maestro.php?op=buscar",{clavemae:clavemae},function(data){ 
-        data = JSON.parse(data);
-        $('#cspMaeBusq').val(data.csp);
-        $('#cveIMaeBusq').val(data.cveissemym);
-        $('#apePatMae').val(data.apepatmae);
-        $('#apeMatMae').val(data.apematmae);
-        $('#nombreMae').val(data.nommae);
-        $('#estLaboral').val(estatusMae);
-        $('#nomComplMae').val(data.nomcommae);
-        $('#nomSolic').val(data.nomcommae); 
-    });
-}
+
 
 function calculaAñosServicio(){
     var fechaBase = new Date(document.getElementById('fechBaseMae').value);

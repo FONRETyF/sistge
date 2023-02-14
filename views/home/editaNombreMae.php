@@ -8,7 +8,7 @@
             <form method="post" action="" class="formulario" id="edita_NomMae">
                 <div class="modal-body">
                     <div class="modal-header" id="modalHeader">
-                        <h4 id="modal-title" id="mdltitulo"></h4>
+                        <h4 id="modal-title"></h4>
                     </div>
                     <input type="hidden" id="cvemae" name="cvemae">
                     

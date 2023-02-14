@@ -4,7 +4,6 @@
     $entrega = new Entrega();
 
     switch ($_GET["op"]) {
-        
         case "listar":
             $a_get_entregas = $entrega->get_entregas();
             $a_Entregas = Array();
@@ -32,7 +31,6 @@
                 "iTotalDisplayRecords"=>count($a_Entregas),
                 "aaData"=>$a_Entregas);
             echo json_encode($a_result_entregas_DT);
-            
             break;
         
         case "guardaryeditar":
@@ -50,14 +48,11 @@
                 echo ($_POST["observaciones"]);
                 echo ($_SESSION['usuario']);
                 echo ($_POST["identrega"]);
-                
-
                 $entrega->update_entrega($_POST["numentrega"],$_POST["Anioentrega"],$_POST["descentrega"],$_POST["fechentrega"],$_POST["observaciones"],$_SESSION['usuario'],$_POST["identrega"]);
             }
             break;
             
         case "mostrar":
-            
             $a_get_entrega = $entrega->get_entrega_id($_POST["identrega"]);
             if(is_array($a_get_entrega)==true and count($a_get_entrega)>0){
                 foreach($a_get_entrega as $row){
