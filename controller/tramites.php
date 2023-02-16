@@ -6,11 +6,15 @@
 
     switch ($_GET["op"]) {
         case 'validaFechs':
-            $fechajsks = $_POST["fechRecibido"];
-            echo"entro en controler de tramites";
-            $a_validFechas = $tramite->validaFechas($_POST["fechRecibido"],$_POST["fechDictamen"],$_POST["fechBaseMae"],$_POST["fechBajaMae"]);
+            $a_validFechas = $tramite->validaFechas($_POST["clavemae"],$_POST["motret"],$_POST["fechRecibido"],$_POST["fechDictamen"],$_POST["fechBaseMae"],$_POST["fechBajaMae"]);
+            //echo($a_validFechas["descResult"] . "---" . $a_validFechas["diasServ"] );
+            echo json_encode($a_validFechas, JSON_FORCE_OBJECT);
             break;
         
+        case 'calculaDiasServ':
+            
+            break;
+
         default:
             
             break;

@@ -12,58 +12,85 @@
             $this->retiros = array();
         }
 
-        public function validaFechas($fechRecibido,$fechDictamen,$fechBaseMae,$fechBajaMae){
+        public function validaFechas($clavemae,$motret,$fechRecibido,$fechDictamen,$fechBaseMae,$fechBajaMae){
             $validesFechs = array();
+            $dias_Serv = array();
             $i=0;
 
             if ($fechRecibido > $fechDictamen && $fechRecibido > $fechBaseMae && $fechRecibido > $fechBajaMae) {
-               
-            }else{
-                if($fechDictamen < $fechRecibido){
-
-                }else{
-                    $validesFechs[$i] = "La fecha del DICTAMEN no puede ser mayor a la fecha de recibido";
-                    $i++;
-                }
-    
-                if ($fechBaseMae < $fechBajaMae) {
-                    if ($fechBaseMae < $fechRecibido) {
-    
+                if ($fechDictamen > $fechBaseMae && $fechDictamen < $fechBajaMae) {
+                    if ($fechBaseMae < $fechBajaMae) {
+                        $vigenciaTram = $this -> validaVigencia($fechBajaMae,$fechRecibido);
+                        if (($vigenciaTram/365) < 1) {
+                            $dias_Serv["descResult"] = "vigenciaVal";
+                            $dias_Serv["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae);
+                            return $dias_Serv;
+                        } else {
+                            $validesFechs["descResult"] = "vigenciaCad";
+                            $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae);
+                            $validesFechs["excepcion"] = "SI";
+                            $validesFechs["prorroga"] = "NO";
+                            return $validesFechs;
+                        }
                     } else {
-                        $validesFechs[$i]  = "La fecha de BASE no puede ser mayor a la fecha de recibido";
-                        $i++;
-                    }
-                    
-                } else {
-                    if ($fechBaseMae < $fechRecibido) {
-                        $validesFechs[$i]  = "La fecha de BASE no puede ser mayor a la fecha de baja";
-                        $i++;
-                    } else {
-                        $validesFechs[$i]  = "La fecha de BASE no puede ser mayor a la fecha de baja y de recibido";
-                        $i++;
-                    }
-                }
-    
-                if ($fechBajaMae > $fechBaseMae) {
-                    if ($fechBajaMae < $fechRecibido) {
-    
-                    } else {
-                        $validesFechs[$i]  = "La fecha de BAJA no puede ser mayor a la fecha de recibido";
-                        $i++;
+                        $validesFechs["descResult"] = "errorFecha";
+                        $validesFechs["diasServ"] = "La fecha de BASE no puede ser mayor  ala fecah de BAJA";
+                        $validesFechs["excepcion"] = "NO";
+                        $validesFechs["prorroga"] = "NO";
+                        return $validesFechs;
                     }
                 } else {
-                    if ($fechBajaMae < $fechRecibido) {
-                        $validesFechs[$i]  = "La fecha de BAJA no puede ser menor a la fecha de base";
-                        $i++;
-                    } else {
-                        $validesFechs[$i]  = "La fecha de BAJA no puede ser mayor a la fecha de recibido y menor a la fecha de base";
-                        $i++;
+                    if ($fechDictamen < $fechBaseMae) {
+                        $validesFechs["descResult"] = "errorFecha";
+                        $validesFechs["diasServ"] = "La fecha del DICTAMEN no puede ser menor a la fecha de Base";
+                        $validesFechs["excepcion"] = "NO";
+                        $validesFechs["prorroga"] = "NO";
+                        return $validesFechs;
+                    }
+                    if ($fechDictamen > $fechBajaMae){
+                        $vigenciaTram = $this -> validaVigencia($fechBajaMae,$fechRecibido);
+                        if (($vigenciaTram/365) > 1){
+                            $statement = $this->db->prepare("SELECT * FROM public.prorrogas WHERE cvemae=? and estatuspro='ACTIVA'");
+                            $statement->bindValue(1,$clavemae);
+                            $statement->execute();
+                            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+                            if (count($results) > 0) {
+                                $validesFechs["descResult"] = "vigenciaCadD";
+                                $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae);
+                                $validesFechs["excepcion"] = "SI";
+                                $validesFechs["prorroga"] = "SI";
+                                return $validesFechs;
+                            }else {
+                                $validesFechs["descResult"] = "vigenciaCadD";
+                                $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae);
+                                $validesFechs["excepcion"] = "SI";
+                                $validesFechs["prorroga"] = "NO";
+                                return $validesFechs;
+                            }
+                        }else{}
                     }
                 }
             }
-            
-            
-            return $validesFechs;
+                
         }
+
+        public function validaVigencia($fechBajaMae,$fechRecibido){
+            $diasValid = $this->calculaDifFechas($fechBajaMae,$fechRecibido);      
+            return $diasValid;
+        }
+
+        public function calculaDiasServ($fechBaseMae,$fechBajaMae){
+            $diasServ = $this->calculaDifFechas($fechBaseMae,$fechBajaMae); 
+            return $diasServ;
+        }
+
+        public function calculaDifFechas($fechIni,$fechFin){
+            $FechaI = date_create($fechIni);
+            $FechaF = date_create($fechFin);
+            $difFechas = date_diff($FechaI,$FechaF);
+            return $difFechas->format("%a");
+        }
+
     }   
+
 ?>

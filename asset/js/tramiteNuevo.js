@@ -180,7 +180,7 @@ $("#cspMaeBusq").change(function () {
         $('#estLaboral').val("");
         $('#nomComplMae').val("");
         $('#nomSolic').val(""); 
-        $('#RFCMae').Val("");
+        /*$('#RFCMae').Val("");*/
     }
 });
 
@@ -253,89 +253,159 @@ function actNomMae(e){
 const accionCalculadora = document.querySelector('#calcDiasAnios');
 accionCalculadora.addEventListener("click", function (evento) {
     evento.preventDefault();
-    var fechRecibido = document.getElementById('fechRecibido').value;
-    var fechDictamen = document.getElementById('fechDictamen').value;
-    var fechBaseMae = document.getElementById('fechBaseMae').value;
-    var fechBajaMae = document.getElementById('fechBajaMae').value;
-    $.post("../../controller/tramites.php?op=validaFechs",{fechRecibido:fechRecibido,fechDictamen:fechDictamen,fechBaseMae:fechBaseMae,fechBajaMae:fechBajaMae},function(data){
+    var valorValid = 0;
+    var a_fechs = [
+        {fecha:"Recibido", nomvar:"fechRecibido", valorF:document.getElementById('fechRecibido').value},
+        {fecha:"Dictamen", nomvar:"fechDictamen", valorF:document.getElementById('fechDictamen').value},
+        {fecha:"Base", nomvar:"fechBaseMae", valorF:document.getElementById('fechBaseMae').value},
+        {fecha:"Baja", nomvar:"fechBajaMae", valorF:document.getElementById('fechBajaMae').value}
+    ]
 
+    a_fechs.forEach(element => {
+        if (isNaN(Date.parse(element["valorF"])) || element["valorF"] == "") {
+            a_fechs.push({validF:true,descerror:"La fecha de " + element["fecha"] + " no es valida"});
+            document.getElementById(element["nomvar"]).style.border =  ".1em red solid";
+            valorValid = 0;
+            Swal.fire(
+                "La fecha de " + element["fecha"] + " no es valida",
+                'por favor verifiquela'
+            );
+        } else {
+            a_fechs.push({validF:true,descerror:""});
+            if (parseInt(element["valorF"].slice(0,4)) > 1930 && parseInt(element["valorF"].slice(0,4)) < 2024) {
+                a_fechs.push({validA:true});
+                document.getElementById(element["nomvar"]).style.border =  ".1em black solid";
+                valorValid = valorValid + 1;
+            }else{
+                a_fechs.push({validA:false});
+                document.getElementById(element["nomvar"]).style.border =  ".1em red solid";
+                valorValid = 0;
+                Swal.fire(
+                    "El año de la fecha " + element["fecha"] + " no es valido",
+                    'por favor verifiquela'
+                );
+            }
+        }
     });
-})
 
-/*function validaAniofechas() {
-    var fechRecibido = new Date(document.getElementById('fechRecibido').value).toUTCString();
-    var fechDictamen = new Date(document.getElementById('fechDictamen').value).toUTCString();
-    var fechBaseMae = new Date(document.getElementById('fechBaseMae').value).toUTCString();
-    var fechBajaMae = new Date(document.getElementById('fechBajaMae').value).toUTCString();
-    var validsFechas = new Array();
-    
-    alert(fechBaseMae);
-    alert(fechBajaMae);
-    if (fechDictamen < fechRecibido) {
-        alert("11111111");
-        validsFechas["fecha"] = "fechDictamen"; 
-        validsFechas["Valid"] = "True"; 
-        validsFechas["errorF"] = ""; 
+    alert(valorValid);
+    validaFechas(valorValid, a_fechs);
+});
+
+function validaFechas(valorValid,a_fechs) {
+    if (valorValid == 4) {
+        motret = $("#OpcCauRetiro").val();
+        $.post("../../controller/tramites.php?op=validaFechs",{clavemae:clavemae,motret:motret,fechRecibido:a_fechs[0]["valorF"],fechDictamen:a_fechs[1]["valorF"],fechBaseMae:a_fechs[2]["valorF"],fechBajaMae:a_fechs[3]["valorF"]},function(data){
+            data = JSON.parse(data);
+            resultValid = data.descResult;
+            switch (resultValid) {
+                case 'vigenciaVal':
+                    diasServicio = data.diasServ;
+                    aniosServicio = Math.trunc(diasServicio/365);
+                    document.getElementById('numPsgs').value = 0;
+                    document.getElementById('tiempoPsgs').value = diasServicio;
+                    document.getElementById('aniosServMae').value = aniosServicio;
+                    break;
+                
+                case 'vigenciaCad':
+                    diasServicio = data.diasServ
+                    aniosServicio = Math.trunc(diasServicio/365);
+                    swal.fire({
+                        title:'TRAMITE NO PROCEDENTE',
+                        text:"La fecha del tramite excede la vigencia del retiro. Tiene oficio o tarjeta de soporte de autorizacion",
+                        showCancelButton: true,
+                        confirmButtonText:'Si',
+                        cancelButtonText:'No',
+                        timer:15000
+                    }).then((result) => {
+                        if (result.isConfirmed){
+                            var divOfTr = document.getElementById("DivExcepciones");
+                            divOfTr.style.display = "block";
+                        }else{
+                            let pagAnterior = document.referrer;
+                            if (pagAnterior.indexOf(window.location.host) !== -1) {
+                                window.history.back();
+                            }
+                        }
+                    });
+                    break;
+                
+                case 'vigenciaCadD':
+                    diasServicio = data.diasServ
+                    aniosServicio = Math.trunc(diasServicio/365);
+                    if (data.prorroga == "SI") {
+                        swal.fire({
+                            title:'TRAMITE NO PROCEDENTE',
+                            text:"La fecha del tramite excede la vigencia del retiro. Tiene oficio o tarjeta de soporte de autorizacion",
+                            showCancelButton: true,
+                            confirmButtonText:'Si',
+                            cancelButtonText:'No',
+                            timer:15000
+                        }).then((result) => {
+                            if (result.isConfirmed){
+                                var divOfTr = document.getElementById("DivExcepciones");
+                                divOfTr.style.display = "block";
+                            }else{
+                                let pagAnterior = document.referrer;
+                                if (pagAnterior.indexOf(window.location.host) !== -1) {
+                                    window.history.back();
+                                }
+                            }
+                        });
+                    } else {
+                        Swal.fire(
+                            'TRAMITE NO PROCEDENTE',
+                            'La fecha del tramite excede la vigencia del retiro y NO solicito prorroga'
+                        );
+                        let pagAnterior = document.referrer;
+                                if (pagAnterior.indexOf(window.location.host) !== -1) {
+                                    window.history.back();
+                                }
+                    }
+                    break;    
+                
+                case 'errorFecha':
+                    notifError = data.diasServ;    
+                    Swal.fire(
+                        notifError,
+                        'por favor verifique las fechas'
+                    );
+                    break;
+
+                default:
+                    break;
+            }
+        });
+        alert("todo bien");
     } else {
-        alert("2222222222");
-        validsFechas["fecha"] = "fechDictamen"; 
-        validsFechas["Valid"] = "False";
-        validsFechas["errorF"] = "La fecha del DICTAMEN no puede ser mayor a la fecha de recibido";  
+        Swal.fire(
+            "Las Fechas ingresadas no son correctas",
+            'No puede haber fechas mayores a el año en curso o menores a 1900, verifique las que estan marcadas en color rojo'
+        );
     }
+}
 
-    if (fechBaseMae < fechBajaMae){
-        alert("333333333333333333333");
-    }
-
-    if (fechBaseMae < fechBajaMae) {
-        alert("aaaaaaaaaaaaaaaaaaaaaaa");
-        /*if (fechBaseMae < fechRecibido) {
-            validsFechas["fecha"] = "fechBaseMae"; 
-            validsFechas["Valid"] = "True"; 
-            validsFechas["errorF"] = ""; 
-        } else {
-            validsFechas["fecha"] = "fechBaseMae"; 
-            validsFechas["Valid"] = "False"; 
-            validsFechas["errorF"] = "La fecha de BASE no puede ser mayor a la fecha de recibido";
-        }
+var checkbox = document.getElementById('sinPSGS');
+checkbox.addEventListener("change", validaCheckbox, false);
+function validaCheckbox(){
+    var checked = checkbox.checked;
+    if(checked){
+        document.getElementById("calcDiasAnios").disabled = true;
+        document.getElementById("editaPSGS").disabled =  true;
+        calculaAñosServicio();
     }else{
-        
-        if (fechBaseMae < fechRecibido){
-            validsFechas["fecha"] = "fechBaseMae"; 
-            validsFechas["Valid"] = "False"; 
-            validsFechas["errorF"] = "La fecha de BASE no puede ser mayor a la fecha de baja";
-        }else{
-            validsFechas["fecha"] = "fechBaseMae"; 
-            validsFechas["Valid"] = "False"; 
-            validsFechas["errorF"] = "La fecha de BASE no puede ser mayor a la fecha de baja y de recibido";
-        }
+        document.getElementById("calcDiasAnios").disabled = false;
+        document.getElementById("editaPSGS").disabled =  false;
     }
+    document.getElementById("ModoRetiro").disabled =  false;
+}
 
-    if (fechBajaMae > fechBaseMae) {
-        if (fechBajaMae < fechRecibido) {
-            validsFechas["fecha"] = "fechBajaMae"; 
-            validsFechas["Valid"] = "True"; 
-            validsFechas["errorF"] = ""; 
-        } else {
-            validsFechas["fecha"] = "fechBajaMae"; 
-            validsFechas["Valid"] = "False"; 
-            validsFechas["errorF"] = "La fecha de BAJA no puede ser mayor a la fecha de recibido"; 
-        }
-    } else {
-        if (fechBajaMae < fechRecibido) {
-            validsFechas["fecha"] = "fechBajaMae"; 
-            validsFechas["Valid"] = "False"; 
-            validsFechas["errorF"] = "La fecha de BAJA no puede ser menor a la fecha de base";
-        } else {
-            validsFechas["fecha"] = "fechBajaMae"; 
-            validsFechas["Valid"] = "False"; 
-            validsFechas["errorF"] = "La fecha de BAJA no puede ser mayor a la fecha de recibido y menor a la fecha de base";
-        }
+var checkboxAdeudo = document.getElementById('CheckAdeudos');
+checkboxAdeudo.addEventListener("change", validaCheckAdeudos, false);
+function validaCheckAdeudos() {
+    var checked =checkboxAdeudo.checked;
+    if(checked){
+        document.getElementById("DivDatsAdeudos").style.display = "block";
     }
-    
-    return validsFechas;
-}*/
-
-
-
+}
 init();

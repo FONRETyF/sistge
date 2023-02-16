@@ -63,7 +63,7 @@ $(function(){
 
 
 
-$("#cveIMaeBusq").change(function () {
+/*$("#cveIMaeBusq").change(function () {
     
 });
 
@@ -77,7 +77,7 @@ $("#fechBaseMae").change(function () {
 
 $("#fechBajaMae").change(function () {
     fechBaja = $("#fechBajaMae").val();
-});
+});*/
 
 function validaVigenciaTram(){
     
@@ -93,39 +93,20 @@ function validaVigenciaTram(){
         vigenciaTram = ((fechaRecibido.getTime() - fechaBaja.getTime()) / (1000 * 60 * 60 * 24))/365;
         alert("esta en esta funcion");
         if(vigenciaTram > 1){
-            swal.fire({
-                title:'TRAMITE NO PROCEDENTE',
-                text:"La fecha del tramite excede la vigencia del retiro. Tiene oficio o tarjeta de soporte de autorizacion",
-                //icon: 'danger',
-                showCancelButton: true,
-                confirmButtonText:'Si',
-                cancelButtonText:'No',
-                timer:15000
-            }).then((result) => {
-                if (result.isConfirmed){
-                    var divOfTr = document.getElementById("DivExcepciones");
-                    divOfTr.style.display = "block";
-                    calculaAñosServicio();
-                }else{
-                    let pagAnterior = document.referrer;
-                    if (pagAnterior.indexOf(window.location.host) !== -1) {
-                        window.history.back();
-                    }
-                }
-            });
+            
 
         }
     }
 }
 
-function ocultaDivFondFall(modalidad){
+/*function ocultaDivFondFall(modalidad){
     var x = document.getElementById("montRetFondFall");
     if (modalidad == "P" || modalidad=="FF") {
         x.style.display = "block";
     } else {
         x.style.display = "none";
     }
-}
+}*/
 
 function modifNomMae(){
     $('#modal-title').html('Modificar Nombre');
@@ -142,7 +123,7 @@ function modifNomMae(){
 
 
 
-function calculaAñosServicio(){
+/*function calculaAñosServicio(){
     var fechaBase = new Date(document.getElementById('fechBaseMae').value);
     var fechaBaja = new Date(document.getElementById('fechBajaMae').value);
     
@@ -166,7 +147,8 @@ function calculaAñosServicio(){
             document.getElementById('tiempoPsgs').value = 0;
         }
     }  
-}
+}*/
+
 
 function agregaPSGS(){        
     $('#tituto_mod_psgs').html('Agregar P.S.G.S');
@@ -197,20 +179,7 @@ $('#DivFechsPSGS').on("click",".delete_fecha",function(e){
     document.getElementById('numsPSGS').value = contPSGS;
 });
 
-var checkbox = document.getElementById('sinPSGS');
-checkbox.addEventListener("change", validaCheckbox, false);
-function validaCheckbox(){
-    var checked = checkbox.checked;
-    if(checked){
-        document.getElementById("calcDiasAnios").disabled = true;
-        document.getElementById("editaPSGS").disabled =  true;
-        calculaAñosServicio();
-    }else{
-        document.getElementById("calcDiasAnios").disabled = false;
-        document.getElementById("editaPSGS").disabled =  false;
-    }
-    document.getElementById("ModoRetiro").disabled =  false;
-}
+
 
 
 init();
