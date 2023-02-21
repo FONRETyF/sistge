@@ -76,6 +76,10 @@
                                 <!--<input type="text" id="RegionMae" name="RegionMae" placeholder="" required>-->
                             </div>
                         </div>   
+                        <div id="DivTelsMae">
+                            <div id="DivTelPartic">Tel particular: <input type="text" id="TelPartiMae" name="TelPartiMae" placeholder="7229999999" disabled></div>
+                            <div id="DivTelCel">Tel celular: <input type="text" id="TelCelMae" name="TelCelMae" placeholder="7229999999" disabled></div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -89,20 +93,20 @@
                     <div id="DivDictBasePsgs">
                         <div id="DivDictamen"><p>DICTAMEN</p> 
                             <div >Fecha: <input type="date" id="fechDictamen" name="fechDictamen" min="2000-01-01" max="2050-12-31" pattern="\d{4}-\d{2}-\d{2}" required disabled></div></br>
-                            <div>Folio: &nbsp&nbspCP<input type="text" id="folioDictamen" name="folioDictamen" placeholder="00000/00" disabled ></div>
+                            <div>Folio: &nbsp &nbspCP<input type="text" id="folioDictamen" name="folioDictamen" placeholder="00000/00" disabled ></div>
                         </div>
                         <div id="DivBaseBaja"><p>BASE Y BAJA</p> 
                             <div>Base: <input type="date" id="fechBaseMae" name="fechBaseMae" min="1930-01-01" max="2050-12-31"  pattern="\d{4}-\d{2}-\d{2}" disabled required></div></br>   
                             <div>Baja: <input type="date" id="fechBajaMae" name="fechBajaMae" min="2000-01-01" max="2050-12-31"  pattern="\d{4}-\d{2}-\d{2}" disabled required></div>
                         </div>
                         <div id="DivPsgs"><p>P.S.G.S:</p> 
-                            <input type="hidden" id="fechsIniPSGS" name="fechsIniPSGS">
-                            <input type="hidden" id="fechsFinPSGS" name="fechsFinPSGS">
-                            <input type="hidden" id="numPSGS" name="numPSGS">
+                            <input type="hidden" id="fechsIniPSGS" name="fechsIniPSGS" value="">
+                            <input type="hidden" id="fechsFinPSGS" name="fechsFinPSGS" value="">
+                            <input type="hidden" id="DiasServOriginal" name="DiasServOriginal" value="">
                             <input type="hidden" id="numModal" name="numModal">
                             <div id="DivCalcAddPB">Agregar: 
                                 <div><button id="calcDiasAnios" disabled><img src="../../img/calcula.png" alt="Calcula dias y años" title="Calcula dias y años" height="23" width="24" disabled></button></div>    
-                                <div><button id="editaPSGS" onclick="agregaPSGS()" disabled><img src="../../img/editar.png" alt="Editar PSGS" title="Editar PSGS" height="25" width="25" disabled></button></div>
+                                <div><button id="editaPSGS" disabled><img src="../../img/editar.png" alt="Editar PSGS" title="Editar PSGS" height="25" width="25" disabled></button></div>
                                 <div><button id="editaBefens" onclick="agregaBenefs()" disabled><img src="../../img/agrega_benef.png" alt="Edita beneficiarios" title="Editar beneficiarios" height="28" width="28" disabled></button></div>
                                 <div id="DivsinPSGS"><label for="sinPSGS"><input type="checkbox" id="sinPSGS" value="sinPSGS" disabled>Sin P.S.G.S</label></div>
                             </div>
@@ -118,6 +122,9 @@
                                 <div class="textPeriodLab">años de servicio</div>
                             </div>
                         </div>
+                        <div id="DivCalculaRetiro">
+
+                        </div>
                         <div id="DivExcepciones"><p>EXCEPCIONES</p> 
                             <div class="DatsExcepciones"># Oficio o Tarjeta: &nbsp;<input type="text" id="numOficTarj" name="numOficTarj"></div>
                         </div>
@@ -132,34 +139,40 @@
                     </div>
                     <!--<div id="Adeudos"><label for="CheckAdeudos"><input type="checkbox" id="CheckAdeudos" value="CheckAdeudos" disabled>Adeudo</label></div>-->
                     <div id="DivDatsAdeudos">
-                        <div id="DivProcdAdeudo">&nbsp &nbsp Procedente de: 
-                            <select name="OpcProcecAdeudo" id="OpcProcecAdeudo" placeholder="ADEUDO" onchange="">
-                                <option selected="true" disabled="disabled">Procedencia</option>
-                                <option value="F">FAJAM</option>
-                                <option value="TS">TIENDA SINDICAL</option>
-                                <option value="FP">FONDO PENSIONARIO</option>
-                            </select>
-                        </div>
-                        <div id="DivMontAdeudo">&nbsp &nbsp Monto de adeudo:
-                            <input type="text" id="montAdeudo" name="montAdeudo">
+                        <div id="DivProcdAdeudo">
+                            <div id="AdeudoFajam" class="procedAdeudo"><label for="AdedFajam">FAJAM</label>$<input type="text" id="AdedFajam" name="AdedFajam"value="0" onchange="obtenAdeudoF()"></div>
+                            <!--<div id="AdeudoTS" class="procedAdeudo"><label for="AdedTS">Tienda Sindical</label>$<input type="text" id="AdedTS" name="AdedTS" value="0" onchange="obtenAdeudoT()" autofocus></div>-->
+                            <div id="AdeudoFondPension" class="procedAdeudo"><label for="AdedFondPension">Fondo Prensionario</label>$<input type="text" id="AdedFondPension" name="AdedFondPension" value="0"></div>
+                            <div id="AdeudoTurismo" class="procedAdeudo"><label for="AdedTurismo">Turismo</label>$<input type="text" id="AdedTurismo" name="AdedTurismo" value="0"></div>
                         </div>
                     </div>
                 </div>
-                <div Id="tipModRetiro">Tipo de retiro: &nbsp
-                    <select name="ModoRetiro" id="ModoRetiro" disabled>
-                        <option selected="true" disabled="disabled">Seleccione Modalidad</option>
-                        <option value="C">COMPLETO</option>
-                        <option value="P">PARCIAL</option>
-                        <option value="FF">FONDO FALLECIMIENTO</option>
-                    </select>
+                <div id="tipModRetiro">
+                    <div id="DivModRetiro">Tipo de retiro: &nbsp
+                        <div id="DivOpcModRetiro">
+                            <select name="ModoRetiro" id="ModoRetiro" disabled>
+                                <option selected="true" disabled="disabled">Seleccione Modalidad</option>
+                                <option value="C">COMPLETO</option>
+                                <option value="D">DIFERIDO</option>
+                            </select>
+                        </div>
+                        <div id="DivTpoDiferido">
+                            <fieldset>
+                                <!--<legend id="legenModDiferid"></legend>-->
+                                <input type="radio" id="ModRetDiferid50" name="ModRetDiferid" value="50" checked><label for="ModRetDiferid50">50</label>
+                                <input type="radio" id="ModRetDiferid100" name="ModRetDiferid" value="100"><label for="ModRetDiferid100">100</label>
+                            </fieldset>
+                        </div>
+                    </div>
                 </div>
                 <input type="hidden" id="aportProm" name="aportProm">
                 <div id="divCalcRetiro">
-                    <div class="montsRet" id="montRetiro">Monto del retiro: &nbsp $<input type="text" id="montRet" name="montRet" disabled></div></br>
-                    <div class="montsRet" id="montRetFondFall">&nbspRETIRO PARA EL FONDO DE FALLECIMIENTO&nbsp
+                    <div class="montsRet" id="montRetiro">Monto total del seguro de retiro: &nbsp $<input type="text" id="montRet" name="montRet" disabled></div></br>
+                    <div class="montsRet">Monto de retiro: &nbsp $<input type="text" id="monRetEntr" name="monRetEntr" disabled></div>
+                    <div class="montsRet" id="montRetFondFall">&nbsp RETIRO PARA EL FONDO DE FALLECIMIENTO &nbsp
                         <div id="divmontsrets">
-                            <div class="divsmonts">Monto para ahorro:&nbsp $<input type="text" id="montRetFF" name="montRetFF" disabled></div>
-                            <div class="divsmonts">Monto (dia de salario):&nbsp $<input type="text" id="montSalMin" name="montSalMin" disabled></div>
+                            <div class="divsmonts">Monto para ahorro: &nbsp $<input type="text" id="montRetFF" name="montRetFF" disabled></div>
+                            <div class="divsmonts">Monto (dia de salario): &nbsp <input type="text" id="montSalMin" name="montSalMin" disabled></div>
                         </div>
                     </div>
                 </div>
@@ -193,6 +206,7 @@
 <script src="../../libs/datatables/jszip.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../../libs/datatables/select2.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <script type="text/javascript" src="../../asset/js/tramiteNuevo.js"></script>
 

@@ -558,7 +558,7 @@ thead th:nth-child(9){
 }
 #SecDatPerson{
   width: 80%;
-  height: 270px;
+  height: 320px;
   margin: 15px auto;
   border-top: .1em solid #034203;
   border-bottom: .1em solid #034203;
@@ -576,7 +576,7 @@ input[type="date"]{
   font-size: 15px;
 }
 .DatosCaptura{
-  height: 250px;
+  height:320px;
   min-width: 500px;
 }
 #causaRetiro{
@@ -682,7 +682,13 @@ input[type="date"]{
   font-size: 12px;
   text-align: center; 
 }
-
+#DivTelsMae{
+  display: inline-flex;
+  margin: 10px auto;
+}
+#DivTelCel{
+  margin: 0 15px;
+}
 #SecDatTramite{
   width: 80%;
   height: 210px;
@@ -737,10 +743,11 @@ input[type="date"]{
   font-weight: bold;
 }
 #DivPsgs{
-  width: 310px;
+  width: 250px;
   height: 120px;
   margin: 10px 0 0;
   display: inline-block;
+  background-color: #18862b;
 }
 #DivPsgs p{
   font-size: 11px;
@@ -778,6 +785,11 @@ display: inline-flex;
   width: 80px;
   background: #dad8d8;
 }
+#DivCalculaRetiro{
+  width: 130px;
+  background-color:#ee0bdb;
+
+}
 #divPeriLaboral{
   display: inline-flex;
 }
@@ -801,6 +813,7 @@ display: inline-flex;
   width: 80%;
   height: 330px;
   margin: 3px auto;
+  text-align: center;
 }
 #SecDatModRet input{
   height: 28px;
@@ -970,30 +983,49 @@ margin: 0 110px;
 }
 #divAdeudos{
   margin: 3px auto;
-  display: inline-block;
+  width: 80%;
 }
 #DivCheckAdeudos input{
   height: 15px;
   width: 15px;
   border-color: #727171;
 }
-
 #DivDatsAdeudos{
   margin: 10px auto;
   display: inline-flex;
 }
-#OpcProcecAdeudo{
-  width: 150px;
-  height: 25px;
+#DivDatsAdeudos input{
+  height: 30px;
+  width: 120px;
+  border-radius: 3px;
   text-align: center;
-  font-size: 11px;
-  font-weight: bold;
 }
-#montAdeudo{
-  width:130px
+#DivProcdAdeudo{
+  display: inline-flex;
+}
+.procedAdeudo{
+  width: 170px;
+  margin: 1px 3px;
+  display: inline-block;
+}
+.procedAdeudo label{
+  width: 170px;
+  font-size: 14px;
 }
 #tipModRetiro{
+  width: 80%;
   margin: 10px auto;
+}
+#DivModRetiro{
+  display: inline-flex;
+}
+#DivTpoDiferido{
+  align-content: center;
+  margin: 0 25px;
+}
+#DivTpoDiferido input{
+  height: 15px;
+  margin: 0 5px;
 }
 /*TERMINAN ESTILOS CAPTURA DE TRAMITES*/
 

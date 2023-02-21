@@ -15,20 +15,20 @@
                     <section id="ContenPSGS">
                         <section id="DatsPSGS">
                             <div id="DatPSGSEdit">
-                                <div id="DivNumPSGS">Num. permisos: &nbsp<input type="text" id="numsPSGS" name="numsPSGS"><button id="addPSGS" onclick="" value="agregar"><img src="../../img/add-psgs.png" alt="Agregar PSGS" height="25" width="25"></button></div> 
+                                <div id="DivNumPSGS">Num. permisos: &nbsp<input type="text" id="numsPSGS" name="numsPSGS"><button id="addPSGS"  value="agregar"><img src="../../img/add-psgs.png" alt="Agregar PSGS" height="25" width="25"></button></div> 
                                 <div id="DivFechsPSGS">
                                     <div id="DivFechsPSGSIni">Inicio:
-                                        <div><input type="date" name="fechaIni[]"></div>
+                                        <div><!--<input type="date" name="fechaIni[0]">--></div>
                                     </div>
                                     <div id="DivFechsPSGSFin">Fin:
-                                        <div><input type="date" name="fechaFin[]"></div>
+                                        <div><!--<input type="date" name="fechaFin[0]">--></div>
                                     </div>
                                 </div>
                             </div>
                         </section>
                     </section>
                     <div id="modal-footer">
-                        <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-rounded btn-default" id="cerrarEditPSGS" data-dismiss="modal">Cerrar</button>
                         <button type="submit" name="action" id="#" value="add" class="btn btn-rounded btn-primary">Guardar</button>  
                     </div> 
                 </div> 

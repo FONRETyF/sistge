@@ -1,54 +1,12 @@
-var psgs_max = 20 ;
-    
+   
 function init() {
     
     
-    $("#edita_PSGS").on("submit",function(e){
-        e.preventDefault();
-        var formDataPSGS = new FormData($("#edita_PSGS")[0]);
-        $.ajax({
-            url: '../../controller/maestro.php?op=aniosPSGS',
-            type: "POST",
-            data: formDataPSGS,
-            contentType: false,
-            processData: false,
-            success: function(datos){
-                //alert(datos);
-                $('#edita_PSGS')[0].reset();
-                $("#editarPSGS").modal('hide');
-                data = JSON.parse(datos);
-                $('#numPsgs').val(data.numPSGS);
-                diasActivo = document.getElementById('tiempoPsgs').value - data.diasPSGS;
-                document.getElementById('tiempoPsgs').value = diasActivo;
-                document.getElementById('aniosServMae').value = Math.trunc(diasActivo/365);    
-                document.getElementById('fechsIniPSGS').value =  data.fechIni;
-                document.getElementById('fechsfinPSGS').value = data.fechFin;          
-            }
-        });   
-    });
+    
 }
 
 
-$("#ModoRetiro").change(function () {
-    var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-    var modalidad = document.getElementById('ModoRetiro').value;
-    $.post("../../controller/maestro.php?op=obtenRetiro",{aniosserv:aniosserv,modalidad:modalidad},function(data){       
-        data = JSON.parse(data);
-        $('#montRet').val(data.montret.toFixed(2));
-        montoRetiro = document.getElementById('montRet').value;
-    });
-    if (modalidad=="C") {
-        ocultaDivFondFall(modalidad);
-    } else if (modalidad=="P" || modalidad=="FF") {
-        ocultaDivFondFall(modalidad);
-        document.getElementById("montSalMin").disabled =  false;
-        if (modalidad=="P") {
-            document.getElementById('montRetFF').value = (montoRetiro / 2).toFixed(2);
-        }else if (modalidad=="FF"){
-            document.getElementById('montRetFF').value = montoRetiro;
-        }
-    }
-});
+
 
 $(function(){
     
@@ -80,7 +38,6 @@ $("#fechBajaMae").change(function () {
 });*/
 
 function validaVigenciaTram(){
-    
     var fechaRecibido = new Date(document.getElementById('fechRecibido').value);
     var fechaBaja = new Date(document.getElementById('fechBajaMae').value);
     alert("Entro en la funcion valida tramite");
@@ -149,35 +106,31 @@ function modifNomMae(){
     }  
 }*/
 
-
-function agregaPSGS(){        
-    $('#tituto_mod_psgs').html('Agregar P.S.G.S');
-    $('#edita_PSGS')[0].reset();
-    $('#editarPSGS').modal('show');
-}
-
 var contPSGS = 0;
-$("#addPSGS").click(function (e) {
-    e.preventDefault();
-    document.getElementById('numsPSGS').value = contPSGS + 1;
-    if (contPSGS < psgs_max) {
-        $('#DivFechsPSGSIni').append(
-            '<div><input type="date" name="fechaIni[]" id="fechaIni"' + contPSGS + '><a href="#" class="delete_fecha"><img src="../../img/delete.png" alt="Nueva" title="Nueva Entrega" height="15" width="20"></a></input></div>'
-        );
-        $('#DivFechsPSGSFin').append(
-            '<div><input type="date" name="fechaFin[]"  id="fechaFin"' + contPSGS + '><a href="#" class="delete_fecha"><img src="../../img/delete.png" alt="Nueva" title="Nueva Entrega" height="15" width="20"></a></input></div>'
-        );
-    contPSGS++
-    }
-    document.getElementById('numsPSGS').value = contPSGS + 1;
+
+/*$("#AdedFajam").change(function () {
+    var AdeudoFajam = document.getElementById('AdedFajam').value;
+    document.getElementById('AdedFajam').value = (new Intl.NumberFormat('es-MX').format(AdeudoFajam));
 });
 
-$('#DivFechsPSGS').on("click",".delete_fecha",function(e){
-    e.preventDefault();
-    $(this).parent('div').remove();
-    contPSGS--;
-    document.getElementById('numsPSGS').value = contPSGS;
+$("#AdedTS").change(function () {
+    var AdeudoTS = document.getElementById('AdedTS').value;
+    document.getElementById('AdedTS').value = (new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(AdeudoTS));
 });
+$("#AdedFonObra").change(function () {
+    var AdeudoFonObra = $("#AdedFonObra").val();
+    document.getElementById('AdedFonObra').value = (new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(AdeudoFonObra));
+});
+$("#AdedFondPension").change(function () {
+    var AdeudoFondPension = $("#AdedFondPension").val();
+    document.getElementById('AdedFondPension').value = (new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(AdeudoFondPension));
+});
+$("#AdedTurismo").change(function () {
+    var AdeudoTurismo = $("#AdedTurismo").val();
+    document.getElementById('AdedTurismo').value = (new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(AdeudoTurismo));
+});*/
+
+
 
 
 

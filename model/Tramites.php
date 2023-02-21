@@ -91,6 +91,38 @@
             return $difFechas->format("%a");
         }
 
+        public function tiempoPSGS($contPSGS,$fechaIni,$fechaFin){
+            $diasPSGS = array();
+            for ($i=0 ; $i<$contPSGS ; $i++){
+                $FechLicIni = new DateTime($fechaIni[$i]);
+                $FechLicFin = new DateTime($fechaFin[$i]);
+                $tiempoDiff = $FechLicIni->diff($FechLicFin);
+                $diasPSGS[$i]= $tiempoDiff->format('%a');
+            }
+            return $diasPSGS;
+        }
+
+        public function get_Retiro($aniosserv){
+            $statement = $this->db->prepare("SELECT aportprom FROM public.parametros_retiro WHERE estatparam='ACTIVO'");
+            $statement->execute();
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($results as $row){
+                $montprom = substr($row['aportprom'],1,strlen($row['aportprom'])-1);
+            }
+            $result = $this->calculaRet($aniosserv,$montprom);
+
+            return $result;
+        }    
+
+        private function calculaRet($aniosserv,$montprom){
+            $retiro = ((($montprom * 24) * $aniosserv) * 0.4) * .99;
+            $dats_ret = array();
+            $dats_ret[] = [
+                "montRet" => $retiro
+            ];
+            
+            return $dats_ret;            
+        }
     }   
 
 ?>
