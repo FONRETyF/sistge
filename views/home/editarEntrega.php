@@ -26,8 +26,13 @@
                                             <input type="text" class="form-control" id="descentrega" name="descentrega">
                                         </div>
                                     </div>
-                                    <div class="fechEntrEdit">Fecha Entrega:
-                                        <input type="text" class="form-control" id="fechentrega" name="fechentrega">
+                                    <div id="divFechaEntrega">
+                                        <div class="fechEntrEdit">Fecha Entrega:
+                                            <input type="date" class="form-control" id="fechentrega" name="fechentrega" pattern="\d{4}-\d{2}-\d{2}">
+                                        </div>
+                                        <div id="DivAsignaFecha">
+                                                <label><input type="checkbox" id="CheckAsigFech" value="checkfechentr"> Asigna Fecha</label for="checkfechentr"><br>
+                                        </div>
                                     </div>
                                     <div class="obsrEntrEdit">Observaciones:
                                         <input type="text" class="form-control" id="observaciones" name="observaciones">
@@ -35,7 +40,7 @@
                                 </section>
                             </section>
                         <div id="modal-footer">
-                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal" id="editentrega" name="editentrega">Cerrar</button>
                             <button type="submit" name="action" id="#" value="add" class="btn btn-rounded btn-primary">Guardar</button>  
                         </div>
                     </div>

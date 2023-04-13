@@ -43,9 +43,74 @@
                             $output["estatlabmae"] = $row["estatlabmae"];
                         }   
                     }
+                    echo json_encode($output, JSON_FORCE_OBJECT); 
 
-                    echo json_encode($output, JSON_FORCE_OBJECT);                   
                 }else if(count($a_get_TrmtsHist)>0){
+                    foreach($a_get_TrmtsHist as $row){
+                        $output["motivo"] = "existente";
+                        $output["cvemae"] = $row["cvemae"];
+                        $output["motvret"] = $row["motvret"];
+                        $output["fechentrega"] = $row["fechentrega"];
+                    }
+                    echo json_encode($output, JSON_FORCE_OBJECT); 
+                }
+            }
+            break;
+        
+        case 'buscarJub':
+            $a_get_maestroJub = $maestro->get_maestroJub($_POST["claveisemym"]);
+            if (count($a_get_maestroJub)>0){
+                $a_get_maestro = $maestro->get_maestroJub($_POST["claveisemym"]);
+                $a_get_TrmtsHist = $maestroTramites->buscaTrsmitesHist($_POST["claveisemym"]);
+                //echo(is_array($a_get_maestro) . "---" . count($a_get_TrmtsHist));
+                if(is_array($a_get_maestro)==true and count($a_get_TrmtsHist)==0){
+                    
+                    foreach($a_get_maestro as $row){
+                        $programFallec = $row["programfallec"];
+                    }
+                    switch ($programFallec){
+                        case 'M':
+                            $a_getMaeJubMutualidad = $maestro->get_maestroMutualidad($_POST["claveisemym"]);
+                            foreach($a_getMaeJubMutualidad as $row){
+                                $output["motivo"] = "nuevo";
+                                $output["cveissemym"] = $row["cveissemym"];
+                                $output["apepatmae"] = $row["apepatmae"];
+                                $output["apematmae"] = $row["apematmae"];
+                                $output["nommae"] = $row["nommae"];
+                                $output["nomcommae"] = $row["nomcommae"];
+                                $output["curpmae"] = $row["curpmae"];
+                                $output["rfcmae"] = $row["rfcmae"];
+                                $output["fechbajamae"] = $row["fechbajamae"];
+                                $output["estatusjub"] = $row["estatmutual"];
+                                $output["programafallec"] = "M";
+                            } 
+                            echo json_encode($output, JSON_FORCE_OBJECT);
+                            break;
+
+                        case 'FF':
+                            $a_getMaeJubFondFallec = $maestro->get_maestroFondoFallec($_POST["claveisemym"]);
+                            foreach($a_getMaeJubFondFallec as $row){
+                                $output["motivo"] = "nuevo";
+                                $output["cveissemym"] = $row["cveissemym"];
+                                $output["apepatmae"] = $row["apepatmae"];
+                                $output["apematmae"] = $row["apematmae"];
+                                $output["nommae"] = $row["nommae"];
+                                $output["nomcommae"] = $row["nomcommae"];
+                                $output["curpmae"] = $row["curpmae"];
+                                $output["rfcmae"] = $row["rfcmae"]; 
+                                $output["fechbajamae"] = $row["fechafifondfalle"];
+                                $output["estatusjub"] = $row["estatfondfall"];
+                                $output["programafallec"] = "FF";
+                            } 
+                            echo json_encode($output, JSON_FORCE_OBJECT);
+                            break;
+                            
+                        default:
+                            # code...
+                            break;
+                    }
+                }                  
+                else if(count($a_get_TrmtsHist)>0){
                     foreach($a_get_TrmtsHist as $row){
                         $output["motivo"] = "existente";
                         $output["cvemae"] = $row["cvemae"];

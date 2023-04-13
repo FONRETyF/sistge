@@ -41,13 +41,13 @@
                     $entrega->insert_entrega($_POST["numentrega"],$_POST["Anioentrega"],$_POST["descentrega"],$_SESSION['usuario'],$_POST["fechentrega"],$_POST["observaciones"]);
                 }
             }else{
-                echo ($_POST["numentrega"]);
+                /*echo ($_POST["numentrega"]);
                 echo ($_POST["Anioentrega"]);
                 echo ($_POST["descentrega"]);
                 echo ($_POST["fechentrega"]);
                 echo ($_POST["observaciones"]);
                 echo ($_SESSION['usuario']);
-                echo ($_POST["identrega"]);
+                echo ($_POST["identrega"]);*/
                 $entrega->update_entrega($_POST["numentrega"],$_POST["Anioentrega"],$_POST["descentrega"],$_POST["fechentrega"],$_POST["observaciones"],$_SESSION['usuario'],$_POST["identrega"]);
             }
             break;
@@ -71,6 +71,10 @@
             $entrega->delete_entrega($_POST["identrega"]);
             break;
         
+        case 'updateFech':
+            $a_get_updateFech = $entrega->updateFechEntrega($_POST["identrega"],$_POST['fechEntrega'],$_SESSION['usuario']);
+            echo json_encode($a_get_updateFech, JSON_FORCE_OBJECT);
+            break;
     }
 
 ?>

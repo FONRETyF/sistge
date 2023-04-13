@@ -7,6 +7,10 @@ function init(){
     });
 }
 
+$("#editentrega").click(function () {
+    $("#editarEntrega").modal('hide');
+})
+
 $(document).ready(function(){
     $('#entrega_data').dataTable({
         "aProcessing": true, //procesamiento dle datatable
@@ -59,31 +63,60 @@ $(document).ready(function(){
     }).DataTable();
 });
 
-
-
-
 function guardaryeditar(e){
     e.preventDefault();
-    var formData = new FormData($("#edita_Entrega")[0]);
+    var actionFechEntr = document.getElementById('CheckAsigFech');
+    var checked = actionFechEntr.checked;
 
-    $.ajax({
-        url: '../../controller/entregasController.php?op=guardaryeditar',
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(datos){
-            $('#edita_Entrega')[0].reset();
-            $("#editarEntrega").modal('hide');
-            $('#entrega_data').DataTable().ajax.reload();
+    var fechaentrega = $("#fechentrega").val();
+    alert(checked);
+    var numentrega = $("#numentrega").val();
+    if ($("#numentrega").val() < 10) {
+        numentrega = 0 + $("#numentrega").val();
+    }
+    var identrega = $("#Anioentrega").val() + numentrega;
 
-            swal.fire(
-                'Registro!',
-                'La entrega se ingreso correctamente!!!',
-                'success'
-            )
-        }
-    });
+    alert(identrega);
+    if (checked) {
+        alert("cheboxk activo");
+        $.post("../../controller/entregasController.php?op=updateFech",{identrega:identrega,fechEntrega:fechaentrega},function(data){
+            resultadoAdd = Object.values(JSON.parse(data));
+            //NumregsResult = resultadoAdd.length;
+            //alert(NumregsResult );
+            if (resultadoAdd[0] == "Actualizado" && resultadoAdd[1] == "Actualizado" && resultadoAdd[2] == "Actualizado") {
+                Swal.fire(
+                    "LA FECHA SE MODIFICO CORRECTAMENTE"
+                );
+                $('#editarEntrega').modal('hide');
+            } else {
+                Swal.fire(
+                    "ALGO SALIO MAL",
+                    'por favor verifique los datos'
+                );
+            }
+        });
+    } else {
+        var formData = new FormData($("#edita_Entrega")[0]);
+        alert("cheboxk no activo");
+        $.ajax({
+            url: '../../controller/entregasController.php?op=guardaryeditar',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(datos){
+                $('#edita_Entrega')[0].reset();
+                $("#editarEntrega").modal('hide');
+                $('#entrega_data').DataTable().ajax.reload();
+
+                swal.fire(
+                    'Registro!',
+                    'La entrega se ingreso correctamente!!!',
+                    'success'
+                )
+            }
+        });
+    }
 }
 
 function editar(identrega){
@@ -98,6 +131,7 @@ function editar(identrega){
         $('#observaciones').val(data.observaciones);
     });
     $('#editarEntrega').modal('show');
+    document.getElementById('DivAsignaFecha').style.display = "block";
 
 }
 
@@ -133,6 +167,19 @@ $(document).on("click","#entrNueva",function() {
     $('#modal-title').html('Nueva entrega');
     $('#edita_Entrega')[0].reset();
     $('#editarEntrega').modal('show');
+    document.getElementById('DivAsignaFecha').style.display = "none";
 });
+
+var accionRegresa = document.querySelector('.Btnregresar');
+accionRegresa.addEventListener("click", function (e) {
+    e.preventDefault;
+
+    let pagAnterior = document.referrer;
+    if (pagAnterior.indexOf(window.location.host) !== -1) {
+        window.history.back();
+    }
+});
+
+
 
 init();

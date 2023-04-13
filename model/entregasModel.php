@@ -55,6 +55,43 @@
             $statement->execute($datsInsert);
             return $result = $statement->fetchAll();
         }
+
+        public function updateFechEntrega($identrega,$fechaEntrega,$usuario){
+            $a_resultUpdFechEntrega = array();
+            $fecha = "";
+            $fecha = date("Y-m-d H:i:s");
+            try {                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                $consultaUpdateEntr = "UPDATE public.entregas_fonretyf SET fechentrega='".$fechaEntrega."', cveusu='".$usuario."', fechmodif='".$fecha."' WHERE identrega='".$identrega."';";
+                $consultaUpdateEntr = $this->db->prepare($consultaUpdateEntr);
+                $consultaUpdateEntr->execute();
+                $results = $consultaUpdateEntr->fetchAll(PDO::FETCH_ASSOC);              
+                $a_resultUpdFechEntrega["updateEntrega"] = "Actualizado";
+            } catch (\Throwable $th) {
+                $a_resultUpdFechEntrega["updateEntrega"] = "Fallo";
+            }
+
+            try {                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                $consultaUpdateTram = "UPDATE public.tramites_fonretyf SET fechentrega='".$fechaEntrega."' WHERE identrega='".$identrega."';";
+                $consultaUpdateTram = $this->db->prepare($consultaUpdateTram);
+                $consultaUpdateTram->execute();
+                $results = $consultaUpdateTram->fetchAll(PDO::FETCH_ASSOC);              
+                $a_resultUpdFechEntrega["updateTramites"] = "Actualizado";
+            } catch (\Throwable $th) {
+                $a_resultUpdFechEntrega["updateTramites"] = "Fallo";
+            }
+
+            try {                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                $consultaUpdateCheqs = "UPDATE public.beneficiarios_cheques SET fechentrega='".$fechaEntrega."', fechcheque='".$fechaEntrega."' WHERE anioentrega=".substr($identrega,0,4)." and numentrega=".substr($identrega,4,2).";";
+                $consultaUpdateCheqs = $this->db->prepare($consultaUpdateCheqs);
+                $consultaUpdateCheqs->execute();
+                $results = $consultaUpdateCheqs->fetchAll(PDO::FETCH_ASSOC);              
+                $a_resultUpdFechEntrega["updateCheques"] = "Actualizado";
+            } catch (\Throwable $th) {
+                $a_resultUpdFechEntrega["updateCheques"] = "Fallo";
+            }
+
+            return $a_resultUpdFechEntrega;
+        }
     }
 
 ?>

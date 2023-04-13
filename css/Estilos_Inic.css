@@ -121,6 +121,32 @@ span{
 #entrNueva{
   background-color: transparent;
 }
+.sectNavegador{
+  height: 30px;
+  width: 100%;
+  margin: 45px 0;
+
+}
+.DivBotnsNav{
+  height: 30px;
+  width: 40%;
+  float: right;
+  display: inline-flex;
+}
+.BtnsNav{
+  width: 100px;
+  height: 30px;
+  background-color: transparent;
+  border-color: #07960244;
+  font-size: 12px ;
+  font-weight: bold;
+  border-radius: 10px;
+}
+#DivFechaActual{
+  /*text-align: right;*/
+  margin: 0 20px
+}
+
 
 /*Estulos del contenido general de la pagina-Retiros*/
 #Retiros{
@@ -257,15 +283,38 @@ thead th:nth-child(9){
   border: 1.5px solid rgb(2, 48, 4);
 }
 #AgregaEntr{
-  float: right;
-  margin: 15px 400px 0;
+  /*float: right;
+  margin: 5px 400px 0;*/
+  width: 50%;
+}
+#operationsEntr{
+  width: 100%;
+  text-align: center;
 }
 #AgregaEntr img:hover{
   cursor:pointer;
 }
 
-
-
+.BtIcEdit{
+  background-color: transparent;
+  border-color: transparent;
+}
+.BtIcDetail{
+  background-color: transparent;
+  border-color: transparent;
+}
+.BtIcDelete{
+  background-color: transparent;
+  border-color: transparent;
+}
+.BtIcPrint{
+  background-color: transparent;
+  border-color: transparent;
+}
+.BtUpdStatT{
+  background-color: transparent;
+  border-color: transparent;
+}
 
 /*ESTILOS RETIROS CONSULTA*/
 #SecConsltRetr{
@@ -546,6 +595,209 @@ thead th:nth-child(9){
   height: 30px;
   border-radius: 3px;
 }
+#titulomodal{
+  color: #011401;
+  margin: 0 280px;
+  font-size: 16px;
+  font-weight: bold;
+}
+#informPersonTram{
+  width: 100%;
+  height: 80px;
+  font-size: 13px;
+  display: inline-block;
+}
+#informPersonTram input{
+  background-color: #d8dad8;
+}
+#informTram{
+  width: 100%;
+  height: 85px;
+  font-size: 13px;
+  display: inline-block;
+}
+#informRetTram{
+  width: 100%;
+  height: 180px;
+  font-size: 13px;
+}
+#informRetTram input{
+  background-color: #d8dad8;
+}
+#DTIMotivRet{
+  width: 210px;
+  height: 25px;
+  margin: 5px 0;
+  border-color: transparent;
+  border-radius: 5px;
+}
+#DivCveNomMae{
+  width: 100%;
+  height: 40px;
+  display: inline-flex;
+}
+#DivCveNomMae input{
+  height: 25px;
+  border-radius: 3px;
+  border-color: transparent;
+}
+.infoDetallTram{
+  height: 30px;
+}
+#DTcvemae{
+  display: inline-flex;
+}
+#DTcvemae input{
+  width: 110px;
+}
+#DTnommae{
+  display: inline-flex;
+}
+#DTnommae input{
+  width: 400px;
+}
+#informTram input{
+  height: 25px;
+  border-radius: 5px;
+  border-color: transparent;
+  text-align: center;
+  background-color: #d8dad8;
+}
+#DivFechsTram{
+  width:70%;
+  display: inline-flex;
+  height: 35px;
+  align-items: center;
+  margin: 0 auto;
+}
+.DivsFechas{
+  margin: 0 15px;
+}
+#DivPeriodLab{
+  width: 60%;
+  display: inline-flex;
+  height: 35px;
+  margin: 5px 30px;
+  align-items: center;
+}
+#DivPeriodLab input{
+  text-align: center;
+}
+#DTIpermisos{
+  width: 55px;
+}
+#DivDTDiasPermisos{
+  padding-left: 15px;
+}
+#DTIdiaspermisos{
+  width: 65px;
+}
+#DivDTAniosBase{
+  padding-left: 15px;
+}
+#DTIaniosbase{
+  width: 60px;
+  font-weight: bold;
+}
+
+#modalHeaderDetalleRet{
+  display: inline-block;
+}
+.DivsMontretDT{
+  margin: 5px 3px;
+}
+#modalHeaderDetalleRet input{
+  height: 25px;
+  border-radius: 5px;
+  border-color:#bdbdbd;
+  width: 130px;
+  margin: 10px 0;
+  text-align: center;
+}
+#DivMontodelretiro{
+  display: inline-flex;
+  padding-top: 10px;
+}
+#DivMontodelretiro input{
+  width: 130px;
+  border-radius: 5px;
+  border-color: transparent;
+  height: 25px;
+  text-align: center;
+}
+#DivModRetiro{
+  display: inline-block;
+  width: 100%;
+}
+#DTImodret{
+  width: 200px;
+}
+#DivModalRet{
+  width: 50%;
+  margin: 0 auto;
+}
+#DivModalRet input{
+  border-radius: 5px;
+  border-color: transparent;
+  height: 25px;
+  text-align: center;
+}
+#DivTpoDiferido{
+  align-content: center;
+  margin: 0 25px;
+}
+#DivTpoDiferido input{
+  height: 15px;
+  margin: 0 5px;
+  text-align: center;
+}
+#DIvStattram{
+  width:80%;
+  display: inline-flex;
+  margin: 10px auto;
+}
+#DIvStattram input{
+  border-radius: 5px;
+  border-color: transparent;
+  height: 25px;
+  text-align: center;
+}
+#DivDTFechEntr{
+  padding-left: 10px;
+}
+#DivDTcheque{
+  width:70%;
+  display: inline-flex;
+  margin: 10px auto;
+}
+#DivDTcheque input{
+  border-radius: 5px;
+  border-color: transparent;
+  height: 25px;
+  text-align: center;
+}
+#DTIfechentre{
+  width: 140px;
+}
+#DTIfolche{
+  width: 120px;
+}
+#DivDTEstatche{
+  padding-left: 10px;
+}
+#DTIestatche{
+  width: 170px;
+}
+#cerrarDetalleRet{
+  border-radius: 5px;
+  border-color: #042c03;
+  background-color: #1426c5fa;
+  color: white;
+  align-items: center;
+  margin: 10px 0;
+
+}
+/*TERMINAN ESTILOS DE DETALLE ENTREGAS*/
 
 
 
@@ -580,7 +832,30 @@ input[type="date"]{
   min-width: 500px;
 }
 #causaRetiro{
-  width: 100%;
+  width: 50%;
+  height: 30px;
+  display: inline-flex;
+  justify-content: center;
+  font-size: 1em;
+}
+#DivMotFolTram{
+  width: 50%;
+  margin: 0 auto;
+  font-size: 17px;
+}
+#DivMotFolTram input{
+  text-align: center;
+  border-radius: 4px;
+  background-color: #f5f1f1;
+  border-color: transparent;
+  color: #010633;
+  font-weight: bold;
+  font-size: 14px;
+}
+#folioTram{
+  width: 180px;
+}
+#DivFolioRet{
   height: 30px;
   display: inline-flex;
   justify-content: center;
@@ -665,9 +940,11 @@ input[type="date"]{
   background-color: #d4d1d1;
 }
 #curpRfcMae{
+  padding-top: 17px;
   display: inline-flex;
-  margin: 15px 0;
+  margin: 0 auto;
 }
+
 .curpRfcMae{
   padding-left: 40px;
 }
@@ -682,9 +959,15 @@ input[type="date"]{
   font-size: 12px;
   text-align: center; 
 }
+#regsindmae{
+  width: 50px;
+  text-align: center;
+}
 #DivTelsMae{
+  padding-top: 17px;
   display: inline-flex;
-  margin: 10px auto;
+  margin: 0 auto;
+  
 }
 #DivTelCel{
   margin: 0 15px;
@@ -717,7 +1000,7 @@ input[type="date"]{
   width: 300px;
 }
 #DivDictBasePsgs{
-  display: inline-flex  ;
+  display: inline-flex;
 }
 #DivDictamen{
   width: 230px;
@@ -733,31 +1016,93 @@ input[type="date"]{
   width: 100px;
 }
 #DivBaseBaja{
-  width: 230px;
-  height: 120px;
-  margin: 10px 0 0;
-  display: inline-block;
-}
-#DivBaseBaja p{
-  font-size: 11px;
-  font-weight: bold;
-}
-#DivPsgs{
   width: 250px;
   height: 120px;
   margin: 10px 0 0;
   display: inline-block;
-  background-color: #18862b;
+}
+#tituto_BasJubBajFall{
+  font-size: 11px;
+  font-weight: bold;
+}
+#tituto_InptBajFall{
+  font-size: 15.5px;
+}
+#tituto_InptBasJub{
+  font-size: 15.5px;
+}
+#DivInputFechBase{
+  margin: 5px auto;
+  padding: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+#DivInputFechBaja{
+  margin: 5px auto;
+  padding: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+/*#DivBaseBaja p{
+  font-size: 11px;
+  font-weight: bold;
+}*/
+#DivPsgs{
+  width: 140px;
+  height: 120px;
+  margin: 10px 0 0;
+  display: inline-block;
 }
 #DivPsgs p{
   font-size: 11px;
   font-weight: bold;
 }
+#DivPermisosSGS{
+  display: inline-flex;
+  align-content: center;
+}
 #editaPSGS{
   width: 30x;
   height: 30px;
+  margin: 0 7px;
   background-color: transparent;
   border-color: transparent;
+}
+#DivTestBenefsMae{
+  width: 310px;
+  height: 120px;
+  margin: 10px 0 0;
+  display: inline-block;
+  text-align: center;
+}
+#DivTestBenefsMae P{
+  font-size: 11px;
+  font-weight: bold;
+}
+#DivTestBenefsMae input{
+  height: 30px;
+  border-radius: 3px;
+}
+#DivOpcTestamento{
+  width: 100%;
+  display: inline-flex;
+  margin: 0 30px;
+}
+#OpcTestamento{
+  width: 130px;
+  font-size: 12px;
+  text-align: center;
+}
+#DivBenefs{
+  width: 70%;
+  display: inline-flex;
+  margin: 10px 70px;
+}
+#DivBenefs input{
+  width: 50px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
 }
 #editaBefens{
   width: 33x;
@@ -765,45 +1110,62 @@ input[type="date"]{
   background-color: transparent;
   border-color: transparent;
 }
+#DivCalculadora{
+  text-align: center;
+  margin-bottom: 5px;
+}
 #calcDiasAnios{
   width: 28x;
   height: 28px;
   background-color: transparent;
   border-color: transparent;
 }
-#DivCalcAddPB{
-
-display: inline-flex;
+/*#DivCalcAddPB{
+  display: inline-block;
+}*/
+#divPeriPSGS{
+  display: inline-flex;
 }
 #numPsgs{
   width: 40px;
 }
-#tiempoPsgs{
+#diasPsgs{
+  width: 50px;
+}
+#textPerioPSGS{
+  display: inline-flex;
+}
+#diasServMae{
   width: 70px;
 }
 #aniosServMae{
-  width: 80px;
+  width: 50px;
   background: #dad8d8;
-}
-#DivCalculaRetiro{
-  width: 130px;
-  background-color:#ee0bdb;
-
 }
 #divPeriLaboral{
   display: inline-flex;
+  text-align: center;
 }
 #textPrioLaboral{
   display: inline-flex;
 }
 .textPeriodLab{
-  font-size: 9px;
+  font-size: 9.8px;
   width: 80px;
+  height: 10px;
+}
+.textPeriodPSGS{
+  font-size: 9.8px;
+  width: 70px;
   height: 10px;
 }
 .DatsPeriodLab{
   padding-top: 5px;
   width: 80px;
+}
+.DatsPeriodPSGS{
+  padding-top: 5px;
+  width: 70px;
 }
 .DatsPeriodLab input{
   font-weight: bold;
@@ -829,7 +1191,7 @@ display: inline-flex;
 }
 #divCalcRetiro{
   height: 100px;
-  margin: 25px 0;
+  margin: 8px 0;
   display: inline-block;
 }
 #divCalcRetiro input{
@@ -845,6 +1207,20 @@ display: inline-flex;
 }
 
 #agregaTramite{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #0a6b1b;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px rgb(175, 174, 174);
+}
+#updateTramite{
   display: inline-block;
   padding: 10px 20px;
   font-size: 20px;
@@ -951,11 +1327,73 @@ margin: 0 110px;
   background-color: transparent;
   border-color: transparent;
 }
+
+/*Estilos de modal para agregar beneficiarios*/
+#contenidoModalBenefs{
+  width: 1500px;
+  height: 500px;
+  display: inline-block;
+}
+#modalHeaderBenef{
+  margin: 0 110px;
+}
+#contenidoModalBenefs input{
+  height: 30px;
+  border-radius: 3px;
+}
+#DivNumBenefs{
+  text-align: center;
+  padding-top: 10px;
+}
+#numsBenefs{
+  width: 50px;
+  background-color: #e9ebe9;
+}
+#ContenBenefs{
+  width: 100%;
+  height: 350px;
+}
+#addBenef{
+  background-color: transparent;
+  border-color: transparent;
+
+}
+#DivDatsBenef{
+  display: inline-block;
+}
+#DivDatsBenef input{
+  display: inline-flex;
+}
+#DivBeneficiarios{
+  display: inline-flex;
+}
+.nombenefs{
+  width: 450px;
+}
+.parentBenefs{
+  font-size: 8px;
+  width: 100px;
+  text-align: center;
+}
+.porcentBenefs{
+  width: 50px;
+  text-align: center;
+}
+.opcEdoEdadBenef{
+  text-align: center;
+}
+.opcEdoVidBenef{
+  text-align: center;
+}
+
+
+
+
 /* ----------------------------------- */
 #DivsinPSGS{
   font-size: 14px;
-  float: right;
-  margin: 0 20px;
+  /*float: right;*/
+  /*margin: 0 20px;*/
   color: #0b4d0b;
 }
 #sinPSGS{
@@ -965,7 +1403,7 @@ margin: 0 110px;
 }
 #DivExcepciones{
   margin: 10px 0 0;
-  width: 200px;
+  width: 350px;
   text-align: center;
   display: inline-block;
 }
@@ -973,32 +1411,100 @@ margin: 0 110px;
   font-size: 11px;
   font-weight: bold;
 }
-#DivExcepciones input{
+#DatsExcepciones{
+  display: inline-flex;
+}
+#numOficTarj{
   height: 30px;
   border-radius: 3px;
-  width: 85px;
+  width: 75px;
+}
+#DivArchOficTarj{
+  width: 100%;
+  height: 30px;
+  font-size: 10px;
+}
+#DivArchOficTarj input{
+  height: 30px;
+  border-radius: 3px;
+  width: 90%;
+} 
+#DivCalculaRetiro{
+  margin: 15px 15px;
+  width: 200px;
+  text-align: center;
+  display: inline-block;
+}
+#DivCalculaRetiro p{
+  font-size: 12px;
+  font-weight: bold;
+  color: #079602;
+  margin-bottom: 3px;
 }
 .DatsExcepciones{
   font-size: 11px;
+  align-items: center;
+  display: inline-flex;
+}
+#fechOficAut{
+  height: 30px;
+  border-radius: 3px;
+}
+#DivMontoTotalRet{
+  width: 70%;
+  height: 80px;
+  margin: 0 auto;
+  border-top: .1em solid #034203;
+  border-bottom: .1em solid #034203;
+  border-radius: 8px;
+  background-color: #00a80010;
+  font-weight: bold;
+  font-size: 14px;
+}
+#DivMontoTotalRet input{
+  text-align: center;
+  font-size: 14px;
+  background-color: #00a80000;
+  font-weight: bold;
+}
+#DivActRetconAdeds{
+  float: right;
+  margin: 20px 0;
+}
+.montsRet{
+  margin-top: 23px;
 }
 #divAdeudos{
-  margin: 3px auto;
+  margin: 8px auto;
   width: 80%;
+  display: block;
 }
 #DivCheckAdeudos input{
-  height: 15px;
+  height: 25px;
   width: 15px;
   border-color: #727171;
 }
+
+
 #DivDatsAdeudos{
+  width: 100%;
   margin: 10px auto;
-  display: inline-flex;
+  display: inline-block;
+  padding: 15px;
+  border: 1px solid rgb(213, 214, 210);
 }
 #DivDatsAdeudos input{
   height: 30px;
   width: 120px;
   border-radius: 3px;
   text-align: center;
+}
+#ActRetAdeds{
+  width: 30x;
+  height: 30px;
+  margin: 0 7px;
+  background-color: transparent;
+  border-color: transparent;
 }
 #DivProcdAdeudo{
   display: inline-flex;
@@ -1012,26 +1518,69 @@ margin: 0 110px;
   width: 170px;
   font-size: 14px;
 }
+#DivMontRetSinAded{
+  width: 100%;
+  border-top: .1em solid #ced1ce;
+  margin: 10px 0;
+  padding-top: 20px;
+}
 #tipModRetiro{
   width: 80%;
-  margin: 10px auto;
+  margin: 25px auto;
 }
-#DivModRetiro{
-  display: inline-flex;
+
+#ContenAsignaFol{
+  margin: 50px 0;
 }
-#DivTpoDiferido{
-  align-content: center;
-  margin: 0 25px;
+#DatAsignaFol{
+  margin: 30px 0;
 }
-#DivTpoDiferido input{
-  height: 15px;
-  margin: 0 5px;
+
+#folioIni{
+  width: 150px;
+  text-align: center;
+  border-radius: 3px;
 }
+#BtnasignarFolios{
+  background-color: #00a800;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+}
+
 /*TERMINAN ESTILOS CAPTURA DE TRAMITES*/
+#DivAsignaFecha{
+  margin: 55px 0px;
+  text-align: left;
+  width: 20%;
+  align-content: center;
+}
 
+#DivAsignaFecha input{
+  height: 25px;
+  width: 15px;
+  border-color: #727171;
+  font-size: 10px;
+}
+#DivAsignaFecha label{
+  font-size: 15px;
+}
+/*
+#asignarFolio{
+  height: 230px;
+}
+#asignarFolio1{
+  height: 230px;
 
+}
+#asignarFolio2{
+  height: 230px;
+  
+}*/
 
 /*INICIAN ESTILOS DE TRAMITES DE ENTREGAS*/
+
+
 #secRetiros{
   width: 90%;
   padding-top: 15px;
@@ -1049,17 +1598,11 @@ margin: 0 110px;
   text-align: center;
 }
 #tramNuevo{
-  border-color: #0fbd0f23;
-  background-color: #0fbd0f23;
   text-align: center;
 }
-/*#cspConsultRet{
-  height: 30px;
-  border-radius: 3px;
+.btnsOperations{
+  margin: 5px;
 }
-#TextConsulRets{
-  display: inline-flex;
-}*/
 .btnConsultRet {
   width: 80px;
   border-color: #30b446;
@@ -1085,42 +1628,81 @@ margin: 0 110px;
   font-size: small;
 }
 thead th:nth-child(1){
-  width: 15px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 thead th:nth-child(2){
-  width: 30px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 thead th:nth-child(3){
-  width: 130px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 thead th:nth-child(4){
-  width: 70px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 thead th:nth-child(5){
-  width: 50px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 thead th:nth-child(6){
-  width: 40px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 thead th:nth-child(7){
-  width: 10px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 thead th:nth-child(8){
-  width: 10px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 thead th:nth-child(9){
-  width: 10px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 thead th:nth-child(10){
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(11){
+  border: 1.5px solid rgb(2, 48, 4);
+}
+thead th:nth-child(12){
+  border: 1.5px solid rgb(2, 48, 4);
+}
+#benefs_data{
+  font-size: 12px;
+}
+.tabBenefs th:nth-child(1){
+  width: 5px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabBenefs th:nth-child(2){
+  width: 200px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabBenefs th:nth-child(3){
+  width: 30px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabBenefs th:nth-child(4){
+  width: 10px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabBenefs th:nth-child(5){
+  width: 10px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabBenefs th:nth-child(6){
+  width: 10px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabBenefs th:nth-child(7){
+  width: 10px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabBenefs th:nth-child(8){
+  width: 10px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabBenefs th:nth-child(9){
+  width: 10px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabBenefs th:nth-child(10){
   width: 10px;
   border: 1.5px solid rgb(2, 48, 4);
 }
@@ -1372,7 +1954,14 @@ thead th:nth-child(10){
   width: 70px;
 
 }
-
+#DivBeneficiarios{
+  height: 30px;
+  font-size: 12px;
+  align-items: center;
+}
+.divsdatsbenef{
+  padding: 5px;
+}
 
 /*** ESTILOS VENTANA EDITAR ENTREGA ***/
 .editarEntrega{
@@ -1425,9 +2014,15 @@ thead th:nth-child(10){
   height: 400px;
   font-size: 20px;
 }
+#divFechaEntrega{
+  display: inline-flex;
+  width: 100%;
+  height: 100px;
+}
 .modal-content .fechEntrEdit{
   margin: 15px;
   text-align: left;
+  width: 30%;
 }
 .modal-content .fechEntrEdit input{
   margin: 10px 10px 0;

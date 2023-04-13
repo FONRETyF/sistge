@@ -7,6 +7,16 @@
 
 <section class="contenidoGral">
     <form class="FormcontenidoGral" action="" method="POST" name="" id="form_entrega">
+        <section class="sectNavegador">
+            <div class="DivBotnsNav">
+                <div id="DivBtnatras">
+                    <button type="button" class="BtnsNav Btnregresar" id="Btnregresar" name="Btnregresar">ATRAS</></button>
+                </div>
+                <div id="DivFechaActual">
+                    <?php date_default_timezone_set('America/Mexico_City'); echo("Toluca, México a  " .date("d-m-y, h:m:s"));?>
+                </div>
+            </div>
+        </section>
         <section id="secEntregas">Relacion de entregas de FONRETyF
             <div id="ConsultEntregas">
                 <div id="TextConsulEntr">Cosulta:</div>
@@ -23,9 +33,9 @@
                     <a id="entrNueva" href="#"><img src="../../img/add.png" alt="Nueva" title="Nueva Entrega" height="30" width="30"></a>    
                 </div>
             </div>
-            <div id="TxtDatConsulEnt">
+            <!--<div id="TxtDatConsulEnt">
                 <div id="DatAnioEntr">Año</div>
-            </div>
+            </div>-->
             <div id="ResultConsult">
                 <table id ="entrega_data" class="table display responsive nowrap">
                     <caption>Entregas encontradas</caption>

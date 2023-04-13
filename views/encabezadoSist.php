@@ -4,7 +4,7 @@
         <img class="imagen2" src="../../img/planilla2021-2024.png" width="60" height="40">
     </div>
     <div class="texto_Ini">
-        <div class="texfonretif_Ini">SMSEM - FONDO DE RETIRO PARA LA JUBILACION Y FALLECIMIENTO</div>
+        <div class="texfonretif_Ini">SMSEM - FONDO DE RETIRO Y FALLECIMIENTO</div>
         <div class="texSISTGE">SISTGE - FONRETyF</div>
     </div>
 </header>

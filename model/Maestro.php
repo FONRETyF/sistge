@@ -21,6 +21,32 @@
             return $results;
         }
         
+        public function get_maestroJub($claveIssemym){
+            $statement = $this->db->prepare('SELECT cveissemym,programfallec FROM public.jubilados_smsem WHERE cveissemym=?');
+            $statement->bindValue(1,$claveIssemym);
+            $statement->execute();
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        }
+
+        public function get_maestroMutualidad($claveisemym){
+            $statement = $this->db->prepare('SELECT cveissemym,apepatmae,apematmae,nommae,nomcommae,curpmae,rfcmae,fechbajamae,estatmutual FROM public.mutualidad WHERE cveissemym=?');
+            $statement->bindValue(1,$claveisemym);
+            $statement->execute();
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        }
+
+        public function get_maestroFondoFallec($claveisemym){
+            $consultaMFF = "SELECT cveissemym,fechafifondfalle,estatfondfall, (SELECT apepatmae FROM public.maestros_smsem WHERE cveissemym = '".$claveisemym."') as apepatmae,(SELECT apematmae FROM public.maestros_smsem WHERE cveissemym = '".$claveisemym."') as apematmae,";
+            $consultaMFF = $consultaMFF . "(SELECT nommae FROM public.maestros_smsem WHERE cveissemym = '".$claveisemym."') as nommae,(SELECT nomcommae FROM public.maestros_smsem WHERE cveissemym = '".$claveisemym."') as nomcommae,(SELECT curpmae FROM public.maestros_smsem WHERE cveissemym = '".$claveisemym."') as curpmae,";
+            $consultaMFF = $consultaMFF . "(SELECT rfcmae FROM public.maestros_smsem WHERE cveissemym = '".$claveisemym."') as rfcmae FROM public.fondo_fallecimiento WHERE cveissemym = '".$claveisemym."';";
+            $statement = $this->db->prepare($consultaMFF);
+            $statement->execute();
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        }
+
         public function update_nomMae($apepatmae,$apematmae,$nommae,$nomcommae,$cveusu,$cvemae){
             $fecha = date("Y-m-d");
             $nomcommae = $apepatmae . " " . $apematmae . " " . $nommae;

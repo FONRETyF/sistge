@@ -94,6 +94,7 @@ return array(
     'Page_Frame_Reflower' => $vendorDir . '/dompdf/dompdf/include/page_frame_reflower.cls.php',
     'Positioner' => $vendorDir . '/dompdf/dompdf/include/positioner.cls.php',
     'Renderer' => $vendorDir . '/dompdf/dompdf/include/renderer.cls.php',
+    'Stringable' => $vendorDir . '/myclabs/php-enum/stubs/Stringable.php',
     'Style' => $vendorDir . '/dompdf/dompdf/include/style.cls.php',
     'Stylesheet' => $vendorDir . '/dompdf/dompdf/include/stylesheet.cls.php',
     'TCPDF_Adapter' => $vendorDir . '/dompdf/dompdf/include/tcpdf_adapter.cls.php',
