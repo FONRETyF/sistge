@@ -8,7 +8,7 @@
             <form method="post" action="" class="formulario" id="edita_Entrega">
                     <div class="modal-body">
                         <div class="modal-header">
-                            <h4 id="modal-title" id="mdltitulo"></h4>
+                            <div id="divmdltitulo"><h4 id="modal-title" id="mdltitulo"></h4></div>
                         </div> 
                         <input type="hidden" id="identrega" name="identrega">      
                             <section id="ContenEntregas">

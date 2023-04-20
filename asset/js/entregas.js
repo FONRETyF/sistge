@@ -1,6 +1,5 @@
 var tabla;
 
-
 function init(){
     $("#edita_Entrega").on("submit",function(e){
         guardaryeditar(e);
@@ -65,20 +64,20 @@ $(document).ready(function(){
 
 function guardaryeditar(e){
     e.preventDefault();
+
     var actionFechEntr = document.getElementById('CheckAsigFech');
     var checked = actionFechEntr.checked;
 
     var fechaentrega = $("#fechentrega").val();
-    alert(checked);
     var numentrega = $("#numentrega").val();
+
     if ($("#numentrega").val() < 10) {
         numentrega = 0 + $("#numentrega").val();
     }
-    var identrega = $("#Anioentrega").val() + numentrega;
 
-    alert(identrega);
+    var identrega = $("#Anioentrega").val() + numentrega;
+    document.getElementById("identrega").value = identrega; 
     if (checked) {
-        alert("cheboxk activo");
         $.post("../../controller/entregasController.php?op=updateFech",{identrega:identrega,fechEntrega:fechaentrega},function(data){
             resultadoAdd = Object.values(JSON.parse(data));
             //NumregsResult = resultadoAdd.length;
@@ -97,7 +96,6 @@ function guardaryeditar(e){
         });
     } else {
         var formData = new FormData($("#edita_Entrega")[0]);
-        alert("cheboxk no activo");
         $.ajax({
             url: '../../controller/entregasController.php?op=guardaryeditar',
             type: "POST",
@@ -132,7 +130,6 @@ function editar(identrega){
     });
     $('#editarEntrega').modal('show');
     document.getElementById('DivAsignaFecha').style.display = "block";
-
 }
 
 function eliminar(identrega){
@@ -179,7 +176,6 @@ accionRegresa.addEventListener("click", function (e) {
         window.history.back();
     }
 });
-
 
 
 init();

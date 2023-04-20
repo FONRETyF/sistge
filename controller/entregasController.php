@@ -35,10 +35,9 @@
         
         case "guardaryeditar":
             $a_get_entrega = $entrega->get_entrega_id($_POST["identrega"]);
-            
-            if(empty($_POST["identrega"])){
+            if(empty($a_get_entrega)){
                 if(is_array($a_get_entrega)==true and count($a_get_entrega)==0){
-                    $entrega->insert_entrega($_POST["numentrega"],$_POST["Anioentrega"],$_POST["descentrega"],$_SESSION['usuario'],$_POST["fechentrega"],$_POST["observaciones"]);
+                    $entrega->insert_entrega($_POST["identrega"],$_POST["numentrega"],$_POST["Anioentrega"],$_POST["descentrega"],$_SESSION['usuario'],$_POST["fechentrega"],$_POST["observaciones"]);
                 }
             }else{
                 /*echo ($_POST["numentrega"]);

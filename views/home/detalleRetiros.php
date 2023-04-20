@@ -35,7 +35,7 @@
                         <img src="../../img/new-document.png" alt="Nuevo tramite" title="Nuevo tramite" height="30" width="30"  onclick="tramiteNuevo()"></button> -->    
                     <a id="asignFol" class="btnsOperations" href="#"><img src="../../img/asignafolio.png" alt="Asigna folios" title="Asigna folios" height="45" width="45"></a>
                     <a id="printLists" class="btnsOperations" href="#"><img src="../../img/imprimeListados.png" alt="Imprimir listados" title="Imprimir listados" height="35" width="35"></a>
-                    <a id="generateXls" class="btnsOperations" href="#"><img src="../../img/xls.png" alt="Generar archivo informatica" title="Generar archivo informatica" height="35" width="35"></a>
+                    <!--<a id="generateXls" class="btnsOperations" href="#"><img src="../../img/xls.png" alt="Generar archivo informatica" title="Generar archivo informatica" height="35" width="35"></a>-->
                 </div>
             </div>
             <div id="ResultConsultRets">

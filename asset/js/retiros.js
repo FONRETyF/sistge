@@ -333,15 +333,18 @@ accionAsignaFolio.addEventListener("click", function (e) {
     });
 });
 
-var accionGeneraExcel = document.getElementById('generateXls');
+/*var accionGeneraExcel = document.getElementById('generateXls');
 accionGeneraExcel.addEventListener("click",function (e) {
     e.preventDefault();
 
-    //$.post("../../controller/retiros.php?op=generaExcel",{identrega:identr},function(data){
-
-    //});
     location.href = "../../views/home/fileInformatic.php" + "?identr=" + identr;
+});*/
 
+var accionGeneraListados = document.getElementById('printLists');
+accionGeneraListados.addEventListener("click",function (e) {
+    e.preventDefault();
+
+    location.href = "../../views/home/ListadosEntr.php" + "?identr=" + identr;
 });
 
 init();

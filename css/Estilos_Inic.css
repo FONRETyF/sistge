@@ -26,7 +26,7 @@
   --color-black: #000;
 }
 
-/*Estilos del contenidoo*/
+/*Estilos del contenido*/
 
 #secmenu{
   width: 140px;
@@ -41,7 +41,6 @@
   border-radius: 8px;
 	font-size: 0;
   position: absolute;
-  /*padding-left: 150px;*/
   margin: 0 165px 0;
 }
 #secmenu a {
@@ -64,7 +63,7 @@
 	transition: all .3s ease 0s;
 	border-radius: 8px;
 }
-a:nth-child(2) {
+/*a:nth-child(2) {
 	width: 140px;
 }
 a:nth-child(3) {
@@ -78,8 +77,7 @@ a:nth-child(5) {
 }
 a:nth-child(6) {
 	width: 150px;
-}
-
+}*/
 
 .menu{
   display: flex;
@@ -93,62 +91,63 @@ a:nth-child(6) {
 }
 #datsentrad{
   background-color: #28ad28;
-
-}
-/*Estulos del contenido general de la pagina*/
-.formulario{
-  display: inline-flex;
-}
-.contenidoGral{
-  min-height: 100px;
-  width: 100%;;
-  padding-top: 1px;
-  text-align: center;
-  /*display: flex;*/
-}
-#infUltEnt{
-  padding-top: 30px;
-  padding-left: 550px;
-  text-align: center;
-  font-weight: bold;
-  color:rgb(3, 6, 41)
-}
-span{
-  padding-top: 30px;
-  font-size: 18px;
-  text-align: center;
-}
-#entrNueva{
-  background-color: transparent;
-}
-.sectNavegador{
-  height: 30px;
-  width: 100%;
-  margin: 45px 0;
-
-}
-.DivBotnsNav{
-  height: 30px;
-  width: 40%;
-  float: right;
-  display: inline-flex;
-}
-.BtnsNav{
-  width: 100px;
-  height: 30px;
-  background-color: transparent;
-  border-color: #07960244;
-  font-size: 12px ;
-  font-weight: bold;
-  border-radius: 10px;
-}
-#DivFechaActual{
-  /*text-align: right;*/
-  margin: 0 20px
 }
 
 
-/*Estulos del contenido general de la pagina-Retiros*/
+
+/*   ---CONTENIDO GENERAL---   */
+  .formulario{
+    display: inline-flex;
+  }
+  .contenidoGral{
+    min-height: 100px;
+    width: 100%;;
+    padding-top: 1px;
+    text-align: center;
+  }
+  #infUltEnt{
+    padding-top: 30px;
+    padding-left: 550px;
+    text-align: center;
+    font-weight: bold;
+    color:rgb(3, 6, 41);
+  }
+  span{
+    padding-top: 30px;
+    font-size: 18px;
+    text-align: center;
+  }
+  #entrNueva{
+    background-color: transparent;
+  }
+  .sectNavegador{
+    height: 30px;
+    width: 100%;
+    margin: 45px 0;
+  }
+  .DivBotnsNav{
+    height: 30px;
+    width: 40%;
+    float: right;
+    display: inline-flex;
+  }
+  .BtnsNav{
+    width: 100px;
+    height: 30px;
+    background-color: transparent;
+    border-color: #07960244;
+    font-size: 12px ;
+    font-weight: bold;
+    border-radius: 10px;
+  }
+  #DivFechaActual{
+    margin: 0 20px;
+  }
+/*   ---TERMINAN---   */
+
+
+
+/*   ---RETIROS - ENTREGAS---   */
 #Retiros{
   margin: 55px 15px 0;
   font-weight: bold;
@@ -178,10 +177,9 @@ span{
   text-align: center;
 }
 #secEntregas{
-  text-align: center;
-  margin: 70px auto;
-  width: 70%;
-  font-size: 18px;
+  width: 95%;
+  padding-top: 15px;
+  margin: 0px auto;
 }
 #ConsultEntregas{
   height: 37px;
@@ -197,14 +195,7 @@ span{
   display: inline-flex;
   width: 250px;
 }
-#AnioEntrega{
-  font-size: 15px;
-  height: 33px;
-  padding: 4px;
-  width: 80px;
-  text-align: center;
-  margin: 3px 20px 0;
-}
+
 #NumEntrega {
   font-size: 15px;
   height: 33px;
@@ -228,13 +219,14 @@ span{
 }
 #ResultConsult{
   border-top: thick solid #a19f9f;
-  width: 1000px;
-  margin: 3px 15px 0;
+  margin: 0 auto;
+  width: 95%;
+  /*margin: 3px 15px 0;*/
   border-radius: 5px;
   border-width: .2em;
 }
 #entrega_data{
-  position: relative;
+  /*position: relative;*/ 
   font-size: small;
   border-color: rgb(7, 107, 4);
 }
@@ -246,45 +238,43 @@ span{
   align-self: center;
   font-size: 12px;
 }*/
-thead th:nth-child(1){
-  width: 15px;
+.tab_entregas th:nth-child(1){
+  width: 5px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(2){
-  width: 30px;
+.tab_entregas th:nth-child(2){
+  width: 10px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(3){
-  width: 130px;
+.tab_entregas th:nth-child(3){
+  width: 100px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(4){
+.tab_entregas th:nth-child(4){
   width: 70px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(5){
-  width: 50px;
+.tab_entregas th:nth-child(5){
+  width: 30px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(6){
-  width: 40px;
+.tab_entregas th:nth-child(6){
+  width: 30px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(7){
-  width: 10px;
+.tab_entregas th:nth-child(7){
+  width: 5px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(8){
-  width: 10px;
+.tab_entregas th:nth-child(8){
+  width: 5px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(9){
-  width: 10px;
+.tab_entregas th:nth-child(9){
+  width: 5px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 #AgregaEntr{
-  /*float: right;
-  margin: 5px 400px 0;*/
   width: 50%;
 }
 #operationsEntr{
@@ -294,7 +284,6 @@ thead th:nth-child(9){
 #AgregaEntr img:hover{
   cursor:pointer;
 }
-
 .BtIcEdit{
   background-color: transparent;
   border-color: transparent;
@@ -315,178 +304,237 @@ thead th:nth-child(9){
   background-color: transparent;
   border-color: transparent;
 }
-
-/*ESTILOS RETIROS CONSULTA*/
-#SecConsltRetr{
-  margin: 55px 0 0;
-  width: 100%;
-  /*background-color: #2c5fec;*/
-}
-#TxtTitConsl{
-  margin: 0 280px 0;
-  font-size: 17px;
-  font-weight: bold;
-  color: #042c03;
-  
-}
-#ConsltRetir {
-  margin: 35px 0 0;
-  display: flex;
-}
-#TextCSP{
-  margin: 3px 30px 0;
-  font-weight: bold;
-}
-#BttnBuscar{
-  width: 70px;
-  height: 30px;
-  border-color: #023014;
-  border-width: 0.1em;
-  border-radius: 5px;
-}
-#ResultConsltRetr{
-  /*background-color: #2c5fec;*/
-  margin: 10px 10px 0;
-  width: 90%;
-  height: 300px;
-}
-.formConsulRet{
-  width: 90%;
-  margin: 80px 100px 0;
-}
-
-#retiro_data{
-  font-size: small;
-  border-color: rgb(7, 107, 4);
-}
+/*   ---TERMINAN---   */
 
 
 
-/*ESTILOS NUEVA ENTREGA*/
-#numentrega{
-  width: 55px;
-  height: 35px;
-  border-radius: 3px;
-  margin-left: 5px;
-  text-align: center;
-}
-#DvAnioEntrNuev{
-  margin: 15px;
-  padding-left: 20px;
-  
-}
-#DvNumEntrNuev{
-  margin: 15px;
-}
-#DvStatEntrNuv{
-  margin: 15px;
-  text-align: left;
-}
-#DatsEntrNueva{
-  margin: 80px 50px 0;
-  width: 100%;
-  height: 300px;
-  font-size: 20px;
-}
-.DatsEntrNuv{
-  width: 100%;
-  display: inline-flex;
-  font-size: 20px;
-  
-  /*vertical-align: middle;*/
+/*   ---EDITAR ENTREGA---   */
+  .editarEntrega{
+    display:flex;
+    background-color: #efefef;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    height: 250vw;
+    width: 300vw;
+    transition: opacity 0.3s ease;
+  }
+  .show{
+    pointer-events: auto;
+    opacity: 1;
+  }
+  .modal{
+    background-color: rgba(255, 255, 255, 0);
+    width: 700px;
+    max-width: 100%;
+    padding: 10px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  .modal-content {
+    width: 730px;
+    height: 450px;
+    max-width: 800px;
+    max-height: 80vh;
+    border-radius: 5px;
+    background: var(--white);
+    overflow: auto;
+    cursor: default;
+    pointer-events: none;
+  }
+  #DatsEntrDetalle{
+    margin: 15px 15px 0;
+    width: 95%;
+    height: 400px;
+    font-size: 20px;
+  }
+  #divFechaEntrega{
+    display: inline-flex;
+    width: 90%;
+    height: 100px;
+    align-items: center;
+  }
+  .modal-content .fechEntrEdit{
+    margin: 15px;
+    text-align: left;
+    width: 60%;
+    display: inline-flex;
+  }
+  .modal-content .fechEntrEdit input{
+    margin: 0 10px 0;
+    width: 200px;
+    height: 35px;
+    border-radius: 3px;
+    font-size: 15px;
+  }
+  .modal-content .obsrEntrEdit{
+    margin: 15px;
+    text-align: left;
+    padding-left: 33px;
+  }
+  .modal-content .obsrEntrEdit input{
+    margin: 10px 10px 0;
+    width: 500px;
+    height: 35px;
+    border-radius: 3px;
+    font-size: 15px;
+  }
+  #BtnActEnt{
+    width: 95%;
+    text-align: right;
+  }
+  .BtnActEnt{
+    width: 100px;
+    height: 25px;
+    margin: 21px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+    border-color: 1px solid #2b2c2b;
+  }
+  .titEditEntr{
+    height: 30px;
+    font-size: medium;
+    color: #06461f;  
+  }
+  .DatsEntrNuv{
+    width: 90%;
+    display: inline-flex;
+    font-size: 20px;
+  }
+  .DatsEntrNuv select{
+    margin: 0 20px 0;
+    text-align: center;
+    height: 30px;
+    font-size: 15px;
+    background-color: darkgrey;
+    border-radius: 3px;
+  }
+  #divmdltitulo{
+    margin: 0 auto;
+  }
+  #DvAnioEntrNuev{
+    margin: 15px;
+    padding-left: 20px;
+  }
+  #DvNumEntrNuev{
+    margin: 15px;
+    padding-left: 150px;
+  }
+  #numentrega{
+    width: 55px;
+    height: 35px;
+    border-radius: 3px;
+    margin-left: 35px;
+    text-align: center;
+  }
+  #DvAnioEntrNuev input{
+    width: 90px;
+    text-align: center;
+  }
+  #AnioEntrega{
+    font-size: 15px;
+    height: 30px;
+    padding: 4px;
+    width: 80px;
+    text-align: center;
+    margin: 3px 20px 0;
+  }
+  #DvStatEntrNuv{
+    margin: 15px;
+    text-align: left;
+  }
+  #DatsEntrNueva{
+    margin: 80px 50px 0;
+    width: 100%;
+    height: 300px;
+    font-size: 20px;
+  }
+  #DescEntrNuv{
+    margin: 15px 0 0;
+  }
+  #descentrega{
+    margin: 20px 20px 0;
+    width: 500px;
+    height: 35px;
+    border-radius: 3px;
+    font-size: 15px;
+  }
+  .formulario input[type="radio"]{
+    display: none;
+  }
+  .formulario .radio label{
+    padding: 3px 12px 3px 40px;
+    display: inline-block;
+    position: relative; /*absolute por que se quieren modificar*/
+    font-size: .8em;
+    border-radius: 3px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+  .formulario .radio label:hover{
+    background: rgba(0, 217, 29, 0.1);
+  }
+  .formulario .radio label:before{
+    content: "";
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background: none;
+    border: 2px solid rgba(0, 0, 0, 0.623);
+    border-radius: 50%;
+    position: absolute;
+    left: 12px;
+    top:8px;
+  }
+  .formulario input[type="radio"]:checked + label{
+  /*en el input de tipo de radio cuando este seleccionado se vana editar lo estilos del label*/
+    padding: 3px,12px;
+    background: #047721;
+    border-radius: 2px;
+    color: white;
+  }
+  .formulario input[type="radio"]:checked + label:before{
+    display: none;
+  }
+  .BtnAgrega{
+    width: 110px;
+    height: 30px;
+    margin: 21px 10px;
+    font-size: 15px;
+    border-color: 1px solid #2b2c2b;
+  }
+  #DvDescEntrNuv{
+    margin: 15px;
+    align-content: center;
+    align-items: baseline;
+    display: inline-flex;
+  }
+  #añoenterga{
+    width: 70px;
+    height: 35px;
+    margin-left: 3px;
+    border-radius: 3px;
+    font-size: 20px;
+  }
+/*   ---TERMINAN---   */
 
-}
-.DatsEntrNuv select{
-  margin: 0 20px 0;
-  text-align: center;
-  height: 30px;
-  font-size: 15px;
-  background-color: darkgrey;
-  border-radius: 3px;
-}
-#DescEntrNuv{
-  margin: 15px 0 0;
-}
-#descentrega{
-  margin: 20px 20px 0;
-  width: 500px;
-  height: 35px;
-  border-radius: 3px;
-  font-size: 15px;
-}
-.formulario input[type="radio"]{
-  display: none;
-}
-.formulario .radio label{
-  /*background: rgba(0,0,0,.1);*/
-  padding: 3px 12px 3px 40px;
-  display: inline-block;
-  position: relative; /*absolute por que se quieren modificar*/
-  font-size: .8em;
-  border-radius: 3px;
-  cursor: pointer;
-  -webkit-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-.formulario .radio label:hover{
-  background: rgba(0, 217, 29, 0.1);
-}
-.formulario .radio label:before{
-  content: "";
-  width: 14px;
-  height: 14px;
-  display: inline-block;
-  background: none;
-  border: 2px solid rgba(0, 0, 0, 0.623);
-  border-radius: 50%;
-  position: absolute;
-  left: 12px;
-  top:8px;
-}
-.formulario input[type="radio"]:checked + label{
-/*en el input de tipo de radio cuando este seleccionado se vana editar lo estilos del label*/
-  padding: 3px,12px;
-  background: #047721;
-  border-radius: 2px;
-  color: white;
-
-}
-.formulario input[type="radio"]:checked + label:before{
-  display: none;
-}
-.BtnAgrega{
-  width: 110px;
-  height: 30px;
-  margin: 21px 10px;
-  font-size: 15px;
-  border-color: 1px solid #2b2c2b;
-}
-#DvDescEntrNuv{
-  padding-top:18px;
-  margin: 15px;
-  align-content: center;
-  align-items: baseline;
-  display: inline-flex;
-}
-#añoenterga{
-  width: 70px;
-  height: 35px;
-  margin-left: 3px;
-  border-radius: 3px;
-  font-size: 20px;
-}
 
 
 
 
-/*ESTILOS DE DETALLE DE ENTREGAS*/
+/*   ---DETALLE DE ENTREGAS---   */
 #SecEntrDetalle{
   width: 100%;
   height: auto;
-  /*background-color: #FA6EF4;*/
   margin: 30px 5px 0;
-  /*display: inline-flex;*/
 }
 .DatsEntr{
   width: 100%;
@@ -514,7 +562,6 @@ thead th:nth-child(9){
 #procesosEntr{
   padding-left: 70px;
   padding-right: 0px;
-  /*padding-top: -1px;*/
   margin:14px
 }
 #AsigFechEntr{
@@ -530,7 +577,6 @@ thead th:nth-child(9){
   width: 85%;
   height: 100%;
   margin: 10px 70px 0;
-  /*background-color: #023014;*/
 }
 #ConslEntrDetalle{
   width: 100%;
@@ -797,7 +843,101 @@ thead th:nth-child(9){
   margin: 10px 0;
 
 }
+#sectionListados{
+  height: 55px;
+}
+#divOpcionLists{
+  width: 100%;
+  height: 100px;
+  margin-top: 15px;
+  /*background-color: #191dee;*/
+}
+#divSelectList{
+  width: 50%;
+  margin: 0 auto;
+}
+#opcionListados{
+  text-align: center;
+  width: 170px;
+}
+
 /*TERMINAN ESTILOS DE DETALLE ENTREGAS*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*ESTILOS RETIROS CONSULTA*/
+#SecConsltRetr{
+  margin: 55px 0 0;
+  width: 100%;
+  /*background-color: #2c5fec;*/
+}
+#TxtTitConsl{
+  margin: 0 280px 0;
+  font-size: 17px;
+  font-weight: bold;
+  color: #042c03;
+  
+}
+#ConsltRetir {
+  margin: 35px 0 0;
+  display: flex;
+}
+#TextCSP{
+  margin: 3px 30px 0;
+  font-weight: bold;
+}
+#BttnBuscar{
+  width: 70px;
+  height: 30px;
+  border-color: #023014;
+  border-width: 0.1em;
+  border-radius: 5px;
+}
+#ResultConsltRetr{
+  /*background-color: #2c5fec;*/
+  margin: 10px 10px 0;
+  width: 90%;
+  height: 300px;
+}
+.formConsulRet{
+  width: 90%;
+  margin: 80px 100px 0;
+}
+
+#retiro_data{
+  font-size: small;
+  border-color: rgb(7, 107, 4);
+}
+
+
+
+/*ESTILOS NUEVA ENTREGA*/
+
+
+
+
+
 
 
 
@@ -1577,7 +1717,89 @@ margin: 0 110px;
   height: 230px;
   
 }*/
-
+#DivRadBtnsListOfics{
+  width: 50%;
+  height: 350px;
+  margin: 0 auto;
+  display: inline-flex;
+}
+#DivRadBtnsOptnsOfics{
+  width: 50%;
+  height: 100%;
+}
+#DivRadBtnsOptnsLists{
+  width: 50%;
+  height: 100%;
+}
+#DivTituloOfics{
+  width: 100%;
+  height: 15%;
+  font-weight: bold;
+}
+#DivRadBtnsOfics{
+  width: 100%;
+  height: 65%;
+  display: inline-block;
+  border-right-style:groove;
+  border-right-color: #cecfcedc;
+  border-right-width: 2px;
+}
+#DivBtnImpOfics{
+  width: 100%;
+  height: 20%;  
+}
+#BtnImprimeOficio{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #0a6b1b;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px rgb(175, 174, 174);
+}
+#DivTituloLists{
+  width: 100%;
+  height: 15%;
+  font-weight: bold;
+}
+#DivRadBtnsLists{
+  width: 100%;
+  height: 65%;
+}
+#DivBtnImpLists{
+  width: 100%;
+  height: 20%;
+}
+#BtnGenerateList{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #0a6b1b;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px rgb(175, 174, 174);
+}
+.divsRadBtns{
+  height: 35px;
+  width: 40%;
+  margin: 0 auto;
+  text-align: left;
+}
+.RadBtnsOptions{
+  margin: 5px;
+}
 /*INICIAN ESTILOS DE TRAMITES DE ENTREGAS*/
 
 
@@ -1963,104 +2185,7 @@ thead th:nth-child(12){
   padding: 5px;
 }
 
-/*** ESTILOS VENTANA EDITAR ENTREGA ***/
-.editarEntrega{
-  display:flex;
-  background-color: #efefef;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  pointer-events: none;
-  opacity: 0;
-  top: 0;
-  left: 0;
-  height: 250vw;
-  width: 300vw;
-  transition: opacity 0.3s ease;
-}
 
-.show{
-  pointer-events: auto;
-  opacity: 1;
-}
-
-.modal{
-  background-color: rgba(255, 255, 255, 0);
-  width: 700px;
-  max-width: 100%;
-  padding: 10px 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-
-.modal-content {
-  /*margin-right: auto;
-  margin-top: auto;
-  position: relative;*/
-  width: 730px;
-  height: 450px;
-  max-width: 800px;
-  max-height: 80vh;
-  border-radius: 5px;
-  background: var(--white);
-  overflow: auto;
-  cursor: default;
-  pointer-events: none;
-}
-#DatsEntrDetalle{
-  margin: 15px 15px 0;
-  width: 95%;
-  height: 400px;
-  font-size: 20px;
-}
-#divFechaEntrega{
-  display: inline-flex;
-  width: 100%;
-  height: 100px;
-}
-.modal-content .fechEntrEdit{
-  margin: 15px;
-  text-align: left;
-  width: 30%;
-}
-.modal-content .fechEntrEdit input{
-  margin: 10px 10px 0;
-  width: 200px;
-  height: 35px;
-  border-radius: 3px;
-  font-size: 15px;
-}
-.modal-content .obsrEntrEdit{
-  margin: 15px;
-  text-align: left;
-}
-.modal-content .obsrEntrEdit input{
-  margin: 10px 10px 0;
-  width: 500px;
-  height: 35px;
-  border-radius: 3px;
-  font-size: 15px;
-}
-
-#BtnActEnt{
-  width: 95%;
-  text-align: right;
-}
-.BtnActEnt{
-  width: 100px;
-  height: 25px;
-  margin: 21px 10px;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 3px;
-  border-color: 1px solid #2b2c2b;
-}
-.titEditEntr{
-  height: 30px;
-  font-size: medium;
-  color: #06461f;  
-}
 
 
 /*estilos del Pie de pagina*/

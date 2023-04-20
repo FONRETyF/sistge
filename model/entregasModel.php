@@ -22,8 +22,7 @@
         }
         
         public function get_entrega_id($identrega){
-            
-            $statement = $this->db->prepare('SELECT * FROM public.entregas_fonretyf WHERE identrega= ?');
+            $statement = $this->db->prepare("SELECT * FROM public.entregas_fonretyf WHERE identrega= ?");
             $statement->bindValue(1,$identrega);
             $statement->execute();
             return $result = $statement->fetchAll();
@@ -37,20 +36,25 @@
             return $result;
         }
         
-        public function insert_entrega($numentrega,$anioentrega,$descentrega,$cveusu,$fechentrega,$observaciones){
+        public function insert_entrega($identrega,$numentrega,$anioentrega,$descentrega,$cveusu,$fechentrega,$observaciones){
             $fecha = date("Y-m-d");
-            $id_entrega = $anioentrega . $numentrega;
-            $datsInsert=array($id_entrega, $anioentrega, $numentrega, $descentrega, 'ACTIVA', $fechentrega, '0', '0','0', 0, 0, 0, 0, 0, $fecha, $cveusu, $fecha, $cveusu, $observaciones, $cveusu, $fecha);
-            $statement = $this->db->prepare("INSERT INTO public.entregas_fonretyf(identrega, anioentrega, numentrega, descentrega, estatentrega, fechentrega, folioinicial, foliofinal, folios, numcarpetas, numtramites, numtraminha, numtramjub, numtramfall, fechapertura, cveusuapert, fechcierre, cveusucierre, observaciones, cveusu, fechmodif) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            $statement->execute($datsInsert);
-            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-            return $results;
+            try {
+                $consultaInsertEntr = "INSERT INTO public.entregas_fonretyf(identrega, anioentrega, numentrega, descentrega, estatentrega, fechentrega, folioinicial, foliofinal, folios, numcheques, numcarpetas, numtramites, numtraminha, numtramjub, numtramfall, numtramfallact, numtramfalljubm, numtramfalljubff, fechapertura, usuapert, fechcierre, usucierre, cheqsentre, cheqscancel, traspaso, soliccheqs, impcheqs,";
+                $consultaInsertEntr = $consultaInsertEntr . " statarchivo, monttotentr, totadeds, adedsfajam, montadedsf, adedsts, montadedsts, adedsfondpen, montadedsfp, adedsturismo, montadedst, observaciones, cveusu, fechmodif) VALUES ('".$identrega."', '".$anioentrega."', '".$numentrega."', '".$descentrega."', 'ACTIVA', '".$fechentrega."', '0', '0', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, '".$fecha."', '".$cveusu."',";
+                $consultaInsertEntr = $consultaInsertEntr . " '".$fecha."', '".$cveusu."', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '".$observaciones."', '".$cveusu."', '".$fecha."');";
+                $statement = $this->db->prepare($consultaInsertEntr);
+                $statement->execute();
+                $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+                return $results;
+            } catch (\Throwable $th) {
+                echo $th;
+            }
+            
         }
         
         public function update_entrega($numentrega,$anioentrega,$descentrega,$fechentrega,$observaciones,$cveusu,$identrega){
             $fecha = date("Y-m-d");
             $datsInsert=array($numentrega, $anioentrega, $descentrega, $fechentrega, $observaciones, $cveusu, $fecha, $identrega);
-            print_r($datsInsert);
             $statement = $this->db->prepare("UPDATE public.entregas_fonretyf SET numentrega=?, anioentrega=?, descentrega=?, fechentrega=?, observaciones=?, cveusu=?, fechmodif= ?  WHERE identrega=?");
             $statement->execute($datsInsert);
             return $result = $statement->fetchAll();

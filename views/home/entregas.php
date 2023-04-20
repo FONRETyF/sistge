@@ -1,5 +1,6 @@
 <?php
     require_once("/var/www/html/sistge/views/head/header.php");
+    
     if(empty($_SESSION['usuario'])){
         header("Location:login.php");
     }
@@ -13,7 +14,7 @@
                     <button type="button" class="BtnsNav Btnregresar" id="Btnregresar" name="Btnregresar">ATRAS</></button>
                 </div>
                 <div id="DivFechaActual">
-                    <?php date_default_timezone_set('America/Mexico_City'); echo("Toluca, México a  " .date("d-m-y, h:m:s"));?>
+                    <?php date_default_timezone_set('America/Mexico_City'); echo("Toluca, México a  " .date("d-m-y"));?>
                 </div>
             </div>
         </section>
@@ -33,13 +34,10 @@
                     <a id="entrNueva" href="#"><img src="../../img/add.png" alt="Nueva" title="Nueva Entrega" height="30" width="30"></a>    
                 </div>
             </div>
-            <!--<div id="TxtDatConsulEnt">
-                <div id="DatAnioEntr">Año</div>
-            </div>-->
             <div id="ResultConsult">
                 <table id ="entrega_data" class="table display responsive nowrap">
                     <caption>Entregas encontradas</caption>
-                    <thead>
+                    <thead class="tab_entregas">
                         <tr>
                             <th class="wd-15p"> Entrega </th>
                             <th class="wd-15p"> Año </th>
