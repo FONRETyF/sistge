@@ -19,35 +19,33 @@
                 </button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">MENU</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">RETIROS</a>
+                                <a class="nav-link dropdown-toggle primermenu" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="primermenu">RETIROS</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="entregas.php">ENTREGAS</a></li>
                                     <li><a class="dropdown-item" href="consultRetiros.php">CONSULTAS</a></li>
                                     <li><a class="dropdown-item" href="#">PARAMETROS</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">PENDIENTES</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">MUTUALIDAD</a>
+                            <!--<li class="nav-item">
+                                <a class="nav-link dropdown-toggle primermenu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="primermenu">MUTUALIDAD</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#">CONSULTAS</a></li>
                                     <li><a class="dropdown-item" href="#">EDOS. CTA.</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">CARTA TESTAMENTARIA</a>
+                                <a class="nav-link dropdown-toggle primermenu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id=primermenu>CARTA TESTAMENTARIA</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#">CONSULTAS</a></li>
                                     <li><a class="dropdown-item" href="#">ALTA-BUSQUEDAS</a></li>
                                 </ul>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                 </div>

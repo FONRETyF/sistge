@@ -182,6 +182,27 @@ header{
 .navbar .bg-body-tertiary{
   background-color:none;
 }
+.offcanvas-title{
+  color: #008f39;
+  font-weight: bold;
+}
+.offcanvas-header h5{
+  padding-left: 150px;
+}
+.primermenu{
+  width: 350px;
+  border-bottom: 0.5px solid #95979652;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+#primermenu{
+  font-size: 16px;
+  font-weight: bold;
+  color: #02220f;
+}
+.dropdown-toggle{ 
+  font-size: 10px;
+}
 /* TERMINAN ESTILOS ENCABEZADO SIST */
 
 

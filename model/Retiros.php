@@ -17,7 +17,7 @@
         {
             $estatentr = $this->get_EntRet($identrega);
             if ($estatentr =="CERRADA") {
-                $statement = $this->db->prepare('SELECT identrega,numentrega,anioentrega,identret,cvemae,motvret,nomsolic,montret,estattramite FROM public.tramites_fonretyf_hist where identrega= ? ORDER BY identret ASC');
+                $statement = $this->db->prepare('SELECT identrega,numentrega,anioentrega,identret,cvemae,motvret,nomsolic,montrettot,estattramite FROM public.tramites_fonretyf_hist where identrega= ? ORDER BY identret ASC');
                 $statement->bindValue(1,$identrega);
                 $statement->execute();
                 $results = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -102,9 +102,6 @@
                         $eliminaMaeJub = $this->eliminaMaeJubilado($claveissemym);
                         $a_resultDeleteTram["eliminaMaeJub"] = $eliminaMaeJub;
 
-                        //$eliminaCheque = $this->deleteCheque($identreret);
-                        //$a_resultDeleteTram["eliminaCheque"] = $eliminaCheque;
-
                         $actualizaMaestro = $this->actualizaMaeAct($clavemae,$cveusu,$fecha);
                         $a_resultDeleteTram["actualizaMaestro"] = $actualizaMaestro;
 
@@ -157,8 +154,6 @@
                 }
             }
             
-            //$a_getretId = $tramite->get_retiro_Id($clavemae);
-            //var_dump($a_getretId);
         }
 
         public function deleteCheque($identreret){

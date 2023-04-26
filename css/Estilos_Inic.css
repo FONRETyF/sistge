@@ -424,7 +424,7 @@ a:nth-child(6) {
   }
   #DvNumEntrNuev{
     margin: 15px;
-    padding-left: 150px;
+    /*padding-left: 150px;*/
   }
   #numentrega{
     width: 55px;

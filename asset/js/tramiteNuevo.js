@@ -1769,7 +1769,8 @@ function agregaRetFallecimientoJ() {
                                                         Ividabenefs:document.getElementById('vidasbenefs').value.split(","),
                                                         Iprogramfallec: programfallec,
                                                         Icurpmae:document.getElementById('CURPMae').value,
-                                                        Irfcmae:document.getElementById('RFCMae').value
+                                                        Irfcmae:document.getElementById('RFCMae').value,
+                                                        Ifechtestamnt:$("#fechCTJuicio").val()
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
