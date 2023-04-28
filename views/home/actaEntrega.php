@@ -206,6 +206,7 @@
                             # code...
                             break;
                     }
+                    
                     $pdf->SetFont('Arial','',10);
                     $pdf->cell(3.2,0.5,$oficadeudo,0,0,'C');
                     $pdf->cell(2.8,0.5,$rowAd["montbenef"],0,0,'C');
