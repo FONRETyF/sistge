@@ -213,7 +213,7 @@ use function PHPSTORM_META\type;
             $a_validVigTram = array();
 
             $VigBajaRecib = $this -> validaVigencia($fechBaja,$fechRecibido);
-            $vigJuicRecib = $this->calculaDifFechas($fechJuicio,$fechRecibido);
+            $vigJuicRecib = $this -> calculaDifFechas($fechJuicio,$fechRecibido);
             
             $statement = $this->db->prepare("SELECT * FROM public.prorrogas WHERE cvemae=? and estatuspro='ACTIVA'");
             $statement->bindValue(1,$clavemae);

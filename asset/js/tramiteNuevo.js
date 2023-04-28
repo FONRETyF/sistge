@@ -1034,8 +1034,6 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                 } else {
                     $.post("../../controller/tramites.php?op=validFechaCTJuic",{tipoTestamento:tipTestamento,FBase:document.getElementById('fechBaseMae').value,FBaja:document.getElementById('fechBajaMae').value,FCTJuicio:document.getElementById('fechCTJuicio').value,FRecibido:document.getElementById('fechRecibido').value},function(data){
                         data = JSON.parse(data);
-                        var resultValidVig = data.resultValid;
-                        alert(resultValidVig);
                         switch (resultValidVig) {
                             case 'correcto':
                                 validAnioFechCTJuic = true;
@@ -1070,10 +1068,13 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                     $.post("../../controller/tramites.php?op=validVigTramFA",{tipoTestamento:tipTestamento,ClaveMae:clavemae,FBase:document.getElementById('fechBaseMae').value,FBaja:document.getElementById('fechBajaMae').value,FCTJuicio:document.getElementById('fechCTJuicio').value,FRecibido:document.getElementById('fechRecibido').value},function(data){
                         data = JSON.parse(data);
                         var resultValidVig = data.resulValidVig;
+                        alert(resultValidVig);
                         if (resultValidVig == 'vigenciaVal') {
+                            alert("fechas validas");
                             document.getElementById("calcDiasAnios").disabled = false;
                             document.getElementById("editaBefens").disabled = false;
                         }else if (resultValidVig == 'vigenciaCad') {
+                            alert("fechas NOOOOO validas");
                             document.getElementById("calcDiasAnios").disabled = true;
                             document.getElementById("editaBefens").disabled = true;
 
