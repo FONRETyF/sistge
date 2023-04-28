@@ -17,14 +17,14 @@ use function PHPSTORM_META\type;
             $this->retiros = array();
         }
 
-        public function get_Retiro($aniosserv){
+        public function get_Retiro($aniosserv,$fechBaja){
             $statement = $this->db->prepare("SELECT aportprom FROM public.parametros_retiro WHERE estatparam='ACTIVO'");
             $statement->execute();
             $results = $statement->fetchAll(PDO::FETCH_ASSOC);
             foreach ($results as $row){
                 $montprom = substr($row['aportprom'],1,strlen($row['aportprom'])-1);
             }
-            $result = $this->calculaRet($aniosserv,$montprom);
+            $result = $this->calculaRet($aniosserv,$montprom,$fechBaja);
             return $result;
         }  
 
@@ -365,20 +365,35 @@ use function PHPSTORM_META\type;
             }
         }
 
-        private function calculaRet($aniosserv,$montprom){
-            if ($aniosserv >= 30) {
-                $retiro = ((($montprom * 24) * 30) * 0.4) * .99;
+        private function calculaRet($aniosserv,$montprom,$fechBaja){
+            $fechaLimCalAnt = '30-06-2023';
+            $tabuladorRetiros = [1=>1498.5,2=>2997,3=>4500,4=>5998.5,5=>7497,6=>9000,7=>10498.5,8=>11997,9=>13500,10=>14998.5,11=>16497,12=>18000,13=>19498.5,14=>20997,15=>22500,16=>23998.5,17=>25497,18=>27000,19=>28498.5,20=>29997,21=>31500,22=>32998.5,23=>34497,24=>36000,25=>37498.5,26=>38997,27=>40500,28=>41998.5,29=>43497];
+
+            if ($fechBaja < $fechaLimCalAnt) {
                 $dats_ret = array();
+                if ($aniosserv > 29) {
+                    $retiro = 45000;
+                } else {
+                    $retiro = $tabuladorRetiros[$aniosserv];
+                }                
                 $dats_ret[] = [
                     "montRet" => $retiro
                 ];
             } else {
-                $retiro = ((($montprom * 24) * $aniosserv) * 0.4) * .99;
-                $dats_ret = array();
-                $dats_ret[] = [
-                    "montRet" => $retiro
-                ];
-            }            
+                if ($aniosserv >= 30) {
+                    $retiro = ((($montprom * 24) * 30) * 0.4) * .99;
+                    $dats_ret = array();
+                    $dats_ret[] = [
+                        "montRet" => $retiro
+                    ];
+                } else {
+                    $retiro = ((($montprom * 24) * $aniosserv) * 0.4) * .99;
+                    $dats_ret = array();
+                    $dats_ret[] = [
+                        "montRet" => $retiro
+                    ];
+                }
+            }   
             return $dats_ret;            
         }
 
@@ -569,7 +584,7 @@ use function PHPSTORM_META\type;
                         $a_resultAddTramFJ["insertTramite"] = "Existente";
                     }
                     
-                    $actualizaMae = $this->actualizaMaestroMut($cveissemym,$curpmae,$rfcmae,$region,$numcel,$numpart,$aniosserv,$fechbajfall,$motvret,$modret,$cveusu,$fecha);
+                    $actualizaMae = $this->actualizaMaestroMut($cveissemym,$curpmae,$rfcmae,$region,$numcel,$numpart,$aniosserv,$fechbajfall,$motvret,$modret,$diasserv,$cveusu,$fecha);
                     $a_resultAddTramFJ["updateMaestro"] = $actualizaMae;
                     
                     $insertaCheques = $this->insertChequeF($anioentr,$numentre,$idretiro,$identregRet,$cveissemym,$nomsbenefs,$numbenefs,$montretentr,$edadesbenefs,$porcsbenefs,$vidabenefs,$cveusu,$fecha,$motvret);
@@ -741,10 +756,10 @@ use function PHPSTORM_META\type;
             }
         }
 
-        public function actualizaMaestroMut($cveissemym,$curpmae,$rfcmae,$region,$numcel,$numpart,$aniosserv,$fechbajfall,$motvret,$modret,$cveusu,$fecha){
+        public function actualizaMaestroMut($cveissemym,$curpmae,$rfcmae,$region,$numcel,$numpart,$aniosserv,$fechbajfall,$motvret,$modret,$diasserv,$cveusu,$fecha){
             try {
                 $statementUpdate = "UPDATE public.mutualidad";
-                $statementUpdate = $statementUpdate . " SET curpmae='".$curpmae."' ,rfcmae='".$rfcmae."', regmae= ".$region ." , numcelmae='" .$numcel."', numfijmae='".$numpart."', fcfallecmae='".$fechbajfall."', estatmutual='F', aniosjub=".$aniosserv.", cveusu='".$cveusu."', fechmodif='".$fecha."', estatusmae='F'";
+                $statementUpdate = $statementUpdate . " SET curpmae='".$curpmae."' ,rfcmae='".$rfcmae."', regmae= ".$region ." , numcelmae='" .$numcel."', numfijmae='".$numpart."', fcfallecmae='".$fechbajfall."', estatmutual='F', aniosjub=".$aniosserv.", cveusu='".$cveusu."', fechmodif='".$fecha."', estatusmae='F', diasjub=".$diasserv;
                 $statementUpdate = $statementUpdate . " WHERE cveissemym='" . $cveissemym."';";
 
                 $statementUpdate = $this->db->prepare($statementUpdate);
@@ -1227,7 +1242,7 @@ use function PHPSTORM_META\type;
                 $a_resultUpdTramFJ["updateTramite"] = "Fallo";
             }
 
-            $actualizaMae = $this->actualizaMaestroMut($cveissemym,$curpmae,$rfcmae,$region,$numcel,$numpart,$aniosserv,$fechbajfall,$motvret,$modret,$cveusu,$fecha);
+            $actualizaMae = $this->actualizaMaestroMut($cveissemym,$curpmae,$rfcmae,$region,$numcel,$numpart,$aniosserv,$fechbajfall,$motvret,$modret,$diasserv,$cveusu,$fecha);
             $a_resultUpdTramFJ["updateMaestro"] = $actualizaMae;
 
             $nombresB = explode(",",$nomsbenefs);

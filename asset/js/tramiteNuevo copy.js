@@ -532,7 +532,8 @@ function validaFechas(valorValid, a_fechs) {
                         document.getElementById("CheckAdeudos").disabled = false;
                     }   
                     var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                    $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
+                    var fechBaja = document.getElementById('fechBajaMae').value;
+                    $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv,fechBaja:fechBaja},function(data){       
                         data = JSON.parse(data);
                         $('#montRet').val(data.montret.toFixed(2));
                         montoRetiro = parseFloat(document.getElementById('montRet').value); //- adeudosMae).toFixed(2);
@@ -563,7 +564,8 @@ function validaFechas(valorValid, a_fechs) {
                             document.getElementById('aniosServMae').value = aniosServicio;
 
                             var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                            $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
+                            var fechBaja = document.getElementById('fechBajaMae').value;
+                            $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv,fechBaja:fechBaja},function(data){       
                                 data = JSON.parse(data);
                                 $('#montRet').val(data.montret.toFixed(2));
                                 montoRetiro = parseFloat(document.getElementById('montRet').value); //- adeudosMae).toFixed(2);
@@ -599,7 +601,8 @@ function validaFechas(valorValid, a_fechs) {
                                 document.getElementById('aniosServMae').value = aniosServicio;
                                 
                                 var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                                $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
+                                var fechBaja = document.getElementById('fechBajaMae').value;
+                                $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv,fechBaja:fechBaja},function(data){       
                                     data = JSON.parse(data);
                                     $('#montRet').val(data.montret.toFixed(2));
                                     montoRetiro = parseFloat(document.getElementById('montRet').value); //- adeudosMae).toFixed(2);
@@ -680,7 +683,8 @@ function validaFechas(valorValid, a_fechs) {
                             document.getElementById("CheckAdeudos").disabled = false;
                         }   
                         var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                        $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
+                        var fechBaja = document.getElementById('fechBajaMae').value;
+                        $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv,fechBaja:fechBaja},function(data){       
                             data = JSON.parse(data);
                             $('#montRet').val(data.montret.toFixed(2));
                             if (motret == "FA" || motret == "FJ") {
@@ -716,7 +720,8 @@ function validaFechas(valorValid, a_fechs) {
                                 document.getElementById('aniosServMae').value = aniosServicio;
     
                                 var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                                $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
+                                var fechBaja = document.getElementById('fechBajaMae').value;
+                                $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv,fechBaja:fechBaja},function(data){       
                                     data = JSON.parse(data);
                                     $('#montRet').val(data.montret.toFixed(2));
                                     if (motret == "FA" || motret == "FJ") {
@@ -763,7 +768,8 @@ function validaFechas(valorValid, a_fechs) {
                         document.getElementById("CheckAdeudos").disabled = false;
                         
                         var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                        $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programfallec:programfallec},function(data){       
+                        var fechBaja = document.getElementById('fechBajaMae').value;
+                        $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programfallec:programfallec,fechBaja:fechBaja},function(data){       
                             data = JSON.parse(data);
                             $('#montRet').val(data.montret.toFixed(2));
                             if (motret == "FA" || motret == "FJ") {
@@ -799,7 +805,8 @@ function validaFechas(valorValid, a_fechs) {
                                 document.getElementById('aniosServMae').value = aniosServicio;
     
                                 var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                                $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
+                                var fechBaja = document.getElementById('fechBajaMae').value;
+                                $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv,fechBaja:fechBaja},function(data){       
                                     data = JSON.parse(data);
                                     $('#montRet').val(data.montret.toFixed(2));
                                     if (motret == "FA" || motret == "FJ") {

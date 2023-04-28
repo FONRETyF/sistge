@@ -501,6 +501,10 @@ accionCalculadora.addEventListener("click", function (evento) {
         }
     });
     validaFechas(valorValid, a_fechs);
+
+    $("#ModoRetiro").val("");
+    document.getElementById("monRetEntr").value = "";
+    
 });
 
 function validaFechas(valorValid, a_fechs) {

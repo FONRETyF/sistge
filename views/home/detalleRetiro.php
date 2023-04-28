@@ -25,14 +25,15 @@
                     </section>
                     <section id="informTram">
                         <div id="DivFechsTram">
-                            <div id="DivDTBase"  class="DivsFechas">Basificado(a): <input type="text" id="DTIfechBase" name="DTIfechBase" disabled></div>
+                            <div id="DivDTBase"  class="DivsFechas">Base/Jub: <input type="text" id="DTIfechBase" name="DTIfechBase" disabled></div>
                             <div id="DivDTBaja"  class="DivsFechas">Baja: <input type="text" id="DTIfechBaja" name="DTIfechBaja" disabled></div>
                         </div>
                         <div id="DivPeriodLab">
                             <div id="DivDTPermisos">Permisos: <input type="text" id="DTIpermisos" name="DTIpermisos" disabled></div>
                             <div id="DivDTDiasPermisos">Dias de permisos: <input type="text" id="DTIdiaspermisos" name="DTIdiaspermisos" disabled></div>
-                            <div id="DivDTAniosBase">Años base: <input type="text" id="DTIaniosbase" name="DTIaniosbase" disabled></div>
+                            <div id="DivDTAniosBase">Años base/jub: <input type="text" id="DTIaniosbase" name="DTIaniosbase" disabled></div>
                         </div>
+                        
                     </section>
                     <section id="informRetTram">
                         <div id="DivModRetiro">

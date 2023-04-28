@@ -84,7 +84,6 @@
 
 <script type="text/javascript" src="../../asset/js/retiros.js"></script>
 
-<?php require_once("/var/www/html/sistge/views/home/asignaFolio.php"); ?>
 <?php require_once("/var/www/html/sistge/views/home/detalleRetiro.php"); ?>
 <?php require_once("/var/www/html/sistge/views/head/footer.php"); ?>
 

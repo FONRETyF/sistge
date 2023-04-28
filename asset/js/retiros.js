@@ -147,8 +147,23 @@ function mostrar(identret,cvemae) {
                 }
                 if (motivoRet == "J" || motivoRet == "I") {
                     document.getElementById("secBenefes").style.display="none";
+                    document.getElementById("DivDTFolche").style.display="block";
+                    document.getElementById("DivDTEstatche").style.display="block";
+                    document.getElementById("DivDTPermisos").style.display="block";
+                    document.getElementById("DivDTDiasPermisos").style.display="block";
+                    document.getElementById("DivDTAniosBase").style.display="block";
+                    
+
                 }else if( motivoRet == "FA"){
                     document.getElementById("secBenefes").style.display="block";
+                    document.getElementById("DivDTFolche").style.display="none";
+                    document.getElementById("DivDTEstatche").style.display="none";
+                    document.getElementById("DivDTPermisos").style.display="block";
+                    document.getElementById("DivDTDiasPermisos").style.display="block";
+                    document.getElementById("DivDTAniosBase").style.display="block";
+                    
+
+
                     $.post("../../controller/retiros.php?op=busqbenefs",{cvemae:cvemae},function(data){
                         data = JSON.parse(data);
                         dataBenefs = Object.values(data);
@@ -173,9 +188,6 @@ function mostrar(identret,cvemae) {
                                 $("#resultDTBenefs").append(tr);
                                 }           
                     });
-                    
-                    
-                    
                 }
 
                 $("#DTIcvemae").val(datos.cvemae);
@@ -197,8 +209,56 @@ function mostrar(identret,cvemae) {
                 $("#DTIestatche").val(datos.estatcheque);
             });
         } else {
-            $.post("../../controller/retiros.php?op=mostrarFM",{identret:identret,cvemae:cvemae},function (datos) {
-                
+            document.getElementById("secBenefes").style.display="block";
+            document.getElementById("DivDTFolche").style.display="none";
+            document.getElementById("DivDTEstatche").style.display="none";
+            document.getElementById("DivDTPermisos").style.display="none";
+            document.getElementById("DivDTDiasPermisos").style.display="none";
+            document.getElementById("DivDTAniosBase").style.display="block";
+            
+            $.post("../../controller/retiros.php?op=mostrarFJ",{identret:identret,modretiro:modretiro,cvemae:cvemae,motivoRet:motivoRet},function (datos) {
+                datos = JSON.parse(datos);
+                motivo="FALLECIMIENTO";
+                progamret = "COMPLETO";
+
+                $.post("../../controller/retiros.php?op=busqbenefs",{cvemae:cvemae},function(data){
+                    data = JSON.parse(data);
+                    dataBenefs = Object.values(data);
+                    $("#resultDTBenefs").html("");
+                        for (var index = 0; index < dataBenefs.length; index++) {
+                            //alert(index);
+                            //alert(Object.values(dataBenef[index]));
+                            datosBenef = Object.values(dataBenefs[index]);
+                            
+                                var tr = `<tr>
+                                    <td>`+datosBenef[0]+ `</td> 
+                                    <td>`+datosBenef[1]+ `</td> 
+                                    <td>`+datosBenef[2]+ `</td> 
+                                    <td>`+datosBenef[3]+ `</td> 
+                                    <td>`+datosBenef[4]+ `</td> 
+                                    <td>`+datosBenef[5]+ `</td> 
+                                    <td>`+datosBenef[6]+ `</td> 
+                                    <td>`+datosBenef[7]+ `</td> 
+                                    <td>`+datosBenef[8]+ `</td> 
+                                    <td>`+datosBenef[9]+ `</td> 
+                                </tr>`;
+                            $("#resultDTBenefs").append(tr);
+                            }           
+                });
+
+                $("#DTIcvemae").val(datos.cvemae);
+                $("#DTIMotivRet").val(motivo);
+                $("#DTIfechBaja").val(datos.fcfallecmae);
+                $("#DTInommae").val(datos.nommae);
+                $("#DTImodret").val(progamret);
+                $("#DTImonttot").val(datos.montrettot);
+                $("#DTImontentr").val(datos.montretentr);
+                $("#DTImontff").val(datos.montretfall);
+                $("#DTIfechRecib").val(datos.fechrecib);
+                $("#DTIfechentre").val(datos.fechentrega);
+                $("#DTIestattram").val(datos.estattramite);
+                $("#DTIfechBase").val(datos.fechbajamae);
+                $("#DTIaniosbase").val(datos.aniosjub);
             });
         }
     });

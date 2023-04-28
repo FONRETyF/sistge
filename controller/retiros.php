@@ -88,6 +88,28 @@
 
             echo json_encode($output, JSON_FORCE_OBJECT);
             break;
+        
+        case 'mostrarFJ':
+            $a_get_DT_FJ = $retiro->get_infoDTFJ($_POST['identret'],$_POST['modretiro'],$_POST['cvemae'],$_POST['motivoRet']);
+            foreach ($a_get_DT_FJ as $row) {
+                $output["cvemae"] =$row["cvemae"];
+                $output["motvret"] =$row["motvret"];
+                $output["fcfallecmae"] =$row["fcfallecmae"];
+                $output["nommae"] =$row["nomcommae"];
+                $output["modretiro"] =$row["modretiro"];
+                $output["montrettot"] =$row["montrettot"];
+                $output["montretentr"] =$row["montretentr"];
+                $output["montretfall"] =$row["montretfall"];
+                $output["fechrecib"] =$row["fechrecib"];
+                $output["fechentrega"] =$row["fechentrega"];
+                $output["estattramite"] =$row["estattramite"];
+                $output["fechbajamae"] =$row["fechbajamae"];
+                $output["aniosjub"] =$row["aniosjub"];
+            }
+
+            echo json_encode($output, JSON_FORCE_OBJECT);
+            break;
+
         case 'busqbenefs':
             $a_get_benefs =  $retiro->get_benefs($_POST['cvemae']);
             $a_beneficiarios = array();

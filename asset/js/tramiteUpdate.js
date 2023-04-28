@@ -68,7 +68,7 @@ $(document).ready(function () {
                     $("#numentr").val(infoTramite[5].substr(4,2));
                     $("#AnioEntr").val(infoTramite[5].substr(0,4));
                     $("#IdEntrega").val(infoTramite[5].substr(0,4) + infoTramite[5].substr(4,2));
-                    $("#folioTram").val(infoTramite[41]);
+                    $("#folioTram").val(infoTramite[43]);
                     $("#cspMaeBusq").val(infoTramite[6]);
                     $("#cveIMaeBusq").val(infoTramite[72]);
                     $("#estLaboral").val(estatLabMae);
@@ -82,7 +82,7 @@ $(document).ready(function () {
                     $("#TelPartiMae").val(infoTramite[13]);
                     $("#TelCelMae").val(infoTramite[12]);              
                     $("#nomSolic").val(infoTramite[11]);
-                    $("#fechRecibido").val(infoTramite[27]);
+                    $("#fechRecibido").val(infoTramite[28]);
                     document.getElementById('fechRecibido').disabled = true;
                     $("#fechDictamen").val(infoTramite[9]);
                     $("#folioDictamen").val(infoTramite[8]);
@@ -120,32 +120,32 @@ $(document).ready(function () {
                     $("#aniosServMae").val(infoTramite[57]);
 
                     document.getElementById('aniosServMae').disabled = true;
-                    $("#montRet").val(infoTramite[19].replace('$',''));
+                    $("#montRet").val(infoTramite[20].replace('$',''));
                     
-                    $("#monRetEntr").val(infoTramite[22].replace('$',''));
-                    $("#montRetFF").val(infoTramite[24].replace('$',''));
-                    $("#montSalMin").val(infoTramite[44].replace('$',''));
+                    $("#monRetEntr").val(infoTramite[23].replace('$',''));
+                    $("#montRetFF").val(infoTramite[25].replace('$',''));
+                    $("#montSalMin").val(infoTramite[46].replace('$',''));
 
-                    $numadedsM = infoTramite[49];
+                    $numadedsM = infoTramite[36];
                     if ($numadedsM > 0) {
                         document.getElementById('CheckAdeudos').checked = true;
                         document.getElementById("DivDatsAdeudos").style.display = "block";
                         
-                        if (infoTramite[35].replace('$','').replace(',','') > 0) {
-                            $("#AdedFajam").val(infoTramite[35].replace('$','').replace(',',''));
-                        }
-                        if (infoTramite[36].replace('$','').replace(',','') > 0) {
-                            $("#AdedTS").val(infoTramite[36].replace('$','').replace(',',''));
-                        }
-                        if (infoTramite[37].replace('$','').replace(',','') > 0) {
-                            $("#AdedFondPension").val(infoTramite[37].replace('$','').replace(',',''));
-                        }
                         if (infoTramite[38].replace('$','').replace(',','') > 0) {
-                            $("#AdedTurismo").val(infoTramite[38].replace('$','').replace(',',''));
+                            $("#AdedFajam").val(infoTramite[38].replace('$','').replace(',',''));
+                        }
+                        if (infoTramite[39].replace('$','').replace(',','') > 0) {
+                            $("#AdedTS").val(infoTramite[39]);
+                        }
+                        if (infoTramite[40].replace('$','').replace(',','') > 0) {
+                            $("#AdedFondPension").val(infoTramite[40].replace('$','').replace(',',''));
+                        }
+                        if (infoTramite[41].replace('$','').replace(',','') > 0) {
+                            $("#AdedTurismo").val(infoTramite[41].replace('$','').replace(',',''));
                         }
 
-                        $("#montRetSinAded").val(infoTramite[21]);
-                        $("#montAdeudos").val(infoTramite[39]);
+                        $("#montRetSinAded").val(infoTramite[22]);
+                        $("#montAdeudos").val(infoTramite[37]);
                     } else {
                         
                     }
@@ -167,7 +167,7 @@ $(document).ready(function () {
                     $("#numentr").val(infoTramite[5].substr(4,2));
                     $("#AnioEntr").val(infoTramite[5].substr(0,4));
                     $("#IdEntrega").val(infoTramite[5].substr(0,4) + infoTramite[5].substr(4,2));
-                    $("#folioTram").val(infoTramite[41]);
+                    $("#folioTram").val(infoTramite[43]);
                     $("#cspMaeBusq").val(infoTramite[6]);
                     $("#cveIMaeBusq").val(infoTramite[63]);
                     $("#estLaboral").val(estatLabMae);
@@ -181,7 +181,7 @@ $(document).ready(function () {
                     $("#TelPartiMae").val(infoTramite[13]);
                     $("#TelCelMae").val(infoTramite[12]);              
                     $("#nomSolic").val(infoTramite[11]);
-                    $("#fechRecibido").val(infoTramite[27]);
+                    $("#fechRecibido").val(infoTramite[28]);
                     document.getElementById('fechRecibido').disabled = true;
                     $("#fechDictamen").val(infoTramite[9]);
                     $("#folioDictamen").val(infoTramite[8]);
@@ -218,11 +218,11 @@ $(document).ready(function () {
                     document.getElementById('diasServMae').disabled = true;
                     $("#aniosServMae").val(infoTramite[57]);
                     document.getElementById('aniosServMae').disabled = true;
-                    $("#montRet").val(infoTramite[19].replace('$',''));
+                    $("#montRet").val(infoTramite[20].replace('$',''));
                     
-                    $("#monRetEntr").val(infoTramite[22].replace('$',''));
-                    $("#montRetFF").val(infoTramite[24].replace('$',''));
-                    $("#montSalMin").val(infoTramite[44].replace('$',''));
+                    $("#monRetEntr").val(infoTramite[23].replace('$',''));
+                    $("#montRetFF").val(infoTramite[25].replace('$',''));
+                    $("#montSalMin").val(infoTramite[46].replace('$',''));
 
                     if (modretiro == "C") {
                         $("#ModoRetiro").val("C");
@@ -258,7 +258,7 @@ $(document).ready(function () {
                 $("#numentr").val(infoTramite[5].substr(4,2));
                 $("#AnioEntr").val(infoTramite[5].substr(0,4));
                 $("#IdEntrega").val(infoTramite[5].substr(0,4) + infoTramite[5].substr(4,2));
-                $("#folioTram").val(infoTramite[41]);
+                $("#folioTram").val(infoTramite[43]);
                 $("#cspMaeBusq").val(infoTramite[6]);
                 $("#cveIMaeBusq").val(infoTramite[63]);
                 $("#estLaboral").val(estatLabMae);
@@ -272,7 +272,7 @@ $(document).ready(function () {
                 $("#TelPartiMae").val(infoTramite[13]);
                 $("#TelCelMae").val(infoTramite[12]);              
                 $("#nomSolic").val(infoTramite[11]);
-                $("#fechRecibido").val(infoTramite[27]);
+                $("#fechRecibido").val(infoTramite[28]);
                 document.getElementById('fechRecibido').disabled = true;
                 $("#fechBaseMae").val(infoTramite[56]);
                 $("#fechBajaMae").val(infoTramite[58]);
@@ -302,10 +302,10 @@ $(document).ready(function () {
                 }
                 
                 $("#OpcTestamento").val(infoTramite[14]);
-                $("#fechCTJuicio").val(infoTramite[51]);
-                $("#numBenefs").val(infoTramite[16]);
+                $("#fechCTJuicio").val(infoTramite[15]);
+                $("#numBenefs").val(infoTramite[17]);
 
-                numbeneficiarios = infoTramite[16]-1;
+                numbeneficiarios = infoTramite[17]-1;
                 for (let j = 0; j < numbeneficiarios; j++) {
                     var elemntBenef = document.getElementById("DivBeneficiarios");
                     var clonElement = elemntBenef.cloneNode(true);
@@ -327,11 +327,11 @@ $(document).ready(function () {
                     for (let l = 0; l < datUpdateBenefs.length; l++) {
                         var infoBenefs = Object.values(datUpdateBenefs[l]);
                         a_nombres.push(infoBenefs[8]);
-                        a_curps.push(infoBenefs[30]);
-                        a_parentescos.push(infoBenefs[31]);
+                        a_curps.push(infoBenefs[31]);
+                        a_parentescos.push(infoBenefs[32]);
                         a_porcentajes.push(infoBenefs[24]);
-                        a_edades.push(infoBenefs[34]);
-                        a_vida.push(infoBenefs[35]);
+                        a_edades.push(infoBenefs[33]);
+                        a_vida.push(infoBenefs[34]);
                     }
                     $("#nomsbenefs").val(a_nombres);
                     $("#curpsbenefs").val(a_curps);
@@ -348,32 +348,32 @@ $(document).ready(function () {
                 $("#aniosServMae").val(infoTramite[57]);
     
                 document.getElementById('aniosServMae').disabled = true;
-                $("#montRet").val(infoTramite[19].replace('$',''));
+                $("#montRet").val(infoTramite[20].replace('$',''));
                         
-                $("#monRetEntr").val(infoTramite[22].replace('$',''));
-                $("#montRetFF").val(infoTramite[24].replace('$',''));
-                $("#montSalMin").val(infoTramite[44].replace('$',''));
+                $("#monRetEntr").val(infoTramite[23].replace('$',''));
+                $("#montRetFF").val(infoTramite[25].replace('$',''));
+                $("#montSalMin").val(infoTramite[46].replace('$',''));
     
-                $numadedsM = infoTramite[49];
+                $numadedsM = infoTramite[36];
                 if ($numadedsM > 0) {
                     document.getElementById('CheckAdeudos').checked = true;
                     document.getElementById("DivDatsAdeudos").style.display = "block";
                             
-                    if (infoTramite[35].replace('$','').replace(',','') > 0) {
-                        $("#AdedFajam").val(infoTramite[35].replace('$','').replace(',',''));
-                    }
-                    if (infoTramite[36].replace('$','').replace(',','') > 0) {
-                        $("#AdedTS").val(infoTramite[36].replace('$','').replace(',',''));
-                    }
-                    if (infoTramite[37].replace('$','').replace(',','') > 0) {
-                        $("#AdedFondPension").val(infoTramite[37].replace('$','').replace(',',''));
-                    }
                     if (infoTramite[38].replace('$','').replace(',','') > 0) {
-                        $("#AdedTurismo").val(infoTramite[38].replace('$','').replace(',',''));
+                        $("#AdedFajam").val(infoTramite[38].replace('$','').replace(',',''));
+                    }
+                    if (infoTramite[39].replace('$','').replace(',','') > 0) {
+                        $("#AdedTS").val(infoTramite[39].replace('$','').replace(',',''));
+                    }
+                    if (infoTramite[40].replace('$','').replace(',','') > 0) {
+                        $("#AdedFondPension").val(infoTramite[40].replace('$','').replace(',',''));
+                    }
+                    if (infoTramite[41].replace('$','').replace(',','') > 0) {
+                        $("#AdedTurismo").val(infoTramite[41].replace('$','').replace(',',''));
                     }
     
-                    $("#montRetSinAded").val(infoTramite[21]);
-                    $("#montAdeudos").val(infoTramite[39]);
+                    $("#montRetSinAded").val(infoTramite[22]);
+                    $("#montAdeudos").val(infoTramite[37]);
                 }
 
                 if (modretiro == "C") {
@@ -403,7 +403,7 @@ $(document).ready(function () {
                 $("#numentr").val(infoTramite[5].substr(4,2));
                 $("#AnioEntr").val(infoTramite[5].substr(0,4));
                 $("#IdEntrega").val(infoTramite[5].substr(0,4) + infoTramite[5].substr(4,2));
-                $("#folioTram").val(infoTramite[41]);
+                $("#folioTram").val(infoTramite[43]);
                 document.getElementById('cspMaeBusq').disabled = true;
                 $("#cveIMaeBusq").val(infoTramite[52]);
                 $("#estLaboral").val(estatLabMae);
@@ -417,17 +417,16 @@ $(document).ready(function () {
                 $("#TelPartiMae").val(infoTramite[13]);
                 $("#TelCelMae").val(infoTramite[12]);              
                 $("#nomSolic").val(infoTramite[11]);
-                $("#fechRecibido").val(infoTramite[27]);
+                $("#fechRecibido").val(infoTramite[28]);
                 document.getElementById('fechRecibido').disabled = true;
                 $("#fechBaseMae").val(infoTramite[60]);
                 $("#fechBajaMae").val(infoTramite[61]);
                 $("#DiasServOriginal").val(infoTramite[64]);
-            
                 $("#OpcTestamento").val(infoTramite[14]);
-                $("#fechCTJuicio").val(infoTramite[51]);
-                $("#numBenefs").val(infoTramite[16]);
+                $("#fechCTJuicio").val(infoTramite[15]);
+                $("#numBenefs").val(infoTramite[17]);
 
-                numbeneficiarios = infoTramite[16] - 1;
+                numbeneficiarios = infoTramite[17] - 1;
                 for (let j = 0; j < numbeneficiarios; j++) {
                     var elemntBenef = document.getElementById("DivBeneficiarios");
                     var clonElement = elemntBenef.cloneNode(true);
@@ -449,11 +448,11 @@ $(document).ready(function () {
                     for (let l = 0; l < datUpdateBenefs.length; l++) {
                         var infoBenefs = Object.values(datUpdateBenefs[l]);
                         a_nombres.push(infoBenefs[8]);
-                        a_curps.push(infoBenefs[30]);
-                        a_parentescos.push(infoBenefs[31]);
+                        a_curps.push(infoBenefs[31]);
+                        a_parentescos.push(infoBenefs[32]);
                         a_porcentajes.push(infoBenefs[24]);
-                        a_edades.push(infoBenefs[34]);
-                        a_vida.push(infoBenefs[35]);
+                        a_edades.push(infoBenefs[33]);
+                        a_vida.push(infoBenefs[34]);
                     }
                     $("#nomsbenefs").val(a_nombres);
                     $("#curpsbenefs").val(a_curps);
@@ -468,32 +467,32 @@ $(document).ready(function () {
                 $("#aniosServMae").val(infoTramite[62]);
     
                 document.getElementById('aniosServMae').disabled = true;
-                $("#montRet").val(infoTramite[19].replace('$',''));
+                $("#montRet").val(infoTramite[20].replace('$',''));
                         
-                $("#monRetEntr").val(infoTramite[22].replace('$',''));
-                $("#montRetFF").val(infoTramite[24].replace('$',''));
-                $("#montSalMin").val(infoTramite[44].replace('$',''));
+                $("#monRetEntr").val(infoTramite[23].replace('$',''));
+                $("#montRetFF").val(infoTramite[25].replace('$',''));
+                $("#montSalMin").val(infoTramite[46].replace('$',''));
     
-                $numadedsM = infoTramite[49];
+                $numadedsM = infoTramite[36];
                 if ($numadedsM > 0) {
                     document.getElementById('CheckAdeudos').checked = true;
                     document.getElementById("DivDatsAdeudos").style.display = "block";
                             
-                    if (infoTramite[35].replace('$','').replace(',','') > 0) {
-                        $("#AdedFajam").val(infoTramite[35].replace('$','').replace(',',''));
-                    }
-                    if (infoTramite[36].replace('$','').replace(',','') > 0) {
-                        $("#AdedTS").val(infoTramite[36].replace('$','').replace(',',''));
-                    }
-                    if (infoTramite[37].replace('$','').replace(',','') > 0) {
-                        $("#AdedFondPension").val(infoTramite[37].replace('$','').replace(',',''));
-                    }
                     if (infoTramite[38].replace('$','').replace(',','') > 0) {
-                        $("#AdedTurismo").val(infoTramite[38].replace('$','').replace(',',''));
+                        $("#AdedFajam").val(infoTramite[38].replace('$','').replace(',',''));
+                    }
+                    if (infoTramite[39].replace('$','').replace(',','') > 0) {
+                        $("#AdedTS").val(infoTramite[39].replace('$','').replace(',',''));
+                    }
+                    if (infoTramite[40].replace('$','').replace(',','') > 0) {
+                        $("#AdedFondPension").val(infoTramite[40].replace('$','').replace(',',''));
+                    }
+                    if (infoTramite[41].replace('$','').replace(',','') > 0) {
+                        $("#AdedTurismo").val(infoTramite[41].replace('$','').replace(',',''));
                     }
     
-                    $("#montRetSinAded").val(infoTramite[21]);
-                    $("#montAdeudos").val(infoTramite[39]);
+                    $("#montRetSinAded").val(infoTramite[22]);
+                    $("#montAdeudos").val(infoTramite[37]);
                 }
 
                 if (modretiro == "C") {

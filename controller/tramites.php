@@ -32,7 +32,7 @@
             break;
 
         case 'obtenRetiro':
-            $a_get_paramRet = $tramite->get_Retiro($_POST["aniosserv"]);
+            $a_get_paramRet = $tramite->get_Retiro($_POST["aniosserv"],$_POST["fechBaja"]);
             if(is_array($a_get_paramRet)==true and count($a_get_paramRet)>0){
                 foreach($a_get_paramRet as $row){
                     $output["montret"] = $row["montRet"];
