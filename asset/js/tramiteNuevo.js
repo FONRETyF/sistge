@@ -1013,6 +1013,7 @@ const accioFechTEstmnt = document.querySelector("#fechCTJuicio");
 accioFechTEstmnt.addEventListener("blur", function (evento) {
     evento.preventDefault();
 
+    alert("MENSAJE DE ALERTA");
     var tipTestamento = document.getElementById('OpcTestamento').value;
     var validAnioFechCTJuic = false;
 
