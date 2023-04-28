@@ -154,7 +154,6 @@ $("#TelCelMae").change(function () {
 });
 
 $("#cveIMaeBusq").change(function() {
-    clavemae = $("#cveIMaeBusq").val();
     claveisemym = document.getElementById("cveIMaeBusq").value;
 
     if (claveisemym.length < 3 ) {
@@ -165,6 +164,7 @@ $("#cveIMaeBusq").change(function() {
     }
     
     if (motivo == "FJ") {
+        clavemae = $("#cveIMaeBusq").val();
         if (claveisemym.length <= 6 && $("#cveIMaeBusq").val() != ""){
             $.post("../../controller/maestro.php?op=buscarJub",{claveisemym:claveisemym},function(dataJ){ 
                 if(jQuery.isEmptyObject(dataJ)){
@@ -1013,7 +1013,6 @@ const accioFechTEstmnt = document.querySelector("#fechCTJuicio");
 accioFechTEstmnt.addEventListener("blur", function (evento) {
     evento.preventDefault();
 
-    alert("MENSAJE DE ALERTA");
     var tipTestamento = document.getElementById('OpcTestamento').value;
     var validAnioFechCTJuic = false;
 
@@ -1036,6 +1035,7 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                     $.post("../../controller/tramites.php?op=validFechaCTJuic",{tipoTestamento:tipTestamento,FBase:document.getElementById('fechBaseMae').value,FBaja:document.getElementById('fechBajaMae').value,FCTJuicio:document.getElementById('fechCTJuicio').value,FRecibido:document.getElementById('fechRecibido').value},function(data){
                         data = JSON.parse(data);
                         var resultValidVig = data.resultValid;
+                        alert(resultValidVig);
                         switch (resultValidVig) {
                             case 'correcto':
                                 validAnioFechCTJuic = true;
@@ -1151,7 +1151,7 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                 break;
             
             case 'J':
-                alert("MENSAJE ALERTA JUICIO");
+                
                 if (isNaN(Date.parse(document.getElementById('fechCTJuicio').value)) && document.getElementById('fechCTJuicio').value == "") {
                     document.getElementById("calcDiasAnios").disabled = true;
                     document.getElementById("editaBefens").disabled = true;
@@ -1162,7 +1162,6 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                     validAnioFechCTJuic = false;
                     document.getElementById('calcDiasAnios').disabled = true;
                 } else {
-                    alert(tipTestamento + "----" + document.getElementById('fechBaseMae').value + "---" + document.getElementById('fechBajaMae').value + "---" + document.getElementById('fechRecibido').value);
                     $.post("../../controller/tramites.php?op=validFechaCTJuic",{tipoTestamento:tipTestamento,FBase:document.getElementById('fechBaseMae').value,FBaja:document.getElementById('fechBajaMae').value,FCTJuicio:document.getElementById('fechCTJuicio').value,FRecibido:document.getElementById('fechRecibido').value},function(data){
                         data = JSON.parse(data);
                         var resultValidVig = data.resultValid;
