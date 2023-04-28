@@ -1151,6 +1151,7 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                 break;
             
             case 'J':
+                alert("MENSAJE ALERTA JUICIO");
                 if (isNaN(Date.parse(document.getElementById('fechCTJuicio').value)) && document.getElementById('fechCTJuicio').value == "") {
                     document.getElementById("calcDiasAnios").disabled = true;
                     document.getElementById("editaBefens").disabled = true;
@@ -1161,6 +1162,7 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                     validAnioFechCTJuic = false;
                     document.getElementById('calcDiasAnios').disabled = true;
                 } else {
+                    alert(tipTestamento + "----" + document.getElementById('fechBaseMae').value + "---" + document.getElementById('fechBajaMae').value + "---" + document.getElementById('fechRecibido').value);
                     $.post("../../controller/tramites.php?op=validFechaCTJuic",{tipoTestamento:tipTestamento,FBase:document.getElementById('fechBaseMae').value,FBaja:document.getElementById('fechBajaMae').value,FCTJuicio:document.getElementById('fechCTJuicio').value,FRecibido:document.getElementById('fechRecibido').value},function(data){
                         data = JSON.parse(data);
                         var resultValidVig = data.resultValid;
