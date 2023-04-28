@@ -1069,7 +1069,9 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                     }
                     $.post("../../controller/tramites.php?op=validVigTramFA",{tipoTestamento:tipTestamento,ClaveMae:clavemae,FBase:document.getElementById('fechBaseMae').value,FBaja:document.getElementById('fechBajaMae').value,FCTJuicio:document.getElementById('fechCTJuicio').value,FRecibido:document.getElementById('fechRecibido').value},function(data){
                         data = JSON.parse(data);
+                        
                         var resultValidVig = data.resulValidVig;
+                        alert(resultValidVig);
                         if (resultValidVig == 'vigenciaVal') {
                             alert("FECHAS VALIDAS");
                             document.getElementById("calcDiasAnios").disabled = false;
