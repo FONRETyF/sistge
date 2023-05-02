@@ -72,7 +72,8 @@
             break;
 
         case 'validVigTramFA':
-            $a_getVigTramJuicio = $tramite -> validVigTramFA($_POST['tipoTestamento'],$_POST['ClaveMae'],$_POST['FBase'],$_POST['FBaja'],$_POST['FJuicio'],$_POST['FRecibido']);
+            $a_getVigTramJuicio = $tramite -> validVigTramFA($_POST['tipoTestamento'],$_POST['ClaveMae'],$_POST['FBase'],$_POST['FBaja'],$_POST['FCTJuicio'],$_POST['FRecibido']);
+            
             echo json_encode($a_getVigTramJuicio, JSON_FORCE_OBJECT);
             break;
 

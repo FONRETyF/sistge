@@ -1067,11 +1067,11 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                     if (motivo) {
                         
                     }
+                
                     $.post("../../controller/tramites.php?op=validVigTramFA",{tipoTestamento:tipTestamento,ClaveMae:clavemae,FBase:document.getElementById('fechBaseMae').value,FBaja:document.getElementById('fechBajaMae').value,FCTJuicio:document.getElementById('fechCTJuicio').value,FRecibido:document.getElementById('fechRecibido').value},function(data){
                         data = JSON.parse(data);
                         
                         var resultValidVig = data.resulValidVig;
-                        alert(resultValidVig);
                         if (resultValidVig == 'vigenciaVal') {
                             alert("FECHAS VALIDAS");
                             document.getElementById("calcDiasAnios").disabled = false;
@@ -1155,13 +1155,12 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                 break;
             
             case 'J':
-                
                 if (isNaN(Date.parse(document.getElementById('fechCTJuicio').value)) && document.getElementById('fechCTJuicio').value == "") {
                     document.getElementById("calcDiasAnios").disabled = true;
                     document.getElementById("editaBefens").disabled = true;
                     Swal.fire(
                         'ERROR',
-                        'La fecha de la carta testamentaria no es correcta, verifiquela!!!'
+                        'La fecha del JUICIO no es correcta, verifiquela!!!'
                     );
                     validAnioFechCTJuic = false;
                     document.getElementById('calcDiasAnios').disabled = true;
@@ -1234,8 +1233,9 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                             document.getElementById("DivFechInicioJuicio").style.display = "block";
                             document.getElementById("editaBefens").disabled = true;
                             document.getElementById("calcDiasAnios").disabled = true;
+                            document.getElementById("fechCTJuicio").disabled = true;
                             Swal.fire(
-                                "VIGENCIA DEL JUICIO NO VALIDA",
+                                "VIGENCIA DEL TRAMITE CADUCO",
                                 'proporcione la fecha de inicio del juicio!!'
                             );
                         } else if (resultValidVig == 'noProcede') {

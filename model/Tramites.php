@@ -198,7 +198,7 @@ use function PHPSTORM_META\type;
                     return $validesFechs;
                 } else {
                     $validesFechs["descResult"] = "noProcede";
-                    $validesFechs["diasServ"] = "El JUICIO se tramito fuera el limite de vigencia del retiro";
+                    $validesFechs["diasServ"] = "Tramite no pocedente, Juicio se tramito fuera el limite de vigencia del retiro";
                     return $validesFechs;
                 }
             } else {
@@ -214,6 +214,7 @@ use function PHPSTORM_META\type;
 
             $VigBajaRecib = $this -> validaVigencia($fechBaja,$fechRecibido);
             $vigJuicRecib = $this -> calculaDifFechas($fechJuicio,$fechRecibido);
+            $vigBajaJuic = $this -> calculaDifFechas($fechBaja,$fechJuicio);    
             
             $statement = $this->db->prepare("SELECT * FROM public.prorrogas WHERE cvemae=? and estatuspro='ACTIVA'");
             $statement->bindValue(1,$clavemae);
@@ -246,21 +247,27 @@ use function PHPSTORM_META\type;
                     break;
 
                 case 'J':
-                    if (($VigBajaRecib / 365) <= 1 && ($vigJuicRecib / 365) <= 1) {
+                    if (($VigBajaRecib / 365) <= 1 && ($vigJuicRecib / 365) <= 1 && ($vigBajaJuic / 365) <= 1) {
                         $a_validVigTram['resulValidVig'] = "vigenciaVal";
                         $a_validVigTram['diasVig'] = $VigBajaRecib;
                         return $a_validVigTram;
-                    }elseif (($VigBajaRecib / 365) > 1 && ($vigJuicRecib / 365) > 1) {
+                    }elseif (($vigJuicRecib / 365) <= 1 && ($VigBajaRecib / 365) > 1 && ($vigBajaJuic / 365) > 1) {
+                        $a_validVigTram['resulValidVig'] = "fechaIni";
+                        $a_validVigTram['diasVig'] = $vigBajaJuic;
+                        return $a_validVigTram;
+                    }elseif (($VigBajaRecib / 365) > 1 && ($vigJuicRecib / 365) > 1 && ($vigBajaJuic / 365) > 1) {
+                        if (count($results) == 0) {
+                            $a_validVigTram['resulValidVig'] = "noProcede";
+                            $a_validVigTram['diasVig'] = "No procede por vigencia de tramite";
+                            return $a_validVigTram;
+                        }else {
+                            $a_validVigTram['resulValidVig'] = "vigenciaVal";
+                            $a_validVigTram['diasVig'] = $VigBajaRecib;
+                            return $a_validVigTram;
+                        }
+                    }elseif (($VigBajaRecib / 365) > 1 && ($vigJuicRecib / 365) > 1 && ($vigBajaJuic / 365) <= 1) {
                         $a_validVigTram['resulValidVig'] = "noProcede";
                         $a_validVigTram['diasVig'] = "No procede por vigencia de tramite";
-                        return $a_validVigTram;
-                    }elseif (($VigBajaRecib / 365) > 1 && ($vigJuicRecib / 365) <= 1) {
-                        $a_validVigTram['resulValidVig'] = "fechaIni";
-                        $a_validVigTram['diasVig'] = $VigBajaRecib;
-                        return $a_validVigTram;
-                    }elseif (($VigBajaRecib / 365) <= 1 && ($vigJuicRecib / 365) > 1 && count($results) == 0) {
-                        $a_validVigTram['resulValidVig'] = "noProcede";
-                        $a_validVigTram['diasVig'] = "No procede por vigencia de tramite y no tramito prorroga";
                         return $a_validVigTram;
                     }
                     break;
@@ -321,7 +328,7 @@ use function PHPSTORM_META\type;
                                 return $resultValidCTJuic;
                             }elseif ($fechactjuic < $fechabase && $fechactjuic > $fechabaja) {
                                 $resultValidCTJuic['resultValid'] = "errorFecha";
-                                $resultValidCTJuic['descValid'] = "La fecha de CT no pueder menor a la Base y mayor a la Baja, las fechas son incorrectas";
+                                $resultValidCTJuic['descValid'] = "La fecha de CT no puede ser menor a la Base y mayor a la Baja, las fechas son incorrectas";
                                 return $resultValidCTJuic;
                             }
                         }else {
@@ -350,6 +357,10 @@ use function PHPSTORM_META\type;
                             }elseif ($fechactjuic < $fechabase && $fechactjuic > $fechabaja) {
                                 $resultValidCTJuic['resultValid'] = "errorFecha";
                                 $resultValidCTJuic['descValid'] = "La fecha de JUICIO no pueder menor a la Base y mayor a la Baja, las fechas son incorrectas";
+                                return $resultValidCTJuic;
+                            }elseif ($fechactjuic == $fechabase || $fechactjuic == $fechabaja) {
+                                $resultValidCTJuic['resultValid'] = "errorFecha";
+                                $resultValidCTJuic['descValid'] = "La fecha de JUICIO es incorrecta no puede ser igual ala base o baja";
                                 return $resultValidCTJuic;
                             }
                         } else {
