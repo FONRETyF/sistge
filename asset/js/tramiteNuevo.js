@@ -1618,7 +1618,9 @@ function agregaRetFallecimiento() {
                                                         Iporcnsbenefs:document.getElementById('porcentsbenefs').value.split(","),
                                                         Iedadesbenefs:document.getElementById('edadesbenefs').value.split(","),
                                                         Ividabenefs:document.getElementById('vidasbenefs').value.split(","),
-                                                        Ifechtestamnt:$("#fechCTJuicio").val()
+                                                        Ifechtestamnt:$("#fechCTJuicio").val(),
+                                                        Icurpmae:$("#CURPMae").val(),
+                                                        Irfcmae: $("#RFCMae").val()
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
@@ -1686,7 +1688,9 @@ function agregajubilado() {
                                                         IfechOficAut:$("#fechOficAut").val(),
                                                         IimageOficTarj:$("#imageOficTarj").val(),
                                                         Inumbenefs:$("#numbenef").val(),
-                                                        IdiaHaber: $("#montSalMin").val().replace(",","")
+                                                        IdiaHaber: $("#montSalMin").val().replace(",",""),
+                                                        Icurpmae:$("#CURPMae").val(),
+                                                        Irfcmae: $("#RFCMae").val()
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;

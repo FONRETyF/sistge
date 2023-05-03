@@ -137,11 +137,6 @@
             break;
         
         case "actNomMae":
-            //echo ($_POST["cvemae"]);
-            //echo ($_POST["apepatModif"]);
-            //echo ($_POST["apematModif"]);
-            //echo ($_POST["nommaeModif"]);
-            //echo ($_POST["nomcomModif"]);
             $maestro->update_nomMae($_POST["apepatModif"],$_POST["apematModif"],$_POST["nommaeModif"],$_POST["nomcomModif"],$_SESSION['usuario'],$_POST["cvemae"]);
             break;
             

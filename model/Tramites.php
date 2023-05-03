@@ -408,7 +408,7 @@ use function PHPSTORM_META\type;
             return $dats_ret;            
         }
 
-        public function addTramiteJI($anioentr,$numentre,$identr,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$numdictam,$fechdictam,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$montretfall,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$diaHaber,$cveusu){
+        public function addTramiteJI($anioentr,$numentre,$identr,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$numdictam,$fechdictam,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$montretfall,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$diaHaber,$curpmae,$rfcmae,$cveusu){
             $a_resultAddTram = array();
             
             $get_ret = $this->get_retiro_Id($cvemae);
@@ -450,7 +450,7 @@ use function PHPSTORM_META\type;
                 }
 
             
-                $actualizaMae = $this->actualizaMaestroAct($cvemae,$cveissemym,$region,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$fechbajfall,$numpsgs,$diaspsgs,$fechinipsgs,$fechfinpsgs,$motvret,$modret,$cveusu,$fecha);
+                $actualizaMae = $this->actualizaMaestroAct($cvemae,$cveissemym,$region,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$fechbajfall,$numpsgs,$diaspsgs,$fechinipsgs,$fechfinpsgs,$motvret,$modret,$cveusu,$fecha,$curpmae,$rfcmae);
                 $a_resultAddTram["updateMaestro"] = $actualizaMae;
 
                 if ($modret == "C") {
@@ -488,7 +488,7 @@ use function PHPSTORM_META\type;
             }
         }
 
-        public function addtramiteF($anioentr,$numentre,$identr,$cvemae,$cveissemym,$estatlaboral,$motvret,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$testamento,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidabenefs,$fechtestamnt,$cveusu){
+        public function addtramiteF($anioentr,$numentre,$identr,$cvemae,$cveissemym,$estatlaboral,$motvret,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$testamento,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidabenefs,$fechtestamnt,$curpmae,$rfcmae,$cveusu){
             $a_resultAddTramF = array();
 
             $get_ret = $this->get_retiro_Id($cvemae);
@@ -535,7 +535,7 @@ use function PHPSTORM_META\type;
                     $a_resultAddTramF["insertTramite"] = "Existente";
                 }
                 
-                $actualizaMae = $this->actualizaMaestroAct($cvemae,$cveissemym,$region,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$fechbajfall,$numpsgs,$diaspsgs,$fechinipsgs,$fechfinpsgs,$motvret,$modret,$cveusu,$fecha);
+                $actualizaMae = $this->actualizaMaestroAct($cvemae,$cveissemym,$region,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$fechbajfall,$numpsgs,$diaspsgs,$fechinipsgs,$fechfinpsgs,$motvret,$modret,$cveusu,$fecha,$curpmae,$rfcmae);
                 $a_resultAddTramF["updateMaestro"] = $actualizaMae;
                 
                 $insertaCheques = $this->insertChequeF($anioentr,$numentre,$idretiro,$identregRet,$cvemae,$nomsbenefs,$numbenefs,$montretentr,$edadesbenefs,$porcsbenefs,$vidabenefs,$cveusu,$fecha,$motvret);
@@ -726,7 +726,7 @@ use function PHPSTORM_META\type;
             return $numfolio;
         }  
         
-        public function actualizaMaestroAct($cvemae,$cveissemym,$region,$numcelmae,$numpartmae,$fechbase,$diasserv,$aniosserv,$fechbaja,$numpsgs,$diaspsgs,$fechinipsgs,$fechfinpsgs,$motivret,$modalret,$usuario,$fecha){
+        public function actualizaMaestroAct($cvemae,$cveissemym,$region,$numcelmae,$numpartmae,$fechbase,$diasserv,$aniosserv,$fechbaja,$numpsgs,$diaspsgs,$fechinipsgs,$fechfinpsgs,$motivret,$modalret,$usuario,$fecha,$curpmae,$rfcmae){
             if ($modalret == "C") {
                 $afifonfall = 0;
             }else {
@@ -739,7 +739,7 @@ use function PHPSTORM_META\type;
             if ($motivret == "J" || $motivret == "I") {
                 try {
                     $statementUpdate = "UPDATE public.maestros_smsem";
-                    $statementUpdate = $statementUpdate . " SET cveissemym='".$cveissemym."', regescmae= ".$region ." , numcelmae='" .$numcelmae."', numfijmae='".$numpartmae."', fcbasemae='".$fechbase."', aservactmae=".$aniosserv.", fbajamae='".$fechbaja."', numpsgs=".$numpsgs.", diaspsgs=".$diaspsgs.", estatlabmae='". $motivret ."', cveusu='".$usuario."', fechmodif='".$fecha."', diaservactmae=".$diasserv.", afiprogfondfalle=".$afifonfall.", fechsinipsgs=' " .$fechaini."', fechsfinpsgs='".$fechafin."'";
+                    $statementUpdate = $statementUpdate . " SET cveissemym='".$cveissemym."', curpmae='".$curpmae."', rfcmae='".$rfcmae."', regescmae= ".$region ." , numcelmae='" .$numcelmae."', numfijmae='".$numpartmae."', fcbasemae='".$fechbase."', aservactmae=".$aniosserv.", fbajamae='".$fechbaja."', numpsgs=".$numpsgs.", diaspsgs=".$diaspsgs.", estatlabmae='". $motivret ."', cveusu='".$usuario."', fechmodif='".$fecha."', diaservactmae=".$diasserv.", afiprogfondfalle=".$afifonfall.", fechsinipsgs=' " .$fechaini."', fechsfinpsgs='".$fechafin."'";
                     $statementUpdate = $statementUpdate . " WHERE csp='" . $cvemae."';";
                     $statementUpdate = $this->db->prepare($statementUpdate);
                     $statementUpdate->execute();
@@ -1010,7 +1010,7 @@ use function PHPSTORM_META\type;
             }
         }
 
-        public function updateJubInha($anioentr,$numentre,$identr,$idretiro,$identregRet,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$numdictam,$fechdictam,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$montretfall,$fechrecib,$numoficautori,$fechautori,$imgautori,$diaHaber,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$cveusu){
+        public function updateJubInha($anioentr,$numentre,$identr,$idretiro,$identregRet,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$numdictam,$fechdictam,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$montretfall,$fechrecib,$numoficautori,$fechautori,$imgautori,$diaHaber,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$curpmae,$rfcmae,$cveusu){
             $a_resultUpdTram = array();
                         
             $fecha = "";
@@ -1039,7 +1039,7 @@ use function PHPSTORM_META\type;
                 $a_resultUpdTram["updateTramite"] = "Fallo";
             }
 
-            $actualizaMae = $this->actualizaMaestroAct($cvemae,$cveissemym,$region,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$fechbajfall,$numpsgs,$diaspsgs,$fechinipsgs,$fechfinpsgs,$motvret,$modret,$cveusu,$fecha);
+            $actualizaMae = $this->actualizaMaestroAct($cvemae,$cveissemym,$region,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$fechbajfall,$numpsgs,$diaspsgs,$fechinipsgs,$fechfinpsgs,$motvret,$modret,$cveusu,$fecha,$curpmae,$rfcmae);
             $a_resultUpdTram["updateMaestro"] = $actualizaMae;
 
             $a_get_cheques = $this->obtenMaxCheque($identregRet,$cvemae);
@@ -1118,7 +1118,7 @@ use function PHPSTORM_META\type;
             return $a_resultUpdTram;
         }
 
-        public function updateFA($anioentr,$numentre,$identr,$idretiro,$identregRet,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidasbenefs,$testamento,$fechtestamnt,$cveusu){
+        public function updateFA($anioentr,$numentre,$identr,$idretiro,$identregRet,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidasbenefs,$testamento,$fechtestamnt,$curpmae,$rfcmae,$cveusu){
             $a_resultUpdTramFA = array();
             $fecha = "";
             $fecha = date("Y-m-d H:i:s");
@@ -1153,7 +1153,7 @@ use function PHPSTORM_META\type;
                 $a_resultUpdTramFA["updateTramite"] = "Fallo";
             }
 
-            $actualizaMae = $this->actualizaMaestroAct($cvemae,$cveissemym,$region,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$fechbajfall,$numpsgs,$diaspsgs,$fechinipsgs,$fechfinpsgs,$motvret,$modret,$cveusu,$fecha);
+            $actualizaMae = $this->actualizaMaestroAct($cvemae,$cveissemym,$region,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$fechbajfall,$numpsgs,$diaspsgs,$fechinipsgs,$fechfinpsgs,$motvret,$modret,$cveusu,$fecha,$curpmae,$rfcmae);
             $a_resultUpdTramFA["updateMaestro"] = $actualizaMae;
 
             $nombresB = explode(",",$nomsbenefs);

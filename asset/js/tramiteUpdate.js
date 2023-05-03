@@ -1,6 +1,6 @@
 var motivo = "";
 var programfallec = "";
-var clavemae;
+var clavemae = "";
 var contPSGS = 0;
 var idretiro = '';
 var paramidret = '';
@@ -89,6 +89,8 @@ $(document).ready(function () {
                     $("#fechBaseMae").val(infoTramite[56]);
                     $("#fechBajaMae").val(infoTramite[58]);
                     $("#DiasServOriginal").val(infoTramite[78]);
+
+                    clavemae = document.getElementById("cspMaeBusq").value;
 
                     if (infoTramite[59] == 0) {
                         document.getElementById('sinPSGS').checked = true;
@@ -278,6 +280,8 @@ $(document).ready(function () {
                 $("#fechBajaMae").val(infoTramite[58]);
                 $("#DiasServOriginal").val(infoTramite[69]);
 
+                clavemae = document.getElementById("cspMaeBusq").value;
+
                 if (infoTramite[59] == 0) {
                     document.getElementById('sinPSGS').checked = true;
                     document.getElementById('editaPSGS').disabled = true;
@@ -425,6 +429,8 @@ $(document).ready(function () {
                 $("#OpcTestamento").val(infoTramite[14]);
                 $("#fechCTJuicio").val(infoTramite[15]);
                 $("#numBenefs").val(infoTramite[17]);
+
+                clavemae = document.getElementById("cveIMaeBusq").value;
 
                 numbeneficiarios = infoTramite[17] - 1;
                 for (let j = 0; j < numbeneficiarios; j++) {
@@ -1693,7 +1699,9 @@ function actualizaJubInha() {
                                                         UadedTurismo: $("#AdedTurismo").val().replace(",",""),
                                                         UmontAdeds: $("#montAdeudos").val().replace(",",""),
                                                         UmontretSnAdeds:$("#montRetSinAded").val().replace(",",""),
-                                                        Unumadeds: numadeds
+                                                        Unumadeds: numadeds,
+                                                        Ucurpmae:document.getElementById('CURPMae').value,
+                                                        Urfcmae:document.getElementById('RFCMae').value
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
@@ -1799,7 +1807,9 @@ function actualizaFallAct() {
                                                         Uedadbenefs:$("#edadesbenefs").val(),
                                                         Uvidabenefs:$("#vidasbenefs").val(),
                                                         Udoctestamnt:$("#OpcTestamento").val(),
-                                                        Ufechdoctestmnt:$("#fechCTJuicio").val()
+                                                        Ufechdoctestmnt:$("#fechCTJuicio").val(),
+                                                        Ucurpmae:document.getElementById('CURPMae').value,
+                                                        Urfcmae:document.getElementById('RFCMae').value
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
