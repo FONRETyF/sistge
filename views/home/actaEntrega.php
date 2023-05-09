@@ -474,8 +474,6 @@
                     default:
                         break;
                 }
-
-
             } else {
                 $pdf->SetXY(3,15.3);
                 $pdf->SetFont('Arial','',12);
@@ -601,6 +599,37 @@
                         $pdf->Ln(1.8);
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[4]["nombenef"]),0,0, 'C');
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[5]["nombenef"]),0,0, 'C');
+                        break;
+                    case '7':
+                        $pdf->Ln(0.7);
+                            
+                        $pdf->SetFont('Arial','B',10);
+                        $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
+    
+                        $pdf->Ln(1.8);
+                        $pdf->SetFont('Arial','',10);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[0]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[1]["nombenef"]),0,0, 'C');
+                        $pdf->Ln(1.8);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[2]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[3]["nombenef"]),0,0, 'C');
+                        $pdf->Ln(1.8);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[4]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[5]["nombenef"]),0,0, 'C');
+    
+                        $pdf->AddPage();
+                        $pdf->Ln(1.8);
+                        $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[6]["nombenef"]),0,0, 'C');
+    
+                        break;
+                    case '8':
+                        # code...
+                        break;
+                    case '9':
+                        # code...
+                        break;
+                    case '10':
+                        # code...
                         break;
                     default:
                         break;

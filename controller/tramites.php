@@ -73,7 +73,6 @@
 
         case 'validVigTramFA':
             $a_getVigTramJuicio = $tramite -> validVigTramFA($_POST['tipoTestamento'],$_POST['ClaveMae'],$_POST['FBase'],$_POST['FBaja'],$_POST['FCTJuicio'],$_POST['FRecibido']);
-            
             echo json_encode($a_getVigTramJuicio, JSON_FORCE_OBJECT);
             break;
 
@@ -88,7 +87,7 @@
             break;
 
         case 'validaVigFechas':
-            $a_validFechIniJuic = $tramite->validaInicioJuic($_POST['fechRecibido'],$_POST['fechBaja'],$_POST['fechIniJuic']);
+            $a_validFechIniJuic = $tramite->validaInicioJuic($_POST['fechRecibido'],$_POST['fechBaja'],$_POST['fechIniJuic'],$_POST['fechCTJuic']);
             echo json_encode($a_validFechIniJuic, JSON_FORCE_OBJECT);
             break;
 

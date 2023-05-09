@@ -10,10 +10,11 @@
 }
 
 /* INICIAN ESTILOS GENERALES */
+html{
+  height: 100%;
+}
 body{
-  font-family: 'Poppins', sans-serif;
-  min-height: 100vh;
-  min-width: 100vh;
+  font-family: 'Poppins','Roboto', 'Sans-serif';
 }
 a{
   width: 400px;
@@ -29,40 +30,207 @@ header{
   border-radius: 3px;
   box-shadow: 0px 2px 7px rgba(0,0,0,0.1);
 }
+footer{
+  background: linear-gradient(to right, #187c0431,white, rgba(255, 0, 0, 0.185));
+  width: 100%;
+  /*height: 50px;
+  margin: 0 auto;
+  justify-content: space-around;*/
+}
 /* TERMINA ESTILOS GENERALES */
 
 
 
 /* INICIAN ESTILOS DE INDEX */
 .fondoIndex{
-  margin: 0 auto;
-  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(to right, #187c042f,white, rgba(255, 0, 0, 0.178));
+  margin: auto;
+  height: 100%;
+  
+}
+.tituloPrincipal{
+  font-family: 'Trebuchet MS';
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  padding-top: 30px;
+}
+.tituloLema{
+  font-family:'Arial Narrow Bold', sans-serif;
+  text-align: center;
+  font-size: 35px;
+  font-weight: bolder;
+  padding-top: 12px;
 }
 .divPrincipalEscudo{
   width: 100%;
-  height: 400px;
-  margin: 50px auto;
-  display: inline-block;
+  height: 80px;
+  margin: auto;
+  padding-top: 20px;
   text-align: center;
+}
+.escudoSMSEM{
+  animation: movimiento 2.5s linear infinite;
 }
 .divPrincipalBtnIni{
   width: 100%;
-  height: 80px;   
-  text-align: center; 
+  height: 70px;   
+  
+}
+.divPrincipalBtnIni a{
+  margin: auto;   
+  
+}
+.sectPrinAcceso{
+  margin: 100px auto;
+  width: 100%;
+  height: 220px;
 }
 .botonP{
-  color: black;
+  position: relative;
+  display: block;
+  color: rgb(25, 65, 3);
+  font-size: 20px;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-decoration: none;
+  margin: 30px 0;
+  /*border: 2px solid red;*/
+  padding: 14px 60px;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 1s all case;
+  text-align: center;
+
+  /*color: black;
+  font-family: sans-serif;
   border-top: .2em solid rgb(2, 2, 75);
   border-bottom: .2em solid rgb(2, 2, 75);
   border-left: .2em solid rgb(30, 7, 233);
   border-right: .2em solid rgb(30, 7, 233);
   text-decoration: none;
   padding: 5px;
+  width: 10px;*/
 }
-.botonP:hover{
+.botonP::before{
+  background: #0d0d0e;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: -1;
+  transition: all 0.5s ease;
+}
+.botonF::before{
+  width: 0%;
+  height: 100%;
+}
+.botonF:hover::before{
+  width: 100%;
+}
+.botonCT::before{
+  width: 100%;
+  height: 0%;
+}
+.botonCT:hover::before{
+  height: 100%;
+}
+.botonSA::before{
+  width: 100%;
+  height: 0%;
+  transform: translate(-50%,-50%) rotate(45deg);
+}
+.botonSA:hover::before{
+  height: 380%;
+}
+.imgBurbuja{
+  position: absolute;
+  bottom: -150;
+
+  animation: burbujas 3s linear infinite;
+}
+.imgBurbuja:nth-child(0){
+  left: 8%;
+  animation-duration: 7s;
+}
+.imgBurbuja:nth-child(1){
+  left: 15%;
+  animation-duration: 5s;
+}
+.imgBurbuja:nth-child(2){
+  left: 25%;
+  animation-duration: 7s;
+}
+.imgBurbuja:nth-child(3){
+  left: 35%;
+  animation-duration: 3s;
+}
+.imgBurbuja:nth-child(4){
+  left: 45%;
+  animation-duration: 8s;
+}
+.imgBurbuja:nth-child(5){
+  left: 55%;
+  animation-duration: 4s;
+}
+.imgBurbuja:nth-child(6){
+  left: 65%;
+  animation-duration: 6s;
+}
+.imgBurbuja:nth-child(7){
+  left: 75%;
+  animation-duration: 9s;
+}
+.imgBurbuja:nth-child(8){
+  left: 85%;
+  animation-duration: 5s;
+}
+.imgBurbuja:nth-child(9){
+  left: 95%;
+  animation-duration: 4s;
+}
+@keyframes burbujas{
+  0%{
+    bottom: 0;
+    opacity: .3;
+  }
+  30%{
+    transform: translateX(30px);
+  }
+  50%{
+    opacity: .7;
+  }
+  100%{
+    bottom: 100vh;
+    opacity: .3;
+  }
+}
+@keyframes movimiento{
+  0%{
+    transform: translateZ(0);
+  }
+  50%{
+    transform: translateZ(40px);
+  }
+  100%{
+    transform: translateZ(0);
+  }
+}
+/*.botonP:hover{
   border: 3px solid rgb(8, 216, 8);
   font-weight:bold;
   color: rgb(4, 85, 2);
+}*/
+.redesSociales{
+  height: 30px;
+  width: 20%;
+  margin: auto;
+}
+.redesSociales a{
+  justify-content: space-between;
+  margin: 15px;
 }
 /* TERMINAN ESTILOS DE INDEX */
 

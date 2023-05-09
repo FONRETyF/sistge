@@ -230,7 +230,7 @@ $("#cveIMaeBusq").change(function() {
                         });
                     } else if (motivo == "nuevo" || estatusmae == "F") {
                         Swal.fire(
-                            'No se puede dar de alta un tramite con esta clave qu etiene estatus de Fallecido'                            
+                            'No se puede dar de alta un tramite con esta clave que tiene estatus de Fallecido'                            
                         ).then((result)=>{
                             let pagAnterior = document.referrer;
                             if (pagAnterior.indexOf(window.location.host) !== -1) {
@@ -1008,7 +1008,6 @@ accionFechBase.addEventListener("blur", function (evento) {
     }
 });
 
-
 const accioFechTEstmnt = document.querySelector("#fechCTJuicio");
 accioFechTEstmnt.addEventListener("blur", function (evento) {
     evento.preventDefault();
@@ -1176,6 +1175,7 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                                     break;
                                 
                                 case 'errorFecha':
+                                    alert("dfdfgdgfdg");
                                     notifError = data.descValid;    
                                     Swal.fire(
                                         notifError,
@@ -1276,7 +1276,7 @@ accioFechIniJuic.addEventListener("blur", function (evento) {
 
     if (parseInt(document.getElementById('fechIniJuicio').value.slice(0,4)) > 2020 && parseInt(document.getElementById('fechIniJuicio').value.slice(0,4)) < 2024) {
         document.getElementById("fechCTJuicio").style.border =  ".1em black solid";
-        $.post("../../controller/tramites.php?op=validaVigFechas",{fechRecibido:document.getElementById('fechRecibido').value,fechBaja:document.getElementById('fechBajaMae').value,fechIniJuic:document.getElementById('fechIniJuicio').value},function(data){
+        $.post("../../controller/tramites.php?op=validaVigFechas",{fechRecibido:document.getElementById('fechRecibido').value,fechBaja:document.getElementById('fechBajaMae').value,fechIniJuic:document.getElementById('fechIniJuicio').value,fechCTJuic:document.getElementById('fechCTJuicio').value},function(data){
             data = JSON.parse(data);
             resultValidFI = data.descResult;
             
@@ -1297,6 +1297,8 @@ accioFechIniJuic.addEventListener("blur", function (evento) {
                     break;
                 
                 case 'noProcede':
+                    document.getElementById("calcDiasAnios").disabled = true;
+                    document.getElementById("editaBefens").disabled = true;
                     Swal.fire(
                         "TRAMITE NO PROCEDENTE",
                         'Tramite fuera del limite de vigencia para su validez'
