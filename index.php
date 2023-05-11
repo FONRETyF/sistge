@@ -33,7 +33,7 @@
         </div>
       </section>
     </div>
-    <div class="imgBurbujas">
+    <!--<div class="imgBurbujas">
       <div class="imgBurbuja"><img class="escudoSMSEM" src="sistge/img/escudosmsem.png" width="80" height="80"></div>
       <div class="imgBurbuja"><img class="escudoSMSEM" src="sistge/img/logoplanilla.png" width="70" height="70"></div>
       <div class="imgBurbuja"><img class="escudoSMSEM" src="sistge/img/escudosmsem.png" width="65" height="65"></div>
@@ -44,7 +44,7 @@
       <div class="imgBurbuja"><img class="escudoSMSEM" src="sistge/img/logoplanilla.png" width="30" height="30"></div>
       <div class="imgBurbuja"><img class="escudoSMSEM" src="sistge/img/escudosmsem.png" width="80" height="80"></div>
       <div class="imgBurbuja"><img class="escudoSMSEM" src="sistge/img/logoplanilla.png" width="70" height="70"></div>
-    </div>
+    </div>-->
     <footer>
       <div class="redesSociales">
         <a href="https://www.facebook.com/SMSEMmx/"><img class="logo" src="sistge/img/fb_logo.png" alt="Facebook SMSEM" width="30" height="30"></a>

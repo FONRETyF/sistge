@@ -1881,9 +1881,9 @@ thead th:nth-child(10){
 thead th:nth-child(11){
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(12){
+/*thead th:nth-child(12){
   border: 1.5px solid rgb(2, 48, 4);
-}
+}*/
 #benefs_data{
   font-size: 12px;
 }

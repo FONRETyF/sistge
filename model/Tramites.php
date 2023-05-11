@@ -116,24 +116,59 @@ use function PHPSTORM_META\type;
                 
         }
 
-        public function validaFechasFA($clavemae,$motret,$diasInacPsgs,$NumPersgs,$fechRecibido,$fechBaseMae,$fechBajaMae){
+        public function validaFechasFA($clavemae,$motret,$diasInacPsgs,$NumPersgs,$fechRecibido,$fechBaseMae,$fechBajaMae,$fechIniJ,$fechaInicJuic,$tiptest,$fechJuiCTL){
             $validesFechs = array();
             $dias_Serv = array();
             $i=0;
 
             if ($fechRecibido > $fechBaseMae && $fechRecibido > $fechBajaMae) {
                 if ($fechBaseMae < $fechBajaMae) {
-                    $vigenciaTram = $this -> validaVigencia($fechBajaMae,$fechRecibido);
-                    if (($vigenciaTram/365) < 1) {
+                    $vigenciaTramBR = $this -> validaVigencia($fechBajaMae,$fechRecibido);
+                    if (($vigenciaTramBR/365) <= 1) {
                         $dias_Serv["descResult"] = "vigenciaVal";
                         $dias_Serv["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
                         return $dias_Serv;
-                    } else {
-                        $validesFechs["descResult"] = "vigenciaCad";
-                        $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
-                        $validesFechs["excepcion"] = "SI";
-                        $validesFechs["prorroga"] = "NO";
-                        return $validesFechs;
+                    } elseif(($vigenciaTramBR/365) > 1 && $fechIniJ == 1) {
+                        $vigenciaTramBInJuic = $this -> validaVigencia($fechBajaMae,$fechaInicJuic);
+                        $vigenciaTramJuiR = $this -> validaVigencia($fechJuiCTL,$fechRecibido);
+                        if (($vigenciaTramBInJuic/365) <= 1 && ($vigenciaTramJuiR/365) <= 1) {
+                            $dias_Serv["descResult"] = "vigenciaVal";
+                            $dias_Serv["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
+                            return $dias_Serv;
+                        } elseif (($vigenciaTramBInJuic/365) > 1 && ($vigenciaTramJuiR/365) <= 1) {
+                            $validesFechs["descResult"] = "vigenciaCad";
+                            $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
+                            $validesFechs["excepcion"] = "SI";
+                            $validesFechs["prorroga"] = "NO";
+                            return $validesFechs;
+                        } elseif (($vigenciaTramBInJuic/365) <= 1 && ($vigenciaTramJuiR/365) > 1) {
+                            $validesFechs["descResult"] = "vigenciaCad";
+                            $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
+                            $validesFechs["excepcion"] = "SI";
+                            $validesFechs["prorroga"] = "NO";
+                            return $validesFechs;
+                        }
+                    }elseif (($vigenciaTramBR/365) > 1 && $fechIniJ == 0) {
+                        $vigenciaTramBJuic = $this -> validaVigencia($fechBajaMae,$fechJuiCTL);
+                        $vigenciaTramJuiR = $this -> validaVigencia($fechJuiCTL,$fechRecibido);
+
+                        if (($vigenciaTramBJuic/365) <= 1 && ($vigenciaTramJuiR/365) <= 1){
+                            $dias_Serv["descResult"] = "vigenciaVal";
+                            $dias_Serv["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
+                            return $dias_Serv;
+                        }elseif (($vigenciaTramBJuic/365) > 1 && ($vigenciaTramJuiR/365) <= 1) {
+                            $validesFechs["descResult"] = "vigenciaCad";
+                            $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
+                            $validesFechs["excepcion"] = "SI";
+                            $validesFechs["prorroga"] = "NO";
+                            return $validesFechs;
+                        } elseif (($vigenciaTramBJuic/365) <= 1 && ($vigenciaTramJuiR/365) > 1) {
+                            $validesFechs["descResult"] = "vigenciaCad";
+                            $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
+                            $validesFechs["excepcion"] = "SI";
+                            $validesFechs["prorroga"] = "NO";
+                            return $validesFechs;
+                        }
                     }
                 } else {
                     $validesFechs["descResult"] = "errorFecha";
@@ -189,7 +224,6 @@ use function PHPSTORM_META\type;
         public function validaInicioJuic($fecharecibido,$fechabaja,$fechainiciojuicio,$fechCTJuic){
             $validesFechs = array();
             
-            echo("fdsfghtrtrhjyjuyj");
             $vigBajIniJuic = $this -> validaVigencia($fechabaja,$fechainiciojuicio);
 
             if ($fechainiciojuicio < $fechCTJuic && $fechainiciojuicio > $fechabaja) {

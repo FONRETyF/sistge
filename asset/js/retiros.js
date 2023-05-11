@@ -71,8 +71,8 @@ $(document).ready(
             {width: "3px",targets:7},
             {width: "3px",targets:8},
             {width: "3px",targets:9},
-            {width: "3px",targets:10},
-            {width: "3px",targets:11}
+            {width: "3px",targets:10}
+            //{width: "3px",targets:11}
         ]
     }).DataTable();   
     

@@ -35,7 +35,7 @@
                         <img src="../../img/new-document.png" alt="Nuevo tramite" title="Nuevo tramite" height="30" width="30"  onclick="tramiteNuevo()"></button> -->    
                     <a id="asignFol" class="btnsOperations" href="#"><img src="../../img/asignafolio.png" alt="Asigna folios" title="Asigna folios" height="45" width="45"></a>
                     <a id="printLists" class="btnsOperations" href="#"><img src="../../img/imprimeListados.png" alt="Imprimir listados" title="Imprimir listados" height="35" width="35"></a>
-                    <!--<a id="generateXls" class="btnsOperations" href="#"><img src="../../img/xls.png" alt="Generar archivo informatica" title="Generar archivo informatica" height="35" width="35"></a>-->
+                    <a id="cancelCheqs" class="btnsOperations" href="#"><img src="../../img/cancelar.png" alt="Cancelar cheques" title="Cancelar cheques" height="40" width="40"></a>
                 </div>
             </div>
             <div id="ResultConsultRets">
@@ -54,7 +54,7 @@
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>
-                            <th class="wd-15p"></th>
+                            <!--<th class="wd-15p"></th>-->
                         </tr>
                     </thead>
                 </table>

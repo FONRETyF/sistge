@@ -511,7 +511,7 @@ function validaFechas(valorValid, a_fechs) {
     if (valorValid == 4) {
         motret = $("#OpcCauRetiro").val();
         NumPersgs = $("#numPsgs").val();
-        diasInacPsgs = $("#diasPsgs").val();
+        diasInacPsgs = $("#diasPsgs").val();  
         $.post("../../controller/tramites.php?op=validaFechs",{clavemae:clavemae,motret:motret,diasInacPsgs:diasInacPsgs,NumPersgs:NumPersgs,fechRecibido:a_fechs[0]["valorF"],fechDictamen:a_fechs[1]["valorF"],fechBaseMae:a_fechs[2]["valorF"],fechBajaMae:a_fechs[3]["valorF"]},function(data){
             data = JSON.parse(data);
             resultValid = data.descResult;
@@ -656,8 +656,14 @@ function validaFechas(valorValid, a_fechs) {
         NumPersgs = $("#numPsgs").val();
         diasInacPsgs = $("#diasPsgs").val();
         
+        var fechIniJuic = 0;
+
         if (motret == "FA") {
-            $.post("../../controller/tramites.php?op=validaFechsFA",{clavemae:clavemae,motret:motret,diasInacPsgs:diasInacPsgs,NumPersgs:NumPersgs,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"]},function(data){
+            if ($("#fechIniJuicio").is(':visible')) {
+                fechIniJuic = 1;
+            } 
+
+            $.post("../../controller/tramites.php?op=validaFechsFA",{clavemae:clavemae,motret:motret,diasInacPsgs:diasInacPsgs,NumPersgs:NumPersgs,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"],fecInicioJuic:fechIniJuic,fechaIniJuic:document.getElementById('fechIniJuicio').value,tiptest:document.getElementById('OpcTestamento').value,fechJuiCTL:document.getElementById('fechCTJuicio').value},function(data){
                 data = JSON.parse(data);
                 resultValid = data.descResult;
                 switch (resultValid) {
@@ -745,7 +751,7 @@ function validaFechas(valorValid, a_fechs) {
                 }
             });
         }else if (motret == "FJ") {
-            alert("entro aqui para validra fechas FJ");
+            
             $.post("../../controller/tramites.php?op=validaFechsFJ",{clavemae:clavemae,motret:motret,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"]},function(data){
                 data = JSON.parse(data);
                 resultValid = data.descResult;
