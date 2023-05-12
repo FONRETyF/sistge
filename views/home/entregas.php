@@ -39,12 +39,13 @@
                     <caption>Entregas encontradas</caption>
                     <thead class="tab_entregas">
                         <tr>
-                            <th class="wd-15p"> Entrega </th>
+                            <th class="wd-15p"> Num </th>
                             <th class="wd-15p"> Año </th>
                             <th class="wd-15p"> Nombre Entrega </th>
                             <th class="wd-15p"> Estatus </th>
                             <th class="wd-15p"> Fecha Entrega </th>
-                            <th class="wd-15p"> Num Retiros </th>
+                            <th class="wd-15p"> Num Trams </th>
+                            <th class="wd-15p"> Monto </th>
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>

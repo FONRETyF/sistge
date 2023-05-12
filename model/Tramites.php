@@ -305,36 +305,6 @@ use function PHPSTORM_META\type;
                             return $a_validVigTram;
                         }
                     }
-                    
-
-                    /*if (($VigBajaRecib / 365) <= 1 && ($vigJuicRecib / 365) <= 1 && ($vigBajaJuic / 365) <= 1) {
-                        echo("aaaaaaaaaaaaaaaaaaaaaa");
-                        $a_validVigTram['resulValidVig'] = "vigenciaVal";
-                        $a_validVigTram['diasVig'] = $VigBajaRecib;
-                        return $a_validVigTram;
-                    }elseif (($vigJuicRecib / 365) <= 1 && ($VigBajaRecib / 365) > 1 && ($vigBajaJuic / 365) > 1) {
-                        echo("bbbbbbbbbbbbbbbbbbbbbbbbbbbb");
-                        $a_validVigTram['resulValidVig'] = "fechaIni";
-                        $a_validVigTram['diasVig'] = $vigBajaJuic;
-                        return $a_validVigTram;
-                    }elseif (($VigBajaRecib / 365) > 1 && ($vigJuicRecib / 365) > 1 && ($vigBajaJuic / 365) > 1) {
-                        if (count($results) == 0) {
-                            echo("cccccccccccccccccccccccc");
-                            $a_validVigTram['resulValidVig'] = "noProcede";
-                            $a_validVigTram['diasVig'] = "No procede por vigencia de tramite";
-                            return $a_validVigTram;
-                        }else {
-                            echo("dddddddddddddddddddddddddddddd");
-                            $a_validVigTram['resulValidVig'] = "vigenciaVal";
-                            $a_validVigTram['diasVig'] = $VigBajaRecib;
-                            return $a_validVigTram;
-                        }
-                    }elseif (($VigBajaRecib / 365) > 1 && ($vigJuicRecib / 365) > 1 && ($vigBajaJuic / 365) <= 1) {
-                        echo("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-                        $a_validVigTram['resulValidVig'] = "noProcede";
-                        $a_validVigTram['diasVig'] = "No procede por vigencia de tramite";
-                        return $a_validVigTram;
-                    }*/
                     break;
 
                 default:
@@ -473,9 +443,12 @@ use function PHPSTORM_META\type;
         }
 
         public function addTramiteJI($anioentr,$numentre,$identr,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$numdictam,$fechdictam,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$montretfall,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$diaHaber,$curpmae,$rfcmae,$cveusu){
+            require_once("/var/www/html/sistge/model/entregasModel.php");
+            $entrega = new Entrega();
+
             $a_resultAddTram = array();
-            
             $get_ret = $this->get_retiro_Id($cvemae);
+            $get_entrega = $entrega -> get_entrega_id($identr);
 
             if (count($get_ret)>0) {
                 $a_resultAddTram["insertTramite"] = "Existente";
@@ -524,7 +497,21 @@ use function PHPSTORM_META\type;
                     $insertaCheque = $this->insertCheque($anioentr,$numentre,$idretiro,$identregRet,$cvemae,$nombreBenef,$numbenefs,$montretentr,$estatEdad,$porcsBenef,$cveusu,$fecha,$motvret);
                     $a_resultAddTram["insertCheque"] = $insertaCheque;
 
+                    if ($a_resultAddTram["insertTramite"] == "Agregado" && $a_resultAddTram["updateMaestro"] == "Actualizado" && $a_resultAddTram["insertCheque"] == "Agregado" ) {
+                        if ($motvret=="I") {
+                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtraminha=". $get_entrega[0][13] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
+                            $statementActEntr = $this->db->prepare($statementActEntr);
+                            $statementActEntr->execute();
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
+                        } elseif ($motvret=="J") {
+                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". ($get_entrega[0][12] + 1) .", numtramjub=". ($get_entrega[0][14] + 1) .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr ."'";
+                            $statementActEntr = $this->db->prepare($statementActEntr);
+                            $statementActEntr->execute();
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
+                        } 
+                    }
                     return $a_resultAddTram; 
+                    
                 } else {
                     if ($modret == "D50") {
                         $nombreBenef[] =$nomsolic; 
@@ -546,6 +533,32 @@ use function PHPSTORM_META\type;
 
                         $insertaFondFallec = $this->insertFondoFallecimiento($identregRet,$cveissemym,$montrettot,$modret,$montretentr,$montretfall,$fechbajfall,$fechrecib,$diaHaber,$cveusu,$fecha);
                         $a_resultAddTram["insertFondFallec"] = $insertaFondFallec;
+                    }        
+                    
+                    if ($a_resultAddTram["insertTramite"] == "Agregado" && $a_resultAddTram["updateMaestro"] == "Actualizado" && $a_resultAddTram["insertJubilado"] == "Agregado" && $a_resultAddTram["insertFondFallec"] == "Agregado") {
+                        if ($motvret=="I") {
+                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtraminha=". $get_entrega[0][13] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
+                            $statementActEntr = $this->db->prepare($statementActEntr);
+                            $statementActEntr->execute();
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
+                        } elseif ($motvret=="J") {
+                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". ($get_entrega[0][12] + 1) .", numtramjub=". ($get_entrega[0][14] + 1) .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr ."'";
+                            $statementActEntr = $this->db->prepare($statementActEntr);
+                            $statementActEntr->execute();
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
+                        } 
+                    }elseif ($a_resultAddTram["insertTramite"] == "Agregado" && $a_resultAddTram["updateMaestro"] == "Actualizado" && $a_resultAddTram["insertCheque"] == "Agregado" && $a_resultAddTram["insertJubilado"] == "Agregado" && $a_resultAddTram["insertFondFallec"] == "Agregado") {
+                        if ($motvret=="I") {
+                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtraminha=". $get_entrega[0][13] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
+                            $statementActEntr = $this->db->prepare($statementActEntr);
+                            $statementActEntr->execute();
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
+                        } elseif ($motvret=="J") {
+                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". ($get_entrega[0][12] + 1) .", numtramjub=". ($get_entrega[0][14] + 1) .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr ."'";
+                            $statementActEntr = $this->db->prepare($statementActEntr);
+                            $statementActEntr->execute();
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
+                        } 
                     }
                     return $a_resultAddTram; 
                 }
@@ -553,10 +566,16 @@ use function PHPSTORM_META\type;
         }
 
         public function addtramiteF($anioentr,$numentre,$identr,$cvemae,$cveissemym,$estatlaboral,$motvret,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$testamento,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidabenefs,$fechtestamnt,$curpmae,$rfcmae,$cveusu){
+            require_once("/var/www/html/sistge/model/entregasModel.php");
+            $entrega = new Entrega();
+
             $a_resultAddTramF = array();
 
             $get_ret = $this->get_retiro_Id($cvemae);
             $get_benefs = $this->get_benef_cvemae($cvemae);
+
+            $get_entrega = $entrega->get_entrega_id($identr);
+
             if (count($get_ret)>0 || count($get_benefs)>0) {
                 $a_resultAddTramF["insertTramite"] = "Existente";
                 return $a_resultAddTramF;
@@ -608,10 +627,23 @@ use function PHPSTORM_META\type;
                 $insertaBenefsMae = $this -> insertBeneficiaroisMae($anioentr,$numentre,$idretiro,$identregRet,$cvemae,$nomsbenefs,$numbenefs,$montretentr,$curpsbenefs,$parentsbenefs,$edadesbenefs,$porcsbenefs,$vidabenefs,$cveusu,$fecha,$motvret);
                 $a_resultAddTramF["insertBenefs"] = $insertaBenefsMae;
             }
+
+            if ($a_resultAddTramF["insertTramite"] == "Agregado" && $a_resultAddTramF["updateMaestro"] == "Actualizado" && $a_resultAddTramF["insertCheque"] == "Agregado" && $a_resultAddTramF["insertBenefs"] == "Agregado" ) {
+                $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtramfall=". $get_entrega[0][15] + 1 .", numtramfallact=".$get_entrega[0][16] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
+                $statementActEntr = $this->db->prepare($statementActEntr);
+                $statementActEntr->execute();
+                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);      
+            }
+
             return $a_resultAddTramF;
         }
         
         public function addtramiteFJ($anioentr,$numentre,$identr,$cveissemym,$estatlaboral,$motvret,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$testamento,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidabenefs,$programfallec,$curpmae,$rfcmae,$fechtestamnt,$cveusu){
+            require_once("/var/www/html/sistge/model/entregasModel.php");
+            $entrega = new Entrega();
+
+            $get_entrega = $entrega -> get_entrega_id($identr);
+
             if ($programfallec == "M") {
                 $a_resultAddTramFJ = array();
 
@@ -668,7 +700,16 @@ use function PHPSTORM_META\type;
                     $insertaBenefsMae = $this -> insertBeneficiaroisMae($anioentr,$numentre,$idretiro,$identregRet,$cveissemym,$nomsbenefs,$numbenefs,$montretentr,$curpsbenefs,$parentsbenefs,$edadesbenefs,$porcsbenefs,$vidabenefs,$cveusu,$fecha,$motvret);
                     $a_resultAddTramFJ["insertBenefs"] = $insertaBenefsMae;
                 }
+                
+                if ($a_resultAddTramFJ["insertTramite"] == "Agregado" && $a_resultAddTramFJ["updateMaestro"] == "Actualizado" && $a_resultAddTramFJ["insertCheque"] == "Agregado" && $a_resultAddTramFJ["insertBenefs"] == "Agregado" ) {
+                    $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtramfall=". $get_entrega[0][15] + 1 .", numtramfalljubm=".$get_entrega[0][17] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
+                    $statementActEntr = $this->db->prepare($statementActEntr);
+                    $statementActEntr->execute();
+                    $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);      
+                }
+
                 return $a_resultAddTramFJ;
+                
             } elseif ($programfallec == "FF") {
                 # code...
             }

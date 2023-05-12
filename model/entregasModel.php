@@ -15,7 +15,7 @@
         
         public function get_entregas()
         {
-            $statement = $this->db->prepare('SELECT identrega,numentrega,anioentrega,descentrega,fechentrega,estatentrega,numtramites FROM public.entregas_fonretyf ORDER BY identrega desc limit 5');
+            $statement = $this->db->prepare('SELECT identrega,numentrega,anioentrega,descentrega,fechentrega,estatentrega,numtramites,monttotentr FROM public.entregas_fonretyf ORDER BY identrega desc limit 5');
             $statement->execute();
             $results = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $results;

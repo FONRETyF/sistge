@@ -239,15 +239,15 @@ a:nth-child(6) {
   font-size: 12px;
 }*/
 .tab_entregas th:nth-child(1){
-  width: 5px;
+  width: 3px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_entregas th:nth-child(2){
-  width: 10px;
+  width: 3px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_entregas th:nth-child(3){
-  width: 100px;
+  width: 80px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_entregas th:nth-child(4){
@@ -259,11 +259,11 @@ a:nth-child(6) {
   border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_entregas th:nth-child(6){
-  width: 30px;
+  width: 15px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_entregas th:nth-child(7){
-  width: 5px;
+  width: 20px;
   border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_entregas th:nth-child(8){
@@ -271,6 +271,10 @@ a:nth-child(6) {
   border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_entregas th:nth-child(9){
+  width: 5px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tab_entregas th:nth-child(10){
   width: 5px;
   border: 1.5px solid rgb(2, 48, 4);
 }

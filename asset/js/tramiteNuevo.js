@@ -1078,11 +1078,9 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                         
                         var resultValidVig = data.resulValidVig;
                         if (resultValidVig == 'vigenciaVal') {
-                            alert("FECHAS VALIDAS");
                             document.getElementById("calcDiasAnios").disabled = false;
                             document.getElementById("editaBefens").disabled = false;
                         }else if (resultValidVig == 'vigenciaCad') {
-                            alert("FECHAS NO VALIDAS");
                             document.getElementById("calcDiasAnios").disabled = true;
                             document.getElementById("editaBefens").disabled = true;
 
@@ -1181,7 +1179,6 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                                     break;
                                 
                                 case 'errorFecha':
-                                    alert("dfdfgdgfdg");
                                     notifError = data.descValid;    
                                     Swal.fire(
                                         notifError,
@@ -1454,12 +1451,12 @@ $("#editarBenefs").on("submit",function(evento){
                 break;
 
             case 'porcentBenef[]':
-                if (parseInt(formulario.elements[index].value) > 0 && parseInt(formulario.elements[index].value) <= 100) {
-                    a_porcentajes.push(parseInt(formulario.elements[index].value));
-                    porcentajeBenefs = porcentajeBenefs + parseInt(formulario.elements[index].value);
+                if (parseFloat(formulario.elements[index].value) > 0 && parseFloat(formulario.elements[index].value) <= 100) {
+                    a_porcentajes.push(parseFloat(formulario.elements[index].value));
+                    porcentajeBenefs = porcentajeBenefs + parseFloat(formulario.elements[index].value);
                 } else {
-                    a_porcentajes.push(parseInt(formulario.elements[index].value));
-                    porcentajeBenefs = porcentajeBenefs + parseInt(formulario.elements[index].value);
+                    a_porcentajes.push(parseFloat(formulario.elements[index].value));
+                    porcentajeBenefs = porcentajeBenefs + parseFloat(formulario.elements[index].value);
                     Swal.fire(
                         "EL porcentaje proporcionado no es correcto",
                         'verifique sus datos'

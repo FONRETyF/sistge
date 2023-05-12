@@ -20,6 +20,7 @@
                 }
                 $a_prep_entregas[] = $row["fechentrega"];
                 $a_prep_entregas[] = $row["numtramites"];
+                $a_prep_entregas[] = $row["monttotentr"];
                 $a_prep_entregas[] = "<button type='button' onclick='editar(".$row['identrega'].");' id='".$row['identrega']."'class='BtIcEdit' ".$estatEntrega."><div><img src='../../img/file.png' alt='modificar' title='modificar' height='20' width='20'></div></button>";
                 $a_prep_entregas[] = "<button type='button' onclick='detalleRetiros(".$row['identrega'].");'  id='".$row['identrega']."'class='BtIcDetail'><div><img src='../../img/lapiz.png' alt='editar-capturar' title='editar-capturar' height='18' width='18'></div></button>";
                 $a_prep_entregas[] = "<button type='button' onclick='eliminar(".$row['identrega'].");'  id='".$row['identrega']."'class='BtIcDelete'".$estatEntrega."><div><img src='../../img/goma-de-borrar.png' alt='eliminar' title='eliminar' height='17' width='17'></div></button>";
