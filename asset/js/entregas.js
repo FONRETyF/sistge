@@ -12,17 +12,19 @@ $("#editentrega").click(function () {
 
 $(document).ready(function(){
     $('#entrega_data').dataTable({
-        "aProcessing": true, //procesamiento dle datatable
+        "aProcessing": true, //procesamiento del datatable
         "aServerSide": true, //paginacion y filtrado por el servidor
+        scrollY: '500px',
+        scrollCollapse: true,
+        paging: true,
         dom: 'Bfrtip', //definicion de los elementos del control de la tabla
         buttons: [		          
             'copyHtml5',
             'excelHtml5',
-            'csvHtml5',
-            'pdf'
+            'csvHtml5'
         ],
         "ajax":{
-            url: '../../controller/entregasController.php?op=listar',
+            url: '../../controller/entregas.php?op=listar',
             type : "post",
             dataType : "json",						
             error: function(e){
@@ -34,7 +36,7 @@ $(document).ready(function(){
         "bDestroy": true,
         "responsive": true,
         "bInfo":true,
-        "iDisplayLength": 5,
+        "iDisplayLength": 50,
         "language": {
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -78,10 +80,8 @@ function guardaryeditar(e){
     var identrega = $("#Anioentrega").val() + numentrega;
     document.getElementById("identrega").value = identrega; 
     if (checked) {
-        $.post("../../controller/entregasController.php?op=updateFech",{identrega:identrega,fechEntrega:fechaentrega},function(data){
+        $.post("../../controller/entregas.php?op=updateFech",{identrega:identrega,fechEntrega:fechaentrega},function(data){
             resultadoAdd = Object.values(JSON.parse(data));
-            //NumregsResult = resultadoAdd.length;
-            //alert(NumregsResult );
             if (resultadoAdd[0] == "Actualizado" && resultadoAdd[1] == "Actualizado" && resultadoAdd[2] == "Actualizado") {
                 Swal.fire(
                     "LA FECHA SE MODIFICO CORRECTAMENTE"
@@ -97,7 +97,7 @@ function guardaryeditar(e){
     } else {
         var formData = new FormData($("#edita_Entrega")[0]);
         $.ajax({
-            url: '../../controller/entregasController.php?op=guardaryeditar',
+            url: '../../controller/entregas.php?op=guardaryeditar',
             type: "POST",
             data: formData,
             contentType: false,
@@ -119,7 +119,7 @@ function guardaryeditar(e){
 
 function editar(identrega){
     $('#modal-title').html('Modificar entrega');
-    $.post("../../controller/entregasController.php?op=mostrar",{identrega:identrega},function(data){       
+    $.post("../../controller/entregas.php?op=mostrar",{identrega:identrega},function(data){       
         data = JSON.parse(data);
         $('#identrega').val(data.identrega);
         $('#numentrega').val(data.numentrega);
@@ -128,6 +128,9 @@ function editar(identrega){
         $('#fechentrega').val(data.fechentrega);
         $('#observaciones').val(data.observaciones);
     });
+    document.getElementById('numentrega').disabled = true;
+    document.getElementById('Anioentrega').disabled = true;
+    
     $('#editarEntrega').modal('show');
     document.getElementById('DivAsignaFecha').style.display = "block";
 }
@@ -143,7 +146,7 @@ function eliminar(identrega){
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed){
-            $.post("../../controller/entregasController.php?op=eliminar",{identrega:identrega},function(data){
+            $.post("../../controller/entregas.php?op=eliminar",{identrega:identrega},function(data){
             });
             tabla = $('#entrega_data').DataTable();
             tabla.ajax.reload();

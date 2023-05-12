@@ -180,22 +180,14 @@ a:nth-child(6) {
   width: 95%;
   padding-top: 15px;
   margin: 0px auto;
+  font-size: 20px;
+  font-weight: bold;
 }
 #ConsultEntregas{
   height: 37px;
   margin-top: 20px;
   display: flex;
 }
-#TextConsulEntr{
-  padding: 8px;
-  padding-left: 50px;
-  font-size: 19px;
-}
-#DatConsltEntr{
-  display: inline-flex;
-  width: 250px;
-}
-
 #NumEntrega {
   font-size: 15px;
   height: 33px;
@@ -221,12 +213,12 @@ a:nth-child(6) {
   border-top: thick solid #a19f9f;
   margin: 0 auto;
   width: 95%;
-  /*margin: 3px 15px 0;*/
+  font-size: 15px;
+  font-weight: normal;
   border-radius: 5px;
   border-width: .2em;
 }
 #entrega_data{
-  /*position: relative;*/ 
   font-size: small;
   border-color: rgb(7, 107, 4);
 }
@@ -280,6 +272,7 @@ a:nth-child(6) {
 }
 #AgregaEntr{
   width: 50%;
+  margin: 0 auto;
 }
 #operationsEntr{
   width: 100%;
@@ -441,15 +434,7 @@ a:nth-child(6) {
     width: 90px;
     text-align: center;
   }
-  #AnioEntrega{
-    font-size: 15px;
-    height: 30px;
-    padding: 4px;
-    width: 80px;
-    text-align: center;
-    margin: 3px 20px 0;
-  }
-  #DvStatEntrNuv{
+    #DvStatEntrNuv{
     margin: 15px;
     text-align: left;
   }

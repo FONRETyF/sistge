@@ -512,7 +512,8 @@ $(document).ready(function () {
 });
 
 $(".cveissemym").keydown(function (event) {
-    if((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !==37  && event.keyCode !==39 && event.keyCode !==8 && event.keyCode !==9 && event.keyCode !==46){
+    var key = window.event ? event.which : event.keyCode;
+    if((key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
         return false;
     }
 });
@@ -522,7 +523,8 @@ $('#CURPMae').change(function () {
 })
 
 $(".TelsMae").keydown(function (event){
-    if((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !==37  && event.keyCode !==39 && event.keyCode !==8 && event.keyCode !==9 && event.keyCode !==46){
+    var key = window.event ? event.which : event.keyCode;
+    if((key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
         return false;
     }
 });
@@ -530,45 +532,32 @@ $(".TelsMae").keydown(function (event){
 $("#TelPartiMae").change(function () {
     teleParticular = $("#TelPartiMae").val();
 
-    if (teleParticular.length > 10) {
-        Swal.fire(
-            'EL NUMERO DE TELEFONO PARTICULAR ES INCORRECTO',
-            'debe tener un maximo de 10 digitos'
-        )
-    } else if (teleParticular.length < 10) {
+    if (teleParticular.length > 10 || teleParticular.length < 10) {
         Swal.fire(
             'EL NUMERO DE TELEFONO PARTICULAR ES INCORRECTO',
             'deben ser 10 digitos'
         )
+        $("#TelPartiMae").focus();
+        document.getElementById('TelPartiMae').style.border =  ".1em red solid";
+    }else{
+        document.getElementById('TelPartiMae').style.border =  ".1em black solid";
     }
 });
 
 $("#TelCelMae").change(function () {
     teleCelular = $("#TelCelMae").val();
 
-    if (teleCelular.length > 10) {
+    if (teleCelular.length > 10 || teleCelular.length < 10) {
         Swal.fire(
             'EL NUMERO DE TELEFONO CELULAR ES INCORRECTO',
-            'debe tener un maximo de 10 digitos'
-        )
-    } else if (teleCelular.length < 10) {
-        Swal.fire(
-            'EL NUMERO DE TELEFONO PARTICULAR ES INCORRECTO',
             'deben ser 10 digitos'
         )
+        $("#TelCelMae").focus();
+        document.getElementById('TelCelMae').style.border =  ".1em red solid";
+    } else {
+        document.getElementById('TelCelMae').style.border =  ".1em black solid";
     }
 });
-
-function convierteMayusc(elemento){
-    if (elemento.value != "") {
-        elemento.value = elemento.value.toUpperCase();
-    } else {
-        Swal.fire(
-            'DATO INVALIDO',
-            'Proporcione un dato valido!!!'
-        );
-    }
-}
 
 function validacurpBenef(inputCurpBenef){
     if (inputCurpBenef.value.length != 18 ) {
@@ -586,27 +575,6 @@ function validaNomBenef(inputNomBenef) {
             'Proporcione un NOMBRE correcto'
         );
     }
-}
-
-function fechaActual() {
-    var date = new Date();/*.toLocaleDateString();*/
-    var year = date.getFullYear();
-    var month =date.getMonth() + 1;
-    var day = date.getDate();
-
-    if (month < 10 || day < 10){
-        if (month < 10) {
-            month = "0" + month;
-        }
-        if (day < 10) {
-            day = "0" + day;
-        } 
-        var fechActRecib = year + "-" + month + "-" + day;
-    }else{
-        var fechActRecib = year + "-" + month + "-" + day;
-    }
-
-    return fechActRecib;    
 }
 
 const accionEditaNom = document.querySelector("#EditaNombre");

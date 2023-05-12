@@ -443,7 +443,7 @@ use function PHPSTORM_META\type;
         }
 
         public function addTramiteJI($anioentr,$numentre,$identr,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$numdictam,$fechdictam,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$montretfall,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$diaHaber,$curpmae,$rfcmae,$cveusu){
-            require_once("/var/www/html/sistge/model/entregasModel.php");
+            require_once("/var/www/html/sistge/model/Entregas.php");
             $entrega = new Entrega();
 
             $a_resultAddTram = array();
@@ -566,7 +566,7 @@ use function PHPSTORM_META\type;
         }
 
         public function addtramiteF($anioentr,$numentre,$identr,$cvemae,$cveissemym,$estatlaboral,$motvret,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$testamento,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidabenefs,$fechtestamnt,$curpmae,$rfcmae,$cveusu){
-            require_once("/var/www/html/sistge/model/entregasModel.php");
+            require_once("/var/www/html/sistge/model/Entregas.php");
             $entrega = new Entrega();
 
             $a_resultAddTramF = array();
@@ -639,7 +639,7 @@ use function PHPSTORM_META\type;
         }
         
         public function addtramiteFJ($anioentr,$numentre,$identr,$cveissemym,$estatlaboral,$motvret,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$testamento,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidabenefs,$programfallec,$curpmae,$rfcmae,$fechtestamnt,$cveusu){
-            require_once("/var/www/html/sistge/model/entregasModel.php");
+            require_once("/var/www/html/sistge/model/Entregas.php");
             $entrega = new Entrega();
 
             $get_entrega = $entrega -> get_entrega_id($identr);

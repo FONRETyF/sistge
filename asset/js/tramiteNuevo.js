@@ -6,7 +6,6 @@ function init() {
     $("#edita_NomMae").on("submit",function(e){
         actNomMae(e);
     });
-
 }
 
 $(document).ready(function(){
@@ -100,23 +99,66 @@ $("#OpcCauRetiro").change(function () {
 });
 
 $(".CSPMae").keydown(function (event) {
-    if((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !==37  && event.keyCode !==39 && event.keyCode !==8 && event.keyCode !==9 && event.keyCode !==46){
+    var key = window.event ? event.which : event.keyCode;
+    if((key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
         return false;
     }
 });
 
 $(".cveissemym").keydown(function (event) {
-    if((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !==37  && event.keyCode !==39 && event.keyCode !==8 && event.keyCode !==9 && event.keyCode !==46){
+    var key = window.event ? event.which : event.keyCode;
+    if((key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
+        return false;
+    }
+});
+
+$('#CURPMae').keydown(function (event) {
+    var key = window.event ? event.which : event.keyCode;
+    if((key < 65 || key > 90)  && (key < 97 || key > 122) && (key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
         return false;
     }
 });
 
 $('#CURPMae').change(function () {
     document.getElementById('RFCMae').value = document.getElementById('CURPMae').value.substr(0,10).toUpperCase();
-})
+});
+
+$('#CURPMae').blur(function () {
+    if ($("#CURPMae").val().length > 18 || $("#CURPMae").val().length < 18) {
+        Swal.fire(
+            'LA CLAVE CURP ES INCORRECTA',
+            'deben ser 18 caracteres'
+        )
+        $("#CURPMae").focus();
+        document.getElementById('CURPMae').style.border =  ".1em red solid";
+    }else{
+        document.getElementById('CURPMae').style.border =  ".1em black solid";
+    }
+});
+
+$('#RFCMae').keydown(function (event) {
+    var key = window.event ? event.which : event.keyCode;
+    if((key < 65 || key > 90)  && (key < 97 || key > 122) && (key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
+        return false;
+    }
+});
+
+$('#RFCMae').blur(function (event) {
+    if ($("#RFCMae").val().length < 10 || $("#RFCMae").val().length > 13) {
+        Swal.fire(
+            'LA CLAVE RFC ES INCORRECTA',
+            'deben ser 10 o 13 caracteres'
+        )
+        $("#RFCMae").focus();
+        document.getElementById('RFCMae').style.border =  ".1em red solid";
+    }else{
+        document.getElementById('RFCMae').style.border =  ".1em black solid";
+    }
+});
 
 $(".TelsMae").keydown(function (event){
-    if((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !==37  && event.keyCode !==39 && event.keyCode !==8 && event.keyCode !==9 && event.keyCode !==46){
+    var key = window.event ? event.which : event.keyCode;
+    if((key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
         return false;
     }
 });
@@ -124,32 +166,30 @@ $(".TelsMae").keydown(function (event){
 $("#TelPartiMae").change(function () {
     teleParticular = $("#TelPartiMae").val();
 
-    if (teleParticular.length > 10) {
-        Swal.fire(
-            'EL NUMERO DE TELEFONO PARTICULAR ES INCORRECTO',
-            'debe tener un maximo de 10 digitos'
-        )
-    } else if (teleParticular.length < 10) {
+    if (teleParticular.length > 10 || teleParticular.length < 10) {
         Swal.fire(
             'EL NUMERO DE TELEFONO PARTICULAR ES INCORRECTO',
             'deben ser 10 digitos'
         )
+        $("#TelPartiMae").focus();
+        document.getElementById('TelPartiMae').style.border =  ".1em red solid";
+    }else{
+        document.getElementById('TelPartiMae').style.border =  ".1em black solid";
     }
 });
 
 $("#TelCelMae").change(function () {
     teleCelular = $("#TelCelMae").val();
 
-    if (teleCelular.length > 10) {
+    if (teleCelular.length > 10 || teleCelular.length < 10) {
         Swal.fire(
             'EL NUMERO DE TELEFONO CELULAR ES INCORRECTO',
-            'debe tener un maximo de 10 digitos'
-        )
-    } else if (teleCelular.length < 10) {
-        Swal.fire(
-            'EL NUMERO DE TELEFONO PARTICULAR ES INCORRECTO',
             'deben ser 10 digitos'
         )
+        $("#TelCelMae").focus();
+        document.getElementById('TelCelMae').style.border =  ".1em red solid";
+    } else {
+        document.getElementById('TelCelMae').style.border =  ".1em black solid";
     }
 });
 
@@ -342,17 +382,6 @@ $("#cspMaeBusq").change(function () {
     }
 });
 
-function convierteMayusc(elemento){
-    if (elemento.value != "") {
-        elemento.value = elemento.value.toUpperCase();
-    } else {
-        Swal.fire(
-            'DATO INVALIDO',
-            'Proporcione un dato valido!!!'
-        );
-    }
-}
-
 function validacurpBenef(inputCurpBenef){
     if (inputCurpBenef.value.length != 18 ) {
         Swal.fire(
@@ -369,27 +398,6 @@ function validaNomBenef(inputNomBenef) {
             'Proporcione un NOMBRE correcto'
         );
     }
-}
-
-function fechaActual() {
-    var date = new Date();/*.toLocaleDateString();*/
-    var year = date.getFullYear();
-    var month =date.getMonth() + 1;
-    var day = date.getDate();
-
-    if (month < 10 || day < 10){
-        if (month < 10) {
-            month = "0" + month;
-        }
-        if (day < 10) {
-            day = "0" + day;
-        } 
-        var fechActRecib = year + "-" + month + "-" + day;
-    }else{
-        var fechActRecib = year + "-" + month + "-" + day;
-    }
-
-    return fechActRecib;    
 }
 
 const accionEditaNom = document.querySelector("#EditaNombre");
@@ -434,8 +442,6 @@ function actNomMae(e){
     clavemae = $("#cspMaeBusq").val();
     $.post("../../controller/maestro.php?op=buscar",{clavemae:clavemae},function(data){ 
         data = JSON.parse(data);
-        $('#cspMaeBusq').val(data.csp);
-        $('#cveIMaeBusq').val(data.cveissemym);
         $('#apePatMae').val(data.apepatmae);
         $('#apeMatMae').val(data.apematmae);
         $('#nombreMae').val(data.nommae);
@@ -841,7 +847,6 @@ function validaFechas(valorValid, a_fechs) {
     }
 }
 
-//var PSGS = 0;
 var checkboxPSGS = document.getElementById('sinPSGS');
 checkboxPSGS.addEventListener("change", validaCheckPSGS, false);
 function validaCheckPSGS(){
@@ -903,7 +908,6 @@ $("#edita_PSGS").on("submit",function(evento){
         contentType: false,
         processData: false,
         success: function(datos){
-            //alert(datos);
             numAgrPSGS++;
             $('#edita_PSGS')[0].reset();
             $("#editarPSGS").modal('hide');
@@ -1585,8 +1589,6 @@ accionAgregar.addEventListener("click", function (event) {
             break;
     }
 });
-
-
 
 function agregaRetFallecimiento() {
     $.post("../../controller/tramites.php?op=agregarF",{Ianioentr:$("#AnioEntr").val(),

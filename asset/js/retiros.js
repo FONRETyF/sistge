@@ -8,78 +8,77 @@ function init() {
 $(document).ready(
     
     function () {
-        /*alert("entro aqui");
-        urlajax='../../controller/retiros.php?op=listar&identrega='+ identrega;
-        alert(urlajax);*/
-    var varstat = obtenEstatEntr(identrega);
-    $('#retiros_data').dataTable({
-        "aProcessing": true, //procesamiento dle datatable
-        "aServerSide": true, //paginacion y filtrado por el servidor
-        dom: 'Bfrtip', //definicion de los elementos del control de la tabla
-        buttons: [		          
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdf'
-        ],
-        "ajax":{
-            url: '../../controller/retiros.php?op=listar&identrega='+ identrega,
-            type : "post",
-            dataType : "json",						
-            error: function(e){
-                console.log(e.responseText);	
-            }
-        },
-        "ordering": false,
-        'rowsGroup': [0,1],
-        "bDestroy": true,
-        "responsive": true,
-        "bInfo":true,
-        "iDisplayLength": 50,
-        "language": {
-            "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ registros",
-            "sZeroRecords":    "No se encontraron resultados",
-            "sEmptyTable":     "Ningún dato disponible en esta tabla",
-            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix":    "",
-            "sSearch":         "Buscar:",
-            "sUrl":            "",
-            "sInfoThousands":  ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {          
-                "sFirst":    "Primero",
-                "sLast":     "Último",
-                "sNext":     "Siguiente",
-                "sPrevious": "Anterior"
+        var varstat = obtenEstatEntr(identrega);
+        $('#retiros_data').dataTable({
+            "aProcessing": true, //procesamiento dle datatable
+            "aServerSide": true, //paginacion y filtrado por el servidor
+            scrollY: '500px',
+            scrollCollapse: true,
+            paging: true,
+            pagingType: 'full_numbers',
+            dom: 'Bfrtip', //definicion de los elementos del control de la tabla
+            buttons: [		          
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5'
+            ],
+            "ajax":{
+                url: '../../controller/retiros.php?op=listar&identrega='+ identrega,
+                type : "post",
+                dataType : "json",						
+                error: function(e){
+                    console.log(e.responseText);	
+                }
             },
-            "oAria": {
-                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        },
-        columnDefs:[
-            {width: "5px",targets:0},
-            {width: "5px",targets:1},
-            {width: "5px",targets:2},
-            {width: "5px",targets:3},
-            {width: "5px",targets:4},
-            {width: "5px",targets:5},
-            {width: "5px",targets:6},
-            {width: "3px",targets:7},
-            {width: "3px",targets:8},
-            {width: "3px",targets:9},
-            {width: "3px",targets:10}
-            //{width: "3px",targets:11}
-        ]
-    }).DataTable();   
+            "ordering": false,
+            'rowsGroup': [0,1],
+            "bDestroy": true,
+            "responsive": true,
+            "bInfo":true,
+            "iDisplayLength": 50,
+            "language": {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {          
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            columnDefs:[
+                {width: "5px",targets:0},
+                {width: "5px",targets:1},
+                {width: "5px",targets:2},
+                {width: "5px",targets:3},
+                {width: "5px",targets:4},
+                {width: "5px",targets:5},
+                {width: "5px",targets:6},
+                {width: "3px",targets:7},
+                {width: "3px",targets:8},
+                {width: "3px",targets:9},
+                {width: "3px",targets:10}
+            ]
+        }
+    ).DataTable();   
     
     $("#cerrarDetalleRet").click(function () {
         $("#detalleInfoRatiro").modal('hide');
     });
-
 });
 
 function obtenEstatEntr(identrega) {
@@ -97,10 +96,6 @@ var accionRegresa = document.querySelector('.Btnregresar');
 accionRegresa.addEventListener("click", function (e) {
     e.preventDefault();
 
-    /*let pagAnterior = document.referrer;
-    if (pagAnterior.indexOf(window.location.host) !== -1) {
-        window.history.back();
-    }*/
     javascript:history.go(-1);
 });
 
@@ -162,17 +157,12 @@ function mostrar(identret,cvemae) {
                     document.getElementById("DivDTDiasPermisos").style.display="block";
                     document.getElementById("DivDTAniosBase").style.display="block";
                     
-
-
                     $.post("../../controller/retiros.php?op=busqbenefs",{cvemae:cvemae},function(data){
                         data = JSON.parse(data);
                         dataBenefs = Object.values(data);
                         $("#resultDTBenefs").html("");
                             for (var index = 0; index < dataBenefs.length; index++) {
-                                //alert(index);
-                                //alert(Object.values(dataBenef[index]));
                                 datosBenef = Object.values(dataBenefs[index]);
-                                
                                     var tr = `<tr>
                                         <td>`+datosBenef[0]+ `</td> 
                                         <td>`+datosBenef[1]+ `</td> 
@@ -226,8 +216,6 @@ function mostrar(identret,cvemae) {
                     dataBenefs = Object.values(data);
                     $("#resultDTBenefs").html("");
                         for (var index = 0; index < dataBenefs.length; index++) {
-                            //alert(index);
-                            //alert(Object.values(dataBenef[index]));
                             datosBenef = Object.values(dataBenefs[index]);
                             
                                 var tr = `<tr>
@@ -262,7 +250,7 @@ function mostrar(identret,cvemae) {
             });
         }
     });
-    //
+
     $('#detalleInfoRatiro').modal('show');  
 }
 
@@ -286,7 +274,6 @@ function editar(identret) {
 }
 
 function eliminarT(identret,cvemae) {
-    //alert(identret + "--" + cvemae);
     swal.fire({
         title:'ELIMINACIÓN DE TRAMITE',
         text:"Eliminara el tramite de la clave" + cvemae +"?",
@@ -298,7 +285,6 @@ function eliminarT(identret,cvemae) {
     }).then((result) => {
         if (result.isConfirmed){
             $.post("../../controller/retiros.php?op=deleteTramite",{identret:identret,cvemae:cvemae},function(data){  
-                //dataResultDelete = JSON.parse(data);
                 resultadoDelete = Object.values( JSON.parse(data));
                 NumregsResult = resultadoDelete.length;
                 switch (NumregsResult) {
@@ -392,13 +378,6 @@ accionAsignaFolio.addEventListener("click", function (e) {
         }
     });
 });
-
-/*var accionGeneraExcel = document.getElementById('generateXls');
-accionGeneraExcel.addEventListener("click",function (e) {
-    e.preventDefault();
-
-    location.href = "../../views/home/fileInformatic.php" + "?identr=" + identr;
-});*/
 
 var accionGeneraListados = document.getElementById('printLists');
 accionGeneraListados.addEventListener("click",function (e) {

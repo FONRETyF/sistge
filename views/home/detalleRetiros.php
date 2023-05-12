@@ -24,15 +24,9 @@
         <section id="secRetiros"> RELACION DE RETIROS DE LA ENTREGA: 
             <input type="text" id="InputIdentrega" value="<?php echo $_GET["identrega"];?>">
             <div id="ConsultRetiros">
-                <!--<div id="TextConsulRets">Cosulta: &nbsp
-                    <input type="text" id="cspConsultRet" name="cspConsultRet" placeholder="Escriba csp issemym">
-                    <button class="btnConsultRet">BUSCAR</button>
-                </div>-->
                 <input type="hidden" id="estatentrega" name="estatentrega">
                 <div id="operationsEntr">
-                    <a id="tramNuevo" class="btnsOperations" href="tratimeCaptura.php?identrega=<?php echo $_GET["identrega"];?>"><img src="../../img/new-document.png" alt="Nuevo tramite" title="Nuevo tramite" height="35" width="35"></a>
-                    <!--<button id="tramNuevo" type="submit" onclick="tramiteNuevo()">
-                        <img src="../../img/new-document.png" alt="Nuevo tramite" title="Nuevo tramite" height="30" width="30"  onclick="tramiteNuevo()"></button> -->    
+                    <a id="tramNuevo" class="btnsOperations" href="tratimeCaptura.php?identrega=<?php echo $_GET["identrega"];?>"><img src="../../img/new-document.png" alt="Nuevo tramite" title="Nuevo tramite" height="35" width="35"></a>  
                     <a id="asignFol" class="btnsOperations" href="#"><img src="../../img/asignafolio.png" alt="Asigna folios" title="Asigna folios" height="45" width="45"></a>
                     <a id="printLists" class="btnsOperations" href="#"><img src="../../img/imprimeListados.png" alt="Imprimir listados" title="Imprimir listados" height="35" width="35"></a>
                     <a id="cancelCheqs" class="btnsOperations" href="#"><img src="../../img/cancelar.png" alt="Cancelar cheques" title="Cancelar cheques" height="40" width="40"></a>
@@ -40,7 +34,6 @@
             </div>
             <div id="ResultConsultRets">
                 <table id ="retiros_data" class="table display responsive nowrap despliegue_tabla">
-                    <caption>Retiros de la entrega</caption>
                     <thead>
                         <tr>
                             <th class="wd-15p"> Entrega </th>
@@ -54,7 +47,6 @@
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>
-                            <!--<th class="wd-15p"></th>-->
                         </tr>
                     </thead>
                 </table>

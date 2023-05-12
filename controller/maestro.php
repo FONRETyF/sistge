@@ -11,7 +11,7 @@
             if (count($a_get_maestro)>0){
                 $a_get_maestro = $maestro->get_maestro($_POST["clavemae"]);
                 $a_get_TrmtsHist = $maestroTramites->buscaTrsmitesHist($_POST["clavemae"]);
-                //echo(is_array($a_get_maestro) . "---" . count($a_get_TrmtsHist));
+                
                 if(is_array($a_get_maestro)==true and count($a_get_TrmtsHist)==0){
                     foreach($a_get_maestro as $row){
                         $estatLabMae = $row["estatlabmae"];
@@ -62,7 +62,7 @@
             if (count($a_get_maestroJub)>0){
                 $a_get_maestro = $maestro->get_maestroJub($_POST["claveisemym"]);
                 $a_get_TrmtsHist = $maestroTramites->buscaTrsmitesHist($_POST["claveisemym"]);
-                //echo(is_array($a_get_maestro) . "---" . count($a_get_TrmtsHist));
+                
                 if(is_array($a_get_maestro)==true and count($a_get_TrmtsHist)==0){
                     
                     foreach($a_get_maestro as $row){

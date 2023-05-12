@@ -1,8 +1,8 @@
 <?php  
 
-    require_once("/var/www/html/sistge/model/entregasModel.php");
+    require_once("/var/www/html/sistge/model/Entregas.php");
   
-    $obj = new entregasFonretyf();
+    $obj = new Entrega();
 
     $vartempo=$obj->get_entregas();
     print_r(count($vartempo));

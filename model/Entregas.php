@@ -15,25 +15,39 @@
         
         public function get_entregas()
         {
-            $statement = $this->db->prepare('SELECT identrega,numentrega,anioentrega,descentrega,fechentrega,estatentrega,numtramites,monttotentr FROM public.entregas_fonretyf ORDER BY identrega desc limit 5');
-            $statement->execute();
-            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-            return $results;
+            try {
+                $statement = $this->db->prepare('SELECT identrega,numentrega,anioentrega,descentrega,fechentrega,estatentrega,numtramites,monttotentr FROM public.entregas_fonretyf ORDER BY identrega desc');
+                $statement->execute();
+                $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+                return $results;
+            } catch (\Throwable $th) {
+                echo $th;
+            }
+            
         }
         
         public function get_entrega_id($identrega){
-            $statement = $this->db->prepare("SELECT * FROM public.entregas_fonretyf WHERE identrega= ?");
-            $statement->bindValue(1,$identrega);
-            $statement->execute();
-            return $result = $statement->fetchAll();
+            try {
+                $statement = $this->db->prepare("SELECT * FROM public.entregas_fonretyf WHERE identrega= ?");
+                $statement->bindValue(1,$identrega);
+                $statement->execute();
+                return $result = $statement->fetchAll();
+            } catch (\Throwable $th) {
+                echo $th;
+            }
         }
         
         public function delete_entrega($identrega){
-            $statement = $this->db->prepare('DELETE FROM public.entregas_fonretyf WHERE identrega = ?');
-            $statement->bindValue(1,$identrega);
-            $statement->execute();
-            $result = $statement->fetchAll();
-            return $result;
+            try {
+                $statement = $this->db->prepare('DELETE FROM public.entregas_fonretyf WHERE identrega = ?');
+                $statement->bindValue(1,$identrega);
+                $statement->execute();
+                $result = $statement->fetchAll();
+                return $result;
+            } catch (\Throwable $th) {
+                echo $th;
+            }
+            
         }
         
         public function insert_entrega($identrega,$numentrega,$anioentrega,$descentrega,$cveusu,$fechentrega,$observaciones){
@@ -49,15 +63,19 @@
             } catch (\Throwable $th) {
                 echo $th;
             }
-            
         }
         
         public function update_entrega($numentrega,$anioentrega,$descentrega,$fechentrega,$observaciones,$cveusu,$identrega){
-            $fecha = date("Y-m-d");
-            $datsInsert=array($numentrega, $anioentrega, $descentrega, $fechentrega, $observaciones, $cveusu, $fecha, $identrega);
-            $statement = $this->db->prepare("UPDATE public.entregas_fonretyf SET numentrega=?, anioentrega=?, descentrega=?, fechentrega=?, observaciones=?, cveusu=?, fechmodif= ?  WHERE identrega=?");
-            $statement->execute($datsInsert);
-            return $result = $statement->fetchAll();
+            try {
+                $fecha = date("Y-m-d");
+                $datsInsert=array($numentrega, $anioentrega, $descentrega, $fechentrega, $observaciones, $cveusu, $fecha, $identrega);
+                $statement = $this->db->prepare("UPDATE public.entregas_fonretyf SET numentrega=?, anioentrega=?, descentrega=?, fechentrega=?, observaciones=?, cveusu=?, fechmodif= ?  WHERE identrega=?");
+                $statement->execute($datsInsert);
+                return $result = $statement->fetchAll();
+            } catch (\Throwable $th) {
+                echo $th;
+            }
+            
         }
 
         public function updateFechEntrega($identrega,$fechaEntrega,$usuario){

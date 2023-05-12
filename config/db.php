@@ -7,7 +7,6 @@
         
         public function conexion(){
             try {
-                //code...
                 $PDO = new PDO("pgsql:host=localhost; port=5432; dbname=acup; user=postgres; password='admin*&'");
                 return $PDO;  
             } catch (PDOException $error) {

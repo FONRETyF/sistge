@@ -41,7 +41,7 @@
         }
         
         public function deleteTram($identreret,$clavemae,$cveusu){
-            require_once("/var/www/html/sistge/model/entregasModel.php");
+            require_once("/var/www/html/sistge/model/Entregas.php");
             $entrega = new Entrega();
 
             $get_entrega = $entrega -> get_entrega_id(substr($identreret,0,6));

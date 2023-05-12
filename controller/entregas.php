@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once "/var/www/html/sistge/model/entregasModel.php";
+    require_once "/var/www/html/sistge/model/Entregas.php";
     $entrega = new Entrega();
 
     switch ($_GET["op"]) {
@@ -41,13 +41,6 @@
                     $entrega->insert_entrega($_POST["identrega"],$_POST["numentrega"],$_POST["Anioentrega"],$_POST["descentrega"],$_SESSION['usuario'],$_POST["fechentrega"],$_POST["observaciones"]);
                 }
             }else{
-                /*echo ($_POST["numentrega"]);
-                echo ($_POST["Anioentrega"]);
-                echo ($_POST["descentrega"]);
-                echo ($_POST["fechentrega"]);
-                echo ($_POST["observaciones"]);
-                echo ($_SESSION['usuario']);
-                echo ($_POST["identrega"]);*/
                 $entrega->update_entrega($_POST["numentrega"],$_POST["Anioentrega"],$_POST["descentrega"],$_POST["fechentrega"],$_POST["observaciones"],$_SESSION['usuario'],$_POST["identrega"]);
             }
             break;
