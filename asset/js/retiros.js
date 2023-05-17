@@ -386,4 +386,11 @@ accionGeneraListados.addEventListener("click",function (e) {
     location.href = "../../views/home/ListadosEntr.php" + "?identr=" + identr;
 });
 
+var accionCancelaCheques = document.getElementById('cancelCheqs');
+accionCancelaCheques.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    location.href = "../../views/home/cancelCheqs.php" + "?identr=" + identr;
+});
+
 init();

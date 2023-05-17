@@ -57,6 +57,7 @@
             break;
 
         case 'agregarF':
+            echo($_POST["Icurpmae"]."-*-*-*-*-*-".$_POST["Irfcmae"]);
             $a_addTramF = $tramite -> addtramiteF($_POST['Ianioentr'],$_POST['Inumentr'],$_POST['Iidentr'],$_POST['Icvemae'],$_POST['Icveissemym'],$_POST['Iestatusmae'],$_POST['Imotret'],$_POST['IRegMae'],$_POST['Ifechbaj'],$_POST['InomSolic'],$_POST['INumCel'],$_POST['InumPart'],$_POST['Ifechbase'],$_POST['IfechInipsgs'],$_POST['IfechFinpsgs'],$_POST['Inumpsgs'],$_POST['Idiaspsgs'],$_POST['IdiasServ'],$_POST['IaniosServ'],$_POST['ImodRet'],$_POST['Imonttotret'],$_POST['ImontretEntr'],$_POST['IfechRecibido'],$_POST['InumOficTarj'],$_POST['IfechOficAut'],$_POST['IimageOficTarj'],$_POST['Inumbenefs'],$_POST['Idoctestamnt'],$_POST['Inomsbenefs'],$_POST['Icurpsbenefs'],$_POST['Iparentsbenefs'],$_POST['Iporcnsbenefs'],$_POST['Iedadesbenefs'],$_POST['Ividabenefs'],$_POST['Ifechtestamnt'],$_POST["Icurpmae"],$_POST["Irfcmae"],$_SESSION['usuario']);
             echo json_encode($a_addTramF, JSON_FORCE_OBJECT);
             break;

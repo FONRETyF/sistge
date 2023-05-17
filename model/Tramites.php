@@ -858,7 +858,7 @@ use function PHPSTORM_META\type;
             } else {
                 try {
                     $statementUpdate = "UPDATE public.maestros_smsem";
-                    $statementUpdate = $statementUpdate . " SET cveissemym='".$cveissemym."', regescmae= ".$region ." , numcelmae='" .$numcelmae."', numfijmae='".$numpartmae."', fcbasemae='".$fechbase."', aservactmae=".$aniosserv.", fbajamae='".$fechbaja."', numpsgs=".$numpsgs.", diaspsgs=".$diaspsgs.",fechfallecmae='".$fechbaja."', estatlabmae='". $motivret ."', cveusu='".$usuario."', fechmodif='".$fecha."', diaservactmae=".$diasserv.", afiprogfondfalle=".$afifonfall.", fechsinipsgs=' " .$fechaini."', fechsfinpsgs='".$fechafin."'";
+                    $statementUpdate = $statementUpdate . " SET cveissemym='".$cveissemym."', curpmae='".$curpmae."', rfcmae='".$rfcmae."', regescmae= ".$region ." , numcelmae='" .$numcelmae."', numfijmae='".$numpartmae."', fcbasemae='".$fechbase."', aservactmae=".$aniosserv.", fbajamae='".$fechbaja."', numpsgs=".$numpsgs.", diaspsgs=".$diaspsgs.",fechfallecmae='".$fechbaja."', estatlabmae='". $motivret ."', cveusu='".$usuario."', fechmodif='".$fecha."', diaservactmae=".$diasserv.", afiprogfondfalle=".$afifonfall.", fechsinipsgs=' " .$fechaini."', fechsfinpsgs='".$fechafin."'";
                     $statementUpdate = $statementUpdate . " WHERE csp='" . $cvemae."';";
                     $statementUpdate = $this->db->prepare($statementUpdate);
                     $statementUpdate->execute();
@@ -1116,6 +1116,13 @@ use function PHPSTORM_META\type;
         }
 
         public function updateJubInha($anioentr,$numentre,$identr,$idretiro,$identregRet,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$numdictam,$fechdictam,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$montretfall,$fechrecib,$numoficautori,$fechautori,$imgautori,$diaHaber,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$curpmae,$rfcmae,$cveusu){
+            require_once("/var/www/html/sistge/model/Entregas.php");
+            $entrega = new Entrega();
+            $get_entrega = $entrega -> get_entrega_id($identr);
+            
+            $getRetiro = $this->get_Tram_Id($identregRet);
+            $montoRetAnt = str_replace(",","",str_replace("$","",$getRetiro[0]["montrettot"]));
+
             $a_resultUpdTram = array();
                         
             $fecha = "";
@@ -1218,12 +1225,32 @@ use function PHPSTORM_META\type;
 
                 $insertaChequeAd = $this->insertaChequeAdeudo($anioentr,$numentre,$idretiro,$identregRet,$cvemae,$numadeds,$estatEdadAd,$porcsBenefAd,$nombreBenefAd,$montBenefAd,$cveusu,$fecha,$motvret,$adeudoOfic);
                 $a_resultUpdTram["insertChequeA"] = $insertaChequeAd;
+
+            }
+
+            if ($montoRetAnt > $montrettot || $montoRetAnt < $montrettot) {
+
+                $montoEntrUpdate = (str_replace(",","",str_replace("$","",$get_entrega[0]["monttotentr"])) - $montoRetAnt) + $montrettot;
+                try {                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                    $consultaUpdateEnt = "UPDATE public.entregas_fonretyf SET monttotentr=".$montoEntrUpdate." WHERE identrega = '".$identr."';";
+                    $consultaUpdateEnt = $this->db->prepare($consultaUpdateEnt);
+                    $consultaUpdateEnt->execute();
+                    $results = $consultaUpdateEnt->fetchAll(PDO::FETCH_ASSOC);              
+                } catch (\Throwable $th) {
+                    echo($th);
+                }
             }
 
             return $a_resultUpdTram;
         }
 
         public function updateFA($anioentr,$numentre,$identr,$idretiro,$identregRet,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidasbenefs,$testamento,$fechtestamnt,$curpmae,$rfcmae,$cveusu){
+            require_once("/var/www/html/sistge/model/Entregas.php");
+            $entrega = new Entrega();
+            $get_entrega = $entrega -> get_entrega_id($identr);
+            $getRetiro = $this->get_Tram_Id($identregRet);
+            $montoRetAnt = str_replace(",","",str_replace("$","",$getRetiro[0]["montrettot"]));
+
             $a_resultUpdTramFA = array();
             $fecha = "";
             $fecha = date("Y-m-d H:i:s");
@@ -1320,11 +1347,29 @@ use function PHPSTORM_META\type;
                 $a_resultUpdTramFA["insertChequeA"] = $insertaChequeAd;
             }
 
+            if ($montoRetAnt > $montrettot || $montoRetAnt < $montrettot) {
+                $montoEntrUpdate = (str_replace(",","",str_replace("$","",$get_entrega["monttotentr"])) - $montoRetAnt) + $montrettot;
+                try {                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                    $consultaUpdateEnt = "UPDATE public.entregas_fonretyf SET monttotentr=".$montoEntrUpdate." WHERE identrega = '".$identr."';";
+                    $consultaUpdateEnt = $this->db->prepare($consultaUpdateEnt);
+                    $consultaUpdateEnt->execute();
+                    $results = $consultaUpdateEnt->fetchAll(PDO::FETCH_ASSOC);              
+                } catch (\Throwable $th) {
+                    echo($th);
+                }
+            }
+
             return $a_resultUpdTramFA;
         }
 
         
         public function updateFJ($anioentr,$numentre,$identr,$idretiro,$identregRet,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidasbenefs,$testamento,$fechtestamnt,$curpmae,$rfcmae,$cveusu){
+            require_once("/var/www/html/sistge/model/Entregas.php");
+            $entrega = new Entrega();
+            $get_entrega = $entrega -> get_entrega_id($identr);
+            $getRetiro = $this->get_Tram_Id($identregRet);
+            $montoRetAnt = str_replace(",","",str_replace("$","",$getRetiro[0]["montrettot"]));
+                        
             $a_resultUpdTramFJ = array();
             $fecha = "";
             $fecha = date("Y-m-d H:i:s");
@@ -1418,6 +1463,18 @@ use function PHPSTORM_META\type;
 
                 $insertaChequeAd = $this->insertaChequeAdeudoF($anioentr,$numentre,$idretiro,$identregRet,$cveissemym,$numadeds,$estatEdadAd,$porcsBenefAd,$nombreBenefAd,$montBenefAd,$cveusu,$fecha,$motvret,$adeudoOfic);
                 $a_resultUpdTramFJ["insertChequeA"] = $insertaChequeAd;
+            }
+
+            if ($montoRetAnt > $montrettot || $montoRetAnt < $montrettot) {
+                $montoEntrUpdate = (str_replace(",","",str_replace("$","",$get_entrega["monttotentr"])) - $montoRetAnt) + $montrettot;
+                try {                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                    $consultaUpdateEnt = "UPDATE public.entregas_fonretyf SET monttotentr=".$montoEntrUpdate." WHERE identrega = '".$identr."';";
+                    $consultaUpdateEnt = $this->db->prepare($consultaUpdateEnt);
+                    $consultaUpdateEnt->execute();
+                    $results = $consultaUpdateEnt->fetchAll(PDO::FETCH_ASSOC);              
+                } catch (\Throwable $th) {
+                    echo($th);
+                }
             }
 
             return $a_resultUpdTramFJ;

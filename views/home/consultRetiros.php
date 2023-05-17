@@ -11,11 +11,18 @@
         <section id="SecConsltRetr">
             <div id="TxtTitConsl">Consulta de Retiros Otorgados por FONRETYF</div>
             <div id="ConsltRetir">
-                <div id="TextCSP">C.S.P o Issemym: </div> 
-                <input type="text" id="CveServPub" name="CveServPub" placeholder="Escriba clave del maestro">
-                <button type="submit" id="BttnBuscar">BUSCAR</button>       
-            </div>
-            
+                <div>
+                    <div id="TextCSP">C.S.P, issemym o nombre: </div> 
+                    <input type="text" id="CveServPub" name="CveServPub" placeholder="Escriba clave del maestro">
+                    <button type="submit" id="BttnBuscar">BUSCAR</button>    
+                </div>
+                <div id="opcRadsBusq">
+                    <div class="divsRadBtnsBusq"><input type="radio" id="RadBtnCSP" class="RadBtnsOptionsBusq" name="RdBtnsOpcsBusq" value="CSP" checked><label for="RadBtnCSP">C S P</label></div>
+                    <div class="divsRadBtnsBusq"><input type="radio" id="RadBtnIssemym" class="RadBtnsOptionsBusq" name="RdBtnsOpcsBusq" value="Issemym"><label for="RadBtnIssemym">Issemym</label></div>
+                    <div class="divsRadBtnsBusq"><input type="radio" id="RadBtnNombre" class="RadBtnsOptionsBusq" name="RdBtnsOpcsBusq" value="Nombre"><label for="RadBtnNombre">Nombre</label></div>
+                    <div class="divsRadBtnsBusq"><input type="radio" id="RadBtnFolio" class="RadBtnsOptionsBusq" name="RdBtnsOpcsBusq" value="Folio"><label for="RadBtnFolio">Folio cheque</label></div>
+                </div>   
+            </div>            
         </section>
     </form>
 </section>
@@ -36,7 +43,7 @@
 
     <script src="../../libs/datatables/select2.min.js"></script>
     
-    <script type="text/javascript" src="../../asset/js/retiros.js"></script>
+    <script type="text/javascript" src="../../asset/js/tramites.js"></script>
 
 <?php
     require_once("/var/www/html/sistge/views/head/footer.php");

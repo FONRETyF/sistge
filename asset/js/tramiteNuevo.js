@@ -121,14 +121,11 @@ $('#CURPMae').keydown(function (event) {
 
 $('#CURPMae').change(function () {
     document.getElementById('RFCMae').value = document.getElementById('CURPMae').value.substr(0,10).toUpperCase();
-});
-
-$('#CURPMae').blur(function () {
-    if ($("#CURPMae").val().length > 18 || $("#CURPMae").val().length < 18) {
+    if ($("#CURPMae").val().length < 18 ) {
         Swal.fire(
             'LA CLAVE CURP ES INCORRECTA',
             'deben ser 18 caracteres'
-        )
+        );
         $("#CURPMae").focus();
         document.getElementById('CURPMae').style.border =  ".1em red solid";
     }else{
@@ -143,12 +140,12 @@ $('#RFCMae').keydown(function (event) {
     }
 });
 
-$('#RFCMae').blur(function (event) {
+$('#RFCMae').change(function () {
     if ($("#RFCMae").val().length < 10 || $("#RFCMae").val().length > 13) {
         Swal.fire(
             'LA CLAVE RFC ES INCORRECTA',
             'deben ser 10 o 13 caracteres'
-        )
+        );
         $("#RFCMae").focus();
         document.getElementById('RFCMae').style.border =  ".1em red solid";
     }else{
@@ -451,6 +448,158 @@ function actNomMae(e){
     });
 }
 
+const accionFechBaja = document.querySelector("#fechBajaMae");
+accionFechBaja.addEventListener("blur", function (evento) {
+    evento.preventDefault();
+
+    if (parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) < 2019 || parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) > 2024) {
+        document.getElementById("fechBajaMae").style.border =  ".1em red solid";
+        Swal.fire(
+            'ERROR',
+            'el año de la fecha no es correcto!!!'
+        );
+    }else{
+        document.getElementById("fechBajaMae").style.border =  ".1em black solid";
+        if (motivo == "FJ") {
+            document.getElementById("editaBefens").disabled = false;
+        } 
+    }
+});
+
+const accionFechBase = document.querySelector("#fechBaseMae");
+accionFechBase.addEventListener("blur", function (evento) {
+    evento.preventDefault();
+
+    if (parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) < 1930 || parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) > 2024) {
+        document.getElementById("fechBaseMae").style.border =  ".1em red solid";
+        Swal.fire(
+            'ERROR',
+            'el año de la fecha no es correcto!!!'
+        );
+    }else{
+        document.getElementById("fechBaseMae").style.border =  ".1em black solid";
+    }
+});
+
+var checkboxPSGS = document.getElementById('sinPSGS');
+checkboxPSGS.addEventListener("change", validaCheckPSGS, false);
+function validaCheckPSGS(){
+    var checked = checkboxPSGS.checked;
+    if(checked){
+        document.getElementById("editaPSGS").disabled =  true;
+        document.getElementById('numPsgs').value = 0;
+        document.getElementById('diasPsgs').value = 0;
+        document.getElementById('fechsIniPSGS').value = "{}";
+        document.getElementById('fechsFinPSGS').value = "{}";
+        document.getElementById("calcDiasAnios").disabled = false;
+    }else{
+        document.getElementById("editaPSGS").disabled =  false;
+        document.getElementById("calcDiasAnios").disabled = true;
+    }
+}
+
+var numAgrPSGS=0;
+const psgs_max = 30;
+var contPSGS=0;
+const accionPSGS = document.querySelector("#editaPSGS");
+accionPSGS.addEventListener("click", function (evento){
+    evento.preventDefault();
+    if (numAgrPSGS == 0) {
+        $('#tituto_mod_psgs').html('Agregar P.S.G.S');
+        $('#edita_PSGS')[0].reset();
+        document.getElementById('numsPSGS').value = contPSGS;
+        $('#editarPSGS').modal('show');
+        document.getElementById("calcDiasAnios").disabled = false;
+    } else {
+        $('#tituto_mod_psgs').html('Agregar P.S.G.S');
+        $('#edita_PSGS')[0].reset();
+        document.getElementById('numsPSGS').value = contPSGS;
+        document.getElementById("calcDiasAnios").disabled = false;
+        $('#editarPSGS').modal('show');
+        var fechaIn = document.getElementById('fechsIniPSGS').value;
+        var fechaFn = document.getElementById('fechsFinPSGS').value;
+        var fechasInicio = JSON.parse(fechaIn);
+        var fechasFinal = JSON.parse(fechaFn);
+        var numerofechas = Object.keys(fechasInicio).length;
+
+        for (i = 0; i < numerofechas; i++) {
+            document.getElementById('fechaIni[' + i + ']').value = fechasInicio[i];
+            document.getElementById('fechaFin[' + i + ']').value = fechasFinal[i];
+        }
+    }
+});
+
+$("#edita_PSGS").on("submit",function(evento){
+    evento.preventDefault();
+
+    var diasActivo=0;
+    var formDataPSGS = new FormData($("#edita_PSGS")[0]);
+    $.ajax({
+        url: '../../controller/tramites.php?op=diasPSGS',
+        type: "POST",
+        data: formDataPSGS,
+        contentType: false,
+        processData: false,
+        success: function(datos){
+            numAgrPSGS++;
+            $('#edita_PSGS')[0].reset();
+            $("#editarPSGS").modal('hide');
+            if (datos == 0 && document.getElementById('DiasServOriginal').value > 0) {
+                diasActivo = parseInt(document.getElementById('diasServMae').value) + parseInt(document.getElementById('diasPsgs').value);
+                document.getElementById('numPsgs').value = 0;
+                document.getElementById('diasPsgs').value = 0;
+                document.getElementById('diasServMae').value = diasActivo;
+                document.getElementById('aniosServMae').value = Math.trunc(diasActivo/365);  
+                document.getElementById('fechsIniPSGS').value = "{}";
+                document.getElementById('fechsFinPSGS').value = "{}";
+            } else {
+                data = JSON.parse(datos);
+                $('#numPsgs').val(data.numPSGS);
+                if (document.getElementById('diasServMae').value > 0) {
+                    if (document.getElementById('diasServMae').value > 0) {
+                        diasActivo = document.getElementById('DiasServOriginal').value - data.diasPSGS;
+                    } else {
+                        diasActivo = document.getElementById('diasServMae').value - data.diasPSGS;
+                    }
+                }
+                document.getElementById('diasServMae').value = diasActivo;
+                document.getElementById('diasPsgs').value = data.diasPSGS;
+                document.getElementById('aniosServMae').value = Math.trunc(diasActivo/365);  
+                document.getElementById('fechsIniPSGS').value = JSON.stringify(data.fechIni);
+                document.getElementById('fechsFinPSGS').value = JSON.stringify(data.fechFin);                
+            }
+        }
+    });   
+});
+
+$("#addPSGS").click(function (e) {
+    e.preventDefault();
+    if (contPSGS < psgs_max) {
+        $('#DivFechsPSGSIni').append(
+            '<div><input type="date" name="fechaIni['+ contPSGS +']" id="fechaIni['+ contPSGS +']"><a href="#" class="delete_fechaI"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar fecha" height="15" width="20"></a></input></div>'
+        );
+        $('#DivFechsPSGSFin').append(
+            '<div><input type="date" name="fechaFin['+ contPSGS +']"  id="fechaFin['+ contPSGS +']"><a href="#" class="delete_fechaF"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar fecha" height="15" width="20"></a></input></div>'
+        );
+        contPSGS++
+    }
+    document.getElementById('numsPSGS').value = contPSGS;
+});
+
+$('#DivFechsPSGS').on("click",".delete_fechaI",function(e){
+    e.preventDefault();
+    $(this).parent('div').remove();
+    contPSGS = contPSGS - 0.5;
+    document.getElementById('numsPSGS').value = contPSGS;
+});
+
+$('#DivFechsPSGS').on("click",".delete_fechaF",function(e){
+    e.preventDefault();
+    $(this).parent('div').remove();
+    contPSGS = contPSGS - 0.5;
+    document.getElementById('numsPSGS').value = contPSGS;
+});
+
 const accionCalculadora = document.querySelector('#calcDiasAnios');
 accionCalculadora.addEventListener("click", function (evento) {
     evento.preventDefault();
@@ -507,10 +656,8 @@ accionCalculadora.addEventListener("click", function (evento) {
         }
     });
     validaFechas(valorValid, a_fechs);
-
     $("#ModoRetiro").val("");
     document.getElementById("monRetEntr").value = "";
-    
 });
 
 function validaFechas(valorValid, a_fechs) {
@@ -847,126 +994,6 @@ function validaFechas(valorValid, a_fechs) {
     }
 }
 
-var checkboxPSGS = document.getElementById('sinPSGS');
-checkboxPSGS.addEventListener("change", validaCheckPSGS, false);
-function validaCheckPSGS(){
-    var checked = checkboxPSGS.checked;
-    if(checked){
-        document.getElementById("editaPSGS").disabled =  true;
-        document.getElementById('numPsgs').value = 0;
-        document.getElementById('diasPsgs').value = 0;
-        document.getElementById('fechsIniPSGS').value = "{}";
-        document.getElementById('fechsFinPSGS').value = "{}";
-        document.getElementById("calcDiasAnios").disabled = false;
-    }else{
-        document.getElementById("editaPSGS").disabled =  false;
-        document.getElementById("calcDiasAnios").disabled = true;
-    }
-}
-
-var numAgrPSGS=0;
-const psgs_max = 30;
-var contPSGS=0;
-const accionPSGS = document.querySelector("#editaPSGS");
-accionPSGS.addEventListener("click", function (evento){
-    evento.preventDefault();
-    if (numAgrPSGS == 0) {
-        $('#tituto_mod_psgs').html('Agregar P.S.G.S');
-        $('#edita_PSGS')[0].reset();
-        document.getElementById('numsPSGS').value = contPSGS;
-        $('#editarPSGS').modal('show');
-        document.getElementById("calcDiasAnios").disabled = false;
-    } else {
-        $('#tituto_mod_psgs').html('Agregar P.S.G.S');
-        $('#edita_PSGS')[0].reset();
-        document.getElementById('numsPSGS').value = contPSGS;
-        document.getElementById("calcDiasAnios").disabled = false;
-        $('#editarPSGS').modal('show');
-        var fechaIn = document.getElementById('fechsIniPSGS').value;
-        var fechaFn = document.getElementById('fechsFinPSGS').value;
-        var fechasInicio = JSON.parse(fechaIn);
-        var fechasFinal = JSON.parse(fechaFn);
-        var numerofechas = Object.keys(fechasInicio).length;
-
-        for (i = 0; i < numerofechas; i++) {
-            document.getElementById('fechaIni[' + i + ']').value = fechasInicio[i];
-            document.getElementById('fechaFin[' + i + ']').value = fechasFinal[i];
-        }
-    }
-    
-});
-
-$("#edita_PSGS").on("submit",function(evento){
-    evento.preventDefault();
-
-    var diasActivo=0;
-    var formDataPSGS = new FormData($("#edita_PSGS")[0]);
-    $.ajax({
-        url: '../../controller/tramites.php?op=diasPSGS',
-        type: "POST",
-        data: formDataPSGS,
-        contentType: false,
-        processData: false,
-        success: function(datos){
-            numAgrPSGS++;
-            $('#edita_PSGS')[0].reset();
-            $("#editarPSGS").modal('hide');
-            if (datos == 0 && document.getElementById('DiasServOriginal').value > 0) {
-                diasActivo = parseInt(document.getElementById('diasServMae').value) + parseInt(document.getElementById('diasPsgs').value);
-                document.getElementById('numPsgs').value = 0;
-                document.getElementById('diasPsgs').value = 0;
-                document.getElementById('diasServMae').value = diasActivo;
-                document.getElementById('aniosServMae').value = Math.trunc(diasActivo/365);  
-                document.getElementById('fechsIniPSGS').value = "{}";
-                document.getElementById('fechsFinPSGS').value = "{}";
-            } else {
-                data = JSON.parse(datos);
-                $('#numPsgs').val(data.numPSGS);
-                if (document.getElementById('diasServMae').value > 0) {
-                    if (document.getElementById('diasServMae').value > 0) {
-                        diasActivo = document.getElementById('DiasServOriginal').value - data.diasPSGS;
-                    } else {
-                        diasActivo = document.getElementById('diasServMae').value - data.diasPSGS;
-                    }
-                }
-                document.getElementById('diasServMae').value = diasActivo;
-                document.getElementById('diasPsgs').value = data.diasPSGS;
-                document.getElementById('aniosServMae').value = Math.trunc(diasActivo/365);  
-                document.getElementById('fechsIniPSGS').value = JSON.stringify(data.fechIni);
-                document.getElementById('fechsFinPSGS').value = JSON.stringify(data.fechFin);                
-            }
-        }
-    });   
-});
-
-$("#addPSGS").click(function (e) {
-    e.preventDefault();
-    if (contPSGS < psgs_max) {
-        $('#DivFechsPSGSIni').append(
-            '<div><input type="date" name="fechaIni['+ contPSGS +']" id="fechaIni['+ contPSGS +']"><a href="#" class="delete_fechaI"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar fecha" height="15" width="20"></a></input></div>'
-        );
-        $('#DivFechsPSGSFin').append(
-            '<div><input type="date" name="fechaFin['+ contPSGS +']"  id="fechaFin['+ contPSGS +']"><a href="#" class="delete_fechaF"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar fecha" height="15" width="20"></a></input></div>'
-        );
-        contPSGS++
-    }
-    document.getElementById('numsPSGS').value = contPSGS;
-});
-
-$('#DivFechsPSGS').on("click",".delete_fechaI",function(e){
-    e.preventDefault();
-    $(this).parent('div').remove();
-    contPSGS = contPSGS - 0.5;
-    document.getElementById('numsPSGS').value = contPSGS;
-});
-
-$('#DivFechsPSGS').on("click",".delete_fechaF",function(e){
-    e.preventDefault();
-    $(this).parent('div').remove();
-    contPSGS = contPSGS - 0.5;
-    document.getElementById('numsPSGS').value = contPSGS;
-});
-
 const accionOpcTestamento = document.querySelector('#OpcTestamento');
 accionOpcTestamento.addEventListener("click", function (evento) {
     evento.preventDefault();
@@ -982,39 +1009,6 @@ accionOpcTestamento.addEventListener("click", function (evento) {
         document.getElementById("fechCTJuicio").disabled = false;
         document.getElementById("DivFechInicioJuicio").style.display = "none";
         document.getElementById('editaBefens').disabled = true;
-    }
-});
-
-const accionFechBaja = document.querySelector("#fechBajaMae");
-accionFechBaja.addEventListener("blur", function (evento) {
-    evento.preventDefault();
-
-    if (parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) < 2019 || parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) > 2024) {
-        document.getElementById("fechBajaMae").style.border =  ".1em red solid";
-        Swal.fire(
-            'ERROR',
-            'el año de la fecha no es correcto!!!'
-        );
-    }else{
-        document.getElementById("fechBajaMae").style.border =  ".1em black solid";
-        if (motivo == "FJ") {
-            document.getElementById("editaBefens").disabled = false;
-        } 
-    }
-});
-
-const accionFechBase = document.querySelector("#fechBaseMae");
-accionFechBase.addEventListener("blur", function (evento) {
-    evento.preventDefault();
-
-    if (parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) < 1930 || parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) > 2024) {
-        document.getElementById("fechBaseMae").style.border =  ".1em red solid";
-        Swal.fire(
-            'ERROR',
-            'el año de la fecha no es correcto!!!'
-        );
-    }else{
-        document.getElementById("fechBaseMae").style.border =  ".1em black solid";
     }
 });
 

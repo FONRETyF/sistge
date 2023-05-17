@@ -245,6 +245,7 @@ $(document).ready(function () {
         }else if (motivoRet == "FA") {
             document.getElementById("DivDictamen").style.display = "none";
             document.getElementById("DivTestBenefsMae").style.display = "block";
+            document.getElementById("OpcTestamento").disabled = true;
             $('#tituto_BasJubBajFall').html('JUBILACION Y FALLECIMIENTO');
             $('#tituto_InptBasJub').html('Base: &nbsp');
             $('#tituto_InptBajFall').html('Fallecim.: &nbsp'); 
@@ -391,6 +392,7 @@ $(document).ready(function () {
             document.getElementById("DivDictamen").style.display = "none";
             document.getElementById("DivTestBenefsMae").style.display = "block";
             document.getElementById("DivPsgs").style.display =  "none";
+            document.getElementById("OpcTestamento").disabled = true;
 
             $('#tituto_BasJubBajFall').html('JUBILACION Y FALLECIMIENTO');
             $('#tituto_InptBasJub').html('Jubilacion:&nbsp ');
@@ -520,7 +522,40 @@ $(".cveissemym").keydown(function (event) {
 
 $('#CURPMae').change(function () {
     document.getElementById('RFCMae').value = document.getElementById('CURPMae').value.substr(0,10).toUpperCase();
-})
+});
+
+$('#CURPMae').blur(function () {
+    if ($("#CURPMae").val().length > 18 || $("#CURPMae").val().length < 18) {
+        Swal.fire(
+            'LA CLAVE CURP ES INCORRECTA',
+            'deben ser 18 caracteres'
+        )
+        $("#CURPMae").focus();
+        document.getElementById('CURPMae').style.border =  ".1em red solid";
+    }else{
+        document.getElementById('CURPMae').style.border =  ".1em black solid";
+    }
+});
+
+$('#RFCMae').keydown(function (event) {
+    var key = window.event ? event.which : event.keyCode;
+    if((key < 65 || key > 90)  && (key < 97 || key > 122) && (key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
+        return false;
+    }
+});
+
+$('#RFCMae').blur(function (event) {
+    if ($("#RFCMae").val().length < 10 || $("#RFCMae").val().length > 13) {
+        Swal.fire(
+            'LA CLAVE RFC ES INCORRECTA',
+            'deben ser 10 o 13 caracteres'
+        )
+        $("#RFCMae").focus();
+        document.getElementById('RFCMae').style.border =  ".1em red solid";
+    }else{
+        document.getElementById('RFCMae').style.border =  ".1em black solid";
+    }
+});
 
 $(".TelsMae").keydown(function (event){
     var key = window.event ? event.which : event.keyCode;
@@ -619,8 +654,6 @@ function actNomMae(e){
     clavemae = $("#cspMaeBusq").val();
     $.post("../../controller/maestro.php?op=buscar",{clavemae:clavemae},function(data){ 
         data = JSON.parse(data);
-        $('#cspMaeBusq').val(data.csp);
-        $('#cveIMaeBusq').val(data.cveissemym);
         $('#apePatMae').val(data.apepatmae);
         $('#apeMatMae').val(data.apematmae);
         $('#nombreMae').val(data.nommae);
@@ -629,6 +662,39 @@ function actNomMae(e){
         $('#nomSolic').val(data.nomcommae); 
     });
 }
+
+const accionFechBaja = document.querySelector("#fechBajaMae");
+accionFechBaja.addEventListener("blur", function (evento) {
+    evento.preventDefault();
+
+    if (parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) < 2019 || parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) > 2024) {
+        document.getElementById("fechBajaMae").style.border =  ".1em red solid";
+        Swal.fire(
+            'ERROR',
+            'el año de la fecha no es correcto!!!'
+        );
+    }else{
+        document.getElementById("fechBajaMae").style.border =  ".1em black solid";
+        if (motivo == "FJ") {
+            document.getElementById("editaBefens").disabled = false;
+        } 
+    }
+});
+
+const accionFechBase = document.querySelector("#fechBaseMae");
+accionFechBase.addEventListener("blur", function (evento) {
+    evento.preventDefault();
+
+    if (parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) < 1930 || parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) > 2024) {
+        document.getElementById("fechBaseMae").style.border =  ".1em red solid";
+        Swal.fire(
+            'ERROR',
+            'el año de la fecha no es correcto!!!'
+        );
+    }else{
+        document.getElementById("fechBaseMae").style.border =  ".1em black solid";
+    }
+});
 
 var checkboxPSGS = document.getElementById('sinPSGS');
 checkboxPSGS.addEventListener("change", validaCheckPSGS, false);
@@ -652,7 +718,6 @@ const psgs_max = 30;
 const accionPSGS = document.querySelector("#editaPSGS");
 accionPSGS.addEventListener("click", function (evento){
     evento.preventDefault();
-
     if (contPSGS == 0) {
         $('#tituto_mod_psgs').html('Agregar P.S.G.S');
         $('#edita_PSGS')[0].reset();
@@ -721,39 +786,6 @@ $("#edita_PSGS").on("submit",function(evento){
     });   
 });
 
-const accionFechBaja = document.querySelector("#fechBajaMae");
-accionFechBaja.addEventListener("blur", function (evento) {
-    evento.preventDefault();
-
-    if (parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) < 2019 || parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) > 2024) {
-        document.getElementById("fechBajaMae").style.border =  ".1em red solid";
-        Swal.fire(
-            'ERROR',
-            'el año de la fecha no es correcto!!!'
-        );
-    }else{
-        document.getElementById("fechBajaMae").style.border =  ".1em black solid";
-        if (motivo == "FJ") {
-            document.getElementById("editaBefens").disabled = false;
-        } 
-    }
-});
-
-const accionFechBase = document.querySelector("#fechBaseMae");
-accionFechBase.addEventListener("blur", function (evento) {
-    evento.preventDefault();
-
-    if (parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) < 1930 || parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) > 2024) {
-        document.getElementById("fechBaseMae").style.border =  ".1em red solid";
-        Swal.fire(
-            'ERROR',
-            'el año de la fecha no es correcto!!!'
-        );
-    }else{
-        document.getElementById("fechBaseMae").style.border =  ".1em black solid";
-    }
-});
-
 $("#addPSGS").click(function (e) {
     e.preventDefault();
     if (contPSGS < psgs_max) {
@@ -787,7 +819,7 @@ const accionCalculadora = document.querySelector('#calcDiasAnios');
 accionCalculadora.addEventListener("click", function (evento) {
     evento.preventDefault();
     var valorValid = 0;
-    var motivo = document.getElementById('motvret').value;
+    var motivo = document.getElementById('OpcCauRetiro').value;
 
     if (motivo == "I" || motivo == "J" || motivo == "FA") {
         if (motivo == "I" || motivo == "J") {
@@ -839,8 +871,8 @@ accionCalculadora.addEventListener("click", function (evento) {
             }
         }
     });
-    validaFechas(valorValid, a_fechs);
 
+    validaFechas(valorValid, a_fechs);
 });
 
 function validaFechas(valorValid, a_fechs) {
@@ -873,6 +905,20 @@ function validaFechas(valorValid, a_fechs) {
                         data = JSON.parse(data);
                         $('#montRet').val(data.montret.toFixed(2));
                         montoRetiro = parseFloat(document.getElementById('montRet').value); //- adeudosMae).toFixed(2);
+                        if ($("#ModoRetiro").val() == "C") {
+                            document.getElementById("monRetEntr").value = montoRetiro;
+                        }else if ($("#ModoRetiro").val() == "D") {
+                            document.getElementById("DivTpoDiferido").style.display = "block";
+                            document.getElementById("montRetFondFall").style.display = "block";
+                            document.getElementById("montSalMin").disabled =  false;
+                            if (document.getElementById('ModRetDiferid50').checked){
+                                document.getElementById('monRetEntr').value = (montoRetiro / 2).toFixed(2);
+                                document.getElementById('montRetFF').value = (montoRetiro / 2).toFixed(2);
+                            }else if(document.getElementById('ModRetDiferid100').checked){
+                                document.getElementById('monRetEntr').value = "0";
+                                document.getElementById('montRetFF').value = montoRetiro;
+                            }
+                        }
                     });                 
                     break;
                 
@@ -992,8 +1038,14 @@ function validaFechas(valorValid, a_fechs) {
         NumPersgs = $("#numPsgs").val();
         diasInacPsgs = $("#diasPsgs").val();
         
+        var fechIniJuic = 0;
+        
+        if ($("#fechIniJuicio").is(':visible')) {
+            fechIniJuic = 1;
+        } 
+
         if (motret == "FA") {
-            $.post("../../controller/tramites.php?op=validaFechsFA",{clavemae:clavemae,motret:motret,diasInacPsgs:diasInacPsgs,NumPersgs:NumPersgs,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"]},function(data){
+            $.post("../../controller/tramites.php?op=validaFechsFA",{clavemae:clavemae,motret:motret,diasInacPsgs:diasInacPsgs,NumPersgs:NumPersgs,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"],fecInicioJuic:fechIniJuic,fechaIniJuic:document.getElementById('fechIniJuicio').value,tiptest:document.getElementById('OpcTestamento').value,fechJuiCTL:document.getElementById('fechCTJuicio').value},function(data){
                 data = JSON.parse(data);
                 resultValid = data.descResult;
                 switch (resultValid) {
@@ -1169,8 +1221,340 @@ function validaFechas(valorValid, a_fechs) {
         );
     }
 }
-
 /*--------------------*/
+
+const accionOpcTestamento = document.querySelector('#OpcTestamento');
+accionOpcTestamento.addEventListener("click", function (evento) {
+    evento.preventDefault();
+    var tipoTestamnt = document.getElementById("OpcTestamento").value;
+
+    if (tipoTestamnt == "SL") {
+        document.getElementById("fechCTJuicio").disabled = true;
+        document.getElementById("fechCTJuicio").value = fechaActual();
+        document.getElementById("DivFechInicioJuicio").style.display = "none";
+        document.getElementById('editaBefens').disabled = false;
+    } else {
+        document.getElementById("fechCTJuicio").value = "";
+        document.getElementById("fechCTJuicio").disabled = false;
+        document.getElementById("DivFechInicioJuicio").style.display = "none";
+        document.getElementById('editaBefens').disabled = true;
+    }
+});
+
+const accioFechTEstmnt = document.querySelector("#fechCTJuicio");
+accioFechTEstmnt.addEventListener("blur", function (evento) {
+    evento.preventDefault();
+
+    var tipTestamento = document.getElementById('OpcTestamento').value;
+    var validAnioFechCTJuic = false;
+
+    if (parseInt(document.getElementById('fechCTJuicio').value.split("-")[0]) > 1930 && parseInt(document.getElementById('fechCTJuicio').value.split("-")[0]) < 2024) {
+        document.getElementById("fechCTJuicio").style.border =  ".1em black solid";
+        validAnioFechCTJuic = true;
+
+        switch (tipTestamento) {
+            case 'CT':
+                if (isNaN(Date.parse(document.getElementById('fechCTJuicio').value)) && document.getElementById('fechCTJuicio').value == "") {
+                    document.getElementById("calcDiasAnios").disabled = true;
+                    document.getElementById("editaBefens").disabled = true;
+                    Swal.fire(
+                        'ERROR',
+                        'La fecha de la carta testamentaria no es correcta, verifiquela!!!'
+                    );
+                    document.getElementById('calcDiasAnios').disabled = true;
+                    validAnioFechCTJuic = false;
+                } else {
+                    $.post("../../controller/tramites.php?op=validFechaCTJuic",{tipoTestamento:tipTestamento,FBase:document.getElementById('fechBaseMae').value,FBaja:document.getElementById('fechBajaMae').value,FCTJuicio:document.getElementById('fechCTJuicio').value,FRecibido:document.getElementById('fechRecibido').value},function(data){
+                        data = JSON.parse(data);
+                        var resultValidVig = data.resultValid;
+                        
+                        switch (resultValidVig) {
+                            case 'correcto':
+                                validAnioFechCTJuic = true;
+                                break;
+                            
+                            case 'errorFecha':
+                                notifError = data.descValid;    
+                                Swal.fire(
+                                    notifError,
+                                    'por favor verifique la(s) fecha(s)'
+                                );
+                                document.getElementById('calcDiasAnios').disabled = true;
+                                validAnioFechCTJuic = false;
+                                break;
+
+                            default:
+                                break;
+                        }
+                    });
+                }
+
+                if (!validAnioFechCTJuic) {
+                    Swal.fire(
+                        'ERROR',
+                        'por favor verifique los datos ingresados'
+                    );
+                    document.getElementById('calcDiasAnios').disabled = true;
+                } else {
+                    if (motivo) {
+                        
+                    }
+                
+                    $.post("../../controller/tramites.php?op=validVigTramFA",{tipoTestamento:tipTestamento,ClaveMae:clavemae,FBase:document.getElementById('fechBaseMae').value,FBaja:document.getElementById('fechBajaMae').value,FCTJuicio:document.getElementById('fechCTJuicio').value,FRecibido:document.getElementById('fechRecibido').value},function(data){
+                        data = JSON.parse(data);
+                        
+                        var resultValidVig = data.resulValidVig;
+                        if (resultValidVig == 'vigenciaVal') {
+                            document.getElementById("calcDiasAnios").disabled = false;
+                            document.getElementById("editaBefens").disabled = false;
+                        }else if (resultValidVig == 'vigenciaCad') {
+                            document.getElementById("calcDiasAnios").disabled = true;
+                            document.getElementById("editaBefens").disabled = true;
+
+                            swal.fire({
+                                title:'TRAMITE NO PROCEDENTE',
+                                text:"La fecha ddel tramite excede el limite de su vigencia, tiene numero de oficio de autorizacion",
+                                showCancelButton: true,
+                                confirmButtonText:'Si',
+                                cancelButtonText:'No',
+                                timer:15000
+                            }).then((result) => {
+                                if (result.isConfirmed){
+                                    var divOfTr = document.getElementById("DivExcepciones");
+                                    divOfTr.style.display = "block";
+                                    document.getElementById('editaBefens').disabled = false;
+                                }else{
+                                    let pagAnterior = document.referrer;
+                                    if (pagAnterior.indexOf(window.location.host) !== -1) {
+                                        window.history.back();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+                break;
+            
+            case 'SL':
+                document.getElementById("calcDiasAnios").disabled = false;
+                document.getElementById("editaBefens").disabled = false;
+                document.getElementById("fechCTJuicio").value = "";
+                document.getElementById("fechCTJuicio").disabled = true;
+                validAnioFechCTJuic = true;
+
+                if (!validAnioFechCTJuic) {
+                    Swal.fire(
+                        'ERROR',
+                        'por favor verifique los datos ingresados'
+                    );
+                    document.getElementById('calcDiasAnios').disabled = true;
+                } else {
+                    $.post("../../controller/tramites.php?op=validVigTramFA",{tipoTestamento:tipTestamento,ClaveMae:clavemae,FBase:document.getElementById('fechBaseMae').value,FBaja:document.getElementById('fechBajaMae').value,FCTJuicio:document.getElementById('fechCTJuicio').value,FRecibido:document.getElementById('fechRecibido').value},function(data){
+                        data = JSON.parse(data);
+                        var resultValidVig = data.resulValidVig;
+
+                        if (resultValidVig == 'vigenciaVal') {
+                            document.getElementById("calcDiasAnios").disabled = false;
+                            document.getElementById("editaBefens").disabled = false;
+                        }else if (resultValidVig == 'vigenciaCad') {
+                            document.getElementById("calcDiasAnios").disabled = true;
+                            document.getElementById("editaBefens").disabled = true;
+
+                            swal.fire({
+                                title:'TRAMITE NO PROCEDENTE',
+                                text:"La fecha ddel tramite excede el limite de su vigencia, tiene numero de oficio de autorizacion",
+                                showCancelButton: true,
+                                confirmButtonText:'Si',
+                                cancelButtonText:'No',
+                                timer:15000
+                            }).then((result) => {
+                                if (result.isConfirmed){
+                                    var divOfTr = document.getElementById("DivExcepciones");
+                                    divOfTr.style.display = "block";
+                                    document.getElementById('editaBefens').disabled = false;
+                                }else{
+                                    let pagAnterior = document.referrer;
+                                    if (pagAnterior.indexOf(window.location.host) !== -1) {
+                                        window.history.back();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+                break;
+            
+            case 'J':
+                if (isNaN(Date.parse(document.getElementById('fechCTJuicio').value)) && document.getElementById('fechCTJuicio').value == "") {
+                    document.getElementById("calcDiasAnios").disabled = true;
+                    document.getElementById("editaBefens").disabled = true;
+                    Swal.fire(
+                        'ERROR',
+                        'La fecha del JUICIO no es correcta, verifiquela!!!'
+                    );
+                    validAnioFechCTJuic = false;
+                    document.getElementById('calcDiasAnios').disabled = true;
+                } else {
+                    $.post("../../controller/tramites.php?op=validFechaCTJuic",{tipoTestamento:tipTestamento,FBase:document.getElementById('fechBaseMae').value,FBaja:document.getElementById('fechBajaMae').value,FCTJuicio:document.getElementById('fechCTJuicio').value,FRecibido:document.getElementById('fechRecibido').value},function(data){
+                        data = JSON.parse(data);
+                        var resultValidVig = data.resultValid;
+                            switch (resultValidVig) {
+                                case 'correcto':
+                                    document.getElementById("calcDiasAnios").disabled = false;
+                                    document.getElementById("editaBefens").disabled = false;
+                                    validAnioFechCTJuic = true;
+                                    break;
+                                
+                                case 'errorFecha':
+                                    notifError = data.descValid;    
+                                    Swal.fire(
+                                        notifError,
+                                        'por favor verifique la(s) fecha(s)'
+                                    );
+                                    validAnioFechCTJuic = false;
+                                    document.getElementById('calcDiasAnios').disabled = true;
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                    });
+                }
+
+                if (!validAnioFechCTJuic) {
+                    Swal.fire(
+                        'ERROR',
+                        'por favor verifique los datos ingresados'
+                    );
+                    document.getElementById('calcDiasAnios').disabled = true;
+                } else {
+                    $.post("../../controller/tramites.php?op=validVigTramFA",{tipoTestamento:tipTestamento,ClaveMae:clavemae,FBase:document.getElementById('fechBaseMae').value,FBaja:document.getElementById('fechBajaMae').value,FCTJuicio:document.getElementById('fechCTJuicio').value,FRecibido:document.getElementById('fechRecibido').value},function(data){
+                        data = JSON.parse(data);
+                        var resultValidVig = data.resulValidVig;
+
+                        if (resultValidVig == 'vigenciaVal') {
+                            document.getElementById("calcDiasAnios").disabled = false;
+                            document.getElementById("editaBefens").disabled = false;
+                        }else if (resultValidVig == 'vigenciaCad') {
+                            document.getElementById("calcDiasAnios").disabled = true;
+                            document.getElementById("editaBefens").disabled = true;
+
+                            swal.fire({
+                                title:'TRAMITE NO PROCEDENTE',
+                                text:"La fecha del tramite excede el limite de su vigencia, tiene numero de oficio de autorizacion",
+                                showCancelButton: true,
+                                confirmButtonText:'Si',
+                                cancelButtonText:'No',
+                                timer:15000
+                            }).then((result) => {
+                                if (result.isConfirmed){
+                                    var divOfTr = document.getElementById("DivExcepciones");
+                                    divOfTr.style.display = "bloxk";
+                                    document.getElementById('editaBefens').disabled = false;
+                                }else{
+                                    let pagAnterior = document.referrer;
+                                    if (pagAnterior.indexOf(window.location.host) !== -1) {
+                                        window.history.back();
+                                    }
+                                }
+                            });
+                        }else if (resultValidVig == 'fechaIni') {
+                            //document.getElementById("fechCTJuicio").disabled = true;
+                            document.getElementById("DivFechInicioJuicio").style.display = "block";
+                            document.getElementById("editaBefens").disabled = true;
+                            document.getElementById("calcDiasAnios").disabled = true;
+                            document.getElementById("fechCTJuicio").disabled = true;
+                            Swal.fire(
+                                "VIGENCIA DEL TRAMITE CADUCO",
+                                'proporcione la fecha de inicio del juicio!!'
+                            );
+                        } else if (resultValidVig == 'noProcede') {
+                            Swal.fire(
+                                "TRAMITE NO PROCEDENTE",
+                                'Tramite fuera del limite de vigencia para su validez'
+                            );
+                            
+                            let pagAnterior = document.referrer;
+                                if (pagAnterior.indexOf(window.location.host) !== -1) {
+                                    window.history.back();
+                                }
+                        } 
+                        
+                    });
+                }
+                break;
+
+            default:
+                break;
+        }
+    }else{
+        document.getElementById("fechCTJuicio").style.border =  ".1em red solid";
+        Swal.fire(
+            "El año de la fecha de CT o Juicio no es valido",
+            'por favor corrija la fecha'
+        );
+        validAnioFechCTJuic = false;
+        document.getElementById("calcDiasAnios").disabled = true;
+        document.getElementById("editaBefens").disabled = true;
+    }
+});
+
+
+const accioFechIniJuic = document.querySelector("#fechIniJuicio");
+accioFechIniJuic.addEventListener("blur", function (evento) {
+    evento.preventDefault();
+
+    if (parseInt(document.getElementById('fechIniJuicio').value.slice(0,4)) > 2020 && parseInt(document.getElementById('fechIniJuicio').value.slice(0,4)) < 2024) {
+        document.getElementById("fechCTJuicio").style.border =  ".1em black solid";
+        $.post("../../controller/tramites.php?op=validaVigFechas",{fechRecibido:document.getElementById('fechRecibido').value,fechBaja:document.getElementById('fechBajaMae').value,fechIniJuic:document.getElementById('fechIniJuicio').value,fechCTJuic:document.getElementById('fechCTJuicio').value},function(data){
+            data = JSON.parse(data);
+            resultValidFI = data.descResult;
+            
+            switch (resultValidFI) {
+                case 'validVal':
+                    document.getElementById("calcDiasAnios").disabled = false;
+                    document.getElementById("editaBefens").disabled = false;
+                    break;
+            
+                case 'errorFecha':
+                    notifError = data.descValid;    
+                    Swal.fire(
+                        notifError,
+                        'por favor verifique la fecha'
+                    );
+                    document.getElementById("calcDiasAnios").disabled = true;
+                    document.getElementById("editaBefens").disabled = true;
+                    break;
+                
+                case 'noProcede':
+                    document.getElementById("calcDiasAnios").disabled = true;
+                    document.getElementById("editaBefens").disabled = true;
+                    Swal.fire(
+                        "TRAMITE NO PROCEDENTE",
+                        'Tramite fuera del limite de vigencia para su validez'
+                    );
+                    
+                    let pagAnterior = document.referrer;
+                        if (pagAnterior.indexOf(window.location.host) !== -1) {
+                            window.history.back();
+                        }
+                    break;
+                
+                default:
+                    break;
+            }
+        });
+    }else{
+        document.getElementById("fechCTJuicio").style.border =  ".1em red solid";
+        Swal.fire(
+            "El año de la fecha de inicio del Juicio no es valido",
+            'por favor corrija la fecha'
+        );
+        document.getElementById("calcDiasAnios").disabled = true;
+        document.getElementById("editaBefens").disabled = true;
+    }
+    
+});
 
 var numBenefs=0;
 const benefs_max = 20;

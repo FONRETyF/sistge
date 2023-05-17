@@ -44,11 +44,9 @@
                         </tr>    
                             
                         <?php }?>
-
                     </thead>
                 </table>
     </section>
-
 </section>
 
     <script src="../../libs/datatables/jquery-3.6.0.js"></script>
@@ -64,9 +62,8 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script type="text/javascript" src="../../asset/js/main.js"></script>
-
     <script src="../../libs/datatables/select2.min.js"></script>
-    
+
     <script type="text/javascript" src="../../asset/js/retiros.js"></script>
 
 <?php
