@@ -607,7 +607,6 @@ accionCalculadora.addEventListener("click", function (evento) {
     
     if (motivo == "I" || motivo == "J" || motivo == "FA") {
         if (motivo == "I" || motivo == "J") {
-            alert("revision de fechas");
             var a_fechs = [
                 {fecha:"Recibido", nomvar:"fechRecibido", valorF:document.getElementById('fechRecibido').value},
                 {fecha:"Dictamen", nomvar:"fechDictamen", valorF:document.getElementById('fechDictamen').value},
@@ -656,15 +655,12 @@ accionCalculadora.addEventListener("click", function (evento) {
             }
         }
     });
-    alert("termino validacion de formato de fechas");
-    alert(valorValid);
     validaFechas(valorValid, a_fechs);
     $("#ModoRetiro").val("");
     document.getElementById("monRetEntr").value = "";
 });
 
 function validaFechas(valorValid, a_fechs) {
-    alert("valida fechas");
     if (valorValid == 4) {
         motret = $("#OpcCauRetiro").val();
         NumPersgs = $("#numPsgs").val();
