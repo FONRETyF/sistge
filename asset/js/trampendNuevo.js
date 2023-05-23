@@ -266,7 +266,6 @@ $(document).ready(function () {
     const accionBtnAgregar = document.querySelector("#agregaTrampPend");
     accionBtnAgregar.addEventListener("click", function (evento) {
         evento.preventDefault();
-        alert("kjfdbjdbgijbg");
         $.post("../../controller/tramites.php?op=validaFechsTramPend",{FchFallec:document.getElementById("fechBajaMae").value,FchIniJuic:document.getElementById("fechIniJuicio").value},function (data) {
             data = JSON.parse(data);
             if (!data) {

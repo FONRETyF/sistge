@@ -82,28 +82,14 @@ use function PHPSTORM_META\type;
                     }
                     if ($fechDictamen > $fechBajaMae){
                         $vigenciaTram = $this -> validaVigencia($fechBajaMae,$fechRecibido);
-                        if (($vigenciaTram/365) > 1 && ($vigenciaTram/365) <= 3){
-                            $statement = $this->db->prepare("SELECT * FROM public.prorrogas WHERE cvemae=? and estatuspro='ACTIVA'");
-                            $statement->bindValue(1,$clavemae);
-                            $statement->execute();
-                            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-                            if (count($results) > 0) {
-                                $validesFechs["descResult"] = "vigenciaCadD";
-                                $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
-                                $validesFechs["excepcion"] = "SI";
-                                $validesFechs["prorroga"] = "SI";
-                                return $validesFechs;
-                            }else {
-                                $validesFechs["descResult"] = "vigenciaCadD";
-                                $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
-                                $validesFechs["excepcion"] = "SI";
-                                $validesFechs["prorroga"] = "NO";
-                                return $validesFechs;
-                            }
-                        }else{
-                            $validesFechs["descResult"] = "noProcede";
-                            $validesFechs["diasServ"] = "Tramite no procede, excede el limite de apoyo por oficio";
-                            $validesFechs["excepcion"] = "NO";
+                        if (($vigenciaTram/365) <= 1){ 
+                            $dias_Serv["descResult"] = "vigenciaVal";
+                            $dias_Serv["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
+                            return $dias_Serv;
+                        }elseif (($vigenciaTram/365) > 1) {
+                            $validesFechs["descResult"] = "vigenciaCadD";
+                            $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
+                            $validesFechs["excepcion"] = "SI";
                             $validesFechs["prorroga"] = "NO";
                             return $validesFechs;
                         }

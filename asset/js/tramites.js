@@ -23,22 +23,18 @@ function consultaRets(e){
     var statCri = false;
 
     if (document.getElementById("RadBtnCSP").checked) {
-        alert("csp");
         criterio =1;
         statCri = true;
     }
     if (document.getElementById("RadBtnIssemym").checked) {
-        alert("issemym");
         criterio =2;
         statCri = true;
     }
     if (document.getElementById("RadBtnNombre").checked) {
-        alert("nombre");
         criterio =3;
         statCri = true;
     }
     if (document.getElementById("RadBtnFolio").checked) {
-        alert("folio");
         criterio =4;
         statCri = true;
     }

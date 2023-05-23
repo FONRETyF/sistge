@@ -423,7 +423,7 @@
 
         public function searchRets($criterioBusq,$valCriBusq){
             if ($valCriBusq<>"") {
-                if ($criterioBusq == 1 || $criterioBusq == 0) {
+                if ($criterioBusq == 1 || $criterioBusq == 2) {
                     try {
                         $statement = "SELECT tab2.identret,tab1.motvret,tab2.cvemae,tab2.nombenef,tab1.montrettot,tab2.montbenef,tab1.fechrecib,tab2.fechentrega,tab1.estattramite,tab2.estatcheque,tab2.folcheque";
                         $statement = $statement . " FROM public.tramites_fonretyf as tab1 INNER JOIN public.beneficiarios_cheques as tab2 on tab1.cvemae = tab2.cvemae WHERE tab2.cvemae='".$valCriBusq."';";
@@ -467,8 +467,29 @@
                         }
                     } 
                     return $result;
+                }elseif ($criterioBusq == 4) {
+                    try {
+                        $statement = "SELECT tab2.identret,tab1.motvret,tab2.cvemae,tab2.nombenef,tab1.montrettot,tab2.montbenef,tab1.fechrecib,tab2.fechentrega,tab1.estattramite,tab2.estatcheque,tab2.folcheque";
+                        $statement = $statement . " FROM public.tramites_fonretyf as tab1 INNER JOIN public.beneficiarios_cheques as tab2 on tab1.cvemae = tab2.cvemae WHERE tab2.folcheque='%".$valCriBusq."%';";
+                        $statement = $this->db->prepare($statement);
+                        $statement->execute();
+                        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                    } catch (\Throwable $th) {
+                        echo($th);
+                    }
+                    if (empty($result)) {
+                        try {
+                            $statement = "SELECT tab2.identret,tab1.motvret,tab2.cvemae,tab2.nombenef,tab1.montrettot,tab2.montbenef,tab1.fechrecib,tab2.fechentrega,tab1.estattramite,tab2.estatcheque,tab2.folcheque";
+                            $statement = $statement . " FROM public.tramites_fonretyf_hist as tab1 INNER JOIN public.beneficiarios_cheques_hist as tab2 on tab1.cvemae = tab2.cvemae WHERE tab2.folcheque='%".$valCriBusq."%';";
+                            $statement = $this->db->prepare($statement);
+                            $statement->execute();
+                            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                        } catch (\Throwable $th) {
+                            echo($th);
+                        }
+                    } 
+                    return $result;
                 }
-                
             }
         }
 
