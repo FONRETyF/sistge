@@ -29,7 +29,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="entregas.php">ENTREGAS</a></li>
                                     <li><a class="dropdown-item" href="consultRetiros.php">CONSULTAS</a></li>
-                                    <li><a class="dropdown-item" href="#">PARAMETROS</a></li>
+                                    <li><a class="dropdown-item" href="pendientes.php">PENDIENTES</a></li>
                                 </ul>
                             </li>
                             <!--<li class="nav-item">

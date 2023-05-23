@@ -107,6 +107,16 @@
             echo json_encode($a_update_FJ, JSON_FORCE_OBJECT);
             break;
 
+        case 'validaFechsTramPend':
+            $a_validFchsTramPend = $tramite->validFchsTramPend($_POST["FchFallec"],$_POST["FchIniJuic"]);
+            echo json_encode($a_validFchsTramPend, JSON_FORCE_OBJECT);
+            break;
+        
+        case 'agregaTramPend':
+            $a_add_trampend = $tramite->agregaTramPend($_POST["Icvemae"],$_POST["Iestatusmae"],$_POST["Imotret"],$_POST["Inomcommae"],$_POST["InomSolic"],$_POST["INumCel"],$_POST["InumPart"],$_POST["IfechRecibido"],$_POST["Ifechbaj"],$_POST["Ifechinijuic"],$_SESSION['usuario']);
+            echo json_encode($a_add_trampend, JSON_FORCE_OBJECT);
+            break;
+
         default:            
             break;
     }

@@ -150,6 +150,64 @@
             echo json_encode($a_get_asigFols,JSON_FORCE_OBJECT);
             break;
         
+        case 'consultRetiros':
+            
+            break;
+
+        case 'buscaRets':
+            $get_rets = $retiro->searchRets($_POST["criterioBusq"],$_POST["valCriBusq"]);
+            $result_BusqRets = array();
+            foreach ($get_rets as $row) {
+                $a_prep_BusqRets = array();
+                $a_prep_BusqRets[] = $row["identret"];
+                $a_prep_BusqRets[] = $row["motvret"];
+                $a_prep_BusqRets[] = $row["cvemae"];
+                $a_prep_BusqRets[] = $row["nombenef"];
+                $a_prep_BusqRets[] = $row["montrettot"];
+                $a_prep_BusqRets[] = $row["montbenef"];
+                $a_prep_BusqRets[] = $row["fechrecib"];
+                $a_prep_BusqRets[] = $row["fechentrega"];
+                $a_prep_BusqRets[] = $row["estattramite"];
+                $a_prep_BusqRets[] = $row["estatcheque"];
+                $a_prep_BusqRets[] = $row["folcheque"];
+                $result_BusqRets[] = $a_prep_BusqRets;
+            }
+            echo json_encode($result_BusqRets,JSON_FORCE_OBJECT);
+            break;
+
+        case 'listarPendts':
+            $get_tramspend = $retiro->searchRetsPend();
+            $a_tramspends = Array();
+            foreach ($get_tramspend as $row) {
+                $a_prepRetsPend = array();
+                $a_prepRetsPend[] = $row["id"];
+                $a_prepRetsPend[] = $row["motvret"];
+                $a_prepRetsPend[] = $row["cvemae"];
+                $a_prepRetsPend[] = $row["nomcommae"];
+                $a_prepRetsPend[] = $row["fechrecib"];
+                $a_prepRetsPend[] = $row["estattramite"];
+                $a_prepRetsPend[] = "<button type='button' onclick='' id='".$row['cvemae']."'class='BtIcEdit'><div><img src='../../img/lapiz.png' alt='edita' title='editar' height='20' width='20'></div></button>";
+                $a_prepRetsPend[] = "<button type='button' onclick='imprimeProga(".$row["cvemae"].");' id='".$row['cvemae']."'class='BtIcPrint'><div><img src='../../img/impresora.png' alt='acuerdo' title='imprime acuerdo' height='23' width='23'></div></button>";
+                $a_tramspends[] =  $a_prepRetsPend;
+            }
+            $a_result_DT_retpends = array(
+                "sEcho"=> 1,
+                "iTotalRecords"=>count($a_tramspends),
+                "iTotalDisplayRecords"=>count($a_tramspends),
+                "aaData"=>$a_tramspends
+            );
+            echo json_encode($a_result_DT_retpends);
+            break;
+
+        case 'getTramPend':
+            $a_get_trampend = $retiro->gettrampend($_POST["cvemae"]);
+            foreach($a_get_trampend as $row){
+                $output["motvret"] = $row["motvret"];
+                $output["cvemae"] = $row["cvemae"];
+            }
+            echo json_encode($output, JSON_FORCE_OBJECT);
+            break;
+
         default:
             break;
     }

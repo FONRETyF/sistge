@@ -933,24 +933,14 @@ a:nth-child(6) {
 }
 .formConsulRet{
   width: 90%;
-  margin: 80px 100px 0;
+  margin: 45px 100px 0;
 }
 
 #retiro_data{
   font-size: small;
   border-color: rgb(7, 107, 4);
 }
-
-
-
 /*ESTILOS NUEVA ENTREGA*/
-
-
-
-
-
-
-
 
 /*INICIAN ESTILOS CAPTURA DE TRAMITES*/
 #SecCapturaTram{
@@ -2293,4 +2283,93 @@ footer {
   border: none;
   border-radius: 10px;
   box-shadow: 0 9px rgba(34, 163, 8, 0.315);
+}
+
+#agregaTrampPend{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #0a6b1b;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px rgb(175, 174, 174);
+}
+#SecDatProrroga{
+  width: 80%;
+  height: 400px;
+  margin: 15px auto;
+  border-top: .1em solid #034203;
+  /*border-bottom: .1em solid #034203;*/
+  border-radius: 3px;
+}
+#SecDatProrroga p{
+  font-size: 1em;
+  text-align: center;
+  color:#2b2c2b;
+  font-weight: 15px;
+}
+#SecDatProrroga input[type="text"],
+input[type="date"]{
+  height: 25px;
+  font-size: 15px;
+}
+#DivDatSolicTramPend{
+  margin: 30px 0 0;
+  display: inline-flex;
+}
+#titleDatsTramPend{
+  font-weight: bold;
+  margin: 20px auto;
+}
+#DivFechsBajIniJ{
+  margin: 20px auto;
+  display: inline-flex;
+  align-content: center;
+}
+#DivFechInicioJuicio{
+  margin: 5px auto;
+  padding: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+#tramsPend_data{
+  font-size: small;
+
+}
+.tabPendientes th:nth-child(1){
+  width: 5px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabPendientes th:nth-child(2){
+  width: 8px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabPendientes th:nth-child(3){
+  width: 15px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabPendientes th:nth-child(4){
+  width: 55px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabPendientes th:nth-child(5){
+  width: 25px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabPendientes th:nth-child(6){
+  width: 25px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabPendientes th:nth-child(7){
+  width: 5px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabPendientes th:nth-child(8){
+  width: 5px;
+  border: 1.5px solid rgb(2, 48, 4);
 }

@@ -3,7 +3,10 @@
 use function PHPSTORM_META\type;
     session_start();
 
-    class Tramite{
+    require_once("/var/www/html/sistge/model/formularioTram.php");
+
+
+    class Tramite extends formularioTram{
         private $db;
         private $cantidadLetra;
         private $retiros;
@@ -312,10 +315,10 @@ use function PHPSTORM_META\type;
             }
         }
         
-        public function validaVigencia($fechBajaMae,$fechRecibido){
+        /*public function validaVigencia($fechBajaMae,$fechRecibido){
             $diasValid = $this->calculaDifFechas($fechBajaMae,$fechRecibido);      
             return $diasValid;
-        }
+        }*/
 
         public function calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs){
             $diasServPre = $this->calculaDifFechas($fechBaseMae,$fechBajaMae);
@@ -323,12 +326,12 @@ use function PHPSTORM_META\type;
             return $diasServ;
         }
 
-        public function calculaDifFechas($fechIni,$fechFin){
+        /*public function calculaDifFechas($fechIni,$fechFin){
             $FechaI = date_create($fechIni);
             $FechaF = date_create($fechFin);
             $difFechas = date_diff($FechaI,$FechaF);
             return $difFechas->format("%a");
-        }
+        }*/
 
         public function tiempoPSGS($contPSGS,$fechaIni,$fechaFin){
             $diasPSGS = array();
@@ -1509,6 +1512,35 @@ use function PHPSTORM_META\type;
             }
         }
 
+        public function validFchsTramPend($fechaFallec,$fechaIiJuic){
+            if (($this->validaFchFallIniJuic($fechaFallec,$fechaIiJuic)/365) <= 1) {
+                $vigencia = true;
+            }else {
+                $vigencia = false;
+            }
+
+            return $vigencia;
+        }
+        
+        public function agregaTramPend($cvemae,$statmae,$motret,$nomcommae,$nomSolic,$NumCel,$numPart,$fechRecibido,$fechbaj,$fechinijuic,$cveusu){
+            $a_resultAddTram = array();
+
+            $fecha = "";
+            $fecha = date("Y-m-d H:i:s");
+            try {                                                                                                                                                                                                                                                                                                                                                                                                                               
+                $consultaAdd = "INSERT INTO public.tramites_pendientes(";
+                $consultaAdd = $consultaAdd . "cvemae, motvret, nomcommae, nomsolic, fechrecib, fechbajfall, numcel, numotro, estattramite, fechinijuicio, soporteinijuicio, fechliber, fechcancel, motivcancel, observaciones, cveusureg, fechreg, cveusumodif, fechmodif)";
+                $consultaAdd = $consultaAdd . " VALUES ('".$cvemae."', '".$motret."', '".$nomcommae."', '".$nomSolic."', '".$fechRecibido."', '".$fechbaj."', '".$NumCel."', '".$numPart."', 'PENDIENTE', '".$fechinijuic."',0, '1900-01-01', '1900-01-01', 0, '','".$cveusu."','".$fecha."','','1900-01-01')";
+                $consultaAdd = $this->db->prepare($consultaAdd);
+                $consultaAdd->execute();
+                $results = $consultaAdd->fetchAll(PDO::FETCH_ASSOC);              
+                $a_resultAddTram["insertTramite"] = "Agregado";
+            } catch (\Throwable $th) {
+                $a_resultAddTram["insertTramite"] = "Fallo";
+            }
+            return $a_resultAddTram;
+        }
     }
+
 
 ?>
