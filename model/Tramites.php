@@ -345,11 +345,11 @@ use function PHPSTORM_META\type;
                                 $resultValidCTJuic['resultValid'] = "errorFecha";
                                 $resultValidCTJuic['descValid'] = "La fecha de BAJA no puede ser menor a la de la CT";
                                 return $resultValidCTJuic;
-                            }elseif ($fechactjuic < $fechabase && $fechactjuic < $fechabaja) {
+                            }/*elseif ($fechactjuic < $fechabase && $fechactjuic < $fechabaja) {
                                 $resultValidCTJuic['resultValid'] = "errorFecha";
                                 $resultValidCTJuic['descValid'] = "La fecha de BASE no puede ser mayor a la de la CT";
                                 return $resultValidCTJuic;
-                            }elseif ($fechactjuic < $fechabase && $fechactjuic > $fechabaja) {
+                            }*/elseif ($fechactjuic < $fechabase && $fechactjuic > $fechabaja) {
                                 $resultValidCTJuic['resultValid'] = "errorFecha";
                                 $resultValidCTJuic['descValid'] = "La fecha de CT no puede ser menor a la Base y mayor a la Baja, las fechas son incorrectas";
                                 return $resultValidCTJuic;
