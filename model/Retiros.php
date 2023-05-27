@@ -397,14 +397,19 @@
         
         public function updateFolsCheques($identrega,$numfolini){
             $a_resultsUpdtFols = array();
+            $a_resultAsigFols = array();
+
             $statementGetRetirosEntr = "SELECT tab1.identret,tab1.cvemae,tab1.motvret,tab2.idbenefcheque,tab2.nombenef,tab2.montbenef,tab2.montbenefletra,tab2.statedad,tab2.chequeadeudo FROM public.tramites_fonretyf as tab1 LEFT JOIN public.beneficiarios_cheques as tab2 ON tab1.identret = tab2.identret LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae ";
             $statementGetRetirosEntr = $statementGetRetirosEntr . "FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and (tab1.modretiro='C' or tab1.modretiro='D50') ORDER BY statedad ASC, CASE WHEN motvret='I' THEN 1 WHEN motvret='J' THEN 2 WHEN motvret='FA' THEN 3 WHEN motvret='FJ' THEN 4 END ASC, nomcommae ASC, nombenef ASC;";
             
             $statementGetRetirosEntr = $this->db->prepare($statementGetRetirosEntr);
             $statementGetRetirosEntr->execute();
             $results = $statementGetRetirosEntr->fetchAll(PDO::FETCH_ASSOC);
+            $numBenefCheques = count($results);
 
+            $contNumChqs = 0;
             $folio = $numfolini -1;
+            $folioFinal = 0;
             foreach ($results as $row) {
                 $folcheque = "00" . $folio +1;
                 try {                                                                                                                                                                                                                                                                                                                                                                                                                                      
@@ -412,13 +417,32 @@
                     $consultaUpdateTram = $this->db->prepare($consultaUpdateTram);
                     $consultaUpdateTram->execute();
                     $results = $consultaUpdateTram->fetchAll(PDO::FETCH_ASSOC);    
-                    $a_resultsUpdtFols[$row["idbenefcheque"]] = "Actualizado";       
+                    $a_resultsUpdtFols[$row["idbenefcheque"]] = "Actualizado";   
+                    $folioFinal = $folcheque; 
+                    $contNumChqs++;
                 } catch (\Throwable $th) {
                     $a_resultsUpdtFols[$row["idbenefcheque"]] = "Fallo";
                 }
                 $folio++;
             }
-            return $a_resultsUpdtFols;
+            $a_resultAsigFols["Act"] = $a_resultsUpdtFols;
+            $a_resultAsigFols["FolF"] = $folioFinal;
+            $a_resultAsigFols["ContNC"] = $contNumChqs;
+
+            if ($numBenefCheques == $contNumChqs) {
+                try {
+                    $folioinicial="00".$numfolini;
+                    $consultaUpdateTram = "UPDATE public.entregas_fonretyf SET folioinicial='".$folioinicial."', foliofinal='".$folioFinal."', folios='".$folioinicial."-".$folioFinal."', numcheques=".$contNumChqs." WHERE identrega='".$identrega."';";
+                    $consultaUpdateTram = $this->db->prepare($consultaUpdateTram);
+                    $consultaUpdateTram->execute();
+                    $results = $consultaUpdateTram->fetchAll(PDO::FETCH_ASSOC);
+                } catch (\Throwable $th) {
+                    echo $th;
+                }
+            } else {
+                # code...
+            }
+            return $a_resultAsigFols;
         }
 
         public function searchRets($criterioBusq,$valCriBusq){

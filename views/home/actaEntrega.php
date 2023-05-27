@@ -19,13 +19,14 @@
 
     $statementFechEntr = $db->prepare("SELECT fechentrega FROM public.entregas_fonretyf WHERE identrega='".$identrega."'");
     $statementFechEntr->execute();
-    $resultsFechentrega = $statementFechEntr->fetchAll(PDO::FETCH_ASSOC);    
+    $resultsFechentrega = $statementFechEntr->fetchAll(PDO::FETCH_ASSOC);  
+    
 
     $fechaEntrega = substr($resultsFechentrega[0]['fechentrega'],8,2) . " de " . $meses[intval(substr($resultsFechentrega[0]['fechentrega'],5,2))] . " de " . substr($resultsFechentrega[0]['fechentrega'],0,4);
 
     $consultacheques = "select tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
     $consultacheques = $consultacheques . " from public.tramites_fonretyf as tab1 left join (select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym)";
-    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='202203' and (tab1.modretiro='C' or tab1.modretiro='D50') order by case when motvret='I' then 1 when motvret='J' then 2 when motvret='FA' then 3 when motvret='FJ' then 4 end asc, nomcommae asc;";
+    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and (tab1.modretiro='C' or tab1.modretiro='D50') order by case when motvret='I' then 1 when motvret='J' then 2 when motvret='FA' then 3 when motvret='FJ' then 4 end asc, nomcommae asc;";
     $statement = $db->prepare($consultacheques);
     $statement->execute();
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);

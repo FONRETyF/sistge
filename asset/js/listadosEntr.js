@@ -29,11 +29,11 @@ accionBtnImpOfic.addEventListener("click", function (e) {
     e.preventDefault();
 
     if (document.getElementById("RadBtnTraspaso").checked) {
-        alert("entro 1111");
+        location.href = "../../views/home/oficioTraspaso.php" + "?identr=" + identrega;
     }else if(document.getElementById("RadBtnSolicCheqFinan").checked){
-        alert("entro 222");
+        location.href = "../../views/home/oficioSolicChqs.php" + "?identr=" + identrega;
     }else if (document.getElementById("RadBtnImpCheqInform").checked) {
-        alert("entro 333");
+        location.href = "../../views/home/oficioImpChqs.php" + "?identr=" + identrega;
     } else if(document.getElementById("RadBtnArchContad").checked){
         alert("entro 444");
     }
@@ -45,9 +45,9 @@ accionBtnGeneraList.addEventListener("click", function (e) {
     e.preventDefault();
     
     if (document.getElementById("RadBtnArchivo").checked) {
-        alert("lis 1");
+        location.href = "../../views/home/fileContab.php" + "?identr=" + identrega;
     } else if (document.getElementById("RadBtnAdeudos").checked) {
-        alert("lis 2");
+        location.href = "../../views/home/fileAdeudos.php" + "?identr=" + identrega;
     } else if (document.getElementById("RadBtnActas").checked) {
         location.href = "../../views/home/actaEntrega.php" + "?identr=" + identrega;
     } else if (document.getElementById("RadBtnSobres").checked) {

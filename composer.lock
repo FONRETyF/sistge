@@ -8,7 +8,7 @@
     "packages": [
         {
             "name": "dompdf/dompdf",
-            "version": "v0.6.2",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
