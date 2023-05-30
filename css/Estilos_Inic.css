@@ -1570,6 +1570,11 @@ margin: 0 110px;
   border-radius: 3px;
   width: 90%;
 } 
+#buttnUpImage{
+  background: transparent;
+  background-color: transparent;
+  border-color: transparent;
+}
 #DivCalculaRetiro{
   margin: 15px 15px;
   width: 200px;

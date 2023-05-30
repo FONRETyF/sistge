@@ -90,7 +90,7 @@ use function PHPSTORM_META\type;
                             $validesFechs["descResult"] = "vigenciaCadD";
                             $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
                             $validesFechs["excepcion"] = "SI";
-                            $validesFechs["prorroga"] = "NO";
+                            $validesFechs["prorroga"] = "SI";
                             return $validesFechs;
                         }
                     }

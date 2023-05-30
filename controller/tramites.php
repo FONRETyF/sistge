@@ -19,7 +19,7 @@
             }
             $get_aniosPSGS = $tramite -> tiempoPSGS($_POST["numsPSGS"],$fechI,$fechF);
             $diasPSGS = 0;
-            if(is_array($get_aniosPSGS)==true and count($get_aniosPSGS)>0){
+            if(is_array($get_aniosPSGS)==true && count($get_aniosPSGS)>0){
                 foreach($get_aniosPSGS as $row){
                     $diasPSGS =$diasPSGS + $row;
                 }
@@ -33,7 +33,7 @@
 
         case 'obtenRetiro':
             $a_get_paramRet = $tramite->get_Retiro($_POST["aniosserv"],$_POST["fechBaja"]);
-            if(is_array($a_get_paramRet)==true and count($a_get_paramRet)>0){
+            if(is_array($a_get_paramRet)==true && count($a_get_paramRet)>0){
                 foreach($a_get_paramRet as $row){
                     $output["montret"] = $row["montRet"];
                 }
@@ -43,7 +43,7 @@
         
         case 'obtenRetiroJub':
             $a_get_paramRetJub = $tramite->get_RetiroJub($_POST["aniosserv"],$_POST["programfallec"]);
-            if(is_array($a_get_paramRetJub)==true and count($a_get_paramRetJub)>0){
+            if(is_array($a_get_paramRetJub)==true && count($a_get_paramRetJub)>0){
                 foreach($a_get_paramRetJub as $row){
                     $output["montret"] = $row["montRet"];
                 }
@@ -57,7 +57,6 @@
             break;
 
         case 'agregarF':
-            echo($_POST["Icurpmae"]."-*-*-*-*-*-".$_POST["Irfcmae"]);
             $a_addTramF = $tramite -> addtramiteF($_POST['Ianioentr'],$_POST['Inumentr'],$_POST['Iidentr'],$_POST['Icvemae'],$_POST['Icveissemym'],$_POST['Iestatusmae'],$_POST['Imotret'],$_POST['IRegMae'],$_POST['Ifechbaj'],$_POST['InomSolic'],$_POST['INumCel'],$_POST['InumPart'],$_POST['Ifechbase'],$_POST['IfechInipsgs'],$_POST['IfechFinpsgs'],$_POST['Inumpsgs'],$_POST['Idiaspsgs'],$_POST['IdiasServ'],$_POST['IaniosServ'],$_POST['ImodRet'],$_POST['Imonttotret'],$_POST['ImontretEntr'],$_POST['IfechRecibido'],$_POST['InumOficTarj'],$_POST['IfechOficAut'],$_POST['IimageOficTarj'],$_POST['Inumbenefs'],$_POST['Idoctestamnt'],$_POST['Inomsbenefs'],$_POST['Icurpsbenefs'],$_POST['Iparentsbenefs'],$_POST['Iporcnsbenefs'],$_POST['Iedadesbenefs'],$_POST['Ividabenefs'],$_POST['Ifechtestamnt'],$_POST["Icurpmae"],$_POST["Irfcmae"],$_SESSION['usuario']);
             echo json_encode($a_addTramF, JSON_FORCE_OBJECT);
             break;
@@ -117,6 +116,29 @@
             echo json_encode($a_add_trampend, JSON_FORCE_OBJECT);
             break;
 
+        case 'subirImgSoporte':
+            $uploadimage = '';
+            if(isset($_FILES['imageOficTarj'])) {
+                $imageName = $_FILES['imageOficTarj']["name"];
+                $nomtempora = explode(".",$_FILES['imageOficTarj']["name"]);
+                $valid_extensions = array("jpeg", "jpg", "png");
+                $filextension = end($nomtempora);
+
+                if((($_FILES["hard_file"]["type"] == "image/png") || ($_FILES["imageOficTarj"]["type"] == "image/jpg") || ($_FILES["imageOficTarj"]["type"] == "image/jpeg")) && in_array($filextension, $valid_extensions)){
+                    $sourcePath = $_FILES['imageOficTarj']['tmp_name'];
+                    $targetPath = "/var/www/html/sistge/imgaut/".$imageName;
+                    try {
+                        move_uploaded_file($_FILES['imageOficTarj']['tmp_name'], $targetPath);
+                        $uploadimage = $imageName;
+                    } catch (\Throwable $th) {
+                        echo $th;
+                    }
+                }
+            }
+            $output["imagen"] = $uploadimage;
+            echo json_encode($output, JSON_FORCE_OBJECT);
+            break;
+            
         default:            
             break;
     }

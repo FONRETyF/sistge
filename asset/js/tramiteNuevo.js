@@ -994,6 +994,30 @@ function validaFechas(valorValid, a_fechs) {
     }
 }
 
+var imageExcepcion = '';
+$("#imageOficTarj").change(function (evento) {
+    evento.preventDefault();
+    var formData = new FormData($("#form_captTramite")[0]);
+	$.ajax({
+	    type: 'POST',
+	    url: '../../controller/tramites.php?op=subirImgSoporte',
+	    data: formData,
+	    contentType: false,
+	    processData: false,
+        success: function(datos){
+            data = JSON.parse(datos);
+            if (data["imagen"].length === 0) {
+                swal.fire(
+                    'La imagen de soporte no se cargo correctamente!!'
+                );
+            } else {
+                imageExcepcion = data["imagen"];
+                document.getElementById("ModoRetiro").disabled = false;
+            }
+        }
+	});
+})
+
 const accionOpcTestamento = document.querySelector('#OpcTestamento');
 accionOpcTestamento.addEventListener("click", function (evento) {
     evento.preventDefault();
@@ -1610,7 +1634,7 @@ function agregaRetFallecimiento() {
                                                         IfechRecibido:$("#fechRecibido").val(),
                                                         InumOficTarj:$("#numOficTarj").val(),
                                                         IfechOficAut:$("#fechOficAut").val(),
-                                                        IimageOficTarj:$("#imageOficTarj").val(),
+                                                        IimageOficTarj:imageExcepcion,
                                                         Inumbenefs:$("#numBenefs").val(),
                                                         Idoctestamnt:$("#OpcTestamento").val(),
                                                         Inomsbenefs:document.getElementById('nomsbenefs').value.split(","),
@@ -1687,7 +1711,7 @@ function agregajubilado() {
                                                         IfechRecibido:$("#fechRecibido").val(),
                                                         InumOficTarj:$("#numOficTarj").val(),
                                                         IfechOficAut:$("#fechOficAut").val(),
-                                                        IimageOficTarj:$("#imageOficTarj").val(),
+                                                        IimageOficTarj:imageExcepcion,
                                                         Inumbenefs:$("#numbenef").val(),
                                                         IdiaHaber: $("#montSalMin").val().replace(",",""),
                                                         Icurpmae:$("#CURPMae").val(),
@@ -1773,7 +1797,7 @@ function agregaRetFallecimientoJ() {
                                                         IfechRecibido:$("#fechRecibido").val(),
                                                         InumOficTarj:$("#numOficTarj").val(),
                                                         IfechOficAut:$("#fechOficAut").val(),
-                                                        IimageOficTarj:$("#imageOficTarj").val(),
+                                                        IimageOficTarj:imageExcepcion,
                                                         Inumbenefs:$("#numBenefs").val(),
                                                         Idoctestamnt:$("#OpcTestamento").val(),
                                                         Inomsbenefs:document.getElementById('nomsbenefs').value.split(","),

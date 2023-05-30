@@ -4,7 +4,6 @@
     if(empty($_SESSION['usuario'])){
         header("Location:login.php");
     }
-
 ?>
 
 <section class="contenidoGral">        
