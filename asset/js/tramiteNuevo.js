@@ -1443,6 +1443,7 @@ $("#editarBenefs").on("submit",function(evento){
     var a_vida = [];
     var porcentajeBenefs = 0;
     var integridadDats = true;
+    var curpvacia=false;
 
     formulario = document.getElementById('edita_Benefs');
     for (let index = 0; index < formulario.elements.length - 1; index++) {
@@ -1463,6 +1464,7 @@ $("#editarBenefs").on("submit",function(evento){
                     a_curps.push(formulario.elements[index].value);
                     integridadDats = true;
                 }else{
+                    curpvacia=true;
                     a_curps.push(formulario.elements[index].value);
                     integridadDats = false;
                 }
@@ -1491,7 +1493,15 @@ $("#editarBenefs").on("submit",function(evento){
                 break;
 
             case 'opcEdoVidBenef[]':
-                a_vida.push(formulario.elements[index].value);
+                if (formulario.elements[index].value == "F" && curpvacia == true) {
+                    a_vida.push(formulario.elements[index].value);
+                    integridadDats = true;
+                } else if (formulario.elements[index].value == "V" && curpvacia == true) {
+                    a_vida.push(formulario.elements[index].value);
+                    integridadDats = false;
+                } else  {
+                    a_vida.push(formulario.elements[index].value);
+                }
                 break;
 
             default:
