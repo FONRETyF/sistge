@@ -26,7 +26,7 @@
 
     $consultacheques = "select tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
     $consultacheques = $consultacheques . " from public.tramites_fonretyf as tab1 left join (select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym)";
-    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and (tab1.modretiro='C' or tab1.modretiro='D50') order by case when motvret='I' then 1 when motvret='J' then 2 when motvret='FA' then 3 when motvret='FJ' then 4 end asc, nomcommae asc;";
+    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and (tab1.modretiro='C' or tab1.modretiro='D50') order by case when motvret='I' then 1 when motvret='J' then 2 when (motvret='FA' or motvret='FJ') then 3 end asc, nomcommae asc;";
     $statement = $db->prepare($consultacheques);
     $statement->execute();
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -440,7 +440,7 @@
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[3]["nombenef"]),0,0, 'C');
                         break;
                     case '5':
-                        $pdf->Ln(0.7);
+                        $pdf->Ln(0.4);
 
                         $pdf->SetFont('Arial','B',10);
                         $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
@@ -456,7 +456,7 @@
                         $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[4]["nombenef"]),0,0, 'C');
                         break;
                     case '6':
-                        $pdf->Ln(0.7);
+                        $pdf->Ln(0.4);
 
                         $pdf->SetFont('Arial','B',10);
                         $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
@@ -518,46 +518,13 @@
                 $numbeneficiarios = count($resultsBenefs);
 
                 switch ($numbeneficiarios) {
-                    case '1':
-                        $pdf->Ln(1.7);
-
-                        $pdf->SetFont('Arial','B',10);
-                        $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
-
-                        $pdf->Ln(2);
-                        $pdf->SetFont('Arial','',10);
-                        $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[0]["nombenef"]),0,0, 'C');
-                        break;
-                    case '2':
-                        $pdf->Ln(1.7);
-
-                        $pdf->SetFont('Arial','B',10);
-                        $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
-
-                        $pdf->Ln(1.5);
-                        $pdf->SetFont('Arial','',10);
-                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[0]["nombenef"]),0,0, 'C');
-                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[1]["nombenef"]),0,0, 'C');
-                        break;
-                    case '3':
+                    case '7':
+                        $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);
                         $pdf->Ln(0.7);
-
+                            
                         $pdf->SetFont('Arial','B',10);
                         $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
-
-                        $pdf->Ln(1.5);
-                        $pdf->SetFont('Arial','',10);
-                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[0]["nombenef"]),0,0, 'C');
-                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[1]["nombenef"]),0,0, 'C');
-                        $pdf->Ln(1.5);
-                        $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[2]["nombenef"]),0,0, 'C');
-                        break;
-                    case '4':
-                        $pdf->Ln(0.7);
-
-                        $pdf->SetFont('Arial','B',10);
-                        $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
-
+    
                         $pdf->Ln(1.5);
                         $pdf->SetFont('Arial','',10);
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[0]["nombenef"]),0,0, 'C');
@@ -565,43 +532,126 @@
                         $pdf->Ln(1.5);
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[2]["nombenef"]),0,0, 'C');
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[3]["nombenef"]),0,0, 'C');
-                        break;
-                    case '5':
                         $pdf->AddPage();
-                        $pdf->SetXY(3,7);
-
+                        $pdf->Image('/var/www/html/sistge/img/escudosmsem.png',3,2,2,2.5);
+                        $pdf->Ln(3);
+                        $pdf->cell(2.3,0.5,utf8_decode('C. Profr. (a)'),0,0, 'L');
+                        $pdf->SetFont('Arial','B',11.5);
+                        $pdf->cell(13.59,0.5,utf8_decode($row["nomcommae"]),0,0, 'C');
+                        $pdf->Ln(1);
                         $pdf->SetFont('Arial','B',10);
                         $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
-
                         $pdf->Ln(1.8);
                         $pdf->SetFont('Arial','',10);
-                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[0]["nombenef"]),0,0, 'C');
-                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[1]["nombenef"]),0,0, 'C');
-                        $pdf->Ln(1.8);
-                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[2]["nombenef"]),0,0, 'C');
-                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[3]["nombenef"]),0,0, 'C');
-                        $pdf->Ln(1.8);
-                        $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[4]["nombenef"]),0,0, 'C');
-                        break;
-                    case '6':
-                        $pdf->AddPage();
-                        $pdf->SetXY(3,7);
-
-                        $pdf->SetFont('Arial','B',10);
-                        $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
-
-                        $pdf->Ln(1.8);
-                        $pdf->SetFont('Arial','',10);
-                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[0]["nombenef"]),0,0, 'C');
-                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[1]["nombenef"]),0,0, 'C');
-                        $pdf->Ln(1.8);
-                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[2]["nombenef"]),0,0, 'C');
-                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[3]["nombenef"]),0,0, 'C');
-                        $pdf->Ln(1.8);
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[4]["nombenef"]),0,0, 'C');
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[5]["nombenef"]),0,0, 'C');
+                        $pdf->cell(1.8);
+                        $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[6]["nombenef"]),0,0, 'C');
+                        $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);   
                         break;
-                    case '7':
+                    case '8':
+                        $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);
+                        $pdf->Ln(0.7);
+                            
+                        $pdf->SetFont('Arial','B',10);
+                        $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
+    
+                        $pdf->Ln(1.5);
+                        $pdf->SetFont('Arial','',10);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[0]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[1]["nombenef"]),0,0, 'C');
+                        $pdf->Ln(1.5);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[2]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[3]["nombenef"]),0,0, 'C');
+                        $pdf->AddPage();
+                        $pdf->Image('/var/www/html/sistge/img/escudosmsem.png',3,2,2,2.5);
+                        $pdf->Ln(3);
+                        $pdf->cell(2.3,0.5,utf8_decode('C. Profr. (a)'),0,0, 'L');
+                        $pdf->SetFont('Arial','B',11.5);
+                        $pdf->cell(13.59,0.5,utf8_decode($row["nomcommae"]),0,0, 'C');
+                        $pdf->Ln(1);
+                        $pdf->SetFont('Arial','B',10);
+                        $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
+                        $pdf->Ln(2.2);
+                        $pdf->SetFont('Arial','',10);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[4]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[5]["nombenef"]),0,0, 'C');
+                        $pdf->Ln(1.8);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[6]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[7]["nombenef"]),0,0, 'C');
+                        $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);  
+                        break;
+                    case '9':
+                        $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);
+                        $pdf->Ln(0.7);
+                            
+                        $pdf->SetFont('Arial','B',10);
+                        $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
+    
+                        $pdf->Ln(1.5);
+                        $pdf->SetFont('Arial','',10);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[0]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[1]["nombenef"]),0,0, 'C');
+                        $pdf->Ln(1.5);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[2]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[3]["nombenef"]),0,0, 'C');
+                        $pdf->AddPage();
+                        $pdf->Image('/var/www/html/sistge/img/escudosmsem.png',3,2,2,2.5);
+                        $pdf->Ln(3);
+                        $pdf->cell(2.3,0.5,utf8_decode('C. Profr. (a)'),0,0, 'L');
+                        $pdf->SetFont('Arial','B',11.5);
+                        $pdf->cell(13.59,0.5,utf8_decode($row["nomcommae"]),0,0, 'C');
+                        $pdf->Ln(1);
+                        $pdf->SetFont('Arial','B',10);
+                        $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
+                        $pdf->Ln(2.2);
+                        $pdf->SetFont('Arial','',10);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[4]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[5]["nombenef"]),0,0, 'C');
+                        $pdf->Ln(1.8);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[6]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[7]["nombenef"]),0,0, 'C');  
+                        $pdf->Ln(1.8);
+                        $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[8]["nombenef"]),0,0, 'C');   
+                        $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);
+                        break;
+                    case '10':
+                        $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);
+                        $pdf->Ln(0.7);
+                            
+                        $pdf->SetFont('Arial','B',10);
+                        $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
+    
+                        $pdf->Ln(1.5);
+                        $pdf->SetFont('Arial','',10);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[0]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[1]["nombenef"]),0,0, 'C');
+                        $pdf->Ln(1.5);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[2]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[3]["nombenef"]),0,0, 'C');
+                        $pdf->AddPage();
+                        $pdf->Image('/var/www/html/sistge/img/escudosmsem.png',3,2,2,2.5);
+                        $pdf->Ln(3);
+                        $pdf->cell(2.3,0.5,utf8_decode('C. Profr. (a)'),0,0, 'L');
+                        $pdf->SetFont('Arial','B',11.5);
+                        $pdf->cell(13.59,0.5,utf8_decode($row["nomcommae"]),0,0, 'C');
+                        $pdf->Ln(1);
+                        $pdf->SetFont('Arial','B',10);
+                        $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
+                        $pdf->Ln(2.2);
+                        $pdf->SetFont('Arial','',10);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[4]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[5]["nombenef"]),0,0, 'C');                     
+                        $pdf->Ln(1.8);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[6]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[7]["nombenef"]),0,0, 'C');  
+                        $pdf->Ln(1.8);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[8]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[9]["nombenef"]),0,0, 'C'); 
+                        $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);
+                        break;
+                    
+                    case '11':
                         $pdf->Ln(0.7);
                             
                         $pdf->SetFont('Arial','B',10);
@@ -619,18 +669,43 @@
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[5]["nombenef"]),0,0, 'C');
     
                         $pdf->AddPage();
+                        $pdf->Ln(2.2);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[6]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[7]["nombenef"]),0,0, 'C');  
                         $pdf->Ln(1.8);
-                        $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[6]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[8]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[9]["nombenef"]),0,0, 'C'); 
+                        $pdf->Ln(1.8);
+                        $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[10]["nombenef"]),0,0, 'C');  
+                        break;
+                    
+                    case '12':
+                        $pdf->Ln(0.7);
+                            
+                        $pdf->SetFont('Arial','B',10);
+                        $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
     
-                        break;
-                    case '8':
-                        # code...
-                        break;
-                    case '9':
-                        # code...
-                        break;
-                    case '10':
-                        # code...
+                        $pdf->Ln(1.8);
+                        $pdf->SetFont('Arial','',10);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[0]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[1]["nombenef"]),0,0, 'C');
+                        $pdf->Ln(1.8);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[2]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[3]["nombenef"]),0,0, 'C');
+                        $pdf->Ln(1.8);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[4]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[5]["nombenef"]),0,0, 'C');
+    
+                        $pdf->AddPage();
+                        $pdf->Ln(2.2);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[6]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[7]["nombenef"]),0,0, 'C');  
+                        $pdf->Ln(1.8);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[8]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[9]["nombenef"]),0,0, 'C'); 
+                        $pdf->Ln(1.8);
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[10]["nombenef"]),0,0, 'C');
+                        $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[11]["nombenef"]),0,0, 'C');
                         break;
                     default:
                         break;

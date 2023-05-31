@@ -38,7 +38,6 @@
             $statement->execute();
             $results = $statement->fetchAll(PDO::FETCH_ASSOC);
             $fechaEntrega = $results[0]["fechentrega"];
-            //echo(strlen($fechaEntrega)) --> longitud 10 conformato 2022-01-01
             
             $fechaEntrega = substr($fechaEntrega,8,2) . " DE " . $meses[intval(substr($fechaEntrega,5,2))] . " DE " . substr($fechaEntrega,0,4);
 
@@ -52,8 +51,8 @@
             $activeWorksheet->setCellValue('D5','CONCEPTO');
 
             $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1 left join (Select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2";
-            $consultacheques = $consultacheques . " where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
-            $consultacheques = $consultacheques . " WHERE identrega='202203' and (tab1.modretiro='C' or tab1.modretiro='D50') order by case when motvret='I' then 1 when motvret='J' then 2 when motvret='FA' then 3 when motvret='FJ' then 4 end asc, nomcommae asc;";
+            $consultacheques = $consultacheques . " WHERE tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
+            $consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and (tab1.modretiro='C' or tab1.modretiro='D50') order by case when motvret='I' then 1 when motvret='J' then 2  when (motvret='FA' or motvret='FJ') then 3 end asc, nomcommae asc;";
 
             $statementCheques = $db->prepare($consultacheques);
             $statementCheques->execute();
@@ -87,6 +86,58 @@
                 $idcheque++;
                 $numregExcel++;
             }
+           
+            $hoja2 = $spreadsheet->createSheet();
+            $hoja2->setTitle("FONRETyF-FondPension");
+            $hoja2->getColumnDimension('A')->setWidth(30,'pt');
+            $hoja2->getColumnDimension('B')->setWidth(70,'pt');
+            $hoja2->getColumnDimension('C')->setWidth(300,'pt');
+            $hoja2->getColumnDimension('D')->setWidth(95,'pt');
+
+            $hoja2->setCellValue('A2', $notacionEtr[$numentrega]." ENTREGA DEL FONDO DE RETIRO POR JUBILACION, INHABILITACION Y POR FALLECIMIENTO");
+            $hoja2->mergeCells('A2:D2')->getStyle('A2:D2')->getAlignment()->setHorizontal('center');
+            
+            $nombreArchivo = $notacionEtr[$numentrega]."_ENTREGA_FONRETyF";
+
+            $pdo = new dbfonretyf();
+            $db=$pdo->conexfonretyf();
+
+            $statement = $db->prepare("SELECT fechentrega FROM public.entregas_fonretyf WHERE identrega='".$identrega."'");
+            $statement->execute();
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $fechaEntrega = $results[0]["fechentrega"];
+            
+            $fechaEntrega = substr($fechaEntrega,8,2) . " DE " . $meses[intval(substr($fechaEntrega,5,2))] . " DE " . substr($fechaEntrega,0,4);
+
+            $hoja2->setCellValue('A3',$fechaEntrega);
+            $hoja2->mergeCells('A3:D3')->getStyle('A3:D3')->getAlignment()->setHorizontal('center');
+
+            $hoja2->getStyle('A5:D5')->getAlignment()->setHorizontal('center');
+            $hoja2->setCellValue('A5','NP');
+            $hoja2->setCellValue('B5','CSP');
+            $hoja2->setCellValue('C5','NOMBRE MAESTRO');
+            $hoja2->setCellValue('D5','CONCEPTO');
+
+            $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1 left join (Select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2";
+            $consultacheques = $consultacheques . " WHERE tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
+            $consultacheques = $consultacheques . " WHERE tab1.identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') order by nomcommae asc;";
+
+            $statementCheques = $db->prepare($consultacheques);
+            $statementCheques->execute();
+            $resultsCheques = $statementCheques->fetchAll(PDO::FETCH_ASSOC);
+
+            $idcheque = 1;
+            $numregExcel = 6;
+            foreach ($resultsCheques as $row) {
+                $hoja2->setCellValue('A'. $numregExcel,$idcheque);
+                $hoja2->setCellValue('B'. $numregExcel,$row["cvemae"]);
+                $hoja2->setCellValue('C'. $numregExcel,$row["nomcommae"]);
+                $descmotivo = "FALLECIMIENTO";
+                $hoja2->setCellValue('D'. $numregExcel,$descmotivo);
+
+                $idcheque++;
+                $numregExcel++;
+            }
 
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             header("Content-Disposition: attachment;filename=".$nombreArchivo .".xls");
@@ -96,7 +147,6 @@
             $writer->save('php://output');
 
             try {
-                //$writer->save('hello world.xlsx');
                 $writer = new Xls($spreadsheet);
                 
             } catch (\Throwable $th) {

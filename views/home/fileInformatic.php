@@ -20,7 +20,7 @@
     $identrega = $_GET['identr'];
     $numentrega=intval(substr($identrega,4,2));
 
-    $activeWorksheet->setTitle("Hoja1");
+    $activeWorksheet->setTitle("FONRETyF");
     $activeWorksheet->getColumnDimension('A')->setWidth(30,'pt');
     $activeWorksheet->getColumnDimension('B')->setWidth(63,'pt');
     $activeWorksheet->getColumnDimension('C')->setWidth(300,'pt');
@@ -31,7 +31,7 @@
     $activeWorksheet->setCellValue('A2', $notacionEtr[$numentrega]." ENTREGA DEL FONDO DE RETIRO POR JUBILACION, INHABILITACION Y POR FALLECIMIENTO");
     $activeWorksheet->mergeCells('A2:F2')->getStyle('A2:F2')->getAlignment()->setHorizontal('center');
     
-    $nombreArchivo = $notacionEtr[$numentrega]."_ENTREGA_FONRETyF";
+    $nombreArchivo = $notacionEtr[$numentrega]."_ENTREGA_FONRETyF - INFORMATICA";
 
     $pdo = new dbfonretyf();
     $db=$pdo->conexfonretyf();

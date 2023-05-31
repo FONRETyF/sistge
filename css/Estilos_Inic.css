@@ -336,7 +336,7 @@ a:nth-child(6) {
   .modal-content {
     width: 730px;
     height: 450px;
-    max-width: 800px;
+    max-width: 1200px;
     max-height: 80vh;
     border-radius: 5px;
     background: var(--white);
@@ -380,6 +380,9 @@ a:nth-child(6) {
     height: 35px;
     border-radius: 3px;
     font-size: 15px;
+  }
+  #modal-footer{
+    margin: 250px auto;
   }
   #BtnActEnt{
     width: 95%;
