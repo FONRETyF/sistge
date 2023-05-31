@@ -343,7 +343,7 @@
                 $pdf->SetX(5);
                 $pdf->SetFont('Arial','',8);
                 $pdf->SetLineWidth(0.02);
-                $pdf->cell(8,0.4,$rowBenef["nombenef"],1,0,'C');
+                $pdf->cell(8,0.4,utf8_decode($rowBenef["nombenef"]),1,0,'C');
                 $pdf->cell(3.3,0.4,$rowBenef["montbenef"],1,0,'C');
                 $pdf->Ln(0.4);
             }

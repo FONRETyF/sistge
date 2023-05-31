@@ -1461,6 +1461,7 @@ $("#editarBenefs").on("submit",function(evento){
         
             case 'curpbenef[]':
                 if (formulario.elements[index].value != ""){
+                    curpvacia=false;
                     a_curps.push(formulario.elements[index].value);
                     integridadDats = true;
                 }else{
@@ -1492,7 +1493,7 @@ $("#editarBenefs").on("submit",function(evento){
                 a_edades.push(formulario.elements[index].value);
                 break;
 
-            case 'opcEdoVidBenef[]':
+            case 'opcEdoVidBenef[]':  
                 if (formulario.elements[index].value == "F" && curpvacia == true) {
                     a_vida.push(formulario.elements[index].value);
                     integridadDats = true;
