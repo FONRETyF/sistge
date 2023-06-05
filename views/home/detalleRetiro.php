@@ -56,6 +56,9 @@
                             </div>
                         </div>
                     </section>
+                    <div id="detalleObserv">
+                        <div>Observaciones</div><div><input type="text" id="observTramite" name="observTramite" maxlength="500"></div>                   
+                    </div>
                     <section id="secBenefes">
                         <table id ="benefs_data" class="table display responsive nowrap despliegue_tabla">
                             <thead class="tabBenefs">

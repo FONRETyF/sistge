@@ -58,6 +58,10 @@
                     </select>
                 </div>
             </div>
+            <div id="divObservCheque">
+                <div>Observaciones: </div>
+                <div><input type="text" id="observCancelCheque" name="observCancelCheque"></div>
+            </div>
             <div id="divButtonCancel" class="divsCancels">
                 <button type="submit" id="cancelCheque" name="cancelCheque" >CANCELAR</button>
             </div>

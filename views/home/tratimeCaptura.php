@@ -213,10 +213,11 @@
                         </div>
                     </div>
                 </div>
+                <div id="divObservacionesTram">
+                    <div>Observaciones</div><div><input type="text" id="observTramite" name="observTramite" maxlength="500"></div>                   
+                </div>
                 <div id="divAgregaTram">
                     <button type="submit" id="agregaTramite" name="agregaTramite" >AGREGAR</button>
-                    <!--<button id="imprimeAcuerdo" name="imprimeAcuerdo" class="" onclick="acuerdoRetiro.php">IMPRIMIR</button>
-                    <a href="./acuerdoRetiro.php" class="btn btn-success"><i class="fass fa-file-pdf"></i>IMPRIMIR</a>-->
                 </div>
             </section>
             </div>

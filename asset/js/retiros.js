@@ -197,6 +197,7 @@ function mostrar(identret,cvemae) {
                 $("#DTIaniosbase").val(datos.aservactmae);
                 $("#DTIfolcheque").val(datos.folcheque);
                 $("#DTIestatche").val(datos.estatcheque);
+                $("#observTramite").val(datos.observtrami);
             });
         } else {
             document.getElementById("secBenefes").style.display="block";
@@ -247,6 +248,7 @@ function mostrar(identret,cvemae) {
                 $("#DTIestattram").val(datos.estattramite);
                 $("#DTIfechBase").val(datos.fechbajamae);
                 $("#DTIaniosbase").val(datos.aniosjub);
+                $("#observTramite").val(datos.observtrami);
             });
         }
     });
@@ -391,6 +393,13 @@ accionCancelaCheques.addEventListener("click", function (e) {
     e.preventDefault();
 
     location.href = "../../views/home/cancelCheqs.php" + "?identr=" + identr;
+});
+
+var accionCarpetasArchivo = document.getElementById('asignCarpts');
+accionCarpetasArchivo.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    location.href = "../../views/home/carpetasArchivo.php" + "?identr=" + identr;
 });
 
 init();

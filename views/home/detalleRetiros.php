@@ -30,6 +30,7 @@
                     <a id="asignFol" class="btnsOperations" href="#"><img src="../../img/asignafolio.png" alt="Asigna folios" title="Asigna folios" height="45" width="45"></a>
                     <a id="printLists" class="btnsOperations" href="#"><img src="../../img/imprimeListados.png" alt="Imprimir listados" title="Imprimir listados" height="35" width="35"></a>
                     <a id="cancelCheqs" class="btnsOperations" href="#"><img src="../../img/cancelar.png" alt="Cancelar cheques" title="Cancelar cheques" height="40" width="40"></a>
+                    <a id="asignCarpts" class="btnsOperations" href="#"><img src="../../img/carpetas.png" alt="Carpetas" title="Asignar Carpetas" height="40" width="40"></a>
                 </div>
             </div>
             <div id="ResultConsultRets">

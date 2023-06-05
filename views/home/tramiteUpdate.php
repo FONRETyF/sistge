@@ -225,6 +225,9 @@
                         </div>
                     </div>
                 </div>
+                <div id="divObservacionesTram">
+                    <div>Observaciones</div><div><input type="text" id="observTramite" name="observTramite" maxlength="500"></div>                   
+                </div>
                 <div id="divAgregaTram">
                     <button type="submit" id="updateTramite" name="updateTramite" >GUARDAR</button>
                     <!--<button id="imprimeAcuerdo" name="imprimeAcuerdo" class="" onclick="acuerdoRetiro.php">IMPRIMIR</button>

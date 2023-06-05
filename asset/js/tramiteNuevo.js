@@ -1656,7 +1656,8 @@ function agregaRetFallecimiento() {
                                                         Ividabenefs:document.getElementById('vidasbenefs').value.split(","),
                                                         Ifechtestamnt:$("#fechCTJuicio").val(),
                                                         Icurpmae:$("#CURPMae").val(),
-                                                        Irfcmae: $("#RFCMae").val()
+                                                        Irfcmae: $("#RFCMae").val(),
+                                                        IObserv: $("#observTramite").val()
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
@@ -1726,7 +1727,8 @@ function agregajubilado() {
                                                         Inumbenefs:$("#numbenef").val(),
                                                         IdiaHaber: $("#montSalMin").val().replace(",",""),
                                                         Icurpmae:$("#CURPMae").val(),
-                                                        Irfcmae: $("#RFCMae").val()
+                                                        Irfcmae: $("#RFCMae").val(),
+                                                        IObserv: $("#observTramite").val()
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
@@ -1820,7 +1822,8 @@ function agregaRetFallecimientoJ() {
                                                         Iprogramfallec: programfallec,
                                                         Icurpmae:document.getElementById('CURPMae').value,
                                                         Irfcmae:document.getElementById('RFCMae').value,
-                                                        Ifechtestamnt:$("#fechCTJuicio").val()
+                                                        Ifechtestamnt:$("#fechCTJuicio").val(),
+                                                        IObserv: $("#observTramite").val()
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;

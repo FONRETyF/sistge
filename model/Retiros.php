@@ -540,6 +540,54 @@
             }
             return $result;
         }
+        
+        public function getRetCheq($folcheque){
+            try {
+                $statement = "SELECT identret,cvemae,movimtscheque FROM public.beneficiarios_cheques WHERE folcheque='".$folcheque."';";
+                $statement = $this->db->prepare($statement);
+                $statement->execute();
+                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            } catch (\Throwable $th) {
+                echo($th);
+            }
+            return $result;
+        }
+
+        public function cancelaCheque($folcheque,$motivcancel,$observcheq,$cveusu){
+            $fecha = "";
+            $fecha = date("Y-m-d");
+
+            $a_cancel_cheq = array();
+
+            $retiroIdCheq = $this->getRetCheq($folcheque);
+            $movimtsCheque = $retiroIdCheq[0]["movimtscheque"] . "C-" . $cveusu . "-" . $fecha;
+            try {
+                $statement = "UPDATE public.beneficiarios_cheques SET estatcheque='CANCELADO', observcheque='".$observcheq."', movimtscheque=',".$movimtsCheque."', motvcancel=".$motivcancel.", fechcancel='".$fecha."'  WHERE folcheque='".$folcheque."';";
+                $statement = $this->db->prepare($statement);
+                $statement->execute();
+                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                $a_cancel_cheq["cancelacion"] = "cancelado";
+            } catch (\Throwable $th) {
+                echo $th;
+                $a_cancel_cheq["cancelacion"] = "fallo";
+            }
+
+            if ($motivcancel == 12) {
+                try {
+                    $statement = "UPDATE public.tramites_fonretyf SET estattramite='NO ENTREGADO' WHERE cvemae='".$retiroIdCheq[0]["cvemae"]."';";
+                    $statement = $this->db->prepare($statement);
+                    $statement->execute();
+                    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                    $a_cancel_cheq["cancelacion"] = "cancelado";
+                } catch (\Throwable $th) {
+                    echo $th;
+                    $a_cancel_cheq["cancelacion"] = "fallo";
+                }
+            }
+            return $a_cancel_cheq;
+        }
+
+
     }
 
 ?>

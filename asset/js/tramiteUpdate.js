@@ -128,6 +128,8 @@ $(document).ready(function () {
                     $("#montRetFF").val(infoTramite[25].replace('$',''));
                     $("#montSalMin").val(infoTramite[46].replace('$',''));
 
+                    $("#observTramite").val(infoTramite[27]);
+
                     $numadedsM = infoTramite[36];
                     if ($numadedsM > 0) {
                         document.getElementById('CheckAdeudos').checked = true;
@@ -226,6 +228,8 @@ $(document).ready(function () {
                     $("#montRetFF").val(infoTramite[25].replace('$',''));
                     $("#montSalMin").val(infoTramite[46].replace('$',''));
 
+                    $("#observTramite").val(infoTramite[27]);
+
                     if (modretiro == "C") {
                         $("#ModoRetiro").val("C");
                         document.getElementById('DivTpoDiferido').style.display = "none";
@@ -280,6 +284,8 @@ $(document).ready(function () {
                 $("#fechBaseMae").val(infoTramite[56]);
                 $("#fechBajaMae").val(infoTramite[58]);
                 $("#DiasServOriginal").val(infoTramite[69]);
+
+                $("#observTramite").val(infoTramite[27]);
 
                 clavemae = document.getElementById("cspMaeBusq").value;
 
@@ -432,6 +438,8 @@ $(document).ready(function () {
                 $("#fechCTJuicio").val(infoTramite[15]);
                 $("#numBenefs").val(infoTramite[17]);
 
+                $("#observTramite").val(infoTramite[27]);
+                
                 clavemae = document.getElementById("cveIMaeBusq").value;
 
                 numbeneficiarios = infoTramite[17] - 1;

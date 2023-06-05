@@ -83,7 +83,7 @@
                 $output["aservactmae"] =$row["aservactmae"];
                 $output["folcheque"] =$row["folcheque"];
                 $output["estatcheque"] =$row["estatcheque"];
-
+                $output["observtrami"] =$row["observtrami"];
             }
 
             echo json_encode($output, JSON_FORCE_OBJECT);
@@ -105,6 +105,7 @@
                 $output["estattramite"] =$row["estattramite"];
                 $output["fechbajamae"] =$row["fechbajamae"];
                 $output["aniosjub"] =$row["aniosjub"];
+                $output["observtrami"] =$row["observtrami"];
             }
 
             echo json_encode($output, JSON_FORCE_OBJECT);
@@ -208,6 +209,10 @@
             echo json_encode($output, JSON_FORCE_OBJECT);
             break;
 
+        case 'cancelCheque':
+            $a_cancel_cheque = $retiro->cancelaCheque($_POST["numcheque"],$_POST["motvcanc"],$_POST["observ"],$_SESSION['usuario']);
+            echo json_encode($a_cancel_cheque, JSON_FORCE_OBJECT);
+            break;
         default:
             break;
     }
