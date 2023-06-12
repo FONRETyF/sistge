@@ -9,7 +9,7 @@
                 return $conectar;  
 
             } catch (PDOException $error) {
-                die("Error en la conexion, error: ".$error->getMessage());
+                die("Error en la conexion, error: " . $error -> getMessage());
             }
         }
 

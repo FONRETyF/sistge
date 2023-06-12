@@ -44,4 +44,3 @@ function fechaActual() {
 
     return fechActRecib;    
 }
-

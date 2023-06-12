@@ -195,7 +195,7 @@ function mostrar(identret,cvemae) {
                 $("#DTIpermisos").val(datos.numpsgs);
                 $("#DTIdiaspermisos").val(datos.diaspsgs);
                 $("#DTIaniosbase").val(datos.aservactmae);
-                $("#DTIfolcheque").val(datos.folcheque);
+                $("#DTIfolche").val(datos.folcheque);
                 $("#DTIestatche").val(datos.estatcheque);
                 $("#observTramite").val(datos.observtrami);
             });
@@ -359,9 +359,10 @@ accionAsignaFolio.addEventListener("click", function (e) {
 
     $.post("../../controller/retiros.php?op=asignaFolios",{identrega:identr,folioini:numfolini},function(data){
         resultadoAdd = Object.values( JSON.parse(data));
-        NumregsResult = resultadoAdd.length;
+        datosact = Object.values(resultadoAdd[0]);
+        NumregsResult = datosact.length;
         for (let index = 0; index < NumregsResult; index++) {
-            if (resultadoAdd[index] == "Actualizado") {
+            if (datosact[index] == "Actualizado") {
                 validUpdFol = true;
             } else {
                 validUpdFol = false;

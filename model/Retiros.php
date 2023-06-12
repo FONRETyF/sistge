@@ -4,8 +4,8 @@
     require_once("/var/www/html/sistge/model/formularioTram.php");
 
     class Retiros extends formularioTram{
-        private $db;
-        private $tramite;
+        //private $db;
+        //private $tramite;
         
         public function __construct()
         {
@@ -542,9 +542,9 @@
         }
         
         public function getRetCheq($folcheque){
-            try {
-                $statement = "SELECT identret,cvemae,movimtscheque FROM public.beneficiarios_cheques WHERE folcheque='".$folcheque."';";
-                $statement = $this->db->prepare($statement);
+             try {
+                $consultaCheq = "SELECT identret,cvemae,movimtscheque FROM public.beneficiarios_cheques WHERE folcheque='".$folcheque."';";
+                $statement = $this->db->prepare($consultaCheq);
                 $statement->execute();
                 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
             } catch (\Throwable $th) {

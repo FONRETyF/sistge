@@ -401,6 +401,7 @@
                         $pdf->SetFont('Arial','',10);
                         $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[0]["nombenef"]),0,0, 'C');
                         break;
+                        
                     case '2':
                         $pdf->Ln(1.7);
 
@@ -412,6 +413,7 @@
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[0]["nombenef"]),0,0, 'C');
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[1]["nombenef"]),0,0, 'C');
                         break;
+
                     case '3':
                         $pdf->Ln(0.7);
 
@@ -425,6 +427,7 @@
                         $pdf->Ln(1.8);
                         $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[2]["nombenef"]),0,0, 'C');
                         break;
+
                     case '4':
                         $pdf->Ln(0.7);
 
@@ -439,6 +442,7 @@
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[2]["nombenef"]),0,0, 'C');
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[3]["nombenef"]),0,0, 'C');
                         break;
+
                     case '5':
                         $pdf->Ln(0.4);
 
@@ -455,6 +459,7 @@
                         $pdf->Ln(1.8);
                         $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[4]["nombenef"]),0,0, 'C');
                         break;
+
                     case '6':
                         $pdf->Ln(0.4);
 
@@ -472,6 +477,7 @@
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[4]["nombenef"]),0,0, 'C');
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[5]["nombenef"]),0,0, 'C');
                         break;
+
                     default:
                         break;
                 }
@@ -549,6 +555,7 @@
                         $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[6]["nombenef"]),0,0, 'C');
                         $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);   
                         break;
+
                     case '8':
                         $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);
                         $pdf->Ln(0.7);
@@ -581,6 +588,7 @@
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[7]["nombenef"]),0,0, 'C');
                         $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);  
                         break;
+
                     case '9':
                         $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);
                         $pdf->Ln(0.7);
@@ -615,6 +623,7 @@
                         $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[8]["nombenef"]),0,0, 'C');   
                         $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);
                         break;
+
                     case '10':
                         $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);
                         $pdf->Ln(0.7);
@@ -717,11 +726,7 @@
 
         $numTramite++;
         $pdf->AddPage();
-
     }
-    
-    
-    
 
     $pdf->Output();
 ?>
