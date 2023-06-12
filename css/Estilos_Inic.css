@@ -920,6 +920,18 @@ a:nth-child(6) {
   color: #ffffff;
   background-color: #0a6b1b;
 }
+#BttnBuscarCheq{
+  width: 30px;
+  height: 30px;
+  border-color: #d3d6d4;
+  border-width: 0.1em;
+  border-radius: 5px;
+  margin: auto 0px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+}
 #opcRadsBusq{
   width: 60%;
   height: 40px;
@@ -2399,7 +2411,6 @@ input[type="date"]{
   width: 80%;
   height: 550px;
   display: inline-block;
-  background-color: #00a80049;
 }
 #secCarpetasArchivo input{
   height: 30px;
@@ -2408,7 +2419,6 @@ input[type="date"]{
 }
 #divTitleCarpetas{
   width: 100%;
-  background-color: #00a800a6;
   font-size: 15px;
   font-weight: bold;
 }
@@ -2423,19 +2433,16 @@ input[type="date"]{
 }
 #sectDetalleCarpetas{
   width: 100%;
-  background-color: #1d31e98e;
   height: 470px;
 }
 .folios{
   display: inline-flex;
-  width: 50%;
-  background-color: aqua;
+  width: 85%;
   text-align: center;
 }
 .foliosInp{
   display: inline-flex;
   width: 50%;
-  background-color: aqua;
   text-align: center;
 }
 .titleFolios{
@@ -2445,7 +2452,11 @@ input[type="date"]{
 .folios input{
   height: 30px;
   border-radius: 3px;
-  width: 130px;
+  text-align: center;
+  /*width: 130px;*/
+}
+#sectDetalleCarpetas{
+  margin:15px auto;
 }
 #inpsFolCaprs{
   display: inline-block;
@@ -2453,7 +2464,6 @@ input[type="date"]{
 #inpsFolCaprs{
   width: 50%;
 }
-
 #observTramite{
   width: 550px;
 }
@@ -2461,3 +2471,147 @@ input[type="date"]{
   height: 30px;
   border-radius: 3px;
 }
+#divdetalleCarpeta{
+  margin: 0 auto;
+  display: inline-flex;
+}
+#inputsFols{
+  display: inline-block;
+}
+
+.divNumCarp{
+  width: 70px;
+  margin: 5px 5px;
+}
+.divFolIni{
+  width: 145px;
+  margin: 5px 5px;
+}
+.divFolFin{
+  width: 145px;
+  margin: 5px 5px;
+}
+.divEstat{
+  width: 145px;
+  margin: 5px 5px;
+}
+.divObserv{
+  width: 200px;
+  margin: 5px 5px;
+}
+.divIconDelete{
+  width: 40px;
+  margin: 5px 5px;
+}
+#divtitlesCarp{
+  margin: 0 auto;
+  font-weight: bold;
+  display: inline-flex;
+}
+
+.inputnumcarp{
+  width: 50px;
+}
+.inputfolini{
+  width: 130px;
+}
+.inputfolfin{
+  width: 130px;
+}
+.opcestat{
+  width: 130px;
+  font-size: 11px;
+  text-align: center;
+}
+.inputobserv{
+  font-size: 12px;
+  width: 200px;
+}
+#addCarp{
+  background-color: transparent;
+  border-color: transparent;
+}
+#divReposiciones{
+  display: inline-flex;
+  width: 22%;
+  height: 35px;
+  align-content: center;
+  margin: 15px auto;
+}
+#secReposCheqs{
+  width: 80%;
+  height: 450px;
+  display: inline-block;
+}
+#divTitleReposheqs{
+  font-size: 18px;
+  font-weight: bold;
+}
+#secReposCheqs input{
+  height: 30px;
+  border-radius: 3px;
+}
+
+#tabChequeC{
+  height: 150px;
+  width: 100%;
+}
+#chequeC_data{
+  font-size: small;
+}
+.tabConsultCheqC th:nth-child(1){
+  width: 3px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabConsultCheqC th:nth-child(2){
+  width: 70px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabConsultCheqC th:nth-child(3){
+  width: 15px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabConsultCheqC th:nth-child(4){
+  width: 35px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabConsultCheqC th:nth-child(5){
+  width: 30px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tabConsultCheqC th:nth-child(6){
+  width: 5px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+#divReposicion{
+  margin: 30px auto;
+  display: inline-flex;
+}
+#numCheqCancel{
+  width: 130px;
+  text-align: center;
+}
+#numCheqRepos{
+  width: 140px;
+  text-align: center;
+}
+
+#reposCheque{
+  display: inline-block;
+  padding: 8px 18px;
+  font-size: 21px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #0a6b1b;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px rgba(34, 163, 8, 0.315);
+  margin: 20px auto;
+}
+#observRepos{
+  width: 400px;
+}
+

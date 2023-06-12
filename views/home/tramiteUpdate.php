@@ -230,8 +230,6 @@
                 </div>
                 <div id="divAgregaTram">
                     <button type="submit" id="updateTramite" name="updateTramite" >GUARDAR</button>
-                    <!--<button id="imprimeAcuerdo" name="imprimeAcuerdo" class="" onclick="acuerdoRetiro.php">IMPRIMIR</button>
-                    <a href="./acuerdoRetiro.php" class="btn btn-success"><i class="fass fa-file-pdf"></i>IMPRIMIR</a>-->
                 </div>
             </section>
             </div>

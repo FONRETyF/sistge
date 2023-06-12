@@ -1,11 +1,15 @@
 <?php
 
     require_once("/var/www/html/sistge/views/head/header.php");
+    require_once("/var/www/html/sistge/controller/carpetas.php");
         
     if(empty($_SESSION['usuario'])){
         header("Location:login.php");
     }
 
+    $carpeta = new carpetas();
+    $resultcarp = $carpeta -> mostrarCarpetas();
+    
 ?>
 
 <section class="contenidoGral">        
@@ -27,20 +31,34 @@
             <div id="divTitleCarpetas">ASIGNACION DE CARPETAS:  <input type="text" id="InputIdentrega" value="<?php echo $_GET["identr"];?>"></div>
             <div id="divInfoNumCarpetas">
                 <div id="divTitleNumCar"># CARPETAS: </div>
-                <div id="divNumCarpetas"><input type="text" id="inputNumCarp" name="inputNumCarp"></div>
+                <div id="divNumCarpetas"><input type="text" id="inputNumCarp" name="inputNumCarp" value="<?php echo count($resultcarp);?>"></div>
+                <input type="hidden" id="NumCarpetas" name="NumCarpetas" value="<?php echo count($resultcarp);?>">
+                <div><button id="addCarp"  value="agregar"><img src="../../img/add-psgs.png" alt="Agregar Carpeta" height="25" width="25"></button></div>
             </div>
-            <div id="titleDetalleCarps">Detalle de carpetas para archivo;</div>
+            <div id="titleDetalleCarps">Detalle de carpetas para archivo</div>
             <section id="sectDetalleCarpetas">
-                    <div class="folios">
-                        <div class="titleFolios"># carpeta</div>
-                        <div class="titleFolios">Folio inicial</div>
-                        <div class="titleFolios">Folio final</div>
+                <div class="folios">
+                    <div id="divtitlesCarp">
+                        <div class="divNumCarp"># carpeta</div>
+                        <div class="divFolIni">Folio inicial</div>
+                        <div class="divFolFin">Folio final</div>
+                        <div class="divEstat">Estatus</div>
+                        <div class="divObserv">Observaciones</div>
+                        <div class="divIconDelete"></div>
                     </div>
-                    <div class="folios" id="inputsFols">
-                        <div class="titleFolios"><input type="text" id="numcarpeta[]" name="numcarpeta[]"></div>
-                        <div class="titleFolios"><input type="text" id="folinicial[]" name="folinicial[]"></div>
-                        <div class="titleFolios"><input type="text" id="folfinal[]" name="folfinal[]"></div>
+                </div>
+                <div class="folios" id="inputsFols">
+                    <?php foreach ($resultcarp as $row) { ?> 
+                    <div id="divdetalleCarpeta">
+                        <div class="divNumCarp"><input type="text" class="inputnumcarp" id="numcarpeta" name="numcarpeta" value="<?php echo($row["numcarpeta"]);?>"></div>
+                        <div class="divFolIni"><input type="text" class="inputfolini" id="folinicial" name="folinicial" value="<?php echo($row["folini"]);?>"></div>
+                        <div class="divFolFin"><input type="text" class="inputfolfin" id="folfinal" name="folfinal" value="<?php echo($row["folfin"]);?>"></div>
+                        <div class="divEstat"><select class="opcestat" name="estatcomplet" id="estatcomplet" value="<?php echo($row["estatcomplet"]);?>"><option value="COMPLETA">COMPLETA</option><option value="INCOMPLETA">INCOMPLETA</option></select></div>
+                        <div class="divObserv"><input type="text" class="inputobserv" id="observcarp" name="observcarp" value="<?php echo($row["observaciones"]);?>"></div>
+                        <div class="divIconDelete"><a href="#" class="delete_carpeta"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar carpeta" height="15" width="20"></a></div>
                     </div>
+                    <?php } ?>
+                </div>
             </section>
         </section>
     </form>

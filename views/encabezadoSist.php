@@ -30,6 +30,7 @@
                                     <li><a class="dropdown-item" href="entregas.php">ENTREGAS</a></li>
                                     <li><a class="dropdown-item" href="consultRetiros.php">CONSULTAS</a></li>
                                     <li><a class="dropdown-item" href="pendientes.php">PENDIENTES</a></li>
+                                    <li><a class="dropdown-item" href="reposiciones.php">REPOSICIONES</a></li>
                                 </ul>
                             </li>
                             <!--<li class="nav-item">
