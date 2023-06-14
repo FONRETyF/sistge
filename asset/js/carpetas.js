@@ -3,6 +3,13 @@ function init() {
 
 $(document).ready(function () {
     
+    var eleetosform = document.getElementById("inputsFols");
+    for (let index = 0; index < eleetosform.length; index++) {
+        const element = eleetosform[index];
+        alert(element.tagName);
+        
+    }
+    
 });
 
 var accionRegresa = document.querySelector('.Btnregresar');
@@ -23,6 +30,7 @@ $(".divIconDelete").on("click", ".delete_carpeta", function(e){
 
     numcarpetas = parseInt(document.getElementById("inputNumCarp").value);
 
+    
     $(this).parent('div').parent('div').remove();
     numcarpetas--;
 
@@ -33,14 +41,13 @@ $(".divIconDelete").on("click", ".delete_carpeta", function(e){
 $("#addCarp").on("click", function (e) {
     e.preventDefault();
 
-    alert("jhskjhfkjsdhfsd");
     $("#inputsFols").append(
-        '<br>',
         '<div id="divdetalleCarpeta"><div class="divNumCarp"><input type="text" class="inputnumcarp" id="numcarpeta" name="numcarpeta"></div><div class="divFolIni"><input type="text" class="inputfolini" id="folinicial" name="folinicial"></div><div class="divFolFin"><input type="text" class="inputfolfin" id="folfinal" name="folfinal"></div><div class="divEstat"><select class="opcestat" name="estatcomplet" id="estatcomplet"><option value="COMPLETA">COMPLETA</option><option value="INCOMPLETA">INCOMPLETA</option></select></div><div class="divObserv"><input type="text" class="inputobserv" id="observcarp" name="observcarp"></div><div class="divIconDelete"><a href="#" class="delete_carpeta"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar carpeta" height="15" width="20"></a></div></div>'
     );
+    
     numcarpetas = parseInt($("#inputNumCarp").val()) + 1;
 
     $("#inputNumCarp").val(numcarpetas);
-})
+});
 
 init();

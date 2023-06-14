@@ -437,6 +437,7 @@ use function PHPSTORM_META\type;
 
             $a_resultAddTram = array();
             $get_ret = $this->get_retiro_Id($cvemae);
+            
             $get_entrega = $entrega -> get_entrega_id($identr);
 
             if (count($get_ret)>0) {
@@ -562,7 +563,6 @@ use function PHPSTORM_META\type;
 
             $get_ret = $this->get_retiro_Id($cvemae);
             $get_benefs = $this->get_benef_cvemae($cvemae);
-
             $get_entrega = $entrega->get_entrega_id($identr);
 
             if (count($get_ret)>0 || count($get_benefs)>0) {
@@ -604,6 +604,7 @@ use function PHPSTORM_META\type;
                     $a_resultAddTramF["insertTramite"] = "Agregado";
                     
                 } catch (\Throwable $th) {
+                    echo($th);
                     $a_resultAddTramF["insertTramite"] = "Existente";
                 }
                 
