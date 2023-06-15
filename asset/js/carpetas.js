@@ -3,9 +3,9 @@ function init() {
 
 $(document).ready(function () {
     
-    var eleetosform = document.getElementById("inputsFols");
-    for (let index = 0; index < eleetosform.length; index++) {
-        const element = eleetosform[index];
+    var eleetosform = document.getElementById("form_CarpetasArchivo");
+    for (let index = 0; index < eleetosform.elements.length; index++) {
+        element = eleetosform.elements[index].name;
         
         
     }
