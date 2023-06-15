@@ -35,7 +35,7 @@ accionBtnImpOfic.addEventListener("click", function (e) {
     }else if (document.getElementById("RadBtnImpCheqInform").checked) {
         location.href = "../../views/home/oficioImpChqs.php" + "?identr=" + identrega;
     } else if(document.getElementById("RadBtnArchContad").checked){
-        alert("entro 444");
+        
     }
     
 });
@@ -51,11 +51,11 @@ accionBtnGeneraList.addEventListener("click", function (e) {
     } else if (document.getElementById("RadBtnActas").checked) {
         location.href = "../../views/home/actaEntrega.php" + "?identr=" + identrega;
     } else if (document.getElementById("RadBtnSobres").checked) {
-        alert("lis 4");
+        
     } else if (document.getElementById("RadBtnInformatica").checked) {
         location.href = "../../views/home/fileInformatic.php" + "?identr=" + identrega;
     } else if(document.getElementById("RadBtnLlamadas").checked) {
-        alert("lis 6");
+        
     }
 });
 
