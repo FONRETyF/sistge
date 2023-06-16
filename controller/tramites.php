@@ -82,7 +82,7 @@
             break;
 
         case 'validaFechsFJ':
-            $a_validFechasFJ = $tramite->validaFechasFJ($_POST["clavemae"],$_POST['motret'],$_POST["fechRecibido"],$_POST["fechBaseMae"],$_POST["fechBajaMae"]);
+            $a_validFechasFJ = $tramite->validaFechasFJ($_POST["clavemae"],$_POST['motret'],$_POST["fechRecibido"],$_POST["fechBaseMae"],$_POST["fechBajaMae"],$_POST["opTest"],$_POST["fechCTJuic"]);
             echo json_encode($a_validFechasFJ, JSON_FORCE_OBJECT);
             break;
 

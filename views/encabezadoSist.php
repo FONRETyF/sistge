@@ -32,21 +32,17 @@
                                     <li><a class="dropdown-item" href="pendientes.php">PENDIENTES</a></li>
                                     <li><a class="dropdown-item" href="reposiciones.php">REPOSICIONES</a></li>
                                 </ul>
-                            </li>
-                            <!--<li class="nav-item">
-                                <a class="nav-link dropdown-toggle primermenu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="primermenu">MUTUALIDAD</a>
+                                <a class="nav-link dropdown-toggle primermenu" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="primermenu">MUTUALIDAD</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#">CONSULTAS</a></li>
-                                    <li><a class="dropdown-item" href="#">EDOS. CTA.</a></li>
                                 </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle primermenu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id=primermenu>CARTA TESTAMENTARIA</a>
+                                <a class="nav-link dropdown-toggle primermenu" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="primermenu">PROCESOS</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">CONSULTAS</a></li>
-                                    <li><a class="dropdown-item" href="#">ALTA-BUSQUEDAS</a></li>
+                                    <li><a class="dropdown-item" href="parametros.php" >PARAMETROS RET</a></li>
+                                    <li><a class="dropdown-item" href="#">NOMINAS ISSEMYM</a></li>
                                 </ul>
-                            </li>-->
+                                <li><a class="dropdown-item" href="logout.php">CERRAR SESION</a></li>
+                            </li>
                         </ul>
                     </div>
                 </div>
