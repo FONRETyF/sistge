@@ -48,6 +48,7 @@
                     </div>
                 </div>
                 <div class="folios" id="inputsFols">
+                    <div>
                     <?php 
                         $index = 0;
                         foreach ($resultcarp as $row) { ?> 
@@ -57,11 +58,12 @@
                         <div class="divFolFin"><input type="text" class="inputfolfin" id="folfinal[<?php $index?>]" name="folfinal[<?php $index?>]" value="<?php echo($row["folfin"]);?>"></div>
                         <div class="divEstat"><select class="opcestat" id="estatcomplet[<?php $index?>]" name="estatcomplet[<?php $index?>]" value="<?php echo($row["estatcomplet"]);?>"><option value="COMPLETA">COMPLETA</option><option value="INCOMPLETA">INCOMPLETA</option></select></div>
                         <div class="divObserv"><input type="text" class="inputobserv" id="observcarp[<?php $index?>]" name="observcarp[<?php $index?>]" value="<?php echo($row["observaciones"]);?>"></div>
-                        <div class="divIconDelete"><a href="#" class="delete_carpeta" id="elimina[<?php $index?>]"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar carpeta" height="15" width="20"></a></div>
+                        <div class="divIconDelete"><button type="button" class="delete_carpeta" id="eliminaCarp"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar carpeta" height="15" width="20"></button></div>
                     </div>
                     <?php 
                         $index = $index + 1;
                         } ?>
+                    </div>
                 </div>
             </section>
         </section>

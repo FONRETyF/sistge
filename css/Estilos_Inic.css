@@ -2615,3 +2615,61 @@ input[type="date"]{
   width: 400px;
 }
 
+#secParametros{
+  background-color: #00a800;
+  width: 95%;
+  padding-top: 15px;
+  margin: 0px auto;
+  font-size: 20px;
+  font-weight: bold;
+}
+#ConsultParametros{
+  background-color: #2c5fec;
+  height: 37px;
+  margin-top: 20px;
+  display: flex;
+}
+#AgregaParam{
+  width: 50%;
+  margin: 0 auto;
+}
+#AgregaParam img:hover{
+  cursor:pointer;
+}
+#paramNuevo{
+  background-color: transparent;
+}
+#parametro_data{
+  font-size: small;
+  border-color: rgb(7, 107, 4);
+}
+.tab_parametros th:nth-child(1){
+  width: 5px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tab_entregas th:nth-child(2){
+  width: 20px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tab_entregas th:nth-child(3){
+  width: 20px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tab_entregas th:nth-child(4){
+  width: 30px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tab_entregas th:nth-child(5){
+  width: 30px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+.tab_entregas th:nth-child(6){
+  width: 30px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
+#sueldBaseSuperv{
+  text-align: center;
+}
+#sueldBaseProfrTit{
+  text-align: center;
+}

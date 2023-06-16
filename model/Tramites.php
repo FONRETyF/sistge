@@ -175,28 +175,45 @@ use function PHPSTORM_META\type;
             }
         }
 
-        public function validaFechasFJ($clavemae,$motret,$fechRecibido,$fechBaseMae,$fechBajaMae){
+        public function validaFechasFJ($clavemae,$motret,$fechRecibido,$fechBaseMae,$fechBajaMae,$opTest,$fechCTJuic){
             $validesFechs = array();
             $dias_Serv = array();
             $i=0;
 
             if ($fechRecibido > $fechBaseMae && $fechRecibido > $fechBajaMae) {
                 if ($fechBaseMae < $fechBajaMae) {
-                    $vigenciaTram = $this -> validaVigencia($fechBajaMae,$fechRecibido);
-                    if (($vigenciaTram/365) < 1) {
+                    $vigenciaTramRyBj = $this -> validaVigencia($fechBajaMae,$fechRecibido);
+                    if (($vigenciaTramRyBj/365) < 1) {
                         $dias_Serv["descResult"] = "vigenciaVal";
                         $dias_Serv["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
                         return $dias_Serv;
                     } else {
-                        $validesFechs["descResult"] = "vigenciaCad";
-                        $validesFechs["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
-                        $validesFechs["excepcion"] = "SI";
-                        $validesFechs["prorroga"] = "NO";
-                        return $validesFechs;
+                        if ($opTest === "J") {
+                            $vigenciaTramBjyJ = $this -> validaVigencia($fechBajaMae,$fechCTJuic);
+                            $vigenciaTramJyR = $this -> validaVigencia($fechCTJuic,$fechRecibido);
+                            if (($vigenciaTramBjyJ/365) < 1 && ($vigenciaTramJyR/365) < 1) {
+                                $dias_Serv["descResult"] = "vigenciaVal";
+                                $dias_Serv["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
+                                return $dias_Serv;
+                            } else {
+                                $validesFechs["descResult"] = "vigenciaCad";
+                                $validesFechs["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
+                                $validesFechs["excepcion"] = "SI";
+                                $validesFechs["prorroga"] = "NO";
+                                return $validesFechs;
+                            }
+                            
+                        }else {
+                            $validesFechs["descResult"] = "vigenciaCad";
+                            $validesFechs["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
+                            $validesFechs["excepcion"] = "SI";
+                            $validesFechs["prorroga"] = "NO";
+                            return $validesFechs;
+                        }
                     }
                 } else {
                     $validesFechs["descResult"] = "errorFecha";
-                    $validesFechs["diasJub"] = "La fecha de BASE no puede ser mayor a la fecha de BAJA";
+                    $validesFechs["diasJub"] = "La fecha de JUBILACION no puede ser mayor a la fecha de BAJA";
                     $validesFechs["excepcion"] = "NO";
                     $validesFechs["prorroga"] = "NO";
                     return $validesFechs;

@@ -17,10 +17,10 @@
                     </div>
                     <div id="DivsueldosBase">
                         <div class="datsSueldosBase" id="DivsueldosBaseSp">SUELDO BASE DE UN SUPERVISOR:&nbsp
-                            <input type="text" class="sueldosBase" id="sueldBaseSuperv" name="sueldBaseSuperv">
+                            <input type="text" class="sueldosBase" id="sueldBaseSuperv" name="sueldBaseSuperv" placeholder="$000.00">
                         </div>
                         <div class="datsSueldosBase" id="DivsueldosBasePt">SUELDO BASE DE UN PROFR. TITULADO:&nbsp
-                            <input type="text" class="sueldosBase" id="sueldBaseProfrTit" name="sueldBaseProfrTit"></br>
+                            <input type="text" class="sueldosBase" id="sueldBaseProfrTit" name="sueldBaseProfrTit" placeholder="$000.00"></br>
                         </div>
                         <div id="DivpromSueldos">Promedio: &nbsp
                             <input type="text" class="sueldosBase" id="promSueldos" name="promSueldos" disabled>
