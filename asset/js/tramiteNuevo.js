@@ -924,7 +924,7 @@ function validaFechas(valorValid, a_fechs) {
                             if (motret == "FA" || motret == "FJ") {
                                 document.getElementById("ModoRetiro").disabled =  true;
                                 document.getElementById("ModoRetiro").value = "C";
-                                montoRetiro = parseFloat(document.getElementById('montRet').value); //- adeudosMae).toFixed(2);
+                                montoRetiro = parseFloat(document.getElementById('montRet').value);
                                 document.getElementById('monRetEntr').value = montoRetiro;
                             }
                         });       
@@ -1299,7 +1299,7 @@ const accioFechIniJuic = document.querySelector("#fechIniJuicio");
 accioFechIniJuic.addEventListener("blur", function (evento) {
     evento.preventDefault();
 
-    if (parseInt(document.getElementById('fechIniJuicio').value.slice(0,4)) > 2020 && parseInt(document.getElementById('fechIniJuicio').value.slice(0,4)) < 2024) {
+    if (parseInt(document.getElementById('fechIniJuicio').value.slice(0,4)) > 2019 && parseInt(document.getElementById('fechIniJuicio').value.slice(0,4)) < 2024) {
         document.getElementById("fechCTJuicio").style.border =  ".1em black solid";
         $.post("../../controller/tramites.php?op=validaVigFechas",{fechRecibido:document.getElementById('fechRecibido').value,fechBaja:document.getElementById('fechBajaMae').value,fechIniJuic:document.getElementById('fechIniJuicio').value,fechCTJuic:document.getElementById('fechCTJuicio').value},function(data){
             data = JSON.parse(data);
@@ -1340,7 +1340,7 @@ accioFechIniJuic.addEventListener("blur", function (evento) {
             }
         });
     }else{
-        document.getElementById("fechCTJuicio").style.border =  ".1em red solid";
+        document.getElementById("fechIniJuicio").style.border =  ".1em red solid";
         Swal.fire(
             "El año de la fecha de inicio del Juicio no es valido",
             'por favor corrija la fecha'
