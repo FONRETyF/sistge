@@ -202,7 +202,6 @@ use function PHPSTORM_META\type;
                                 $validesFechs["prorroga"] = "NO";
                                 return $validesFechs;
                             }
-                            
                         }else {
                             $validesFechs["descResult"] = "vigenciaCad";
                             $validesFechs["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
