@@ -175,11 +175,10 @@ use function PHPSTORM_META\type;
             }
         }
 
-        public function validaFechasFJ($clavemae,$motret,$fechRecibido,$fechBaseMae,$fechBajaMae,$opTest,$fechCTJuic){
+        public function validaFechasFJ($clavemae,$motret,$fechRecibido,$fechBaseMae,$fechBajaMae,$opTest,$fechCTJuic,$fechIniJuic){
             $validesFechs = array();
             $dias_Serv = array();
             $i=0;
-
             if ($fechRecibido > $fechBaseMae && $fechRecibido > $fechBajaMae) {
                 if ($fechBaseMae < $fechBajaMae) {
                     $vigenciaTramRyBj = $this -> validaVigencia($fechBajaMae,$fechRecibido);
@@ -191,11 +190,34 @@ use function PHPSTORM_META\type;
                         if ($opTest === "J") {
                             $vigenciaTramBjyJ = $this -> validaVigencia($fechBajaMae,$fechCTJuic);
                             $vigenciaTramJyR = $this -> validaVigencia($fechCTJuic,$fechRecibido);
+
                             if (($vigenciaTramBjyJ/365) < 1 && ($vigenciaTramJyR/365) < 1) {
                                 $dias_Serv["descResult"] = "vigenciaVal";
                                 $dias_Serv["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
                                 return $dias_Serv;
-                            } else {
+                            } elseif(($vigenciaTramBjyJ/365) > 1 && ($vigenciaTramJyR/365) < 1) {
+                                if (!empty($fechIniJuic)) {
+                                    $vigenciaTramBjyIniJ = $this -> validaVigencia($fechBajaMae,$fechIniJuic);
+                                    $vigenciaTramJyR = $this -> validaVigencia($fechCTJuic,$fechRecibido);
+                                    if (($vigenciaTramBjyIniJ/365) <= 1 && ($vigenciaTramJyR/365) < 1) {
+                                        $dias_Serv["descResult"] = "vigenciaVal";
+                                        $dias_Serv["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
+                                        return $dias_Serv;
+                                    } else {
+                                        $validesFechs["descResult"] = "vigenciaCad";
+                                        $validesFechs["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
+                                        $validesFechs["excepcion"] = "SI";
+                                        $validesFechs["prorroga"] = "NO";
+                                        return $validesFechs;
+                                    }
+                                } else {
+                                    $validesFechs["descResult"] = "errorFecha";
+                                    $validesFechs["diasJub"] = "La fecha de INICIO DEL JUICIO no es correcta";
+                                    $validesFechs["excepcion"] = "NO";
+                                    $validesFechs["prorroga"] = "NO";
+                                    return $validesFechs;
+                                }                               
+                            }elseif (($vigenciaTramBjyJ/365) > 1 && ($vigenciaTramJyR/365) > 1) {
                                 $validesFechs["descResult"] = "vigenciaCad";
                                 $validesFechs["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
                                 $validesFechs["excepcion"] = "SI";
@@ -246,7 +268,6 @@ use function PHPSTORM_META\type;
                 $validesFechs["diasServ"] = "La fecha de inicio del JUICIO debe ser mayor a la de fallecimiento y menor a la del termino del JUICIO";
                 return $validesFechs;
             }
-            
         }
 
         public function validVigTramFA($tipoTestamento,$clavemae,$fechabase,$fechBaja,$fechJuicio,$fechRecibido){

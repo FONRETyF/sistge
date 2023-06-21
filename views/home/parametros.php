@@ -11,7 +11,10 @@
         <section class="sectNavegador">
             <div class="DivBotnsNav">
                 <div id="DivBtnatras">
-                    <button type="button" class="BtnsNav Btnregresar" id="Btnregresar" name="Btnregresar">ATRAS</></button>
+                    <button type="button" class="BtnsNav Btnregresar"  id="Btnregresar" name="Btnregresar">ATRAS</></button>
+                </div>
+                <div id="DivBtnInicio">
+                    <button type="button" class="BtnsNav" id="Btnnicio" name="Btnnicio">INICIO</></button>
                 </div>
                 <div id="DivFechaActual">
                     <?php date_default_timezone_set('America/Mexico_City'); echo("Toluca, México a  " .date("d-m-y"));?>
@@ -34,9 +37,10 @@
                             <th class="wd-15p"> Estatus </th>
                             <th class="wd-15p"> Entrega In </th>
                             <th class="wd-15p"> Entrega Fn </th>
+                            <th class="wd-15p"> </th>
                         </tr>
                     </thead>
-                    <tbody id="tbodEntregas" class="tbodEntregas">
+                    <tbody id="tbodParams" class="tbodParams">
                     </tbody>
                 </table>
             </div>

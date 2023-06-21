@@ -75,6 +75,24 @@ use function PHPSTORM_META\type;
             
         }
 
+        public function mostrarRango(){
+            $identrega = $_GET["identr"];
+            $anioentrega = substr($identrega,0,4);
+            $numentrega = intval(substr($identrega,4,2));
+            $resultCarpNueva = array();
+
+            try {
+                $statement = $this->db->prepare("SELECT folioinicial,foliofinal FROM public.entregas_fonretyf WHERE anioentrega= ? and numentrega= ?");
+                $statement->bindValue(1,$anioentrega);
+                $statement->bindValue(2,$numentrega);
+                $statement->execute();
+                $result = $statement->fetchAll();
+                return $result;
+            } catch (\Throwable $th) {
+                echo $th;
+            }
+        }
+
     
     }
 

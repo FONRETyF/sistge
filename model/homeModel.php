@@ -10,9 +10,14 @@
         }
 
         public function obtenerclave($usuario){     
-            $statement = $this->PDO->prepare('SELECT password FROM usuarios WHERE usuario = :usuario');
-            $statement->bindParam(":usuario",$usuario);
-            return($statement->execute()) ? $statement->fetch(PDO::FETCH_ASSOC)['password'] : false;
+            try {
+                $statement = $this->PDO->prepare('SELECT password FROM usuarios WHERE usuario = :usuario');
+                $statement->bindParam(":usuario",$usuario);
+                return($statement->execute()) ? $statement->fetch(PDO::FETCH_ASSOC)['password'] : false;
+            } catch (\Throwable $th) {
+                echo $th;
+            }
+            
         }
             
     }
