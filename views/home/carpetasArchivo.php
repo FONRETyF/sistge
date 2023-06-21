@@ -8,6 +8,10 @@
     }
 
     $carpeta = new carpetas();
+
+    $rangoCarpetas = $carpeta -> mostrarRango();
+    var_dump($rangoCarpetas);
+
     $resultcarp = $carpeta -> mostrarCarpetas();
     
 ?>
@@ -33,9 +37,14 @@
                 <div id="divTitleNumCar"># CARPETAS: </div>
                 <div id="divNumCarpetas"><input type="text" id="inputNumCarp" name="inputNumCarp" value="<?php echo count($resultcarp);?>"></div>
                 <input type="hidden" id="NumCarpetas" name="NumCarpetas" value="<?php echo count($resultcarp);?>">
-                <div><button id="addCarp"  value="agregar"><img src="../../img/add-psgs.png" alt="Agregar Carpeta" height="25" width="25"></button></div>
+                <div><button id="addCarp" value="agregar"><img src="../../img/add-psgs.png" alt="Agregar Carpeta" height="25" width="25"></button></div>
             </div>
             <div id="titleDetalleCarps">Detalle de carpetas para archivo</div>
+            <section id="secRangFolios">
+                <div><div id="divtitleRang">Rango de carpetas: </div><div id="divRanCarpetas"><input type="text" id="inpRangIniCarps" class="inptsRangCarps" value="<?php echo($rangoCarpetas[0]['folioinicial'])?>" disabled><input type="text" id="inpRangFinCarps" class="inptsRangCarps" value="<?php echo($rangoCarpetas[0]['foliofinal'])?>" disabled></div></div>
+                <div id="diveditaRang"><button id="editRang" value="editarang"><img src="../../img/lapiz.png" alt="Editar Rango" height="25" width="25"></button></div>
+                <div id="diveupdateRang"><button id="updateCarp" value="updatenumcarps"><img src="../../img/actualizaRet.png" alt="Actualiza" height="25" width="25"></button></div>
+            </section>
             <section id="sectDetalleCarpetas">
                 <div class="folios">
                     <div id="divtitlesCarp">
@@ -53,12 +62,12 @@
                         $index = 0;
                         foreach ($resultcarp as $row) { ?> 
                     <div id="divdetalleCarpeta">
-                        <div class="divNumCarp"><input type="text" class="inputnumcarp" id="numcarpeta[<?php $index?>]" name="numcarpeta[<?php $index?>]" value="<?php echo($row["numcarpeta"]);?>"></div>
-                        <div class="divFolIni"><input type="text" class="inputfolini" id="folinicial[<?php $index?>]" name="folinicial[<?php $index?>]" value="<?php echo($row["folini"]);?>"></div>
-                        <div class="divFolFin"><input type="text" class="inputfolfin" id="folfinal[<?php $index?>]" name="folfinal[<?php $index?>]" value="<?php echo($row["folfin"]);?>"></div>
-                        <div class="divEstat"><select class="opcestat" id="estatcomplet[<?php $index?>]" name="estatcomplet[<?php $index?>]" value="<?php echo($row["estatcomplet"]);?>"><option value="COMPLETA">COMPLETA</option><option value="INCOMPLETA">INCOMPLETA</option></select></div>
-                        <div class="divObserv"><input type="text" class="inputobserv" id="observcarp[<?php $index?>]" name="observcarp[<?php $index?>]" value="<?php echo($row["observaciones"]);?>"></div>
-                        <div class="divIconDelete"><button type="button" class="delete_carpeta" id="eliminaCarp"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar carpeta" height="15" width="20"></button></div>
+                        <div class="divNumCarp"><input type="text" class="inputnumcarp" id="numcarpeta[]" name="numcarpeta[]" value="<?php echo($row["numcarpeta"]);?>"></div>
+                        <div class="divFolIni"><input type="text" class="inputfolini" id="folinicial[]" name="folinicial[]" value="<?php echo($row["folini"]);?>"></div>
+                        <div class="divFolFin"><input type="text" class="inputfolfin" id="folfinal[]" name="folfinal[]" value="<?php echo($row["folfin"]);?>"></div>
+                        <div class="divEstat"><select class="opcestat" id="estatcomplet[]" name="estatcomplet[]" value="<?php echo($row["estatcomplet"]);?>"><option value="COMPLETA">COMPLETA</option><option value="INCOMPLETA">INCOMPLETA</option></select></div>
+                        <div class="divObserv"><input type="text" class="inputobserv" id="observcarp[]" name="observcarp[]" value="<?php echo($row["observaciones"]);?>"></div>
+                        <div class="divIconDelete"><a href="#" class="delete_Carpeta"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar carpeta" height="15" width="20"></a></div>
                     </div>
                     <?php 
                         $index = $index + 1;

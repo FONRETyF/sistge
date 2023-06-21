@@ -136,3 +136,9 @@ $("#AdedTurismo").change(function () {
 
 
 init();
+
+/*var eleetosform = document.getElementById("form_CarpetasArchivo");
+    for (let index = 0; index < eleetosform.elements.length; index++) {
+        element = eleetosform.elements[index].name;
+         alert(element);
+    }*/

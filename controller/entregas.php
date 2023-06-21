@@ -68,6 +68,35 @@
             $a_get_updateFech = $entrega->updateFechEntrega($_POST["identrega"],$_POST['fechEntrega'],$_SESSION['usuario']);
             echo json_encode($a_get_updateFech, JSON_FORCE_OBJECT);
             break;
+        
+        case 'listarParams':
+            $a_get_params = $entrega->get_parametros();
+            $a_Parametros = Array();
+            $index = 0;
+            foreach($a_get_params as $row){
+                $a_prep_params = array();
+                $index++;
+                $a_prep_params[] = $index;
+                $a_prep_params[] = $row["aportprom"];
+                $a_prep_params[] = $row["montretanual"];
+                $a_prep_params[] = $row["estatparam"];
+                if ($row["estatparam"]=="CERRADO") {
+                    $estatParametro= "disabled";
+                }else {
+                    $estatParametro= "enabled";
+                }
+                $a_prep_params[] = $row["entrapliini"];
+                $a_prep_params[] = $row["entraplifin"];
+                $a_prep_params[] = "<button type='button' onclick='editar(".$row['id'].");' id='".$row['id']."'class='BtIcEdit' ".$estatParametro."><div><img src='../../img/file.png' alt='modificar' title='modificar' height='20' width='20'></div></button>";
+                $a_Parametros[] = $a_prep_params;  
+            }
+            $a_result_parametros_DT = array(
+                "sEcho"=> 1,
+                "iTotalRecords"=>count($a_Parametros),
+                "iTotalDisplayRecords"=>count($a_Parametros),
+                "aaData"=>$a_Parametros);
+            echo json_encode($a_result_parametros_DT);
+            break;
     }
 
 ?>

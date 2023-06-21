@@ -114,6 +114,19 @@
 
             return $a_resultUpdFechEntrega;
         }
+
+        public function get_parametros()
+        {
+            try {
+                $statement = $this->db->prepare('SELECT * FROM public.parametros_retiro');
+                $statement->execute();
+                $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+                return $results;
+            } catch (\Throwable $th) {
+                echo $th;
+            }
+            
+        }
     }
 
 ?>

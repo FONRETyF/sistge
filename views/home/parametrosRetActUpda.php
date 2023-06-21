@@ -66,6 +66,4 @@
     </form>
 </section>
 
-<script type="text/javascript" src="../../asset/js/parametrosUpdate.js"></script>
-
 <?php require_once("/var/www/html/sistge/views/head/footer.php"); ?>

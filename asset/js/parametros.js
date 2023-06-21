@@ -10,7 +10,7 @@ $(document).ready(function () {
         paging: true,
         dom: 'Bfrtip', //definicion de los elementos del control de la tabla
         "ajax":{
-            url: '../../controller/entregas.php?op=listar',
+            url: '../../controller/entregas.php?op=listarParams',
             type : "post",
             dataType : "json",						
             error: function(e){
@@ -50,6 +50,20 @@ $(document).ready(function () {
     }).DataTable();    
 });
 
+var accionRegresa = document.querySelector('.Btnregresar');
+accionRegresa.addEventListener("click", function (e) {
+    e.preventDefault();
+    javascript:history.go(-1);
+});
 
+var accionBtnInicio = document.getElementById('Btnnicio');
+accionBtnInicio.addEventListener("click", function (e) {
+    e.preventDefault();
+    location.href = 'Inicio.php';
+});
+
+function editar(idparam) {
+    location.href = "../../views/home/paramUpdate.php" + "?id=" + idparam;
+}
 
 init();
