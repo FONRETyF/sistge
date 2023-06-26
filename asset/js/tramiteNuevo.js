@@ -31,6 +31,9 @@ $(document).ready(function(){
     $("#cerrarEditBenefs").click(function () {
         $("#editarBenefs").modal('hide');
     });
+
+
+    
 });
 
 $("#OpcCauRetiro").change(function () {
@@ -452,7 +455,7 @@ const accionFechBaja = document.querySelector("#fechBajaMae");
 accionFechBaja.addEventListener("blur", function (evento) {
     evento.preventDefault();
 
-    if (parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) < 2019 || parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) > 2024) {
+    if (parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) < 2017 || parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) > 2024) {
         document.getElementById("fechBajaMae").style.border =  ".1em red solid";
         Swal.fire(
             'ERROR',
@@ -994,29 +997,41 @@ function validaFechas(valorValid, a_fechs) {
     }
 }
 
+/*$("#uploadImage").on("click", function (e) {
+    e.preventDefault();
+
+    
+})*/
+
 var imageExcepcion = '';
-$("#imageOficTarj").change(function (evento) {
-    evento.preventDefault();
-    var formData = new FormData($("#form_captTramite")[0]);
-	$.ajax({
-	    type: 'POST',
-	    url: '../../controller/tramites.php?op=subirImgSoporte',
-	    data: formData,
-	    contentType: false,
-	    processData: false,
-        success: function(datos){
-            data = JSON.parse(datos);
-            if (data["imagen"].length === 0) {
-                swal.fire(
-                    'La imagen de soporte no se cargo correctamente!!'
-                );
-            } else {
-                imageExcepcion = data["imagen"];
-                document.getElementById("ModoRetiro").disabled = false;
+    $("#imageOficTarj").change(function (evento) {
+        evento.preventDefault();
+
+        var files = $('#imageOficTarj')[0].files[0];
+
+        var formData = new FormData($("#form_captTramite")[0]);
+        var imagensend = document.querySelector("#imageOficTarj");
+        $.ajax({
+            type: 'POST',
+            url: '../../controller/tramites.php?op=subirImgSoporte',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(datos){
+                data = JSON.parse(datos);
+                if (data["imagen"].length === 0) {
+                    swal.fire(
+                        'La imagen de soporte no se cargo correctamente!!'
+                    );
+                } else {
+                    imageExcepcion = data["imagen"];
+                    document.getElementById("ModoRetiro").disabled = false;
+                }
             }
-        }
-	});
-})
+        });
+    });
+
+
 
 const accionOpcTestamento = document.querySelector('#OpcTestamento');
 accionOpcTestamento.addEventListener("click", function (evento) {

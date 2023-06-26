@@ -2043,7 +2043,7 @@ function actualizaJubInha() {
                                                         Udiaspsgs:$("#diasPsgs").val(),
                                                         UdiasServ:$("#diasServMae").val(),
                                                         UaniosServ:$('#aniosServMae').val(),
-                                                        UmodRet:document.getElementById("ModoRetiro").value,
+                                                        UmodRet:document.getElementById("ModalRetiro").value,
                                                         Umonttotret:document.getElementById('montRet').value.replace(',',''),
                                                         UmontretEntr:$("#monRetEntr").val().replace(',',''),
                                                         UmontRetFF:document.getElementById('montRetFF').value.replace(',',''),

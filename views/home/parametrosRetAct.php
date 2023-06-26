@@ -26,7 +26,7 @@
             <div id="contParamRetAct">
                 <div id="datsParamRetAct">
                     <div id="DicEstatParamRet">Estatus: &nbsp
-                        <input type="checkbox" checked data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger">
+                        <input type="checkbox" id="checkStatParam" checked onchange='cambiastatus();' data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger">
                     </div>
                     <div id="DivsueldosBase">
                         <div class="datsSueldosBase" id="DivsueldosBaseSp">SUELDO BASE DE UN SUPERVISOR:&nbsp

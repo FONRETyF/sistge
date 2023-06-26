@@ -164,7 +164,7 @@
         $this->Cell(40, 8,$resultsT[0]['montrettot'],0, 0, 'R');
         $this->SetFont('Arial','B',9.5);
         $this->Cell(139, 8,"(". $resultsT[0]['montretletra'] .")",0, 0, 'L');
-
+        
         if ($resultsT[0]['modretiro'] == "C") {
             $this->Ln(9);
             $this->Cell(10);
