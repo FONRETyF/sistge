@@ -4,6 +4,15 @@
     if(empty($_SESSION['usuario'])){
         header("Location:login.php");
     }
+
+    if (isset($_POST['uploadImage'])) {
+        echo("va subir imahebnjhh");
+    } else {
+        echo("no va subir nada");
+    }
+    
+    
+
 ?>
 
 <section class="contenidoGral">        
@@ -162,7 +171,8 @@
                             <div class="DatsExcepciones"># Oficio: &nbsp;<input type="text" id="numOficTarj" name="numOficTarj" value="">
                                 <div><input type="date" id="fechOficAut" name="fechOficAut" min="2022-01-01" max="2050-12-31" pattern="\d{4}-\d{2}-\d{2}" required></div>
                             </div>
-                            <div id="DivArchOficTarj"><label for="imageOficTarj"></label><input type="file" id="imageOficTarj" name="imageOficTarj" accept=".png, .jpg, .jpeg"></div>
+                            <div id="DivArchOficTarj"><label for="imageOficTarj"></label><input type="file" id="imageOficTarj" name="imageOficTarj" accept=".png, .jpg, .jpeg" ></div>
+                            <!--<div><button type="submit" name="uploadImage" id="uploadImage"><img src="../../img/subir.png" alt="Subir imagen" title="Subir imagen" height="23" width="23"></button></div>-->
                         </div>
                         <div id="DivCalculaRetiro"><p>CALCULO RETIRO</p>
                             <div id="DivCalculadora"><button id="calcDiasAnios" disabled><img src="../../img/calcula.png" alt="Calcula dias y años" title="Calcula dias y años" height="23" width="24" disabled></button></div>

@@ -117,14 +117,12 @@
             break;
 
         case 'subirImgSoporte':
-            $uploadimage = '';
             if(isset($_FILES['imageOficTarj'])) {
                 $imageName = $_FILES['imageOficTarj']["name"];
                 $nomtempora = explode(".",$_FILES['imageOficTarj']["name"]);
                 $valid_extensions = array("jpeg", "jpg", "png");
-                $filextension = end($nomtempora);
-
-                if((($_FILES["hard_file"]["type"] == "image/png") || ($_FILES["imageOficTarj"]["type"] == "image/jpg") || ($_FILES["imageOficTarj"]["type"] == "image/jpeg")) && in_array($filextension, $valid_extensions)){
+                $filextension = strtolower(end($nomtempora));
+                if((($_FILES["imageOficTarj"]["type"] == "image/png") || ($_FILES["imageOficTarj"]["type"] == "image/jpg") || ($_FILES["imageOficTarj"]["type"] == "image/jpeg")) && in_array($filextension, $valid_extensions)){
                     $sourcePath = $_FILES['imageOficTarj']['tmp_name'];
                     $targetPath = "/var/www/html/sistge/imgaut/".$imageName;
                     try {
@@ -136,7 +134,7 @@
                 }
             }
             $output["imagen"] = $uploadimage;
-            echo json_encode($output, JSON_FORCE_OBJECT);
+            echo json_encode($output, JSON_FORCE_OBJECT); 
             break;
             
         default:            
