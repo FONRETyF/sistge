@@ -34,10 +34,17 @@ use function PHPSTORM_META\type;
         public function get_RetiroJub($aniosserv,$programfallec){
             $retiroJub = array();
             if ($programfallec == "M") {
-                $montretJub = $aniosserv * 1000;
-                $retiroJub[] = [
-                    "montRet" => $montretJub
-                ];
+                if ($aniosserv > 29) {
+                    $montretJub = 30000;
+                    $retiroJub[] = [
+                        "montRet" => $montretJub
+                    ];
+                }else {
+                    $montretJub = $aniosserv * 1000;
+                    $retiroJub[] = [
+                        "montRet" => $montretJub
+                    ];
+               } 
             } else {
                 # code...
             }
@@ -717,7 +724,7 @@ use function PHPSTORM_META\type;
                         $a_resultAddTramFJ["insertTramite"] = "Existente";
                     }
                     
-                    $actualizaMae = $this->actualizaMaestroMut($cveissemym,$curpmae,$rfcmae,$region,$numcel,$numpart,$aniosserv,$fechbajfall,$motvret,$modret,$diasserv,$cveusu,$fecha);
+                    $actualizaMae = $this->actualizaMaestroMut($cveissemym,$curpmae,$rfcmae,$region,$numcel,$numpart,$aniosserv,$fechbajfall,$motvret,$modret,$diasserv,$cveusu,$fecha,$fechbase);
                     $a_resultAddTramFJ["updateMaestro"] = $actualizaMae;
                     
                     $insertaCheques = $this->insertChequeF($anioentr,$numentre,$idretiro,$identregRet,$cveissemym,$nomsbenefs,$numbenefs,$montretentr,$edadesbenefs,$porcsbenefs,$vidabenefs,$cveusu,$fecha,$motvret);
@@ -898,12 +905,11 @@ use function PHPSTORM_META\type;
             }
         }
 
-        public function actualizaMaestroMut($cveissemym,$curpmae,$rfcmae,$region,$numcel,$numpart,$aniosserv,$fechbajfall,$motvret,$modret,$diasserv,$cveusu,$fecha){
+        public function actualizaMaestroMut($cveissemym,$curpmae,$rfcmae,$region,$numcel,$numpart,$aniosserv,$fechbajfall,$motvret,$modret,$diasserv,$cveusu,$fecha,$fechbase){
             try {
                 $statementUpdate = "UPDATE public.mutualidad";
-                $statementUpdate = $statementUpdate . " SET curpmae='".$curpmae."' ,rfcmae='".$rfcmae."', regmae= ".$region ." , numcelmae='" .$numcel."', numfijmae='".$numpart."', fcfallecmae='".$fechbajfall."', estatmutual='F', aniosjub=".$aniosserv.", cveusu='".$cveusu."', fechmodif='".$fecha."', estatusmae='F', diasjub=".$diasserv;
+                $statementUpdate = $statementUpdate . " SET curpmae='".$curpmae."' ,rfcmae='".$rfcmae."', regmae= ".$region ." , numcelmae='" .$numcel."', numfijmae='".$numpart."', fechbajamae='".$fechbase."', fcfallecmae='".$fechbajfall."', estatmutual='F', aniosjub=".$aniosserv.", cveusu='".$cveusu."', fechmodif='".$fecha."', estatusmae='F', diasjub=".$diasserv;
                 $statementUpdate = $statementUpdate . " WHERE cveissemym='" . $cveissemym."';";
-
                 $statementUpdate = $this->db->prepare($statementUpdate);
                 $statementUpdate->execute();
                 $results = $statementUpdate->fetchAll(PDO::FETCH_ASSOC);
@@ -963,6 +969,7 @@ use function PHPSTORM_META\type;
                         $results = $statementInsertCheque->fetchAll(PDO::FETCH_ASSOC);
                         $validInsertCorrect++;
                     } catch (\Throwable $th) {
+                        echo $th;
                         $validInserError++;
                     }
                 }else {
@@ -1307,7 +1314,6 @@ use function PHPSTORM_META\type;
                 $results = $consultaUpdate->fetchAll(PDO::FETCH_ASSOC);              
                 $a_resultUpdTramFA["updateTramite"] = "Actualizado";
             } catch (\Throwable $th) {
-                echo($th);
                 $a_resultUpdTramFA["updateTramite"] = "Fallo";
             }
 
@@ -1391,6 +1397,7 @@ use function PHPSTORM_META\type;
         
         public function updateFJ($anioentr,$numentre,$identr,$idretiro,$identregRet,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidasbenefs,$testamento,$fechtestamnt,$curpmae,$rfcmae,$cveusu){
             require_once("/var/www/html/sistge/model/Entregas.php");
+            
             $entrega = new Entrega();
             $get_entrega = $entrega -> get_entrega_id($identr);
             $getRetiro = $this->get_Tram_Id($identregRet);
@@ -1429,7 +1436,7 @@ use function PHPSTORM_META\type;
                 $a_resultUpdTramFJ["updateTramite"] = "Fallo";
             }
 
-            $actualizaMae = $this->actualizaMaestroMut($cveissemym,$curpmae,$rfcmae,$region,$numcel,$numpart,$aniosserv,$fechbajfall,$motvret,$modret,$diasserv,$cveusu,$fecha);
+            $actualizaMae = $this->actualizaMaestroMut($cveissemym,$curpmae,$rfcmae,$region,$numcel,$numpart,$aniosserv,$fechbajfall,$motvret,$modret,$diasserv,$cveusu,$fecha,$fechbase);
             $a_resultUpdTramFJ["updateMaestro"] = $actualizaMae;
 
             $nombresB = explode(",",$nomsbenefs);
@@ -1440,6 +1447,7 @@ use function PHPSTORM_META\type;
             $vidasB = explode(",",$vidasbenefs);
 
             if ($numadeds == 0) {
+                
                 $deleteCheqsFJ = $this->deleteChequesFA($identregRet,$cveissemym);
                 $a_resultUpdTramFJ["deleteCheques"] = $deleteCheqsFJ;
 
@@ -1502,13 +1510,11 @@ use function PHPSTORM_META\type;
                     echo($th);
                 }
             }
-
             return $a_resultUpdTramFJ;
         }
 
         public function deleteChequesFA($identret,$cvemae){
             try {
-
                 $statementDeleteCheq = "DELETE FROM public.beneficiarios_cheques WHERE identret = '".$identret."' AND cvemae='".$cvemae."';";
                 $statementDeleteCheq = $this->db->prepare($statementDeleteCheq);
                 $statementDeleteCheq->execute();

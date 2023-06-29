@@ -58,6 +58,7 @@
                         <div>C.S.P: &nbsp<input type="text" id="cspMaeBusq" class="CSPMae" name="cspMaeBusq" disabled></div>
                         <div>&nbsp &nbsp &nbsp Clave de ISSEMyM: &nbsp<input type="text" id="cveIMaeBusq" class="cveissemym" name="cveIMaeBusq" minlength="3" maxlength="6"></div>
                         <div id="EstatLaboral">Estatus: &nbsp<input type="text" id="estLaboral" name="estLaboral" disabled></div>
+                        <input type="hidden" id="programfallec" name="programfallec">
                     </div>
                     <!--<div id="DivInforTram"><h1 id="infoTramite"></h1></div>  -->
                     <div id="DivNomMae">Nombre del maestro: 

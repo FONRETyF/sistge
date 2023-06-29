@@ -418,6 +418,7 @@ $(document).ready(function () {
                 $("#folioTram").val(infoTramite[43]);
                 document.getElementById('cspMaeBusq').disabled = true;
                 $("#cveIMaeBusq").val(infoTramite[52]);
+                claveisemym =  $("#cveIMaeBusq").val();
                 $("#estLaboral").val(estatLabMae);
                 $("#apePatMae").val(infoTramite[53]);
                 $("#apeMatMae").val(infoTramite[54]);
@@ -517,6 +518,9 @@ $(document).ready(function () {
                     document.getElementById('montRetFondFall').style.display = "none";
                 }
             });
+
+            
+
         }
     });
 });
@@ -822,6 +826,7 @@ $('#DivFechsPSGS').on("click",".delete_fechaF",function(e){
     document.getElementById('numsPSGS').value = contPSGS;
 });
 
+var programafallec = "";
 clavemae = document.getElementById('cspMaeBusq').value;
 const accionCalculadora = document.querySelector('#calcDiasAnios');
 accionCalculadora.addEventListener("click", function (evento) {
@@ -1141,7 +1146,7 @@ function validaFechas(valorValid, a_fechs) {
                 }
             });
         }else if (motret == "FJ") {
-            $.post("../../controller/tramites.php?op=validaFechsFJ",{clavemae:clavemae,motret:motret,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"]},function(data){
+            $.post("../../controller/tramites.php?op=validaFechsFJ",{clavemae:clavemae,motret:motret,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"],opTest:$("#OpcTestamento").val(),fechCTJuic:$("#fechCTJuicio").val(),fechIniJuic:document.getElementById("fechIniJuicio").value},function(data){
                 data = JSON.parse(data);
                 resultValid = data.descResult;
                 switch (resultValid) {
@@ -1154,16 +1159,30 @@ function validaFechas(valorValid, a_fechs) {
                             //document.getElementById("ModoRetiro").disabled =  true;
                         
                         var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                        $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programfallec:programfallec},function(data){       
-                            data = JSON.parse(data);
-                            $('#montRet').val(data.montret.toFixed(2));
-                            if (motret == "FA" || motret == "FJ") {
-                                document.getElementById("ModoRetiro").disabled =  true;
-                                document.getElementById("ModoRetiro").value = "C";
-                                montoRetiro = parseFloat(document.getElementById('montRet').value); //- adeudosMae).toFixed(2);
-                                document.getElementById('monRetEntr').value = montoRetiro;
-                            }
-                        });       
+                        
+                        $.post("../../controller/maestro.php?op=buscarJub",{claveisemym:claveisemym},function(dataJ){ 
+                            dataJ = Object.values(JSON.parse(dataJ));
+                            $("#programfallec").val(dataJ[10]);
+                            
+                        });
+                        
+                        
+                        if ($("#programfallec").val() == "M") {
+                            $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programac:"M"},function(data){       
+                                data = JSON.parse(data);
+                                
+                                $('#montRet').val(data.montret.toFixed(2));
+                                if (motret == "FA" || motret == "FJ") {
+                                    document.getElementById("ModoRetiro").disabled =  true;
+                                    document.getElementById("ModoRetiro").value = "C";
+                                    montoRetiro = parseFloat(document.getElementById('montRet').value); //- adeudosMae).toFixed(2);
+                                    document.getElementById('monRetEntr').value = montoRetiro;
+                                }
+                            });
+                        }else if ($("#programfallec").val() == "FF") {
+                            
+                        }
+                               
                         break;
                     
                     case 'vigenciaCad':
@@ -2226,7 +2245,7 @@ function actualizaFallJub(){
                                                         UnomSolic:$("#nomSolic").val(),
                                                         UNumCel:$("#TelCelMae").val(),
                                                         UnumPart:$("#TelPartiMae").val(),
-                                                        Ufechbase:$("#fechBaseMae").val(),
+                                                        Ufechbase:document.getElementById("fechBaseMae").value, //$("#fechBaseMae").val(),
                                                         UdiasServ:$("#diasServMae").val(),
                                                         UaniosServ:$('#aniosServMae').val(),
                                                         UmodRet:document.getElementById("ModoRetiro").value,
@@ -2255,7 +2274,7 @@ function actualizaFallJub(){
                                                         Ucurpmae:document.getElementById('CURPMae').value,
                                                         Urfcmae:document.getElementById('RFCMae').value
                                                         },function (data) {
-                                                            resultadoAdd = Object.values( JSON.parse(data));
+                                                            resultadoAdd = JSON.parse(data);
                                                             NumregsResult = resultadoAdd.length;
                                                             switch (NumregsResult) {
                                                                 case 6:
