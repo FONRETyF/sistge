@@ -22,7 +22,7 @@
         }
         
         public function get_maestroJub($claveIssemym){
-            $statement = $this->db->prepare('SELECT cveissemym,programfallec FROM public.jubilados_smsem WHERE cveissemym=?');
+            $statement = $this->db->prepare('SELECT cveissemym,programfallec,apepatjub,apematjub,nomjub,nomcomjub FROM public.jubilados_smsem WHERE cveissemym=?');
             $statement->bindValue(1,$claveIssemym);
             $statement->execute();
             $results = $statement->fetchAll(PDO::FETCH_ASSOC);

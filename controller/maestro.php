@@ -123,17 +123,34 @@
             break;
         
         case "mostrarNom":
-            $a_get_nomMae = $maestro->get_maestro($_POST["clavemae"]);
-            if(is_array($a_get_nomMae)==true and count($a_get_nomMae)>0){
-                foreach($a_get_nomMae as $row){
-                    $output["csp"] = $row["csp"];
-                    $output["apepatmae"] = $row["apepatmae"];
-                    $output["apematmae"] = $row["apematmae"];
-                    $output["nommae"] = $row["nommae"];
-                    $output["nomcommae"] = $row["nomcommae"];
+            $clavemae = $_POST["clavemae"];
+            if (strlen( $clavemae) === 9) {
+                $a_get_nomMae = $maestro->get_maestro($clavemae);
+                if(is_array($a_get_nomMae)==true and count($a_get_nomMae)>0){
+                    foreach($a_get_nomMae as $row){
+                        $output["csp"] = $row["csp"];
+                        $output["apepatmae"] = $row["apepatmae"];
+                        $output["apematmae"] = $row["apematmae"];
+                        $output["nommae"] = $row["nommae"];
+                        $output["nomcommae"] = $row["nomcommae"];
+                    }
+                    echo json_encode($output, JSON_FORCE_OBJECT);
                 }
-                echo json_encode($output, JSON_FORCE_OBJECT);
+            } else {
+                $a_get_nomMae = $maestro->get_maestroJub($clavemae);
+                if(is_array($a_get_nomMae)==true and count($a_get_nomMae)>0){
+                    foreach($a_get_nomMae as $row){
+                        $output["csp"] = $row["csp"];
+                        $output["apepatmae"] = $row["apepatjub"];
+                        $output["apematmae"] = $row["apematjub"];
+                        $output["nommae"] = $row["nomjub"];
+                        $output["nomcommae"] = $row["nomcomjub"];
+                    }
+                    echo json_encode($output, JSON_FORCE_OBJECT);
+                }
             }
+            
+            
             break;
         
         case "actNomMae":

@@ -42,7 +42,7 @@
             break;
         
         case 'obtenRetiroJub':
-            $a_get_paramRetJub = $tramite->get_RetiroJub($_POST["aniosserv"],$_POST["programac"]);
+            $a_get_paramRetJub = $tramite->get_RetiroJub($_POST["aniosserv"],$_POST["programF"]);
             if(is_array($a_get_paramRetJub)==true && count($a_get_paramRetJub)>0){
                 foreach($a_get_paramRetJub as $row){
                     $output["montret"] = $row["montRet"];

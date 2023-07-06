@@ -7,9 +7,10 @@ var paramidret = '';
 var numadedsM = 0;
 
 function init(){
-    $("#edita_NomMae").on("submit",function(e){
+    /*$("#edita_NomMae").on("submit",function(e){
+        alert("kdfjlkdsjfldjs");
         actNomMae(e);
-    });
+    });*/
 }
 
 $(document).ready(function () {
@@ -624,9 +625,9 @@ function validaNomBenef(inputNomBenef) {
     }
 }
 
-const accionEditaNom = document.querySelector("#EditaNombre");
-accionEditaNom.addEventListener("click", function (evento){
-    evento.preventDefault();
+$("#EditaNombre").on("click", function (e) {
+    e.preventDefault();
+
     $('#modal-title').html('Modificando nombre');
     $.post("../../controller/maestro.php?op=mostrarNom",{clavemae:clavemae},function(data){       
         data = JSON.parse(data);
@@ -639,8 +640,14 @@ accionEditaNom.addEventListener("click", function (evento){
     $('#editarNomMae').modal('show');
 });
 
+$("#updNomMae").on("click", function (event) {
+    event.preventDefault();
+    actNomMae(event);
+});
+
 function actNomMae(e){
     e.preventDefault();
+    
     nomComMae = $('#apepatModif').val() + " " + $('#apematModif').val() + " " + $('#nommaeModif').val();
     $('#nomcomModif').val(nomComMae);
     
@@ -662,14 +669,15 @@ function actNomMae(e){
             );
         }
     });
-
+    
     clavemae = $("#cspMaeBusq").val();
+
     $.post("../../controller/maestro.php?op=buscar",{clavemae:clavemae},function(data){ 
         data = JSON.parse(data);
         $('#apePatMae').val(data.apepatmae);
         $('#apeMatMae').val(data.apematmae);
         $('#nombreMae').val(data.nommae);
-        $('#estLaboral').val(estatusMae);
+        $('#estLaboral').val($("#estLaboral").val());
         $('#nomComplMae').val(data.nomcommae);
         $('#nomSolic').val(data.nomcommae); 
     });

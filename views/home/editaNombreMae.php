@@ -24,7 +24,7 @@
                     </section>
                     <div id="modal-footer">
                         <!--<button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cerrar</button>-->
-                        <button type="submit" name="action" id="#" value="add" class="btn btn-rounded btn-primary">Guardar</button>  
+                        <button type="submit" name="action" id="updNomMae" value="add" class="btn btn-rounded btn-primary">Guardar</button>  
                     </div> 
                 </div> 
             </form>

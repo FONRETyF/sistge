@@ -4,6 +4,7 @@ var clavemae;
 
 function init() {
     $("#edita_NomMae").on("submit",function(e){
+        
         actNomMae(e);
     });
 }
@@ -238,6 +239,7 @@ $("#cveIMaeBusq").change(function() {
                         $('#CURPMae').val(dataJ.curpmae);
                         $('#RFCMae').val(dataJ.rfcmae);
                         $('#fechBaseMae').val(dataJ.fechbajamae);
+                        $('#inputProgramFall').val(dataJ.programafallec);
     
                         document.getElementById("TelPartiMae").disabled =  false;
                         document.getElementById("TelCelMae").disabled =  false;
@@ -921,16 +923,31 @@ function validaFechas(valorValid, a_fechs) {
                             //document.getElementById("ModoRetiro").disabled =  true;
                         
                         var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                        $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programfallec:programfallec},function(data){       
-                            data = JSON.parse(data);
-                            $('#montRet').val(data.montret.toFixed(2));
-                            if (motret == "FA" || motret == "FJ") {
-                                document.getElementById("ModoRetiro").disabled =  true;
-                                document.getElementById("ModoRetiro").value = "C";
-                                montoRetiro = parseFloat(document.getElementById('montRet').value);
-                                document.getElementById('monRetEntr').value = montoRetiro;
-                            }
-                        });       
+                        var programaF = $('#inputProgramFall').val();
+                        if (programaF==="M") {
+                            $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programF:"M"},function(data){       
+                                data = JSON.parse(data);
+                                $('#montRet').val(data.montret.toFixed(2));
+                                if (motret == "FA" || motret == "FJ") {
+                                    document.getElementById("ModoRetiro").disabled =  true;
+                                    document.getElementById("ModoRetiro").value = "C";
+                                    montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                    document.getElementById('monRetEntr').value = montoRetiro;
+                                }
+                            });  
+                        } else if (programaF==="FF") {
+                            $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programF:"FF"},function(data){       
+                                data = JSON.parse(data);
+                                $('#montRet').val(data.montret.toFixed(2));
+                                if (motret == "FA" || motret == "FJ") {
+                                    document.getElementById("ModoRetiro").disabled =  true;
+                                    document.getElementById("ModoRetiro").value = "C";
+                                    montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                    document.getElementById('monRetEntr').value = montoRetiro;
+                                }
+                            });  
+                        }
+                             
                         break;
                     
                     case 'vigenciaCad':
@@ -1834,7 +1851,7 @@ function agregaRetFallecimientoJ() {
                                                         Iporcnsbenefs:document.getElementById('porcentsbenefs').value.split(","),
                                                         Iedadesbenefs:document.getElementById('edadesbenefs').value.split(","),
                                                         Ividabenefs:document.getElementById('vidasbenefs').value.split(","),
-                                                        Iprogramfallec: programfallec,
+                                                        Iprogramfallec: $("#inputProgramFall").val(),
                                                         Icurpmae:document.getElementById('CURPMae').value,
                                                         Irfcmae:document.getElementById('RFCMae').value,
                                                         Ifechtestamnt:$("#fechCTJuicio").val(),

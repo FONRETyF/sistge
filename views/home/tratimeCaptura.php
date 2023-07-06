@@ -6,9 +6,9 @@
     }
 
     if (isset($_POST['uploadImage'])) {
-        echo("va subir imahebnjhh");
+        //echo("va subir imahebnjhh");
     } else {
-        echo("no va subir nada");
+       // echo("no va subir nada");
     }
     
     
@@ -60,6 +60,7 @@
                         <div>C.S.P: &nbsp<input type="text" id="cspMaeBusq" class="CSPMae" name="cspMaeBusq" placeholder="999999999" change="" minlength="9" maxlength="9" disabled required></div>
                         <div>&nbsp &nbsp &nbsp Clave de ISSEMyM: &nbsp<input type="text" id="cveIMaeBusq" class="cveissemym" name="cveIMaeBusq" minlength="3" maxlength="6" placeholder="000000" disabled></div>
                         <div id="EstatLaboral">Estatus: &nbsp<input type="text" id="estLaboral" name="estLaboral" placeholder="Estatus laboral" disabled></div>
+                        <input type="hidden" id="inputProgramFall" name="inputProgramFall">
                     </div>
                     <!--<div id="DivInforTram"><h1 id="infoTramite"></h1></div>  -->
                     <div id="DivNomMae">Nombre del maestro: 

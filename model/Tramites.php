@@ -916,6 +916,7 @@ use function PHPSTORM_META\type;
                 $resultUpdMaestro = "Actualizado";
                 return $resultUpdMaestro;
             } catch (\Throwable $th) {
+                echo($th);
                 $resultUpdMaestro = "Fallo";
                 return $resultUpdMaestro;
             }
@@ -957,27 +958,28 @@ use function PHPSTORM_META\type;
                 }elseif ($idbenef > 9) {
                     $idbenefcheque = $identreret . $idbenef;
                 }
-                if ($estatVida[$i] == "V") {
-                    $montbenef = round((($montretentr * $porcsBenef[$i]) / 100),2);
-                    $montbenefletra = $this->cantidadLetra->cantidadLetras($montbenef);
-                    try {
-                        $statementInsertCheque = "INSERT INTO public.beneficiarios_cheques(";
-                        $statementInsertCheque = $statementInsertCheque . "anioentrega, numentrega, idret, identret, idbenef, idbenefcheque, cvemae, nombenef, montbenef, montbenefletra, folcheque, fechcheque, fechreposcn, folanterior, oficsolrepofinan, usureposcn, observreposcn, fechentrega, estatcheque, observcheque, movimtscheque, motvcancel, fechcancel, porcretbenef, statedad, chequeadeudo, adeudo, cveusu, fechmodif)";
-                        $statementInsertCheque = $statementInsertCheque . " VALUES (".$anioentr.", ".$numentr.", ".$idret.", '".$identreret."', ".$idbenef.", '".$idbenefcheque."', '".$cvemae."', '".$nombenefs[$i]."', ".$montbenef.", '".$montbenefletra."', '', '1900-01-01', '1900-01-01', '', '', '', '', '1900-01-01', '', '', '', 0, '1900-01-01', ".$porcsBenef[$i].", '".$estatEdad[$i]."','N', '', '".$usuario."', '".$fecha."');";
-                        $statementInsertCheque = $this->db->prepare($statementInsertCheque);
-                        $statementInsertCheque->execute();
-                        $results = $statementInsertCheque->fetchAll(PDO::FETCH_ASSOC);
-                        $validInsertCorrect++;
-                    } catch (\Throwable $th) {
-                        echo $th;
-                        $validInserError++;
-                    }
-                }else {
+
+                $montbenef = round((($montretentr * $porcsBenef[$i]) / 100),2);
+                $montbenefletra = $this->cantidadLetra->cantidadLetras($montbenef);
+                try {
+                    $statementInsertCheque = "INSERT INTO public.beneficiarios_cheques(";
+                    $statementInsertCheque = $statementInsertCheque . "anioentrega, numentrega, idret, identret, idbenef, idbenefcheque, cvemae, nombenef, montbenef, montbenefletra, folcheque, fechcheque, fechreposcn, folanterior, oficsolrepofinan, usureposcn, observreposcn, fechentrega, estatcheque, observcheque, movimtscheque, motvcancel, fechcancel, porcretbenef, statedad, chequeadeudo, adeudo, cveusu, fechmodif)";
+                    $statementInsertCheque = $statementInsertCheque . " VALUES (".$anioentr.", ".$numentr.", ".$idret.", '".$identreret."', ".$idbenef.", '".$idbenefcheque."', '".$cvemae."', '".$nombenefs[$i]."', ".$montbenef.", '".$montbenefletra."', '', '1900-01-01', '1900-01-01', '', '', '', '', '1900-01-01', '', '', '', 0, '1900-01-01', ".$porcsBenef[$i].", '".$estatEdad[$i]."','N', '', '".$usuario."', '".$fecha."');";
+                    $statementInsertCheque = $this->db->prepare($statementInsertCheque);
+                    $statementInsertCheque->execute();
+                    $results = $statementInsertCheque->fetchAll(PDO::FETCH_ASSOC);
+                    $validInsertCorrect++;
+                } catch (\Throwable $th) {
+                    echo $th;
+                    $validInserError++;
+                }
+
+                if ($estatVida[$i] == "F") {
                     $numbeneffall++;
-                }              
+                }             
             }
 
-            if (($validInsertCorrect + $numbeneffall) == $numbenef) {
+            if ($validInsertCorrect == $numbenef) {
                 $resultInsertCheque = "Agregado";
                 return $resultInsertCheque;
             } elseif ($validInserError > 0) {
