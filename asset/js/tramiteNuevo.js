@@ -951,7 +951,7 @@ function validaFechas(valorValid, a_fechs) {
                         break;
                     
                     case 'vigenciaCad':
-                        diasServicio = data.diasServ
+                        diasServicio = data.diasJub
                         aniosServicio = Math.trunc(diasServicio/365);
                         
                         swal.fire({
@@ -973,16 +973,30 @@ function validaFechas(valorValid, a_fechs) {
                                 document.getElementById('aniosServMae').value = aniosServicio;
     
                                 var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                                $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
-                                    data = JSON.parse(data);
-                                    $('#montRet').val(data.montret.toFixed(2));
-                                    if (motret == "FA" || motret == "FJ") {
-                                        document.getElementById("ModoRetiro").disabled =  true;
-                                        document.getElementById("ModoRetiro").value = "C";
-                                        montoRetiro = parseFloat(document.getElementById('montRet').value); //- adeudosMae).toFixed(2);
-                                        document.getElementById('monRetEntr').value = montoRetiro;
-                                    }
-                                });  
+                                var programaF = $('#inputProgramFall').val();
+                                if (programaF==="M") {
+                                    $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programF:"M"},function(data){       
+                                        data = JSON.parse(data);
+                                        $('#montRet').val(data.montret.toFixed(2));
+                                        if (motret == "FA" || motret == "FJ") {
+                                            document.getElementById("ModoRetiro").disabled =  true;
+                                            document.getElementById("ModoRetiro").value = "C";
+                                            montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                            document.getElementById('monRetEntr').value = montoRetiro;
+                                        }
+                                    });  
+                                } else if (programaF==="FF") {
+                                    $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programF:"FF"},function(data){       
+                                        data = JSON.parse(data);
+                                        $('#montRet').val(data.montret.toFixed(2));
+                                        if (motret == "FA" || motret == "FJ") {
+                                            document.getElementById("ModoRetiro").disabled =  true;
+                                            document.getElementById("ModoRetiro").value = "C";
+                                            montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                            document.getElementById('monRetEntr').value = montoRetiro;
+                                        }
+                                    });  
+                                }
                             }else{
                                 let pagAnterior = document.referrer;
                                 if (pagAnterior.indexOf(window.location.host) !== -1) {
@@ -1015,9 +1029,7 @@ function validaFechas(valorValid, a_fechs) {
 }
 
 /*$("#uploadImage").on("click", function (e) {
-    e.preventDefault();
-
-    
+    e.preventDefault();   
 })*/
 
 var imageExcepcion = '';
