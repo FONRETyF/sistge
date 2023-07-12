@@ -940,7 +940,7 @@ function validaFechas(valorValid, a_fechs) {
                                 document.getElementById('montRetFF').value = montoRetiro;
                             }
                         }
-                    });                 
+                    });             
                     break;
                 
                 case 'vigenciaCad':
@@ -2070,7 +2070,7 @@ function actualizaJubInha() {
                                                         Udiaspsgs:$("#diasPsgs").val(),
                                                         UdiasServ:$("#diasServMae").val(),
                                                         UaniosServ:$('#aniosServMae').val(),
-                                                        UmodRet:document.getElementById("ModalRetiro").value,
+                                                        UmodRet:$("#ModoRetiro").val(),
                                                         Umonttotret:document.getElementById('montRet').value.replace(',',''),
                                                         UmontretEntr:$("#monRetEntr").val().replace(',',''),
                                                         UmontRetFF:document.getElementById('montRetFF').value.replace(',',''),
