@@ -1,6 +1,6 @@
 <?php
 
-require '/var/www/html/sistge/vendor/autoload.php'; //'vendor/autoload.php';
+require '/var/www/html/sistge/vendor/autoload.php'; 
 require '/var/www/html/sistge/config/dbfonretyf.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -50,17 +50,44 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
         $activeWorksheet->setCellValue('C5','NOMBRE MAESTRO');
         $activeWorksheet->setCellValue('D5','CONCEPTO');
 
+        /* ADEUDOS PARA TURISMO, TS Y FAJAM */
+        $arregloMaestrosCheques = array();
+
+        /* INHABILITADOS */
         $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1 left join (Select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2";
         $consultacheques = $consultacheques . " WHERE tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
-        $consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and (tab1.modretiro='C' or tab1.modretiro='D50') order by case when motvret='I' then 1 when motvret='J' then 2  when (motvret='FA' or motvret='FJ') then 3 end asc, nomcommae asc;";
+        $consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and tab1.motvret='I' and (tab1.modretiro='C' or tab1.modretiro='D50') order by nomcommae asc;";
 
         $statementCheques = $db->prepare($consultacheques);
         $statementCheques->execute();
         $resultsCheques = $statementCheques->fetchAll(PDO::FETCH_ASSOC);
 
+        //$consultacheques = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1 left join (Select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2";
+        //$consultacheques = $consultacheques . " WHERE tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
+        //$consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and (tab1.modretiro='C' or tab1.modretiro='D50') order by case when motvret='I' then 1 when motvret='J' then 2  when (motvret='FA' or motvret='FJ') then 3 end asc, nomcommae asc;";
+
+        //$statementCheques = $db->prepare($consultacheques);
+        //$statementCheques->execute();
+        //$resultsCheques = $statementCheques->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($resultsCheques as $key => $row) {
+            $aux[$key]=$row["nomcommae"];
+        }
+    
+        $collator = collator_create("es");
+        $collator->sort($aux);
+    
+        foreach ($aux as $row) {
+            foreach ($resultsCheques as $key => $row1) {
+                if ($row === $row1['nomcommae']) {
+                    array_push($arregloMaestrosCheques, $row1);
+                    break;
+                } 
+            }    
+        }
+
         $idcheque = 1;
         $numregExcel = 6;
-        foreach ($resultsCheques as $row) {
+        foreach ($arregloMaestrosCheques  as $row) {
             $activeWorksheet->setCellValue('A'. $numregExcel,$idcheque);
             $activeWorksheet->setCellValue('B'. $numregExcel,$row["cvemae"]);
             $activeWorksheet->setCellValue('C'. $numregExcel,$row["nomcommae"]);
