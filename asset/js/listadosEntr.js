@@ -51,7 +51,7 @@ accionBtnGeneraList.addEventListener("click", function (e) {
     } else if (document.getElementById("RadBtnActas").checked) {
         location.href = "../../views/home/actaEntrega.php" + "?identr=" + identrega;
     } else if (document.getElementById("RadBtnSobres").checked) {
-        
+        location.href = "../../views/home/sobres.php" + "?identr=" + identrega;
     } else if (document.getElementById("RadBtnInformatica").checked) {
         location.href = "../../views/home/fileInformatic.php" + "?identr=" + identrega;
     } else if(document.getElementById("RadBtnLlamadas").checked) {

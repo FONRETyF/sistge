@@ -29,7 +29,7 @@
             $activeWorksheet->setCellValue('A2', $notacionEtr[$numentrega]." ENTREGA DEL FONDO DE RETIRO POR JUBILACION, INHABILITACION Y POR FALLECIMIENTO");
             $activeWorksheet->mergeCells('A2:D2')->getStyle('A2:D2')->getAlignment()->setHorizontal('center');
             
-            $nombreArchivo = $notacionEtr[$numentrega]."_ENTREGA_FONRETyF";
+            $nombreArchivo = $notacionEtr[$numentrega]."_ENTREGA_FONRETyF - ADEUDOS";
 
             $pdo = new dbfonretyf();
             $db=$pdo->conexfonretyf();
@@ -50,17 +50,88 @@
             $activeWorksheet->setCellValue('C5','NOMBRE MAESTRO');
             $activeWorksheet->setCellValue('D5','CONCEPTO');
 
+            /* ADEUDOS PARA TURISMO, TS Y FAJAM */
+            $arregloMaestrosCheques = array();
+
+            /* INHABILITADOS */
             $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1 left join (Select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2";
             $consultacheques = $consultacheques . " WHERE tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
-            $consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and (tab1.modretiro='C' or tab1.modretiro='D50') order by case when motvret='I' then 1 when motvret='J' then 2  when (motvret='FA' or motvret='FJ') then 3 end asc, nomcommae asc;";
+            $consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and tab1.motvret='I' and (tab1.modretiro='C' or tab1.modretiro='D50') order by nomcommae asc;";
 
             $statementCheques = $db->prepare($consultacheques);
             $statementCheques->execute();
             $resultsCheques = $statementCheques->fetchAll(PDO::FETCH_ASSOC);
 
+            foreach ($resultsCheques as $key => $row) {
+                $aux[$key]=$row["nomcommae"];
+            }
+        
+            $collator = collator_create("es");
+            $collator->sort($aux);
+        
+            foreach ($aux as $row) {
+                foreach ($resultsCheques as $key => $row1) {
+                    if ($row === $row1['nomcommae']) {
+                        array_push($arregloMaestrosCheques, $row1);
+                        break;
+                    } 
+                }    
+            }
+
+            /* JUBILADOS */
+            $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1 left join (Select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2";
+            $consultacheques = $consultacheques . " WHERE tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
+            $consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and tab1.motvret='J' and (tab1.modretiro='C' or tab1.modretiro='D50') order by nomcommae asc;";
+
+            $statementCheques = $db->prepare($consultacheques);
+            $statementCheques->execute();
+            $resultsCheques = $statementCheques->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($resultsCheques as $key => $row) {
+                $aux[$key]=$row["nomcommae"];
+            }
+        
+            $collator = collator_create("es");
+            $collator->sort($aux);
+        
+            foreach ($aux as $row) {
+                foreach ($resultsCheques as $key => $row1) {
+                    if ($row === $row1['nomcommae']) {
+                        array_push($arregloMaestrosCheques, $row1);
+                        break;
+                    } 
+                }    
+            }
+
+             /* FALLECIDOS */
+             $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1 left join (Select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2";
+             $consultacheques = $consultacheques . " WHERE tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
+             $consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') and (tab1.modretiro='C' or tab1.modretiro='D50') order by nomcommae asc;";
+ 
+             $statementChequesF = $db->prepare($consultacheques);
+             $statementChequesF->execute();
+             $resultsChequesF = $statementChequesF->fetchAll(PDO::FETCH_ASSOC);
+ 
+             foreach ($resultsChequesF as $key => $row) {
+                 $auxF[$key]=$row["nomcommae"];
+             }
+         
+             $collator = collator_create("es");
+             $collator->sort($auxF);
+         
+             foreach ($auxF as $row) {
+                 foreach ($resultsChequesF as $key => $row1) {
+                     if ($row === $row1['nomcommae']) {
+                         array_push($arregloMaestrosCheques, $row1);
+                         break;
+                     } 
+                 }    
+             }
+
+
             $idcheque = 1;
             $numregExcel = 6;
-            foreach ($resultsCheques as $row) {
+            foreach ($arregloMaestrosCheques as $row) {
                 $activeWorksheet->setCellValue('A'. $numregExcel,$idcheque);
                 $activeWorksheet->setCellValue('B'. $numregExcel,$row["cvemae"]);
                 $activeWorksheet->setCellValue('C'. $numregExcel,$row["nomcommae"]);
@@ -87,6 +158,11 @@
                 $numregExcel++;
             }
            
+
+
+            /* ADEUDOS PARA FONDO PENSIONARIO */
+            $arregloMaestrosCheques1 = array();
+
             $hoja2 = $spreadsheet->createSheet();
             $hoja2->setTitle("FONRETyF-FondPension");
             $hoja2->getColumnDimension('A')->setWidth(30,'pt');
@@ -118,17 +194,28 @@
             $hoja2->setCellValue('C5','NOMBRE MAESTRO');
             $hoja2->setCellValue('D5','CONCEPTO');
 
-            $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1 left join (Select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2";
-            $consultacheques = $consultacheques . " WHERE tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
-            $consultacheques = $consultacheques . " WHERE tab1.identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') order by nomcommae asc;";
+            /* FALLECIDOS */
+            
 
-            $statementCheques = $db->prepare($consultacheques);
-            $statementCheques->execute();
-            $resultsCheques = $statementCheques->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($resultsChequesF as $key => $row) {
+                $aux[$key]=$row["nomcommae"];
+            }
+        
+            $collator = collator_create("es");
+            $collator->sort($aux);
+        
+            foreach ($aux as $row) {
+                foreach ($resultsChequesF as $key => $row1) {
+                    if ($row === $row1['nomcommae']) {
+                        array_push($arregloMaestrosCheques1, $row1);
+                        break;
+                    } 
+                }    
+            }
 
             $idcheque = 1;
             $numregExcel = 6;
-            foreach ($resultsCheques as $row) {
+            foreach ($arregloMaestrosCheques1 as $row) {
                 $hoja2->setCellValue('A'. $numregExcel,$idcheque);
                 $hoja2->setCellValue('B'. $numregExcel,$row["cvemae"]);
                 $hoja2->setCellValue('C'. $numregExcel,$row["nomcommae"]);

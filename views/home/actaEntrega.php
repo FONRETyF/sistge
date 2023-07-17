@@ -21,19 +21,89 @@
     $statementFechEntr->execute();
     $resultsFechentrega = $statementFechEntr->fetchAll(PDO::FETCH_ASSOC);  
     
+    $A_Tramites_Benef_Actas = array();
 
     $fechaEntrega = substr($resultsFechentrega[0]['fechentrega'],8,2) . " de " . $meses[intval(substr($resultsFechentrega[0]['fechentrega'],5,2))] . " de " . substr($resultsFechentrega[0]['fechentrega'],0,4);
 
+    /* INHABILITADOS */
     $consultacheques = "select tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
     $consultacheques = $consultacheques . " from public.tramites_fonretyf as tab1 left join (select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym)";
-    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and (tab1.modretiro='C' or tab1.modretiro='D50') order by case when motvret='I' then 1 when motvret='J' then 2 when (motvret='FA' or motvret='FJ') then 3 end asc, nomcommae asc;";
+    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and tab1.motvret='I' and (tab1.modretiro='C' or tab1.modretiro='D50') order by nomcommae asc;";
     $statement = $db->prepare($consultacheques);
     $statement->execute();
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+    foreach ($results as $key => $row) {
+        $aux[$key]=$row["nomcommae"];
+    }
+
+    $collator = collator_create("es");
+    $collator->sort($aux);
+
+    foreach ($aux as $row) {
+        foreach ($results as $key => $row1) {
+            if ($row === $row1['nomcommae']) {
+                //$arregloMaestrosCheques[$key] = $row1;
+                array_push($A_Tramites_Benef_Actas, $row1);
+                break;
+            } 
+        }    
+    }
+
+    /* JUBILADOS */
+    $consultacheques = "select tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
+    $consultacheques = $consultacheques . " from public.tramites_fonretyf as tab1 left join (select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym)";
+    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and tab1.motvret='J' and (tab1.modretiro='C' or tab1.modretiro='D50') order by nomcommae asc;";
+    $statement = $db->prepare($consultacheques);
+    $statement->execute();
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($results as $key => $row) {
+        $aux[$key]=$row["nomcommae"];
+    }
+
+    $collator = collator_create("es");
+    $collator->sort($aux);
+
+    foreach ($aux as $row) {
+        foreach ($results as $key => $row1) {
+            if ($row === $row1['nomcommae']) {
+                //$arregloMaestrosCheques[$key] = $row1;
+                array_push($A_Tramites_Benef_Actas, $row1);
+                break;
+            } 
+        }    
+    }
+
+    /* FALLECIDOS */
+    $consultacheques = "select tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
+    $consultacheques = $consultacheques . " from public.tramites_fonretyf as tab1 left join (select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym)";
+    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') and (tab1.modretiro='C' or tab1.modretiro='D50') order by nomcommae asc;";
+    $statement = $db->prepare($consultacheques);
+    $statement->execute();
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($results as $key => $row) {
+        $aux[$key]=$row["nomcommae"];
+    }
+
+    $collator = collator_create("es");
+    $collator->sort($aux);
+
+    foreach ($aux as $row) {
+        foreach ($results as $key => $row1) {
+            if ($row === $row1['nomcommae']) {
+                //$arregloMaestrosCheques[$key] = $row1;
+                array_push($A_Tramites_Benef_Actas, $row1);
+                break;
+            } 
+        }    
+    }
+
+
     $numTramite = 1;
 
-    foreach ($results as $row) {
+    foreach ($A_Tramites_Benef_Actas as $row) {
         $pdf->Image('/var/www/html/sistge/img/escudosmsem.png',3,2,2,2.5);
         $pdf->SetFont('Arial','B',11);
 
@@ -188,6 +258,8 @@
                 $statementChequesAdeds = $db->prepare($consultachequesAdeds);
                 $statementChequesAdeds->execute();
                 $resultsChequesAdeds = $statementChequesAdeds->fetchAll(PDO::FETCH_ASSOC);
+
+
                 foreach ($resultsChequesAdeds as $rowAd) {
                     $pdf->Ln(0.5);
                     $pdf->cell(0.5);
@@ -320,10 +392,29 @@
             $pdf->Ln(0.5);
             $pdf->cell(15.59,0.5,utf8_decode('asignan a: '),0,0, 'L');
 
+            $resultsBenefs = array();
+
             $consultaBenefs = "SELECT  nombenef,montbenef,folcheque FROM public.beneficiarios_cheques WHERE cvemae='".$row["cvemae"]."';";
             $statementBenefs = $db->prepare($consultaBenefs);
             $statementBenefs->execute();
-            $resultsBenefs = $statementBenefs->fetchAll(PDO::FETCH_ASSOC);
+            $results = $statementBenefs->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($results as $key => $row) {
+                $aux[$key]=$row["nombenef"];
+            }
+        
+            $collator = collator_create("es");
+            $collator->sort($aux);
+        
+            foreach ($aux as $row) {
+                foreach ($results as $key => $row1) {
+                    if ($row === $row1['nombenef']) {
+                        //$arregloMaestrosCheques[$key] = $row1;
+                        array_push($resultsBenefs, $row1);
+                        break;
+                    } 
+                }    
+            }
             
             $pdf->Ln(0.4);
             $pdf->SetFont('Arial','B',9);
