@@ -58,6 +58,7 @@
     $activeWorksheet->setCellValue('G5','CHEQUE NO NEGOCIABLE');
 
     $A_Cheques_Informatica = array();
+    $aux = array();
 
     /* INHABILITADOS */
     $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab1.motvret,tab1.modretiro,tab2.idbenefcheque,tab2.nombenef,tab2.montbenef,tab2.montbenefletra,tab2.statedad,tab2.chequeadeudo,tab2.adeudo FROM public.tramites_fonretyf as tab1 LEFT JOIN public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret";
@@ -216,7 +217,7 @@
             $activeWorksheet->setCellValue('G'. $numregExcel,"MENOR");
         }
         if ($row["chequeadeudo"] === "S") {
-            $activeWorksheet->setCellValue('G'. $numregExcel,$row["adeudo"]);
+            $activeWorksheet->setCellValue('G'. $numregExcel,"ADEUDO ".$row["adeudo"]);
         }
 
         $idcheque++;
@@ -237,11 +238,10 @@
     $writer->save('php://output');
 
     try {
-        //$writer->save('hello world.xlsx');
         $writer = new Xls($spreadsheet);
         exit;
     } catch (\Throwable $th) {
-        echo("hubiou un error");
+        echo("ERROR NO SE GENERO EL ARCHIVO");
     }
 
 ?>
