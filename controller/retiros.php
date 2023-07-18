@@ -23,7 +23,7 @@
                 $a_prep_retiros[] = $row["anioentrega"];
                 $a_prep_retiros[] = $row["cvemae"];
                 $a_prep_retiros[] = $row["motvret"];
-                $a_prep_retiros[] = $row["nomsolic"];
+                $a_prep_retiros[] = $row["nomcommae"];
                 $a_prep_retiros[] = $row["montrettot"];
                 $a_prep_retiros[] = $row["estattramite"];
                 $a_prep_retiros[] = "<button type='button' onclick='editar(".$row['identret'].");' id='".$row['identret']."'class='BtIcEdit' ".$estatEntrega."><div><img src='../../img/lapiz.png' alt='edita' title='editar' height='20' width='20'></div></button>";

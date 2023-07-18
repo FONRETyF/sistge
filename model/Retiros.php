@@ -25,7 +25,9 @@
                 $results = $statement->fetchAll(PDO::FETCH_ASSOC);
                 return $results;
             } else if ($estatentr=="ACTIVA") {
-                $statement = $this->db->prepare('SELECT identrega,numentrega,anioentrega,identret,cvemae,motvret,nomsolic,montrettot,estattramite FROM public.tramites_fonretyf where identrega= ? ORDER BY identret DESC');
+                $consulta= 'SELECT tab1.identrega,tab1.numentrega,tab1.anioentrega,tab1.identret,tab1.cvemae,tab1.motvret,tab2.nomcommae,tab1.montrettot,tab1.estattramite FROM public.tramites_fonretyf as tab1 LEFT JOIN(SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION';
+                $consulta = $consulta . ' SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 on tab1.cvemae= tab2.cvemae WHERE identrega= ? ORDER BY identret DESC;';
+                $statement = $this->db->prepare($consulta);
                 $statement->bindValue(1,$identrega);
                 $statement->execute();
                 $results = $statement->fetchAll(PDO::FETCH_ASSOC);

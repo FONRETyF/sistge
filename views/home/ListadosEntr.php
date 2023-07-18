@@ -60,6 +60,7 @@ require_once "/var/www/html/sistge/views/head/header.php";
                         <div class="divsRadBtns"><input type="radio" id="RadBtnSobres" class="RadBtnsOptions" name="RdBtnsLists" value="Sobres"><label for="RadBtnSobres">Sobres</label></div>
                         <div class="divsRadBtns"><input type="radio" id="RadBtnInformatica" class="RadBtnsOptions" name="RdBtnsLists" value="Cheques"><label for="RadBtnInformatica">Informatica</label></div>
                         <div class="divsRadBtns"><input type="radio" id="RadBtnLlamadas" class="RadBtnsOptions" name="RdBtnsLists" value="Llamadas"><label for="RadBtnLlamadas">Llamadas</label></div>
+                        <div class="divsRadBtns"><input type="radio" id="RadBtnRevision" class="RadBtnsOptions" name="RdBtnsLists" value="Revision"><label for="RadBtnRevision">Revision</label></div>
                     </div>
                     <div id="DivBtnImpLists">
                         <button type="button" id="BtnGenerateList" name="BtnGenerateList">Genera Listado</button>
