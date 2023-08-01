@@ -4,7 +4,7 @@
 
     $pdf = new FPDF("P","cm",array(10.48,24.13));
     $pdf->SetAutoPageBreak(false);
-    $pdf->SetMargins(3,2,3);
+    $pdf->SetMargins(2.5,2,2.5);
     $pdf->SetAutoPageBreak(true,2.5); 
 
     $identrega = $_GET['identr'];
@@ -119,17 +119,15 @@
     }
     
     $numTramite=1;
-
+   
     foreach ($arregloMaestrosCheques as $key => $row) {
+        $numSobre = $key + 1;
         $pdf->AddPage();
         $pdf->SetFont('Arial','B',14);
-        $pdf->TextWithDirection(5.3,7,$row['nombenef'],'D');
-        
-
+        $pdf->setXy(6.3,2.5);
+        $pdf->VCell(1,19,$numSobre . ".  " . $row['nombenef'],0,0,'C');
         $numTramite++;
     }
-
-    
 
     $pdf->Output();
 

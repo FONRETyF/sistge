@@ -178,7 +178,7 @@
             $this->setX(2.795);
             $this->SetFillColor(191,191,191);
             $this->cell(4,0.5,"",1,0,'C',true);
-            $this->cell(4,0.5,"TRÁMITES",1,0,'C',true);
+            $this->cell(4,0.5, utf8_decode("TRÁMITES"),1,0,'C',true);
             $this->cell(4,0.5,"CHEQUES",1,0,'C',true);
             $this->cell(4,0.5,"MONTO",1,0,'C',true);
             $this->Ln(0.5);
