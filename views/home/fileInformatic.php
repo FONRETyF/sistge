@@ -1,6 +1,6 @@
 <?php
 
-    require '/var/www/html/sistge/vendor/autoload.php'; //'vendor/autoload.php';
+    require '/var/www/html/sistge/vendor/autoload.php'; 
     require '/var/www/html/sistge/config/dbfonretyf.php';
 
     use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -19,6 +19,8 @@
 
     $identrega = $_GET['identr'];
     $numentrega=intval(substr($identrega,4,2));
+    $nombreArchivo = $notacionEtr[$numentrega]."_ENTREGA_FONRETyF - INFORMATICA";
+    
 
     $activeWorksheet->setTitle("FONRETyF");
     $activeWorksheet->getColumnDimension('A')->setWidth(30,'pt');
@@ -32,7 +34,7 @@
     $activeWorksheet->setCellValue('A2', $notacionEtr[$numentrega]." ENTREGA DEL FONDO DE RETIRO POR JUBILACION, INHABILITACION Y POR FALLECIMIENTO");
     $activeWorksheet->mergeCells('A2:F2')->getStyle('A2:F2')->getAlignment()->setHorizontal('center');
     
-    $nombreArchivo = $notacionEtr[$numentrega]."_ENTREGA_FONRETyF - INFORMATICA";
+    
 
     $pdo = new dbfonretyf();
     $db=$pdo->conexfonretyf();
@@ -144,47 +146,51 @@
     $statementCheques->execute();
     $resultsCheques = $statementCheques->fetchAll(PDO::FETCH_ASSOC);
 
-    foreach ($resultsCheques as $key => $row) {
-        $aux[$key]=$row["nombenef"];
+    if (!empty($resultsCheques)) {
+        foreach ($resultsCheques as $key => $row) {
+            $aux[$key]=$row["nombenef"];
+        }
+    
+        $collator = collator_create("es");
+        $collator->sort($aux);
+    
+        foreach ($aux as $row) {
+            foreach ($resultsCheques as $key => $row1) {
+                if ($row === $row1['nombenef']) {
+                    array_push($A_Cheques_Informatica, $row1);
+                    break;
+                } 
+            }    
+        }
     }
-
-    $collator = collator_create("es");
-    $collator->sort($aux);
-
-    foreach ($aux as $row) {
-        foreach ($resultsCheques as $key => $row1) {
-            if ($row === $row1['nombenef']) {
-                array_push($A_Cheques_Informatica, $row1);
-                break;
-            } 
-        }    
-    }
+    
 
     /* ADEUDOS */
     $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab1.motvret,tab1.modretiro,tab2.idbenefcheque,tab2.nombenef,tab2.montbenef,tab2.montbenefletra,tab2.statedad,tab2.chequeadeudo,tab2.adeudo FROM public.tramites_fonretyf as tab1 LEFT JOIN public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret";
     $consultacheques = $consultacheques . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab2.fcbasemae,tab2.fbajamae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab2.fechbajamae,tab2.fcfallecmae FROM public.tramites_fonretyf as tab1,";
     $consultacheques = $consultacheques . " public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and tab2.chequeadeudo = 'S' ORDER  BY nombenef ASC;";
-
+    
     $statementCheques = $db->prepare($consultacheques);
     $statementCheques->execute();
     $resultsCheques = $statementCheques->fetchAll(PDO::FETCH_ASSOC);
+    
+    if (!empty($resultsCheques)) {
+        foreach ($resultsCheques as $key => $row) {
+            $aux1[$key]=$row["nombenef"];
+        }
 
-    foreach ($resultsCheques as $key => $row) {
-        $aux1[$key]=$row["nombenef"];
-    }
+        $collator = collator_create("es");
+        $collator->sort($aux1);
 
-    $collator = collator_create("es");
-    $collator->sort($aux1);
-
-    foreach ($aux1 as $row) {
-        foreach ($resultsCheques as $key => $row1) {
-            if ($row === $row1['nombenef']) {
-                array_push($A_Cheques_Informatica, $row1);
-                break;
-            } 
-        }    
-    }
-
+        foreach ($aux1 as $row) {
+            foreach ($resultsCheques as $key => $row1) {
+                if ($row === $row1['nombenef']) {
+                    array_push($A_Cheques_Informatica, $row1);
+                    break;
+                } 
+            }    
+        }
+    }    
 
     $idcheque = 1;
     $numregExcel = 6;
@@ -223,7 +229,7 @@
         $idcheque++;
         $numregExcel++;
     }
-
+    
     $consultaSum = "SELECT SUM (montbenef) as monttotentrega FROM public.beneficiarios_cheques WHERE anioentrega=".intval(substr($identrega,0,4))." AND numentrega=".intval(substr($identrega,4,2)).";";
     $statementSum = $db->prepare($consultaSum);
     $statementSum->execute();
@@ -243,5 +249,6 @@
     } catch (\Throwable $th) {
         echo("ERROR NO SE GENERO EL ARCHIVO");
     }
+    
 
 ?>
