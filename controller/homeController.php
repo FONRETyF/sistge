@@ -7,7 +7,6 @@
         {
             require_once("/var/www/html/sistge/model/homeModel.php");
             $this->MODEL = new homeModel();
-
         }
 
         public function limpiarusuario($campo){
@@ -33,7 +32,5 @@
             }
         }
     }
-
-    
 
 ?>

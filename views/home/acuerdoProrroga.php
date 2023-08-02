@@ -131,7 +131,7 @@
             $this->SetY(23.5);
             $this->SetFont('Arial','B',11);
             $this->Cell(5);
-            $this->Cell(10, 0.7,"C. " . $resultsT[0]['nomsolic'],0, 0, 'C');
+            $this->Cell(10, 0.7,"C. " . utf8_decode($resultsT[0]['nomsolic']),0, 0, 'C');
 
             $this->Image('/var/www/html/sistge/img/logoplanilla.png',17.4,22.3,2.7,2.65);
             
@@ -174,7 +174,6 @@
         $fechaCompleta = explode("-",$fecha)[0] . " de ". $mesesA[$mes - 1] . " de 20" . explode("-",$fecha)[2];
         return $fechaCompleta;
     }
-    
 
     // Creación del objeto de la clase heredada
     $pdf = new PDF("P","cm",array(21.59,27.94));
