@@ -63,5 +63,51 @@
             $results = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $results;
         }
+
+        public function busca_EdoCta($criterioBusq,$valorCriterio){
+            $a_EdoCta = array();
+            $a_results_EdoCta = array();
+
+            if ($criterioBusq === "cveissemym") {
+                try {
+                    $statement = $this->db->prepare('SELECT cveissemym,programfallec FROM public.jubilados_smsem WHERE cveissemym=?');
+                    $statement->bindValue(1,$valorCriterio);
+                    $statement->execute();
+                    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+                } catch (\Throwable $th) {
+                    echo($th);
+                }
+               
+            } elseif ($criterioBusq === "nomcomjub") {
+                try {
+                    $consulta ="SELECT cveissemym,programfallec FROM public.jubilados_smsem WHERE nomcomjub LIKE '%".$valorCriterio."%';";
+                    $statement = $this->db->prepare($consulta);
+                    $statement->execute();
+                    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+                } catch (\Throwable $th) {
+                    echo($th);
+                }
+            }   
+          
+            foreach ($results as $row) {
+                if ($row["programfallec"] === "M") {
+                    try {
+                        $consulta ="SELECT tabMut.cveissemym,tabMut.nomcommae,tabMut.estatmutual,tabMut.fechbajamae,tabMut.fechafimutu,tabEdoCta.numaport,tabEdoCta.montaport,tabEdoCta.anioiniaport,tabEdoCta.anioultaport";
+                        $consulta = $consulta . " FROM public.mutualidad as tabMut LEFT JOIN public.edoscta_mut as tabEdoCta ON tabMut.cveissemym = tabEdoCta.cveissemym WHERE tabMut.cveissemym = '".$row["cveissemym"]."';";
+                        $statement = $this->db->prepare($consulta);
+                        $statement->execute();
+                        $resultsEdoCta = $statement->fetchAll(PDO::FETCH_ASSOC);
+                        $a_results_EdoCta["EdoCta"] = $resultsEdoCta;
+                        $a_results_EdoCta["programa"] = "M";
+                        array_push($a_EdoCta,$a_results_EdoCta);
+                    } catch (\Throwable $th) {
+                        echo($th);
+                    }
+                } elseif ($row["programfallec"] === "FF") {
+                    # code...
+                }               
+            }
+            return $a_EdoCta;
+        }
     }
 ?>

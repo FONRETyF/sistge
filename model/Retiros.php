@@ -4,15 +4,12 @@
     require_once("/var/www/html/sistge/model/formularioTram.php");
 
     class Retiros extends formularioTram{
-        //private $db;
-        //private $tramite;
-        
+       
         public function __construct()
         {
             require_once("/var/www/html/sistge/config/dbfonretyf.php");
             $pdo = new dbfonretyf();
             $this->db=$pdo->conexfonretyf();
-            //$this->retiros = array();
         }
         
         public function get_retiros($identrega)
@@ -216,10 +213,8 @@
                     } elseif ($programaFallec == "FFJ") {
                         echo("es fondo fallecimiento");
                     } 
-                    
                 }
             }
-            
         }
 
         public function deleteCheque($identreret){
@@ -721,8 +716,7 @@
             }
             return $a_cancel_cheq;
         }
-
-
+        
     }
 
 ?>

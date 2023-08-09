@@ -97,6 +97,22 @@
                 "aaData"=>$a_Parametros);
             echo json_encode($a_result_parametros_DT);
             break;
-    }
+        
+        case 'updataEntrTraspaso':
+                
+            break;
 
+        case 'updataEntrSolicCheqs':
+            
+            break;
+        
+        case 'updataEntrImpCheqs':
+            $a_get_update_Entr = $entrega->updateEntrImpCheques($_POST['identrega']);
+            break;
+        
+        default:
+            
+            break;
+
+    }
 ?>

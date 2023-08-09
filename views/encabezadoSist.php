@@ -32,14 +32,21 @@
                                     <li><a class="dropdown-item" href="pendientes.php">PENDIENTES</a></li>
                                     <li><a class="dropdown-item" href="reposiciones.php">REPOSICIONES</a></li>
                                 </ul>
-                                <a class="nav-link dropdown-toggle primermenu" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="primermenu">MUTUALIDAD</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle primermenu" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="primermenu">JUBILADOS</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">CONSULTAS</a></li>
-                                </ul>
+                                    <li><a class="dropdown-item" href="consultaEdosCtaMut.php">CONSULTAS</a></li> 
+                                    <li><a class="dropdown-item" href="emisionesMut.php">MUTUALIDAD</a></li>
+                                    <li><a class="dropdown-item" href="emisionesFF.php">FONDO FALLECIMIENTO</a></li>
+                                </ul>                              
+                            </li>
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle primermenu" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="primermenu">PROCESOS</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="parametros.php" >PARAMETROS RET</a></li>
                                     <li><a class="dropdown-item" href="#">NOMINAS ISSEMYM</a></li>
+                                    <li><a class="dropdown-item" href="#">ALTA DE MAESTROS</a></li>
                                 </ul>
                                 <li><a class="dropdown-item" href="logout.php">CERRAR SESION</a></li>
                             </li>

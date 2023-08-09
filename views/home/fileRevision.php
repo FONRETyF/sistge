@@ -185,7 +185,9 @@
         $activeWorksheet->setCellValue('M'. $numregExcel,$row["fbajamae"]);
         $activeWorksheet->setCellValue('N'. $numregExcel,$row["fechsinipsgs"]);
         $activeWorksheet->setCellValue('O'. $numregExcel,$row["fechsfinpsgs"]);
-
+        $activeWorksheet->setCellValue('P'. $numregExcel,$row["montbenef"]);
+        $activeWorksheet->setCellValue('Q'. $numregExcel,$row["diaspsgs"]);
+        
         $idcheque++;
         $numregExcel++;
     }

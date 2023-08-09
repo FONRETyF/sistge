@@ -157,6 +157,24 @@
             $maestro->update_nomMae($_POST["apepatModif"],$_POST["apematModif"],$_POST["nommaeModif"],$_POST["nomcomModif"],$_SESSION['usuario'],$_POST["cvemae"]);
             break;
             
+        case 'buscaEdoCta':
+            $a_get_EdoCta = $maestro->busca_EdoCta($_POST["criterioBusq"],$_POST["valCriBusq"]);
+            $a_EdoCta_Jub = Array();
+            foreach ($a_get_EdoCta as $row) {
+                $a_output = array();
+                $a_output["cveissemym"] = $row["EdoCta"][0]["cveissemym"];
+                $a_output["nomcommae"] = $row["EdoCta"][0]["nomcommae"];
+                $a_output["programa"] = $row["programa"][0];
+                $a_output["estatmutual"] = $row["EdoCta"][0]["estatmutual"];
+                $a_output["fechbajamae"] = $row["EdoCta"][0]["fechbajamae"];
+                $a_output["anioiniaport"] = $row["EdoCta"][0]["anioiniaport"];
+                $a_output["anioultaport"] = $row["EdoCta"][0]["anioultaport"];
+                $a_output["numaport"] = $row["EdoCta"][0]["numaport"];
+                $a_EdoCta_Jub[] = $a_output;
+            }
+            echo json_encode($a_EdoCta_Jub, JSON_FORCE_OBJECT);
+            break;
+
         case 'registrar':
             
             break;

@@ -127,6 +127,19 @@
             }
             
         }
+
+        public function updateEntrImpCheques($identrega){
+            try {
+                $consultaUpdateEntr = "UPDATE public.entregas_fonretyf SET impcheques=1, cheqsentre=1 WHERE identrega='".$identrega."';";
+                $consultaUpdateEntr = $this->db->prepare($consultaUpdateEntr);
+                $consultaUpdateEntr->execute();
+                $results = $consultaUpdateEntr->fetchAll(PDO::FETCH_ASSOC);              
+                $a_resultUpdFechEntrega["updateEntrega"] = "Actualizado";
+            } catch (\Throwable $th) {
+                //throw $th;
+                echo $th;
+            }
+        }
     }
 
 ?>

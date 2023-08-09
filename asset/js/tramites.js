@@ -9,10 +9,15 @@ $(document).ready(function () {
 });
 
 $('#CveServPub').keydown(function (event) {
+    alert("cv,vnlkfnblkfd");
     var key = window.event ? event.which : event.keyCode;
-    if((key < 65 || key > 90)  && (key < 97 || key > 122) && (key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46 && key !==32){
+    if((key < 65 || key > 90)  && (key < 97 || key > 122) && (key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46 && key !== 32 && key !== 192){
         return false;
     } 
+});
+
+$('#CveServPub').change(function () {
+    document.getElementById('CveServPub').value = document.getElementById('CveServPub').value.toUpperCase();
 });
 
 function consultaRets(e){
@@ -87,7 +92,7 @@ function validacriterio(criterio,valorCri){
             } 
             break;
         case 2:
-            if (valorCri.length > 2 && valorCri.length < 7) {
+            if (valorCri.length > 2 && valorCri.length < 8) {
                 return true;
             } else {
                 return false;

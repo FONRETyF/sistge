@@ -21,8 +21,12 @@
                 </div>
             </div>
         </section>
-        <section id="secRetiros"> RELACION DE RETIROS DE LA ENTREGA: 
-            <input type="text" id="InputIdentrega" value="<?php echo $_GET["identrega"];?>">
+        <section id="secRetiros"> 
+            <div id="divNumEstatEntr"> 
+                <div id="divNumEntr">RELACION DE RETIROS DE LA ENTREGA:
+                    <input type="text" id="InputIdentrega" value="<?php echo $_GET["identrega"];?>">
+                </div> 
+            </div>
             <div id="ConsultRetiros">
                 <input type="hidden" id="estatentrega" name="estatentrega">
                 <div id="operationsEntr">
@@ -31,6 +35,9 @@
                     <a id="printLists" class="btnsOperations" href="#"><img src="../../img/imprimeListados.png" alt="Imprimir listados" title="Imprimir listados" height="35" width="35"></a>
                     <a id="cancelCheqs" class="btnsOperations" href="#"><img src="../../img/cancelar.png" alt="Cancelar cheques" title="Cancelar cheques" height="40" width="40"></a>
                     <a id="asignCarpts" class="btnsOperations" href="#"><img src="../../img/carpetas.png" alt="Carpetas" title="Asignar Carpetas" height="40" width="40"></a>
+                </div>
+                <div id="DivEstatEntr">ESTATUS: &nbsp
+                    <input type="checkbox" id="checkStatParam" checked onchange='cambiastatus();' data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger">
                 </div>
             </div>
             <div id="ResultConsultRets">

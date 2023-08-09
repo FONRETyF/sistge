@@ -52,7 +52,7 @@
     $activeWorksheet->setCellValue('D5','CONCEPTO');
 
     /* INHABILITADOS */
-    $consultacheques = "select tab1.identret,tab3.nomcommae,tab1.motvret,tab2.nombenef from public.tramites_fonretyf as tab1 left join public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret left join (";
+    $consultacheques = "select DISTINCT tab1.identret,tab3.nomcommae,tab1.motvret,tab2.nombenef from public.tramites_fonretyf as tab1 left join public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret left join (";
     $consultacheques = $consultacheques . "select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
     $consultacheques = $consultacheques . " where tab1.identrega='".$identrega."' and tab1.motvret='I' and (tab1.modretiro='C' or tab1.modretiro='D50') order by nomcommae asc, nombenef asc;";
 
@@ -80,7 +80,7 @@
     }
 
      /* JUBILADOS */
-    $consultacheques = "select tab1.identret,tab3.nomcommae,tab1.motvret,tab2.nombenef from public.tramites_fonretyf as tab1 left join public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret left join (";
+    $consultacheques = "select DISTINCT tab1.identret,tab3.nomcommae,tab1.motvret,tab2.nombenef from public.tramites_fonretyf as tab1 left join public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret left join (";
     $consultacheques = $consultacheques . "select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
     $consultacheques = $consultacheques . " where tab1.identrega='".$identrega."' and tab1.motvret='J' and (tab1.modretiro='C' or tab1.modretiro='D50') order by nomcommae asc, nombenef asc;";
 
@@ -105,7 +105,7 @@
     }
 
      /* FALLECIMIENTOS */
-    $consultacheques = "select tab1.identret, tab1.cvemae, tab1.motvret, tab3.nomcommae from public.tramites_fonretyf as tab1 left join (";
+    $consultacheques = "select distinct tab1.identret, tab1.cvemae, tab1.motvret, tab3.nomcommae from public.tramites_fonretyf as tab1 left join (";
     $consultacheques = $consultacheques . "select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
     $consultacheques = $consultacheques . " where tab1.identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') and (tab1.modretiro='C' or tab1.modretiro='D50') order by nomcommae asc;";
 
@@ -125,7 +125,7 @@
             if ($row === $rowF['nomcommae']) {
                 $clave= $rowF['cvemae'];
                 
-                $consultachequesB = "select tab1.identret,tab3.nomcommae,tab1.motvret,tab2.nombenef from public.tramites_fonretyf as tab1 left join public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret left join (";
+                $consultachequesB = "select DISTINCT tab1.identret,tab3.nomcommae,tab1.motvret,tab2.nombenef from public.tramites_fonretyf as tab1 left join public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret left join (";
                 $consultachequesB = $consultachequesB . "select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
                 $consultachequesB = $consultachequesB . " where tab1.identrega='".$identrega."' and tab1.cvemae='".$clave."' order by nombenef asc;";
 

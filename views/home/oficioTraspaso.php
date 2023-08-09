@@ -36,9 +36,13 @@
             $fechaEntrega = substr($resultsE[0]['fechentrega'],8,2) . " DE " . $meses[intval(substr($resultsE[0]['fechentrega'],5,2))] . " DE " . substr($resultsE[0]['fechentrega'],0,4);
             $this->entregaOrdinal= $funciones->numordinales([intval(substr($identr,4,2))]);
 
-            $statementTIJ = $this->db->prepare("SELECT COUNT(*), SUM(montrettot) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and (motvret='J' or motvret='I')");
-            $statementTIJ->execute();
-            $resultsTIJ = $statementTIJ->fetchAll(PDO::FETCH_ASSOC);
+            $statementTI = $this->db->prepare("SELECT COUNT(*), SUM(montrettot) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and motvret='I'");
+            $statementTI->execute();
+            $resultsTI = $statementTI->fetchAll(PDO::FETCH_ASSOC);
+
+            $statementTJ = $this->db->prepare("SELECT COUNT(*), SUM(montrettot) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and motvret='J'");
+            $statementTJ->execute();
+            $resultsTJ = $statementTJ->fetchAll(PDO::FETCH_ASSOC);
             
             $statementTF = $this->db->prepare("SELECT COUNT(*), SUM(montrettot) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and (motvret='FA' or motvret='FJ')");
             $statementTF->execute();
@@ -161,9 +165,15 @@
             $this->cell(4,0.5,"BENEFICIARIOS",1,0,'C',true);
             $this->Ln(0.5);
             $this->setX(2.795);
+            $this->cell(4,0.5,"INHABILITADOS",1,0,'C');
+            $this->cell(4,0.5,$resultsTI[0]['count'],1,0,'C');
+            $this->cell(4,0.5,$resultsTI[0]['sum'],1,0,'C');
+            $this->cell(4,0.5,"",1,0,'C');
+            $this->Ln(0.5);
+            $this->setX(2.795);
             $this->cell(4,0.5,"JUBILADOS",1,0,'C');
-            $this->cell(4,0.5,$resultsTIJ[0]['count'],1,0,'C');
-            $this->cell(4,0.5,$resultsTIJ[0]['sum'],1,0,'C');
+            $this->cell(4,0.5,$resultsTJ[0]['count'],1,0,'C');
+            $this->cell(4,0.5,$resultsTJ[0]['sum'],1,0,'C');
             $this->cell(4,0.5,"",1,0,'C');
             $this->Ln(0.5); 
             $this->setX(2.795);
