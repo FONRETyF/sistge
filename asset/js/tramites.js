@@ -9,7 +9,6 @@ $(document).ready(function () {
 });
 
 $('#CveServPub').keydown(function (event) {
-    alert("cv,vnlkfnblkfd");
     var key = window.event ? event.which : event.keyCode;
     if((key < 65 || key > 90)  && (key < 97 || key > 122) && (key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46 && key !== 32 && key !== 192){
         return false;
