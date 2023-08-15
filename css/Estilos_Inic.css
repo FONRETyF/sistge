@@ -301,6 +301,11 @@ a:nth-child(6) {
   background-color: transparent;
   border-color: transparent;
 }
+.BtPrintRb{
+  background-color: transparent;
+  border-color: transparent;
+}
+
 /*   ---TERMINAN---   */
 
 
@@ -1926,42 +1931,37 @@ margin: 0 110px;
 #retiros_data{
   font-size: small;
 }
-thead th:nth-child(1){
+.rets_dats th:nth-child(1){
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(2){
+.rets_dats th:nth-child(2){
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(3){
+.rets_dats  th:nth-child(3){
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(4){
+.rets_dats  th:nth-child(4){
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(5){
+.rets_dats  th:nth-child(5){
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(6){
+.rets_dats  th:nth-child(6){
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(7){
+.rets_dats  th:nth-child(7){
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(8){
+.rets_dats  th:nth-child(8){
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(9){
+.rets_dats  th:nth-child(9){
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(10){
+.rets_dats  th:nth-child(10){
   border: 1.5px solid rgb(2, 48, 4);
 }
-thead th:nth-child(11){
-  border: 1.5px solid rgb(2, 48, 4);
-}
-/*thead th:nth-child(12){
-  border: 1.5px solid rgb(2, 48, 4);
-}*/
+
 #benefs_data{
   font-size: 12px;
 }

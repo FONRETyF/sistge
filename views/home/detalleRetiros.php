@@ -42,15 +42,14 @@
             </div>
             <div id="ResultConsultRets">
                 <table id ="retiros_data" class="table display responsive nowrap despliegue_tabla">
-                    <thead>
+                    <thead class="rets_dats">
                         <tr>
-                            <th class="wd-15p"> Entrega </th>
-                            <th class="wd-15p"> Año </th>
                             <th class="wd-15p"> Clave </th>
                             <th class="wd-15p"> Motivo </th>
                             <th class="wd-15p"> Beneficiario </th>
                             <th class="wd-15p"> Monto </th>
                             <th class="wd-15p"> Estatus </th>
+                            <th class="wd-15p"></th>
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>

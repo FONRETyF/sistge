@@ -70,8 +70,7 @@ $(document).ready(
                 {width: "5px",targets:6},
                 {width: "3px",targets:7},
                 {width: "3px",targets:8},
-                {width: "3px",targets:9},
-                {width: "3px",targets:10}
+                {width: "3px",targets:9}
             ]
         }
     ).DataTable();   
@@ -269,6 +268,10 @@ function imprimir(identret,cvemae) {
             );
         }
     });
+}
+
+function printRecib(identret,cvemae) {
+    location.href = "../../views/home/sheetRecib.php" + "?identret=" + identret;
 }
 
 function editar(identret) {

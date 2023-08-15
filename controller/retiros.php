@@ -19,8 +19,6 @@
             }
             foreach($a_get_retiros as $row){
                 $a_prep_retiros = array();
-                $a_prep_retiros[] = $row["numentrega"];
-                $a_prep_retiros[] = $row["anioentrega"];
                 $a_prep_retiros[] = $row["cvemae"];
                 $a_prep_retiros[] = $row["motvret"];
                 $a_prep_retiros[] = $row["nomcommae"];
@@ -31,7 +29,7 @@
                 $a_prep_retiros[] = "<button type='button' onclick='mostrar(".$row['identret'].",".$row["cvemae"].")'  id='".$row['identret']."'class='BtIcDetail' ".$estatEntrega."><div><img src='../../img/file.png' alt='muestra' title='mostrar' height='20' width='20'></div></button>";
                 $a_prep_retiros[] = "<button type='button' onclick='eliminarT(".$row['identret'].",".$row['cvemae'].");'  id='".$row['identret']."'class='BtIcDelete' ".$estatEntrega."><div><img src='../../img/goma-de-borrar.png' alt='eliminar' title='eliminar' height='21' width='21'></div></button>";
                 $a_prep_retiros[] = "<button type='button' onclick='imprimir(".$row['identret'].",".$row["cvemae"].");'  id='".$row['identret']."'class='BtIcPrint' ".$estatEntrega."><div><img src='../../img/impresora.png' alt='acuerdo' title='imprime acuerdo' height='23' width='23'></div></button>";
-                //$a_prep_retiros[] = "<button type='button' onclick='updstatT(".$row['identret'].",".$row["cvemae"].");'  id='".$row['identret']."'class='BtUpdStatT' ".$estatEntrega."><div><img src='../../img/boton-x.png' alt='entregado' title='cheque cancelado' height='20' width='20'></div></button>";
+                $a_prep_retiros[] = "<button type='button' onclick='printRecib(".$row['identret'].",".$row["cvemae"].");'  id='".$row['identret']."'class='BtPrintRb' ".$estatEntrega."><div><img src='../../img/recibido.png' alt='recibido' title='hoja de recibido' height='20' width='20'></div></button>";
                 $a_Retiros[] = $a_prep_retiros;  
             }
             $a_result_retiros_DT = array(
