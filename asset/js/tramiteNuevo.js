@@ -916,7 +916,8 @@ function validaFechas(valorValid, a_fechs) {
                 switch (resultValid) {
                     case 'vigenciaVal':
                         diasServicio = data.diasJub;
-                        aniosServicio = Math.trunc(diasServicio/365);
+                        //aniosServicio = Math.trunc(diasServicio/365);
+                        aniosServicio = data.aniosJub;
                         document.getElementById('DiasServOriginal').value = diasServicio;
                         document.getElementById('diasServMae').value = diasServicio;
                         document.getElementById('aniosServMae').value = aniosServicio;

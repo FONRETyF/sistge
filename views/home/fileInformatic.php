@@ -220,13 +220,12 @@
         }
     }
 
-
     /* ADEUDOS */
     $consultachequesA = "SELECT tab1.identret,tab1.cvemae,tab1.motvret,tab1.modretiro,tab2.idbenefcheque,tab2.nombenef,tab2.montbenef,tab2.montbenefletra,tab2.statedad,tab2.chequeadeudo,tab2.adeudo,tab2.folcheque,tab3.nomcommae FROM public.tramites_fonretyf as tab1 LEFT JOIN public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret";
     $consultachequesA = $consultachequesA . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab2.fcbasemae,tab2.fbajamae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab2.fechbajamae,tab2.fcfallecmae FROM public.tramites_fonretyf as tab1,";
     $consultachequesA = $consultachequesA . " public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and tab2.chequeadeudo = 'S' ORDER  BY nombenef ASC;";
             
-    $statementChequesA = $this->db->prepare($consultachequesA);
+    $statementChequesA = $db->prepare($consultachequesA);
     $statementChequesA->execute();
     $resultsChequesA = $statementChequesA->fetchAll(PDO::FETCH_ASSOC);
             
@@ -235,10 +234,8 @@
         foreach ($resultsChequesA as $key => $row) {
             $auxA[$key]=$row["nombenef"];
         }
-
         $collator = collator_create("es");
         $collator->sort($auxA);
-
         foreach ($auxA as $row) {
             foreach ($resultsChequesA as $key => $rowA) {
                 if ($row === $rowA['nombenef']) {
@@ -247,8 +244,7 @@
                 } 
             }    
         }
-    }     
-
+    }  
 
     $idcheque = 1;
     $numregExcel = 6;

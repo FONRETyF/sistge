@@ -186,12 +186,22 @@ use function PHPSTORM_META\type;
             $validesFechs = array();
             $dias_Serv = array();
             $i=0;
+
+            try {
+                $consulta="SELECT numaport FROM public.edoscta_mut WHERE cveissemym='". $clavemae."';";
+                $statement = $this->db->prepare($consulta);
+                $statement->execute();
+                $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            } catch (\Throwable $th) {
+                echo $th;
+            }
             if ($fechRecibido > $fechBaseMae && $fechRecibido > $fechBajaMae) {
                 if ($fechBaseMae < $fechBajaMae) {
                     $vigenciaTramRyBj = $this -> validaVigencia($fechBajaMae,$fechRecibido);
                     if (($vigenciaTramRyBj/365) < 1) {
                         $dias_Serv["descResult"] = "vigenciaVal";
                         $dias_Serv["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
+                        $dias_Serv["aniosJub"] = $results[0]["numaport"];
                         return $dias_Serv;
                     } else {
                         if ($opTest === "J") {
@@ -201,6 +211,7 @@ use function PHPSTORM_META\type;
                             if (($vigenciaTramBjyJ/365) < 1 && ($vigenciaTramJyR/365) < 1) {
                                 $dias_Serv["descResult"] = "vigenciaVal";
                                 $dias_Serv["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
+                                $dias_Serv["aniosJub"] = $results[0]["numaport"];
                                 return $dias_Serv;
                             } elseif(($vigenciaTramBjyJ/365) > 1 && ($vigenciaTramJyR/365) < 1) {
                                 if (!empty($fechIniJuic)) {
@@ -209,10 +220,12 @@ use function PHPSTORM_META\type;
                                     if (($vigenciaTramBjyIniJ/365) <= 1 && ($vigenciaTramJyR/365) < 1) {
                                         $dias_Serv["descResult"] = "vigenciaVal";
                                         $dias_Serv["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
+                                        $dias_Serv["aniosJub"] = $results[0]["numaport"];
                                         return $dias_Serv;
                                     } else {
                                         $validesFechs["descResult"] = "vigenciaCad";
                                         $validesFechs["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
+                                        $dias_Serv["aniosJub"] = $results[0]["numaport"];
                                         $validesFechs["excepcion"] = "SI";
                                         $validesFechs["prorroga"] = "NO";
                                         return $validesFechs;
@@ -227,6 +240,7 @@ use function PHPSTORM_META\type;
                             }elseif (($vigenciaTramBjyJ/365) > 1 && ($vigenciaTramJyR/365) > 1) {
                                 $validesFechs["descResult"] = "vigenciaCad";
                                 $validesFechs["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
+                                $dias_Serv["aniosJub"] = $results[0]["numaport"];
                                 $validesFechs["excepcion"] = "SI";
                                 $validesFechs["prorroga"] = "NO";
                                 return $validesFechs;
@@ -234,6 +248,7 @@ use function PHPSTORM_META\type;
                         }else {
                             $validesFechs["descResult"] = "vigenciaCad";
                             $validesFechs["diasJub"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,0);
+                            $dias_Serv["aniosJub"] = $results[0]["numaport"];
                             $validesFechs["excepcion"] = "SI";
                             $validesFechs["prorroga"] = "NO";
                             return $validesFechs;
@@ -389,11 +404,11 @@ use function PHPSTORM_META\type;
                                 $resultValidCTJuic['resultValid'] = "errorFecha";
                                 $resultValidCTJuic['descValid'] = "La fecha de BAJA no puede ser menor a la de la CT";
                                 return $resultValidCTJuic;
-                            }/*elseif ($fechactjuic < $fechabase && $fechactjuic < $fechabaja) {
-                                $resultValidCTJuic['resultValid'] = "errorFecha";
-                                $resultValidCTJuic['descValid'] = "La fecha de BASE no puede ser mayor a la de la CT";
+                            }elseif ($fechactjuic < $fechabase && $fechactjuic < $fechabaja) {
+                                $resultValidCTJuic['resultValid'] = "correcto";
+                                $resultValidCTJuic['descValid'] = "correcto";
                                 return $resultValidCTJuic;
-                            }*/elseif ($fechactjuic < $fechabase && $fechactjuic > $fechabaja) {
+                            }elseif ($fechactjuic < $fechabase && $fechactjuic > $fechabaja) {
                                 $resultValidCTJuic['resultValid'] = "errorFecha";
                                 $resultValidCTJuic['descValid'] = "La fecha de CT no puede ser menor a la Base y mayor a la Baja, las fechas son incorrectas";
                                 return $resultValidCTJuic;
@@ -444,7 +459,7 @@ use function PHPSTORM_META\type;
         }
 
         private function calculaRet($aniosserv,$montprom,$fechBaja){
-            $fechaLimCalAnt = '30-06-2023';
+            $fechaLimCalAnt = '15-09-2023';
             $tabuladorRetiros = [1=>1498.5,2=>2997,3=>4500,4=>5998.5,5=>7497,6=>9000,7=>10498.5,8=>11997,9=>13500,10=>14998.5,11=>16497,12=>18000,13=>19498.5,14=>20997,15=>22500,16=>23998.5,17=>25497,18=>27000,19=>28498.5,20=>29997,21=>31500,22=>32998.5,23=>34497,24=>36000,25=>37498.5,26=>38997,27=>40500,28=>41998.5,29=>43497];
 
             if ($fechBaja < $fechaLimCalAnt) {
