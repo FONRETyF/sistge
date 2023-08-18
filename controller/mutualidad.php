@@ -100,7 +100,23 @@
         case "eliminar":
             $mutualidad->delete_emision($_POST["idemision"]);
             break;
+
+        case 'buscaEdoCta':
+            $claveMaeJub = $_POST["cveissemym"];
+            $get_programmaeJub = $mutualidad->getprogramJub($claveMaeJub);
+            $get_edoctamae = $mutualidad->getEdoCtaJub($claveMaeJub,$get_programmaeJub[0]["programfallec"],$_SESSION['usuario']);
+            $output["nomcomjub"] = $get_programmaeJub[0]["nomcomjub"];
+            $output["numaport"] = $get_edoctamae[0]["numaport"];
+            $output["anioultaport"] = $get_edoctamae[0]["anioultaport"];
+            echo json_encode($output);
+            break;
         
-    }
+        case 'updateEdoCta':
+            $get_updateEdoCta = $mutualidad->updateEdoCtaMut($_POST["cveissemym"],$_POST["numaportant"],$_POST["numaport"],$_POST["anioultaport"],$_SESSION['usuario']);
+            //echo json_encode($get_updateEdoCta, JSON_FORCE_OBJECT);
+            echo json_encode($get_updateEdoCta);
+            break;
+
+    }   
 
 ?>

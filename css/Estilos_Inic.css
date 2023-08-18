@@ -2849,6 +2849,17 @@ input[type="date"]{
   pointer-events: none; /*desactivamos cualquier evento del mouse*/
   transition: opacity .5s;
 }
+.modal_container{
+  position: fixed;
+  top:0;
+  left: 0;
+  right:0 ;
+  bottom: 0;
+  display: flex; /*para qu ese centre junto con el margin del container*/
+  opacity: 0;
+  pointer-events: none; /*desactivamos cualquier evento del mouse*/
+  transition: opacity .5s;
+}
 
 .divseparador{
   width: 95%;
@@ -2858,6 +2869,18 @@ input[type="date"]{
   border-radius: 8px;
 }
 .modal_contenedor{
+  margin: auto;
+  width: 90%;
+  max-width: 700px;
+  max-height: 90%;
+  background-color: #d4d4d4;
+  border-radius: 6px;
+  padding: 1.5em 1.5em;
+  display: grid;
+  gap: 1em;
+  place-items: center;
+}
+.modalEC{
   margin: auto;
   width: 90%;
   max-width: 700px;
@@ -3058,4 +3081,93 @@ input[type="date"]{
 }
 #divNumEntr{
   margin: 0 auto;
+}
+
+.secDatos{
+  width: 80%;
+  margin: 0 auto;
+}
+.secDatos input{
+  height: 35px;
+  border-radius: 5px;
+}
+#titleEdoCtaAct{
+  width: 80%;
+  margin: 0 auto;
+  font-size: 15px;
+  font-weight: bold;
+  color: #165306;
+  align-items: center;
+  padding: 20px;
+}
+.DatsEdoCtaDetalle{
+  padding: 15px;
+}
+.DatsEdoCta{
+  padding: 15px;
+}
+#DvcveMae{
+  padding-bottom: 15px;
+}
+#cveIssemym{
+  width: 130px;
+  text-align: center;
+}
+#nomcomMae{
+  width: 450px;
+  text-align: center;
+}
+.DatsEdoctaAct{
+  padding: 20px;
+  display: block;
+}
+
+#DvEdoctaAct{
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+}
+.divsEdoCta{
+  padding: 20px;
+}
+.divsEdoCta input{
+  width: 130px;
+  text-align: center;
+}
+#title-edoctaact{
+  width: 50%;
+  margin: 0 auto;
+  color: #165306;
+  font-size: 18px;
+}
+#title-edoctanew{
+  width: 50%;
+  margin: 0 auto;
+  color: #165306;
+  font-size: 18px;
+}
+.divEdoCtaNew{
+  padding: 20px;
+  display: block;
+}
+.DvDtasNuewEdoCta{
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+}
+
+#updateEdoCtaMut{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #0a6b1b;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px rgb(175, 174, 174);
+  width: 130px;
 }

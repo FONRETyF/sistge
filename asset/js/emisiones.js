@@ -1,6 +1,10 @@
 var tabla;
+
 const windowsModalEmision = document.querySelector('.modalEmision');
+const windowsModalEdoCta = document.querySelectorAll('.modal_container')[0];
+
 const closeModalEmision = document.querySelector('.modal_close');
+
 const idemi =  $("#inputIdEmis").val();
 
 function init(){
@@ -275,6 +279,53 @@ $(document).on("click",".modal_close",function (e) {
     windowsModalEmision.classList.remove('modal--show');
 });
 
+$(".cveIssemym").keydown(function (event) {
+    var key = window.event ? event.which : event.keyCode;
+    if((key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
+        return false;
+    }
+});
+
+$(document).on("click",".searchMae",function (e) {
+    e.preventDefault;
+    
+    $.post("../../controller/mutualidad.php?op=buscaEdoCta",{cveissemym:$("#cveIssemym").val()},function (data) {
+        dataEdoCtaNew = JSON.parse(data);
+        $("#nomcomMae").val(dataEdoCtaNew.nomcomjub);
+        $("#numaports").val(dataEdoCtaNew.numaport);
+        $("#anioultaport").val(dataEdoCtaNew.anioultaport);
+    });
+});
+
+$(document).on("click",".updateEdoCtaMut",function (e) {
+    e.preventDefault;
+    
+    $.post("../../controller/mutualidad.php?op=updateEdoCta",{cveissemym:$("#cveIssemym").val(),numaportant:$("#numaports").val(),numaport:$("#numaportsNew").val(),anioultaport:$("#anioultaportNew").val()},function (data) {
+        resultadoUp = Object.values( JSON.parse(data));
+        var resultado = resultadoUp[0] ;
+        switch (resultado) {         
+            case "Actualizado":
+                Swal.fire(
+                    'Actualizado!',
+                    'El estado de cuenta se actualizo correctamente!!!',
+                    'success'
+                );
+                location.href = 'emisionesMut.php';
+                break;
+            
+            case "Error":
+                Swal.fire(
+                    "EL ESTADO DE CUENTA NO SE ACTUALIZO CORRECTAMENTE",
+                    'surgio un error - consultelo con el admin del sistema'
+                );
+                break;
+
+            default:
+                break;
+        }
+    });
+});
+
 var accionRegresa = document.querySelector('.Btnregresar');
 accionRegresa.addEventListener("click", function (e) {
     e.preventDefault;
@@ -291,6 +342,8 @@ accionBtnInicio.addEventListener("click", function (e) {
 
     location.href = 'Inicio.php';
 });
+
+
 
 
 init();

@@ -96,6 +96,50 @@
             }
             return $resulUpdate;
         }
+        
+        public function getprogramJub($cveissemym){
+            try {
+                $consulta= "SELECT programfallec,nomcomjub FROM public.jubilados_smsem WHERE cveissemym='".$cveissemym."'";
+                $statement = $this->db->prepare($consulta);
+                $statement->execute();
+                return $result = $statement->fetchAll();
+            } catch (\Throwable $th) {
+                echo $th;
+            }
+        }
+
+        public function getEdoCtaJub($cveissemym,$programfallec){
+            if ($programfallec=="M") {
+                try {
+                    $consulta= "SELECT numaport,anioultaport FROM public.edoscta_mut WHERE cveissemym='".$cveissemym."'";
+                    $statement = $this->db->prepare($consulta);
+                    $statement->execute();
+                    return $result = $statement->fetchAll();
+                } catch (\Throwable $th) {
+                    echo $th;
+                }
+            } else {
+                # code...
+            }
+             
+        }
+
+        public function updateEdoCtaMut($cveissemym,$numaporant,$numaport,$anioultaport,$cveusu){
+            $resultUpdate = array();
+            $fecha = date("Y-m-d");
+            try {
+                $consulta= "UPDATE public.edoscta_mut SET numaport=".($numaporant + $numaport).", montaport=".(($numaporant + $numaport)*12).", anioultaport=".$anioultaport.", cveusumodif='".$cveusu."', fechmodif='".$fecha."' WHERE cveissemym='".$cveissemym."';";
+                $statement = $this->db->prepare($consulta);
+                $statement->execute();
+                $result = $statement->fetchAll();
+                $resultUpdate["resultado"] = "Actualizado";
+            } catch (\Throwable $th) {
+                echo $th;
+                $resultUpdate["resultado"] = "Error";
+            }
+            return $resultUpdate;
+        }
+
     }
 
 ?>
