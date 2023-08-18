@@ -316,7 +316,7 @@ $(document).on("click",".updateEdoCtaMut",function (e) {
             case "Error":
                 Swal.fire(
                     "EL ESTADO DE CUENTA NO SE ACTUALIZO CORRECTAMENTE",
-                    'surgio un error - consultelo con el admin del sistema'
+                    'surgio un error - consultelo con el administrador del sistema'
                 );
                 break;
 

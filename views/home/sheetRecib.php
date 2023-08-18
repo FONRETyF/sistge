@@ -220,6 +220,16 @@
         
             $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,25.8,19.59,0.04);
             
+            $pdf->SetY(23.6);
+            $pdf->SetFont('Arial','B',8);
+            $pdf->Cell(17.9, 5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
+            $pdf->Ln(0.5);
+            $pdf->SetFont('Arial','B',7);
+            $pdf->Cell(17.9, 5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
+            $pdf->Ln(0.3);
+            $pdf->Cell(17.9, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+
+            
            
         } else {
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',2.75,11.4,10.7,0.04);
@@ -315,6 +325,16 @@
             $pdf->Cell(10.59, 0.5,utf8_decode("             Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."),0, 0, 'L');
         
             $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,25.8,19.59,0.04);
+
+            $pdf->SetY(23.6);
+            $pdf->SetFont('Arial','B',8);
+            $pdf->Cell(17.9, 5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
+            $pdf->Ln(0.5);
+            $pdf->SetFont('Arial','B',7);
+            $pdf->Cell(17.9, 5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
+            $pdf->Ln(0.3);
+            $pdf->Cell(17.9, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+
         }
 
 
@@ -487,6 +507,16 @@
             
                 $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,25.5,19.59,0.04);
 
+                $pdf->SetY(23.3);
+                $pdf->SetFont('Arial','B',8);
+                $pdf->Cell(17.9, 5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
+                $pdf->Ln(0.5);
+                $pdf->SetFont('Arial','B',7);
+                $pdf->Cell(17.9, 5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
+                $pdf->Ln(0.3);
+                $pdf->Cell(17.9, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+
+
             } elseif (count($resultsB) > 6 && count($resultsB) < 11) {
                 foreach ($resultsB as $rowBenef) {
                     $pdf->SetX(5);
@@ -508,9 +538,9 @@
                 $pdf->SetFont('Arial','B',11);
                 $pdf->Cell(17.59, 0.5,"C. " . utf8_decode($resultsT[0]['nomsolic']),0, 0, 'C');
         
-                $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',17.4,23.5,2.7,2.65);
+                $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',17.4,22.8,2.7,2.65);
                 
-                $pdf->SetY(23.8);
+                $pdf->SetY(23);
                 $pdf->Ln(1.5);
                 $pdf->SetFont('Arial','I',8);
                 $pdf->Cell(17.59, 0.5,utf8_decode("AVISO: Sus datos personales, serán tratados y protegidos por el Sindicato de Maestros al Servicio del Estado de México,"),0,0,'L');
@@ -519,7 +549,17 @@
                 $pdf->Ln(0.25);
                 $pdf->Cell(10.59, 0.5,utf8_decode("             Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."),0, 0, 'L');
             
-                $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,26.3,19.59,0.04);
+                $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,25.5,19.59,0.04);
+
+                $pdf->SetY(23.3);
+                $pdf->SetFont('Arial','B',8);
+                $pdf->Cell(17.9, 5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
+                $pdf->Ln(0.5);
+                $pdf->SetFont('Arial','B',7);
+                $pdf->Cell(17.9, 5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
+                $pdf->Ln(0.3);
+                $pdf->Cell(17.9, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+
                 
             }  elseif (count($resultsB) > 11) {
                 foreach ($resultsB as $rowBenef) {
@@ -542,9 +582,9 @@
                 $pdf->SetFont('Arial','B',11);
                 $pdf->Cell(17.59, 0.5,"C. " . utf8_decode($resultsT[0]['nomsolic']),0, 0, 'C');
         
-                $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',17.4,22.5,2.7,2.65);
+                $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',17.4,23.3,2.7,2.65);
                 
-                $pdf->SetY(23);
+                $pdf->SetY(23.5);
                 $pdf->Ln(1.5);
                 $pdf->SetFont('Arial','I',8);
                 $pdf->Cell(17.59, 0.5,utf8_decode("AVISO: Sus datos personales, serán tratados y protegidos por el Sindicato de Maestros al Servicio del Estado de México,"),0,0,'L');
@@ -553,9 +593,18 @@
                 $pdf->Ln(0.25);
                 $pdf->Cell(10.59, 0.5,utf8_decode("             Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."),0, 0, 'L');
             
-                $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,25.5,19.59,0.04);
+                $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,26,19.59,0.04);
+
+                $pdf->SetY(23.8);
+                $pdf->SetFont('Arial','B',8);
+                $pdf->Cell(17.9, 5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
+                $pdf->Ln(0.5);
+                $pdf->SetFont('Arial','B',7);
+                $pdf->Cell(17.9, 5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
+                $pdf->Ln(0.3);
+                $pdf->Cell(17.9, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+
             }       
-            
            
         } else {
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',3.2,8.9,10.7,0.04);
@@ -691,6 +740,15 @@
             
                 $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,25.5,19.59,0.04);
 
+                $pdf->SetY(23.3);
+                $pdf->SetFont('Arial','B',8);
+                $pdf->Cell(17.9, 5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
+                $pdf->Ln(0.5);
+                $pdf->SetFont('Arial','B',7);
+                $pdf->Cell(17.9, 5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
+                $pdf->Ln(0.3);
+                $pdf->Cell(17.9, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+
             } elseif (count($resultsB) > 6 && count($resultsB) < 11) {
                 foreach ($resultsB as $rowBenef) {
                     $pdf->SetX(5);
@@ -724,6 +782,16 @@
                 $pdf->Cell(10.59, 0.5,utf8_decode("             Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."),0, 0, 'L');
             
                 $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,26,19.59,0.04);
+
+                $pdf->SetY(23.8);
+                $pdf->SetFont('Arial','B',8);
+                $pdf->Cell(17.9, 5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
+                $pdf->Ln(0.5);
+                $pdf->SetFont('Arial','B',7);
+                $pdf->Cell(17.9, 5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
+                $pdf->Ln(0.3);
+                $pdf->Cell(17.9, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+
                 
             }  elseif (count($resultsB) > 11) {
                 foreach ($resultsB as $rowBenef) {
@@ -758,6 +826,16 @@
                 $pdf->Cell(10.59, 0.5,utf8_decode("             Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."),0, 0, 'L');
             
                 $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,26.5,19.59,0.04);
+
+                $pdf->SetY(24.25);
+                $pdf->SetFont('Arial','B',8);
+                $pdf->Cell(17.9, 5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
+                $pdf->Ln(0.5);
+                $pdf->SetFont('Arial','B',7);
+                $pdf->Cell(17.9, 5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
+                $pdf->Ln(0.3);
+                $pdf->Cell(17.9, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+
             }    
         }
 
@@ -921,6 +999,16 @@
             
             $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,25.5,19.59,0.04);
 
+            $pdf->SetY(23.3);
+            $pdf->SetFont('Arial','B',8);
+            $pdf->Cell(17.9, 5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
+            $pdf->Ln(0.5);
+            $pdf->SetFont('Arial','B',7);
+            $pdf->Cell(17.9, 5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
+            $pdf->Ln(0.3);
+            $pdf->Cell(17.9, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+
+
         } elseif (count($resultsB) > 6 && count($resultsB) < 11) {
             foreach ($resultsB as $rowBenef) {
                 $pdf->SetX(5);
@@ -954,6 +1042,16 @@
             $pdf->Cell(10.59, 0.5,utf8_decode("             Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."),0, 0, 'L');
             
             $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,26.3,19.59,0.04);
+
+            $pdf->SetY(24.1);
+            $pdf->SetFont('Arial','B',8);
+            $pdf->Cell(17.9, 5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
+            $pdf->Ln(0.4);
+            $pdf->SetFont('Arial','B',7);
+            $pdf->Cell(17.9, 5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
+            $pdf->Ln(0.3);
+            $pdf->Cell(17.9, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+
                 
         }  elseif (count($resultsB) > 11) {
             foreach ($resultsB as $rowBenef) {
@@ -976,9 +1074,9 @@
             $pdf->SetFont('Arial','B',11);
             $pdf->Cell(17.59, 0.5,"C. " . utf8_decode($resultsT[0]['nomsolic']),0, 0, 'C');
         
-            $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',17.4,24,2.7,2.65);
+            $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',17.4,23.8,2.7,2.65);
                 
-            $pdf->SetY(24.4);
+            $pdf->SetY(24);
             $pdf->Ln(1.5);
             $pdf->SetFont('Arial','I',8);
             $pdf->Cell(17.59, 0.5,utf8_decode("AVISO: Sus datos personales, serán tratados y protegidos por el Sindicato de Maestros al Servicio del Estado de México,"),0,0,'L');
@@ -987,7 +1085,17 @@
             $pdf->Ln(0.25);
             $pdf->Cell(10.59, 0.5,utf8_decode("             Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."),0, 0, 'L');
             
-            $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,26.8,19.59,0.04);
+            $pdf->Image('/var/www/html/sistge/img/lineaoficio.png',1,26.5,19.59,0.04);
+
+            $pdf->SetY(24.3);
+            $pdf->SetFont('Arial','B',8);
+            $pdf->Cell(17.9, 5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
+            $pdf->Ln(0.5);
+            $pdf->SetFont('Arial','B',7);
+            $pdf->Cell(17.9, 5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
+            $pdf->Ln(0.3);
+            $pdf->Cell(17.9, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+
         }       
     }
     
