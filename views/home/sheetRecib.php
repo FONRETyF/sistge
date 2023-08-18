@@ -180,7 +180,7 @@
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',3.9,14.1,1.1,0.04);
             $pdf->Cell(1.1, 0.8,$resultsM[0]['numpsgs'], 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(13.5,0.8,utf8_decode("permisos sin goce de sueldo, por lo que solicito el Seguro de Retiro por"),0, 0, 'L');
+            $pdf->Cell(13.5,0.8,utf8_decode("permisos sin goce de sueldo, por lo que solicito el Fondo  de Retiro por"),0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',18.55,14.1,1,0.04);
             $pdf->Cell(1.09, 0.8,$resultsM[0]['aservactmae'], 0, 0, 'C');
@@ -290,7 +290,7 @@
             
             $pdf->SetY(16);
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(9,0.7,utf8_decode(", por  lo  que  solicito  el  Seguro  de Retiro por"),0, 0, 'L');
+            $pdf->Cell(9,0.7,utf8_decode(", por  lo  que  solicito  el  Fondo   de Retiro por"),0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',11,16.5,1.1,0.04);
             $pdf->Cell(1.09, 0.7, $resultsM[0]['aservactmae'], 0, 0, 'C');
@@ -440,7 +440,7 @@
 
             $pdf->Ln(0.6);
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(11,0.5,utf8_decode("goce de sueldo, por lo que solicito el Seguro de Retiro por"),0, 0, 'L');
+            $pdf->Cell(11,0.5,utf8_decode("goce de sueldo, por lo que solicito el Fondo  de Retiro por"),0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',13,11.95,1.1,0.04);
             $pdf->Cell(1.09, 0.5,$resultsM[0]['aservactmae'], 0, 0, 'C');
@@ -674,7 +674,7 @@
             
             $pdf->Ln(1);
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(8.1,0.5,utf8_decode(", por lo que solicito el Seguro de Retiro por"),0, 0, 'L');
+            $pdf->Cell(8.1,0.5,utf8_decode(", por lo que solicito el Fondo  de Retiro por"),0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
             $pdf->Cell(1.09, 0.5,$resultsM[0]['aservactmae'], 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
@@ -931,7 +931,7 @@
         $pdf->Image('/var/www/html/sistge/img/lineafirma.png',2.5,12.6,4.5,0.04);
         $pdf->Cell(4.49, 0.5,$resultsMJub[0]['fcfallecmae'],0 , 0, 'C');
         $pdf->SetFont('Arial','',12);
-        $pdf->Cell(8.2,0.5,utf8_decode(", por lo que solicito el Seguro de Retiro por"),0, 0, 'L');
+        $pdf->Cell(8.2,0.5,utf8_decode(", por lo que solicito el Fondo  de Retiro por"),1, 0, 'L');
         $pdf->SetFont('Arial','B',11);
         $pdf->Image('/var/www/html/sistge/img/lineafirma.png',15.2,12.6,1.1,0.04);
         $pdf->Cell(1.09, 0.5,$resultsMJub[0]['aniosjub'], 0, 0, 'C');
