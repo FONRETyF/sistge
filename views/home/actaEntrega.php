@@ -26,25 +26,24 @@
     $fechaEntrega = substr($resultsFechentrega[0]['fechentrega'],8,2) . " de " . $meses[intval(substr($resultsFechentrega[0]['fechentrega'],5,2))] . " de " . substr($resultsFechentrega[0]['fechentrega'],0,4);
 
     /* INHABILITADOS */
-    $consultachequesI = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
-    $consultachequesI = $consultachequesI . " FROM public.tramites_fonretyf as tab1 LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym)";
-    $consultachequesI = $consultachequesI . " as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and tab1.motvret='I' and (tab1.modretiro='C' or tab1.modretiro='D50') ORDER BY nomcommae asc;";
-        
-    $statementI = $db->prepare($consultachequesI);
-    $statementI->execute();
-    $resultsI = $statementI->fetchAll(PDO::FETCH_ASSOC);
+    $consultacheques = "select tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
+    $consultacheques = $consultacheques . " from public.tramites_fonretyf as tab1 left join (select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym)";
+    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and tab1.motvret='I' and (tab1.modretiro='C' or tab1.modretiro='D50') order by nomcommae asc;";
+    $statement = $db->prepare($consultacheques);
+    $statement->execute();
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    $auxI = array();
-    foreach ($resultsI as $key => $rowI) {
-        $auxI[$key]=$rowI["nomcommae"];
+    foreach ($results as $key => $row) {
+        $aux[$key]=$row["nomcommae"];
     }
 
     $collator = collator_create("es");
-    $collator->sort($auxI);
+    $collator->sort($aux);
 
-    foreach ($auxI as $rowauxI) {
-        foreach ($resultsI as $key => $row1) {
-            if ($rowauxI === $row1['nomcommae']) {
+    foreach ($aux as $row) {
+        foreach ($results as $key => $row1) {
+            if ($row === $row1['nomcommae']) {
+                //$arregloMaestrosCheques[$key] = $row1;
                 array_push($A_Tramites_Benef_Actas, $row1);
                 break;
             } 
@@ -52,73 +51,72 @@
     }
 
     /* JUBILADOS */
-    $consultachequesJ = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
-    $consultachequesJ = $consultachequesJ . " FROM public.tramites_fonretyf as tab1 LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym)";
-    $consultachequesJ = $consultachequesJ . " as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and tab1.motvret='J' and (tab1.modretiro='C' or tab1.modretiro='D50') ORDER BY nomcommae asc;";
-    
-    $statementJ = $db->prepare($consultachequesJ);
-    $statementJ->execute();
-    $resultsJ = $statementJ->fetchAll(PDO::FETCH_ASSOC);
+    $consultacheques = "select tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
+    $consultacheques = $consultacheques . " from public.tramites_fonretyf as tab1 left join (select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym)";
+    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and tab1.motvret='J' and (tab1.modretiro='C' or tab1.modretiro='D50') order by nomcommae asc;";
+    $statement = $db->prepare($consultacheques);
+    $statement->execute();
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    $auxJ = array();
-    foreach ($resultsJ as $key => $rowJ) {
-        $auxJ[$key]=$rowJ["nomcommae"];
+    foreach ($results as $key => $row) {
+        $aux[$key]=$row["nomcommae"];
     }
 
     $collator = collator_create("es");
-    $collator->sort($auxJ);
+    $collator->sort($aux);
 
-    foreach ($auxJ as $rowauxJ) {
-        foreach ($resultsJ as $key => $row2) {
-            if ($rowauxJ === $row2['nomcommae']) {
-                array_push($A_Tramites_Benef_Actas, $row2);
+    foreach ($aux as $row) {
+        foreach ($results as $key => $row1) {
+            if ($row === $row1['nomcommae']) {
+                //$arregloMaestrosCheques[$key] = $row1;
+                array_push($A_Tramites_Benef_Actas, $row1);
                 break;
             } 
         }    
     }
 
     /* FALLECIDOS */
-    $consultachequesF = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
-    $consultachequesF = $consultachequesF . " FROM public.tramites_fonretyf as tab1 LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym)";
-    $consultachequesF = $consultachequesF . " as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') and (tab1.modretiro='C' or tab1.modretiro='D50') ORDER BY nomcommae asc;";
-   
-    $statementF = $db->prepare($consultachequesF);
-    $statementF->execute();
-    $resultsF = $statementF->fetchAll(PDO::FETCH_ASSOC);
+    $consultacheques = "select tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
+    $consultacheques = $consultacheques . " from public.tramites_fonretyf as tab1 left join (select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym)";
+    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') and (tab1.modretiro='C' or tab1.modretiro='D50') order by nomcommae asc;";
+    
+    $statement = $db->prepare($consultacheques);
+    $statement->execute();
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    $auxF = array();
-    foreach ($resultsF as $key => $rowF) {
-        $auxF[$key]=$rowF["nomcommae"];
+    foreach ($results as $key => $row) {
+        $aux[$key]=$row["nomcommae"];
     }
 
     $collator = collator_create("es");
-    $collator->sort($auxF);
+    $collator->sort($aux);
 
-    foreach ($auxF as $rowauxF) {
-        foreach ($resultsF as $key => $row3) {
-            if ($rowauxF === $row3['nomcommae']) {
-                array_push($A_Tramites_Benef_Actas, $row3);
+    foreach ($aux as $row) {
+        foreach ($results as $key => $row1) {
+            if ($row === $row1['nomcommae']) {
+                //$arregloMaestrosCheques[$key] = $row1;
+                array_push($A_Tramites_Benef_Actas, $row1);
                 break;
             } 
         }    
     }
-
-
+  
     $numTramite = 1;
 
-    foreach ($A_Tramites_Benef_Actas as $row) {
+    foreach ($A_Tramites_Benef_Actas as $key => $regTraAct) {
         $pdf->Image('/var/www/html/sistge/img/escudosmsem.png',3,2,2,2.5);
         $pdf->SetFont('Arial','B',11);
 
-        if ($row['motvret'] == "I") {
+        $motivo = $regTraAct['motvret'];
+        if ($motivo== "I") {
             $motivoRetiro = "INHABILITACIÓN";
-        } elseif ($row['motvret'] == "J") {
+        } elseif ($motivo == "J") {
             $motivoRetiro = "JUBILACIÓN";
-        }elseif ($row['motvret'] == "FA" || $row['motvret'] == "FJ") {
+        }elseif ($motivo == "FA" || $motivo == "FJ") {
             $motivoRetiro = "FALLECIMIENTO";
         }
 
-        if ($row['motvret'] == "I" || $row['motvret'] == "J") {
+        if ($motivo == "I" || $motivo == "J") {
             $pdf->SetXY(17.59,1);
             $pdf->SetFont('Arial','',11);
             $pdf->SetTextColor(150,150,150);
@@ -142,14 +140,14 @@
             $pdf->SetFont('Arial','',12);
             $pdf->cell(0.9,0.5,',  se',0,0, 'L');
             $pdf->Ln(0.5);
-            $pdf->cell(15.59,0.5,utf8_decode('reunieron  el  Comité  Ejecutivo  y  El  Consejo  Directivo  del  Fondo  de  Retiro   y'),0,0, 'L');
+            $pdf->cell(15.59,0.5,utf8_decode('reunieron  el  Comité  Ejecutivo  y   El  Consejo  Directivo  del  Fonde  de  Retiro  y'),0,0, 'L');
             $pdf->Ln(0.5);
-            $pdf->cell(15.59,0.5,utf8_decode('Fallecimiento  (FONRETYF)  del  Sindicato  de Maestros al  Servicio del Estado de'),0,0, 'L');
+            $pdf->cell(15.59,0.5,utf8_decode('Fallecimiento (FONRETyF)  del  Sindicato de  Maestros  al Servicio del  Estado de'),0,0, 'L');
             $pdf->Ln(0.5);
             $pdf->cell(15.59,0.5,utf8_decode('México, con el propósito de hacer entrega del seguro que corresponde al: '),0,0, 'L');
             $pdf->Ln(0.6);
             $pdf->SetFont('Arial','B',12);
-            $pdf->cell(15.59,0.5,utf8_decode('Profr. (a) ' . $row["nomcommae"]),0,0, 'C');
+            $pdf->cell(15.59,0.5,utf8_decode('Profr. (a) ' . $regTraAct["nomcommae"]),0,0, 'C');
             $pdf->Ln(0.6);
             $pdf->SetFont('Arial','',12);
             $pdf->cell(2.5,0.5,utf8_decode('quien acepto '),0,0, 'L');
@@ -158,10 +156,10 @@
             $pdf->SetFont('Arial','',12);
             $pdf->cell(6.55,0.5,utf8_decode(', correspondiéndole la cantidad de '),0,0, 'L');
             $pdf->SetFont('Arial','B',12);
-            $pdf->cell(2.94,0.5,$row['montrettot'],0,0, 'C');
+            $pdf->cell(2.94,0.5,$regTraAct['montrettot'],0,0, 'C');
             $pdf->Ln(0.5);
             $pdf->SetFont('Arial','B',9.5);
-            $pdf->cell(15.59,0.5,'('.$row['montretletra'].')',0,0, 'C');
+            $pdf->cell(15.59,0.5,'('.$regTraAct['montretletra'].')',0,0, 'C');
             $pdf->Ln(0.5);
             $pdf->SetFont('Arial','',12);
             $pdf->cell(15.59,0.5,utf8_decode('equivalente  al pago  acordado por  el Comité Ejecutivo  en  el  Trienio  2021-2024'),0,0, 'L');
@@ -169,7 +167,7 @@
             $pdf->SetFont('Arial','',12);
             $pdf->cell(15.59,0.5,utf8_decode('según consta en el acta del 14 de diciembre de 2021.'),0,0, 'L');
 
-            $consultaNumcheques = "SELECT  COUNT(cvemae) as numcheques FROM public.beneficiarios_cheques WHERE cvemae='".$row["cvemae"]."';";
+            $consultaNumcheques = "SELECT  COUNT(cvemae) as numcheques FROM public.beneficiarios_cheques WHERE cvemae='".$regTraAct["cvemae"]."';";
             $statementNumChqs = $db->prepare($consultaNumcheques);
             $statementNumChqs->execute();
             $resultsNumChqs = $statementNumChqs->fetchAll(PDO::FETCH_ASSOC);
@@ -184,8 +182,7 @@
                 $pdf->cell(15.59,0.5,'Profr. Marco Aurelio Carbajal Leyva',0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(15.59,0.5,'Presidente del Consejo Directivo del FONRETYF',0,0, 'C');
-                //$pdf->cell(15.59,0.5,'Secretario General del S.M.S.E.M.',0,0, 'C');
+                $pdf->cell(15.59,0.5,'Presidente del Consejo Directivo',0,0, 'C');
 
                 $pdf->Ln(2);
 
@@ -194,27 +191,27 @@
                 $pdf->cell(7.795,0.5,utf8_decode('Profra. Cleotilde Castillo Méndez'),0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(7.795,0.5,'Secretario del Consejo Directivo del FONRETYF',0,0, 'C');
-                $pdf->cell(7.795,0.5,'Tesorero del Consejo Directivo del FONRETYF',0,0, 'C');
-                //$pdf->cell(15.59,0.5,'Secretario de Seguridad Social Sindical',0,0, 'C');            
+                $pdf->cell(7.795,0.5,'Secretario del Consejo Directivo',0,0, 'C');
+                $pdf->cell(7.795,0.5,'Tesorero del Consejo Directivo',0,0, 'C');
 
                 $pdf->Ln(2);
 
                 $pdf->SetFont('Arial','B',10);
                 $pdf->cell(7.795,0.5,utf8_decode('Profr. Horacio López Salinas'),0,0, 'C');
+                $pdf->SetFont('Arial','B',10);
                 $pdf->cell(7.795,0.5,utf8_decode('Profr. Santiago Hernández Garduño'),0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(7.795,0.5,'Vocal del Consjeo Directivo del FONRETYF',0,0, 'C');
-                $pdf->cell(7.795,0.5,'Vocal del Consjeo Directivo del FONRETYF',0,0, 'C');
+                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo',0,0, 'C');
+                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo',0,0, 'C');
                 
                 $pdf->Ln(2);
 
                 $pdf->SetFont('Arial','B',10);
                 $pdf->cell(15.59,0.5,utf8_decode('Profr. José Merced Salinas Villa'),0,0, 'C');
                 $pdf->Ln(0.4);
-                $pdf->SetFont('Arial','B',9);
-                $pdf->cell(15.59,0.5,'Vocal del Consjeo Directivo del FONRETYF',0,0, 'C');
+                $pdf->SetFont('Arial','B',9.5);
+                $pdf->cell(15.59,0.5,'Vocal del Consejo Directivo',0,0, 'C');
                 
                 $pdf->Ln(1.5);
 
@@ -222,9 +219,9 @@
                 $pdf->cell(15.59,0.5,'Beneficiario',0,0, 'C');
                 $pdf->Ln(2.5);
                 $pdf->SetFont('Arial','B',9.5);
-                $pdf->cell(15.59,0.5,utf8_decode($row["nomcommae"]),0,0, 'C');
+                $pdf->cell(15.59,0.5,utf8_decode($regTraAct["nomcommae"]),0,0, 'C');
 
-            } else if ($resultsNumChqs[0]["numcheques"] > 1) {
+            }else if ($resultsNumChqs[0]["numcheques"] > 1) {
                 $pdf->Ln(0.7);
 
                 $numadeudos = $resultsNumChqs[0]["numcheques"] - 1;
@@ -237,10 +234,10 @@
                 $pdf->Ln(0.5);
                 $pdf->cell(9.7,0.5,utf8_decode('por lo tanto, el monto real que se entrega es de: '),0,0, 'L');
                 $pdf->SetFont('Arial','B',12);
-                $pdf->cell(4,0.5,$row['montretentr'],0,0, 'L');
+                $pdf->cell(4,0.5,$regTraAct['montretentr'],0,0, 'L');
                 $pdf->Ln(0.5);
                 $pdf->SetFont('Arial','B',9.5);
-                $pdf->cell(15.59,0.5,'('.$row['montretentrletra'].')',0,0, 'C');
+                $pdf->cell(15.59,0.5,'('.$regTraAct['montretentrletra'].')',0,0, 'C');
                 $pdf->Ln(0.5);
                 $pdf->SetFont('Arial','',12);
                 $pdf->cell(9.7,0.5,utf8_decode('y el (los) cheque (s):'),0,0, 'L');
@@ -259,7 +256,7 @@
                 $pdf->SetFillColor(240,240,240);
                 $pdf->SetDrawColor(255,255,255);
 
-                $consultachequesAdeds = "SELECT  montbenef,montbenefletra,folcheque,adeudo FROM public.beneficiarios_cheques WHERE cvemae='".$row["cvemae"]."' AND chequeadeudo='S';";
+                $consultachequesAdeds = "SELECT  montbenef,montbenefletra,folcheque,adeudo FROM public.beneficiarios_cheques WHERE cvemae='".$regTraAct["cvemae"]."' AND chequeadeudo='S';";
                 $statementChequesAdeds = $db->prepare($consultachequesAdeds);
                 $statementChequesAdeds->execute();
                 $resultsChequesAdeds = $statementChequesAdeds->fetchAll(PDO::FETCH_ASSOC);
@@ -305,7 +302,7 @@
                 $pdf->cell(15.59,0.5,'Profr. Marco Aurelio Carbajal Leyva',0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(15.59,0.5,'Presidente del Consejo Directivo del FONRETYF',0,0, 'C');
+                $pdf->cell(15.59,0.5,'Presidente del Consejo Directivo',0,0, 'C');
 
                 $pdf->Ln(1.2);
 
@@ -314,8 +311,8 @@
                 $pdf->cell(7.795,0.5,utf8_decode('Profra. Cleotilde Castillo Méndez'),0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(7.795,0.5,'Secretario del Consejo Directivo del FONRETYF',0,0, 'C');
-                $pdf->cell(7.795,0.5,'Tesorero del Consejo Directivo del FONRETYF',0,0, 'C');
+                $pdf->cell(7.795,0.5,'Secretario del Consejo Directivo',0,0, 'C');
+                $pdf->cell(7.795,0.5,'Tesorero del Consejo Directivo',0,0, 'C');
 
                 $pdf->Ln(1.2);
 
@@ -324,8 +321,8 @@
                 $pdf->cell(7.795,0.5,utf8_decode('Profr. Santiago Hernández Garduño'),0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo del FONRETYF',0,0, 'C');
-                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo del FONRETYF',0,0, 'C');
+                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo',0,0, 'C');
+                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo',0,0, 'C');
                 
                 $pdf->Ln(1.2);
 
@@ -333,7 +330,7 @@
                 $pdf->cell(15.59,0.5,utf8_decode('Profr. José Merced Salinas Villa'),0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(15.59,0.5,'Vocal del Consjeo Directivo del FONRETYF',0,0, 'C');                
+                $pdf->cell(15.59,0.5,'Vocal del Consejo Directivo',0,0, 'C');
                 
                 $pdf->Ln(0.7);
 
@@ -341,10 +338,9 @@
                 $pdf->cell(15.59,0.5,'Beneficiario',0,0, 'C');
                 $pdf->Ln(2);
                 $pdf->SetFont('Arial','B',9.5);
-                $pdf->cell(15.59,0.5,utf8_decode($row["nomcommae"]),0,0, 'C');
+                $pdf->cell(15.59,0.5,utf8_decode($regTraAct["nomcommae"]),0,0, 'C');
             }
-            
-        }elseif ($row['motvret'] == "FA" || $row['motvret'] == "FJ") {
+        }elseif ($regTraAct['motvret'] == "FA" || $regTraAct['motvret'] == "FJ") {
             $pdf->SetDrawColor(0,0,0);
 
             $pdf->SetXY(17.59,1);
@@ -370,31 +366,31 @@
             $pdf->SetFont('Arial','',12);
             $pdf->cell(0.9,0.5,',  se',0,0, 'L');
             $pdf->Ln(0.5);
-            $pdf->cell(15.59,0.5,utf8_decode('reunieron el Comité Ejecutivo y El Consejo Directivo de la Secretaria de Seguridad'),0,0, 'L');
+            $pdf->cell(15.59,0.5,utf8_decode('reunieron  el  Comité  Ejecutivo  y   El  Consejo  Directivo  del  Fondo  de  Retiro  y'),0,0, 'L');
             $pdf->Ln(0.5);
-            $pdf->cell(15.59,0.5,utf8_decode('Social Sindical  del Sindicato de Maestros al Servicio del Estado de México, con el'),0,0, 'L');
+            $pdf->cell(15.59,0.5,utf8_decode('Fallecimiento (FONRETyF)  del  Sindicato de  Maestros  al Servicio del  Estado de'),0,0, 'L');
             $pdf->Ln(0.5);
-            $pdf->cell(8,0.5,utf8_decode('propósito de hacer entrega del seguro por'),0,0, 'L');
+            $pdf->cell(10.8,0.5,utf8_decode('México, con el propósito de hacer entrega del seguro por'),0,0, 'L');
             $pdf->SetFont('Arial','B',12);
             $pdf->cell(4,0.5,utf8_decode('FALLECIMIENTO'),0,0, 'C');
             $pdf->SetFont('Arial','',12);
-            $pdf->cell(3.59,0.5,utf8_decode(' que   corresponde'),0,0, 'R');
+            $pdf->cell(0.79,0.5,utf8_decode('que'),0,0, 'L');
             $pdf->Ln(0.5);
-            $pdf->cell(9,0.5,utf8_decode('al (los) beneficiario (s) del C. Profr. (a)'),0,0, 'L');
+            $pdf->cell(9,0.5,utf8_decode('corresponde al (los) beneficiario (s) del C. Profr. (a)'),0,0, 'L');
             $pdf->Ln(0.5);
             $pdf->SetFont('Arial','B',10.5);
-            $pdf->cell(15.59,0.45,utf8_decode($row["nomcommae"]),0,0, 'C');
+            $pdf->cell(15.59,0.45,utf8_decode($regTraAct["nomcommae"]),0,0, 'C');
             $pdf->Ln(0.5);
             $pdf->SetFont('Arial','',12);
             $pdf->cell(5.4,0.5,utf8_decode('por la  cantidad  referida de: '),0,0, 'L');
             $pdf->SetFont('Arial','B',12);
-            $pdf->cell(3.3,0.5,$row['montrettot'],0,0, 'C');
+            $pdf->cell(3.3,0.5,$regTraAct['montrettot'],0,0, 'C');
             $pdf->SetFont('Arial','',12);
             $pdf->cell(6.89,0.5,utf8_decode(' equivalente  al  100%  de  la  suma'),0,0, 'L');
             $pdf->Ln(0.5);
             $pdf->cell(6.89,0.5,utf8_decode('acordada por el Comité Ejecutivo en el Trienio 2021-2024 según consta en el acta'),0,0, 'L');
             $pdf->Ln(0.5);
-            $pdf->cell(6.89,0.5,utf8_decode('del 1° de enero de 2022.'),0,0, 'L');
+            $pdf->cell(6.89,0.5,utf8_decode('del 14 de diciembre de 2021.'),0,0, 'L');
 
             $pdf->Ln(0.7);
             $pdf->SetFont('Arial','',12);
@@ -404,7 +400,7 @@
 
             $resultsBenefs = array();
 
-            $consultaBenefs = "SELECT  nombenef,montbenef,folcheque FROM public.beneficiarios_cheques WHERE cvemae='".$row["cvemae"]."';";
+            $consultaBenefs = "SELECT  nombenef,montbenef,folcheque FROM public.beneficiarios_cheques WHERE cvemae='".$regTraAct["cvemae"]."';";
             $statementBenefs = $db->prepare($consultaBenefs);
             $statementBenefs->execute();
             $results = $statementBenefs->fetchAll(PDO::FETCH_ASSOC);
@@ -425,7 +421,7 @@
                     } 
                 }    
             }
-            
+
             $pdf->Ln(0.4);
             $pdf->SetFont('Arial','B',9);
             $pdf->SetX(5);
@@ -434,7 +430,7 @@
 
             $pdf->SetDrawColor(150,150,150);
             $pdf->SetLineWidth(0.05);
-            $pdf->Line(5, 10.7, 16.3, 10.7);
+            $pdf->Line(5, 11.15, 16.3, 11.15);
 
             $pdf->SetFillColor(240,240,240);
             $pdf->SetDrawColor(200,200,200);
@@ -448,7 +444,7 @@
                 $pdf->cell(3.3,0.4,$rowBenef["montbenef"],1,0,'C');
                 $pdf->Ln(0.4);
             }
-            
+
             if (count($resultsBenefs) < 7) {
                 $pdf->SetXY(3,13.3);
                 $pdf->SetFont('Arial','',12);
@@ -459,7 +455,7 @@
                 $pdf->cell(15.59,0.5,'Profr. Marco Aurelio Carbajal Leyva',0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(15.59,0.5,'Presidente del Consejo Directivo del FONRETYF',0,0, 'C');
+                $pdf->cell(15.59,0.5,'Presidente del Consejo Directivo',0,0, 'C');
 
                 $pdf->Ln(1);
 
@@ -468,8 +464,8 @@
                 $pdf->cell(7.795,0.5,utf8_decode('Profra. Cleotilde Castillo Méndez'),0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(7.795,0.5,'Secretario del Consejo Directivo del FONRETYF',0,0, 'C');
-                $pdf->cell(7.795,0.5,'Tesorero del Consejo Directivo del FONRETYF',0,0, 'C');
+                $pdf->cell(7.795,0.5,'Secretario del Consejo Directivo',0,0, 'C');
+                $pdf->cell(7.795,0.5,'Tesorero del Consejo Directivo',0,0, 'C');
 
                 $pdf->Ln(1);
 
@@ -478,8 +474,8 @@
                 $pdf->cell(7.795,0.5,utf8_decode('Profr. Santiago Hernández Garduño'),0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo del FONRETYF',0,0, 'C');
-                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo del FONRETYF',0,0, 'C');
+                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo',0,0, 'C');
+                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo',0,0, 'C');
                 
                 $pdf->Ln(1);
 
@@ -487,7 +483,7 @@
                 $pdf->cell(15.59,0.5,utf8_decode('Profr. José Merced Salinas Villa'),0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(15.59,0.5,'Vocal del Consejo Directivo del FONRETYF',0,0, 'C');
+                $pdf->cell(15.59,0.5,'Vocal del Consejo Directivo',0,0, 'C');
                 
                 $numbeneficiarios = count($resultsBenefs);
         
@@ -582,7 +578,7 @@
                     default:
                         break;
                 }
-            } else {
+            }else {
                 $pdf->SetXY(3,15.3);
                 $pdf->SetFont('Arial','',12);
                 $pdf->cell(15.59,0.5,utf8_decode('El acto se dio por terminado y firmado para su constancia los que intervinieron:'),0,0, 'L');
@@ -592,17 +588,17 @@
                 $pdf->cell(15.59,0.5,'Profr. Marco Aurelio Carbajal Leyva',0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(15.59,0.5,'Presidente del Consejo Directivo del FONRETYF',0,0, 'C');
+                $pdf->cell(15.59,0.5,'Presidente del Consejo Directivo',0,0, 'C');
 
                 $pdf->Ln(1);
 
                 $pdf->SetFont('Arial','B',10);
-                $pdf->cell(7.795,0.5,utf8_decode('Profr. Jesús Sotelo Sotelo'),0,0, 'C');
-                $pdf->cell(7.795,0.5,utf8_decode('Profra. Cleotilde Castillo Méndez'),0,0, 'C');
+                $pdf->cell(15.59,0.5,utf8_decode('Profr. Jesús Sotelo Sotelo'),0,0, 'C');
+                $pdf->cell(15.59,0.5,utf8_decode('Profra. Cleotilde Castillo Méndez'),0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(7.795,0.5,'Secretario del Consejo Directivo del FONRETYF',0,0, 'C');
-                $pdf->cell(7.795,0.5,'Tesorero del Consejo Directivo del FONRETYF',0,0, 'C');
+                $pdf->cell(15.59,0.5,'Secretario del Consejo Directivo',0,0, 'C');
+                $pdf->cell(15.59,0.5,'Secretaria del Consejo Directivo',0,0, 'C');
 
                 $pdf->Ln(1);
 
@@ -611,16 +607,16 @@
                 $pdf->cell(7.795,0.5,utf8_decode('Profr. Santiago Hernández Garduño'),0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo del FONRETYF',0,0, 'C');
-                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo del FONRETYF',0,0, 'C');
+                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo',0,0, 'C');
+                $pdf->cell(7.795,0.5,'Vocal del Consejo Directivo',0,0, 'C');
                 
                 $pdf->Ln(1);
 
                 $pdf->SetFont('Arial','B',10);
-                $pdf->cell(15.59,0.5,utf8_decode('Profr. Profr. José Merced Salinas Villa'),0,0, 'C');
+                $pdf->cell(15.59,0.5,utf8_decode('Profr. José Merced Salinas Villa'),0,0, 'C');
                 $pdf->Ln(0.4);
                 $pdf->SetFont('Arial','B',9);
-                $pdf->cell(15.59,0.5,'Vocal del Consejo Directivo del FONRETYF',0,0, 'C');
+                $pdf->cell(15.59,0.5,'Vocal del Consejo Directivo',0,0, 'C');
                 
                 $numbeneficiarios = count($resultsBenefs);
 
@@ -644,7 +640,7 @@
                         $pdf->Ln(3);
                         $pdf->cell(2.3,0.5,utf8_decode('C. Profr. (a)'),0,0, 'L');
                         $pdf->SetFont('Arial','B',11.5);
-                        $pdf->cell(13.59,0.5,utf8_decode($row["nomcommae"]),0,0, 'C');
+                        $pdf->cell(13.59,0.5,utf8_decode($regTraAct["nomcommae"]),0,0, 'C');
                         $pdf->Ln(1);
                         $pdf->SetFont('Arial','B',10);
                         $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
@@ -676,7 +672,7 @@
                         $pdf->Ln(3);
                         $pdf->cell(2.3,0.5,utf8_decode('C. Profr. (a)'),0,0, 'L');
                         $pdf->SetFont('Arial','B',11.5);
-                        $pdf->cell(13.59,0.5,utf8_decode($row["nomcommae"]),0,0, 'C');
+                        $pdf->cell(13.59,0.5,utf8_decode($regTraAct["nomcommae"]),0,0, 'C');
                         $pdf->Ln(1);
                         $pdf->SetFont('Arial','B',10);
                         $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
@@ -709,7 +705,7 @@
                         $pdf->Ln(3);
                         $pdf->cell(2.3,0.5,utf8_decode('C. Profr. (a)'),0,0, 'L');
                         $pdf->SetFont('Arial','B',11.5);
-                        $pdf->cell(13.59,0.5,utf8_decode($row["nomcommae"]),0,0, 'C');
+                        $pdf->cell(13.59,0.5,utf8_decode($regTraAct["nomcommae"]),0,0, 'C');
                         $pdf->Ln(1);
                         $pdf->SetFont('Arial','B',10);
                         $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
@@ -744,7 +740,7 @@
                         $pdf->Ln(3);
                         $pdf->cell(2.3,0.5,utf8_decode('C. Profr. (a)'),0,0, 'L');
                         $pdf->SetFont('Arial','B',11.5);
-                        $pdf->cell(13.59,0.5,utf8_decode($row["nomcommae"]),0,0, 'C');
+                        $pdf->cell(13.59,0.5,utf8_decode($regTraAct["nomcommae"]),0,0, 'C');
                         $pdf->Ln(1);
                         $pdf->SetFont('Arial','B',10);
                         $pdf->cell(15.59,0.5,'Beneficiario (s)',0,0, 'C');
@@ -819,15 +815,16 @@
                         break;
                     default:
                         break;
+
                 }
             }
         }
-
-        $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);
-
+      
         $numTramite++;
         $pdf->AddPage();
-    }
 
+        $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);
+    }
+    
     $pdf->Output();
 ?>

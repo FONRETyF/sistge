@@ -180,7 +180,7 @@
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',3.9,14.1,1.1,0.04);
             $pdf->Cell(1.1, 0.8,$resultsM[0]['numpsgs'], 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(13.5,0.8,utf8_decode("permisos sin goce de sueldo, por lo que solicito el Fondo  de Retiro por"),0, 0, 'L');
+            $pdf->Cell(13.5,0.8,utf8_decode("permisos sin goce de sueldo, por lo que solicito el Fondo de Retiro  por"),0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',18.55,14.1,1,0.04);
             $pdf->Cell(1.09, 0.8,$resultsM[0]['aservactmae'], 0, 0, 'C');
