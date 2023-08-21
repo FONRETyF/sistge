@@ -951,16 +951,16 @@
         $pdf->Cell(13.69,0.5,utf8_decode(", por  lo  que  se realiza  la  solicitud  de  las  aportaciones  realizadas  al"),0, 0, 'L');
         
         $pdf->Ln(0.6);
-        $pdf->Cell(7.9, 0.5,utf8_decode("programa de Mutualidad SMSEM durante"), 0, 0, 'L');
+        $pdf->Cell(7.85, 0.5,utf8_decode("programa de Mutualidad SMSEM durante"), 0, 0, 'L');
         $pdf->SetFont('Arial','B',11);
         $pdf->Image('/var/www/html/sistge/img/lineafirma.png',9.9,13.2,1.1,0.04);
         $pdf->Cell(1.09, 0.5,$resultsMJub[0]['aniosjub'], 0, 0, 'C');
         $pdf->SetFont('Arial','',12);
-        $pdf->Cell(8.6, 0.5, utf8_decode(",  con fundamento en los artículos 28, 30, 31,"), 0, 0, 'L');        
+        $pdf->Cell(8.6, 0.5, utf8_decode("años, con fundamento en los artículos 28, 30,"), 0, 0, 'L');        
 
         $pdf->Ln(0.6);
         $pdf->SetFont('Arial','',12);
-        $pdf->Cell(17.59, 0.5, utf8_decode("32, 33, 34, 35, 37 y 38 del Reglamento del Fondo de Retiro y Fallecimiento (FONRETyF)."), 0, 0, 'L');
+        $pdf->Cell(17.59, 0.5, utf8_decode("31, 32, 33, 34, 35, 37 y 38 del Reglamento del Fondo de Retiro y Fallecimiento (FONRETyF)."), 0, 0, 'L');
 
         $pdf->Ln(1);
         $pdf->SetFont('Arial','',12);
