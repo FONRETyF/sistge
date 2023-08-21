@@ -25,10 +25,13 @@
     $motivoRet = $resultsT[0]['motvret'];
 
     if ($motivoRet == "I") {
+        $motivoRetiroLower = "Inhabilitación";
         $motivoRetiro = "INHABILITACIÓN";
     } elseif ($motivoRet == "J") {
+        $motivoRetiroLower = "Jubilación";
         $motivoRetiro = "JUBILACIÓN";
     }elseif ($motivoRet == "FA" || $motivoRet == "FJ") {
+        $motivoRetiroLower = "Fallecimiento";
         $motivoRetiro = "FALLECIMIENTO";
     }
 
@@ -152,9 +155,9 @@
             $pdf->SetFont('Arial','',12);
             $pdf->Cell(2, 0.8," y  CURP  ", 0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
-            $pdf->Cell(5.3, 0.8,$resultsM[0]['curpmae'], 0, 0, 'C');
+            $pdf->Cell(5.35, 0.8,$resultsM[0]['curpmae'], 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(7.49,0.8, utf8_decode(" quien  laboraba  en  la  región  sindical"), 0, 0, 'L');
+            $pdf->Cell(7.49,0.8, utf8_decode(",  labore  en  la  región sindical número"), 0, 0, 'L');
 
             $pdf->Ln(0.7);
             $pdf->SetFont('Arial','B',11);
@@ -178,27 +181,32 @@
             $pdf->Cell(1.9, 0.8,"cual tuve ",0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',3.9,14.1,1.1,0.04);
-            $pdf->Cell(1.1, 0.8,$resultsM[0]['numpsgs'], 0, 0, 'C');
+            $pdf->Cell(1.15, 0.8,$resultsM[0]['numpsgs'], 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(13.5,0.8,utf8_decode("permisos sin goce de sueldo, por lo que solicito el Fondo de Retiro  por"),0, 0, 'L');
+            $pdf->Cell(14.59,0.8,utf8_decode("permisos sin goce de sueldo, por lo cual solicito el Fondo de Retiro en  virtud"), 0, 0, 'L');
+            
+            $pdf->Ln(0.7);
+            $pdf->Cell(1.2,0.8,"de mi", 0, 0, 'L');
+            $pdf->SetFont('Arial','I',12);
+            $pdf->Cell(2.7,0.8,utf8_decode($motivoRetiroLower), 0, 0, 'C');
+            $pdf->SetFont('Arial','',12);
+            $pdf->Cell(0.85,0.8,"por", 0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
-            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',18.55,14.1,1,0.04);
-            $pdf->Cell(1.09, 0.8,$resultsM[0]['aservactmae'], 0, 0, 'C');
+            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',6.8,14.8,1,0.04);
+            $pdf->Cell(1.1, 0.8,$resultsM[0]['aservactmae'], 0, 0, 'C');
+            $pdf->SetFont('Arial','',12);
+            $pdf->Cell(11.79, 0.8, utf8_decode("años de servicio cotizados al SMSEM, con fundamento en los"), 0, 0, 'L');
 
             $pdf->Ln(0.7);
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(17.59, 0.8, utf8_decode("años de  servicio cotizados al  SMSEM, con  fundamento en  los artículos  33, 34, 35 y 38 del"), 0, 0, 'L');
-
-            $pdf->Ln(0.7);
-            $pdf->SetFont('Arial','',12);
-            $pdf->Cell(17.59, 0.8, utf8_decode("Reglamento del Fondo de Retiro y Fallecimiento (FONRETyF)."), 0, 0, 'L');
+            $pdf->Cell(17.59, 0.8, utf8_decode("artículos 33, 34, 35 y 38 del Reglamento del Fondo de Retiro y Fallecimiento (FONRETyF)."), 0, 0, 'L');
 
             $pdf->Ln(1.3);
             $pdf->SetFont('Arial','',12);
             $pdf->SetTextColor(0,0,0);
             $pdf->Cell(17.59, 0.8,"Hago de  su  conocimiento  que  los  datos especificados  anteriormente  son  correctos  para", 0, 0, 'L');
             $pdf->Ln(0.7);
-            $pdf->Cell(17.59, 0.8,"efectuar el  calculo y  entrega de  mi Fondo de Retiro, por lo  cual firmo de enterado (a)  y  de ", 0, 0, 'L');
+            $pdf->Cell(17.59, 0.8,"efectuar  el  calculo y  entrega de  mi  Fondo de Retiro, por ende, firmo de enterado (a)  y  de ", 0, 0, 'L');
             $pdf->Ln(0.7);
             $pdf->Cell(17.59, 0.8,"conformidad al respecto.", 0, 0, 'L');
 
@@ -228,8 +236,6 @@
             $pdf->Cell(17.9, 5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
             $pdf->Ln(0.3);
             $pdf->Cell(17.9, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
-
-            
            
         } else {
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',2.75,11.4,10.7,0.04);
@@ -252,7 +258,7 @@
             $pdf->SetFont('Arial','B',11);
             $pdf->Cell(5.3, 0.7,$resultsM[0]['curpmae'], 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(7.49,0.7, utf8_decode(" quien  laboraba  en  la  región  sindical"), 0, 0, 'L');
+            $pdf->Cell(7.49,0.7, utf8_decode(",  labore  en  la  región  sindical número"), 0, 0, 'L');
 
             $pdf->Ln(0.7);
             $pdf->SetFont('Arial','B',11);
@@ -290,14 +296,19 @@
             
             $pdf->SetY(16);
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(9,0.7,utf8_decode(", por  lo  que  solicito  el  Fondo   de Retiro por"),0, 0, 'L');
+            $pdf->SetDrawColor(0,0,0);
+            $pdf->Cell(11,0.7,utf8_decode(", por lo cual  solicito  el  Fondo de Retiro  en  virtud  de  mi"),0, 0, 'L');
+            $pdf->SetFont('Arial','I',12);
+            $pdf->Cell(3,0.7,utf8_decode($motivoRetiroLower),0, 0, 'C');
+            $pdf->SetFont('Arial','',12);
+            $pdf->Cell(0.8,0.7,"por",0, 0, 'C');
             $pdf->SetFont('Arial','B',11);
-            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',11,16.5,1.1,0.04);
+            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',16.8,16.5,1.1,0.04);
             $pdf->Cell(1.09, 0.7, $resultsM[0]['aservactmae'], 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(7.5, 0.7, utf8_decode("años de servicio  cotizados al SMSEM"), 0, 0, 'R');
+            $pdf->Cell(1.7, 0.7, utf8_decode("años de"), 0, 0, 'L');
             $pdf->Ln(0.7);
-            $pdf->MultiCell(17.59, 0.7, utf8_decode("con fundamento en los artículos 33, 34, 35 y 38 del Reglamento del Fondo de Retiro y Fallecimiento (FONRETyF)."), 0, 'J');
+            $pdf->MultiCell(17.59, 0.7, utf8_decode("servicio cotizados al SMSEM con fundamento en los artículos 33, 34, 35 y 38 del Reglamento del Fondo de Retiro y Fallecimiento (FONRETyF)."), 0, 'J');
 
             $pdf->Ln(0.5);
             $pdf->SetFont('Arial','',12);
@@ -390,32 +401,34 @@
             $pdf->SetFont('Arial','B',11);
             $pdf->Cell(10.59, 0.5, utf8_decode( $resultsT[0]['nomsolic']), 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(5.8, 0.5, ",  quien  solicita  el  Fondo  de", 0, 0, 'L');
+            $pdf->Cell(5.8, 0.5, ",  solicito  el  Fondo  de  Retiro", 0, 0, 'L');
 
             $pdf->Ln(0.6);
-            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',9,9.55,10.6,0.04);
-            $pdf->Cell(7, 0.5, "Retiro por Fallecimiento del Profr (a).", 0, 0, 'L');
+            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',8.5,9.55,10,0.04);
+            $pdf->Cell(5.8, 0.5, "por Fallecimiento del (la) Profr (a).", 0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
-            $pdf->Cell(10.59, 0.5, utf8_decode($resultsM[0]['nomcommae']), 0, 0, 'C');
+            $pdf->Cell(10.64, 0.5, utf8_decode($resultsM[0]['nomcommae']), 0, 0, 'C');
+            $pdf->SetFont('Arial','',12);
+            $pdf->Cell(1.2, 0.5, "quien", 0, 0, 'L');
 
             $pdf->Ln(0.6);
             $pdf->SetFont('Arial','',12);
-            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',14.8,10.15,2.8,0.04);
-            $pdf->Cell(6.3, 0.5, "quien  se  encontraba  en  activo,", 0, 0, 'L');
-            $pdf->Cell(6.5, 0.5, utf8_decode("  con  Clave  de  Servidor  Público"), 0, 0, 'L');
+            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',14.7,10.15,2.8,0.04);
+            $pdf->Cell(5.5, 0.5, "se   encontraba   en   activo,", 0, 0, 'L');
+            $pdf->Cell(7.2, 0.5, utf8_decode("  con   Clave   de   Servidor   Público"), 0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
             $pdf->Cell(2.8, 0.5,$resultsT[0]['cvemae'], 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(1.99, 0.5," y   CURP  ", 0, 0, 'L');
+            $pdf->Cell(2.09, 0.5,"  y   CURP  ", 0, 0, 'L');
 
             $pdf->Ln(0.6);
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',2.1,10.75,5.2,0.04);
             $pdf->SetFont('Arial','B',11);
             $pdf->Cell(5.3, 0.5,$resultsM[0]['curpmae'], 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(6.2,0.5, utf8_decode("y  laboraba en  la región sindical"), 0, 0, 'L');
+            $pdf->Cell(6.25,0.5, utf8_decode("y  laboraba en  la  región sindical"), 0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
-            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',13.55,10.75,1.0,0.04);
+            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',13.65,10.75,1.0,0.04);
             $pdf->Cell(1, 0.5,$resultsM[0]['regescmae'], 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
             $pdf->Cell(5.09, 0.5," como  docente basificado", 0, 0, 'L');
@@ -429,23 +442,23 @@
             $pdf->Cell(0.8, 0.5," al ", 0, 0, 'L');
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',7.1,11.35,2.8,0.04);
             $pdf->SetFont('Arial','B',11);
-            $pdf->Cell(2.8, 0.5,date("d-m-Y",strtotime($resultsT[0]['fechbajfall'])) ,0, 0, 'C');
+            $pdf->Cell(2.8, 0.5,date("d-m-Y",strtotime($resultsT[0]['fechbajfall'])) , 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
             $pdf->Cell(6, 0.5,",  periodo  durante  el cual tuvo", 0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',15.9,11.35,1.1,0.04);
             $pdf->Cell(1.1, 0.5,$resultsM[0]['numpsgs'], 0, 0, 'C');
-            $pdf->SetFont('Arial','',12);
-            $pdf->Cell(2.59,0.5,utf8_decode(" permisos sin"),0, 0, 'L');
+            $pdf->SetFont('Arial','',12);   
+            $pdf->Cell(2.59,0.5,utf8_decode(" permisos sin"), 0, 0, 'L');
 
             $pdf->Ln(0.6);
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(11,0.5,utf8_decode("goce de sueldo, por lo que solicito el Fondo  de Retiro por"),0, 0, 'L');
+            $pdf->Cell(10.9,0.5,utf8_decode("goce  de  sueldo, por  lo  que  se  realiza  la  solicitud  por"),0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
-            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',13,11.95,1.1,0.04);
+            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',12.9,11.95,1.1,0.04);
             $pdf->Cell(1.09, 0.5,$resultsM[0]['aservactmae'], 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(5.5, 0.5,utf8_decode("años de servicio cotizados al "), 0, 0, 'L');
+            $pdf->Cell(5.6, 0.5,utf8_decode("años de servicio  cotizados al"), 0, 0, 'L');
 
             $pdf->Ln(0.6);
             $pdf->SetFont('Arial','',12);
@@ -614,19 +627,21 @@
             $pdf->SetFont('Arial','B',11);
             $pdf->Cell(10.59, 0.5, utf8_decode( $resultsT[0]['nomsolic']), 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(5.8, 0.5, ",  quien  solicita  el  Fondo  de", 0, 0, 'L');
+            $pdf->Cell(5.8, 0.5, ",  solicito  el  Fondo  de  Retiro", 0, 0, 'L');
 
             $pdf->Ln(0.5);
-            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',9,9.4,10.6,0.04);
-            $pdf->Cell(7, 0.5, "Retiro por Fallecimiento del Profr (a).", 0, 0, 'L');
+            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',8.5,9.4,9.95,0.04);
+            $pdf->Cell(6.5, 0.5, "por Fallecimiento del (la) Profr (a).", 0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
-            $pdf->Cell(10.59, 0.5, utf8_decode($resultsM[0]['nomcommae']), 0, 0, 'C');
+            $pdf->Cell(9.93, 0.5, utf8_decode($resultsM[0]['nomcommae']), 0, 0, 'C');
+            $pdf->SetFont('Arial','',12);
+            $pdf->Cell(1.2, 0.5, "quien", 0, 0, 'L');
 
             $pdf->Ln(0.5);
             $pdf->SetFont('Arial','',12);
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',14.8,9.9,2.8,0.04);
-            $pdf->Cell(6.3, 0.5, "quien  se  encontraba  en  activo,", 0, 0, 'L');
-            $pdf->Cell(6.5, 0.5, utf8_decode("  con  Clave  de  Servidor  Público"), 0, 0, 'L');
+            $pdf->Cell(5.8, 0.5, "se   encontraba   en    activo,", 0, 0, 'L');
+            $pdf->Cell(7, 0.5, utf8_decode(" con   Clave   de   Servidor   Público"), 0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
             $pdf->Cell(2.8, 0.5,$resultsT[0]['cvemae'], 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
@@ -674,9 +689,11 @@
             
             $pdf->Ln(1);
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(8.1,0.5,utf8_decode(", por lo que solicito el Fondo  de Retiro por"),0, 0, 'L');
+            $pdf->SetDrawColor(0,0,0);
+            $pdf->Image('/var/www/html/sistge/img/lineafirma.png',10,13.8,1.1,0.04);
+            $pdf->Cell(7.8,0.5,utf8_decode(", por  lo  que se  realiza  la  solicitud  por"),0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
-            $pdf->Cell(1.09, 0.5,$resultsM[0]['aservactmae'], 0, 0, 'C');
+            $pdf->Cell(1.39, 0.5,$resultsM[0]['aservactmae'], 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
             $pdf->Cell(8.4, 0.5,utf8_decode("años de servicio  cotizados al  SMSEM, con"), 0, 0, 'L');
 
@@ -891,11 +908,11 @@
         $pdf->SetFont('Arial','B',11);
         $pdf->Cell(10.59, 0.5, utf8_decode( $resultsT[0]['nomsolic']), 0, 0, 'C');
         $pdf->SetFont('Arial','',12);
-        $pdf->Cell(5.8, 0.5, ",  quien  solicita  el  Fondo  de", 0, 0, 'L');
+        $pdf->Cell(5.8, 0.5, ",  solicito  el  Fondo  de  Retiro", 0, 0, 'L');
 
         $pdf->Ln(0.6);
         $pdf->Image('/var/www/html/sistge/img/lineafirma.png',9,10.82,10.6,0.04);
-        $pdf->Cell(7, 0.5, "Retiro por Fallecimiento del Profr (a).", 0, 0, 'L');
+        $pdf->Cell(7, 0.5, "por  Fallecimiento  del (la) Profr (a).", 0, 0, 'L');
         $pdf->SetFont('Arial','B',11);
         $pdf->Cell(10.59, 0.5, utf8_decode($resultsMJub[0]['nomcommae']), 0, 0, 'C');
 
@@ -921,31 +938,29 @@
         $pdf->SetFont('Arial','',12);
         $pdf->Cell(8.4, 0.5," como  maestro (a)  jubilado (a)  a partir del", 0, 0, 'L');
         $pdf->SetFont('Arial','B',11);
-        $pdf->Image('/var/www/html/sistge/img/lineafirma.png',15.1,12,4.5,0.04);
-        $pdf->Cell(4.49, 0.5,$resultsMJub[0]['fechbajamae'],0 , 0, 'C');
+        $pdf->Image('/var/www/html/sistge/img/lineafirma.png',15.1,12,3.9,0.04);
+        $pdf->Cell(3.95, 0.5,$resultsMJub[0]['fechbajamae'],0 , 0, 'C');
+        $pdf->SetFont('Arial','',12);
+        $pdf->Cell(0.59, 0.5," al",0 , 0, 'C');
         
         $pdf->Ln(0.6);
-        $pdf->SetFont('Arial','',12);
-        $pdf->Cell(0.5, 0.5,"al ", 0, 0, 'L');
         $pdf->SetFont('Arial','B',11);
-        $pdf->Image('/var/www/html/sistge/img/lineafirma.png',2.5,12.6,4.5,0.04);
-        $pdf->Cell(4.49, 0.5,$resultsMJub[0]['fcfallecmae'],0 , 0, 'C');
+        $pdf->Image('/var/www/html/sistge/img/lineafirma.png',2.1,12.6,3.9,0.04);
+        $pdf->Cell(3.9, 0.5,$resultsMJub[0]['fcfallecmae'],0 , 0, 'C');
         $pdf->SetFont('Arial','',12);
-        $pdf->Cell(8.2,0.5,utf8_decode(", por lo que solicito el Fondo  de Retiro por"),1, 0, 'L');
+        $pdf->Cell(13.69,0.5,utf8_decode(", por  lo  que  se realiza  la  solicitud  de  las  aportaciones  realizadas  al"),0, 0, 'L');
+        
+        $pdf->Ln(0.6);
+        $pdf->Cell(7.9, 0.5,utf8_decode("programa de Mutualidad SMSEM durante"), 0, 0, 'L');
         $pdf->SetFont('Arial','B',11);
-        $pdf->Image('/var/www/html/sistge/img/lineafirma.png',15.2,12.6,1.1,0.04);
+        $pdf->Image('/var/www/html/sistge/img/lineafirma.png',9.9,13.2,1.1,0.04);
         $pdf->Cell(1.09, 0.5,$resultsMJub[0]['aniosjub'], 0, 0, 'C');
         $pdf->SetFont('Arial','',12);
-        $pdf->Cell(3.31, 0.5,utf8_decode(" años  aportados"), 0, 0, 'L');
-
-        $pdf->Ln(0.6);
-        $pdf->Cell(6.7, 0.5,utf8_decode("al programa de Mutualidad SMSEM"), 0, 0, 'L');
-        $pdf->SetFont('Arial','',12);
-        $pdf->Cell(10.89, 0.5, utf8_decode(", con fundamento  en los artículos  28, 30, 31, 32, 33, 34,"), 0, 0, 'L');
+        $pdf->Cell(8.6, 0.5, utf8_decode(",  con fundamento en los artículos 28, 30, 31,"), 0, 0, 'L');        
 
         $pdf->Ln(0.6);
         $pdf->SetFont('Arial','',12);
-        $pdf->Cell(17.59, 0.5, utf8_decode("35, 37 y 38 del Reglamento del Fondo de Retiro y Fallecimiento (FONRETyF)."), 0, 0, 'L');
+        $pdf->Cell(17.59, 0.5, utf8_decode("32, 33, 34, 35, 37 y 38 del Reglamento del Fondo de Retiro y Fallecimiento (FONRETyF)."), 0, 0, 'L');
 
         $pdf->Ln(1);
         $pdf->SetFont('Arial','',12);
