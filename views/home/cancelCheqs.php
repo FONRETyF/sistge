@@ -25,9 +25,33 @@
         <section id="secCalcelCheqs">
             <div id="divTitleCancelcheqs">CANCELACION DE CHEQUES:  <input type="text" id="InputIdentrega" value="<?php echo $_GET["identr"];?>"></div>
             <div id="divCancelaciones" class="divsCancels">
-                <div># cheque: </div>
-                <div><input type="text" id="numCheqCalcel"></div>
-                <div>
+                <div id="titleFolChq"># cheque: 
+                    <div><input type="text" id="numCheqCalcel" class="folcheque"></div>
+                </div>
+            </div>
+            <div class="divDatsChqs">
+                <div id="titleDatsChqs">Datos del cheque</div>
+                <div id="datsCheqCancel">
+                    <table id="cheque_data" class="table display responsive nowrap">
+                        <caption>Cheque encontrado</caption>
+                        <thead id="tabCnsltCheque">
+                            <tr>
+                                <th style="width: 15px;">Fol. cheque</th>
+                                <th style="width: 150px;">Nombre Beneficiario</th>
+                                <th style="width: 20px;">Monto</th>
+                                <th style="width: 20px;">Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsBusqCheq">
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="divDatsCancelChqs">
+                <div id="titleDatsCancChqs">Datos de cancelacion</div>
+                <div> 
                     <select name="motivCancel" id="motivCancel" placeholder="Motivo de cancelacion" required>
                         <option selected="true" disabled="disabled">Motivo</option>
                         <option value="1">ERROR DE IMPRESIÓN</option>
@@ -57,11 +81,12 @@
                         <option value="25">DUPLICIDAD CHEQUE</option>
                     </select>
                 </div>
+                <div id="divObservCheque">
+                    <div>Observaciones: </div>
+                    <div><input type="text" id="observCancelCheque" name="observCancelCheque"></div>
+                </div>
             </div>
-            <div id="divObservCheque">
-                <div>Observaciones: </div>
-                <div><input type="text" id="observCancelCheque" name="observCancelCheque"></div>
-            </div>
+            
             <div id="divButtonCancel" class="divsCancels">
                 <button type="submit" id="cancelCheque" name="cancelCheque" >CANCELAR</button>
             </div>

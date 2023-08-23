@@ -10,6 +10,18 @@
                 $this->db=$pdo->conexfonretyf();
             }
 
+            public function buscaCheque($folio){
+                try {
+                    $statement = $this->db->prepare("SELECT idbenefcheque,nombenef,montbenef,folcheque,fechcheque,estatcheque FROM public.beneficiarios_cheques WHERE folcheque = ?");
+                    $statement -> bindValue(1,$folio);
+                    $statement->execute();
+                    $result = $statement->fetchAll();
+                } catch (\Throwable $th) {
+                    echo $th;
+                }
+                return $result;
+            }
+
             public function buscachequeC($folio){
                 $resultadoFallo = array();
                 try {
@@ -147,6 +159,51 @@
                     
                     return $resultRepos;
                 }           
+            }
+
+            public function getRetCheq($folcheque){
+                try {
+                   $consultaCheq = "SELECT identret,cvemae,movimtscheque FROM public.beneficiarios_cheques WHERE folcheque='".$folcheque."';";
+                   $statement = $this->db->prepare($consultaCheq);
+                   $statement->execute();
+                   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+               } catch (\Throwable $th) {
+                   echo($th);
+               }
+               return $result;
+           }
+
+            public function cancelaCheque($folcheque,$motivcancel,$observcheq,$cveusu){
+                $fecha = "";
+                $fecha = date("Y-m-d");
+    
+                $a_cancel_cheq = array();
+                $retiroIdCheq = $this->getRetCheq($folcheque);
+                $movimtsCheque = $retiroIdCheq[0]["movimtscheque"] . "C-" . $cveusu . "-" . $fecha;
+                try {
+                    $statement = "UPDATE public.beneficiarios_cheques SET estatcheque='CANCELADO', observcheque='".$observcheq."', movimtscheque=',".$movimtsCheque."', motvcancel=".$motivcancel.", fechcancel='".$fecha."', cveusucancel='".$cveusu."'  WHERE folcheque='".$folcheque."';";
+                    $statement = $this->db->prepare($statement);
+                    $statement->execute();
+                    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                    $a_cancel_cheq["cancelacion"] = "cancelado";
+                } catch (\Throwable $th) {
+                    echo $th;
+                    $a_cancel_cheq["cancelacion"] = "fallo";
+                }
+    
+                if ($motivcancel == 12) {
+                    try {
+                        $statement = "UPDATE public.tramites_fonretyf SET estattramite='NO ENTREGADO' WHERE cvemae='".$retiroIdCheq[0]["cvemae"]."';";
+                        $statement = $this->db->prepare($statement);
+                        $statement->execute();
+                        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                        $a_cancel_cheq["cancelacion"] = "cancelado";
+                    } catch (\Throwable $th) {
+                        echo $th;
+                        $a_cancel_cheq["cancelacion"] = "fallo";
+                    }
+                }
+                return $a_cancel_cheq;
             }
 
         }

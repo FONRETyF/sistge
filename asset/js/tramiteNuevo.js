@@ -33,9 +33,8 @@ $(document).ready(function(){
         $("#editarBenefs").modal('hide');
     });
 
-
-    
 });
+
 
 $("#OpcCauRetiro").change(function () {
     motivo= $("#OpcCauRetiro").val();
@@ -102,12 +101,14 @@ $("#OpcCauRetiro").change(function () {
     }
 });
 
+
 $(".CSPMae").keydown(function (event) {
     var key = window.event ? event.which : event.keyCode;
     if((key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
         return false;
     }
 });
+
 
 $(".cveissemym").keydown(function (event) {
     var key = window.event ? event.which : event.keyCode;
@@ -116,12 +117,14 @@ $(".cveissemym").keydown(function (event) {
     }
 });
 
+
 $('#CURPMae').keydown(function (event) {
     var key = window.event ? event.which : event.keyCode;
     if((key < 65 || key > 90)  && (key < 97 || key > 122) && (key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
         return false;
     }
 });
+
 
 $('#CURPMae').change(function () {
     document.getElementById('RFCMae').value = document.getElementById('CURPMae').value.substr(0,10).toUpperCase();

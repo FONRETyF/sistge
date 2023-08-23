@@ -1961,6 +1961,9 @@ margin: 0 110px;
 .rets_dats  th:nth-child(10){
   border: 1.5px solid rgb(2, 48, 4);
 }
+/*.rets_dats  th:nth-child(10){
+  border: 1.5px solid rgb(2, 48, 4);
+}*/
 
 #benefs_data{
   font-size: 12px;
@@ -2304,8 +2307,8 @@ footer {
 }
 
 #secCalcelCheqs{
-  width: 80%;
-  height: 220px;
+  width: 70%;
+  min-height: 350px;
   display: inline-block;
 }
 #secCalcelCheqs input{
@@ -2319,9 +2322,33 @@ footer {
   align-items: center;
 }
 #divCancelaciones{
-  display: inline-flex;
-  width: 55%;
+  width: 100%;
+  padding: 15px;
 }
+#titleFolchq{
+  margin: 0 auto;
+}
+#titleDatsChqs{
+  color: #042c03;
+  font-size: 15px;
+}
+#titleDatsCancChqs{
+  color: #042c03;
+  font-size: 15px;
+}
+#cheque_data{
+  font-size: small;
+  border-color: rgb(7, 107, 4);
+}
+.divDatsChqs{
+  height: 200px;
+}
+.divDatsCancelChqs{
+  height: 130px;
+}
+
+
+
 #motivCancel{
   text-align: center;
   font-size: 12px;
@@ -2337,7 +2364,7 @@ footer {
 #cancelCheque{
   display: inline-block;
   padding: 8px 18px;
-  font-size: 21px;
+  font-size: 18px;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
@@ -2350,8 +2377,9 @@ footer {
 }
 #divObservCheque{
   display: inline-flex;
-  width: 55%;
+  /*width: 100%;*/
   align-content: center;
+  padding: 10px;
 }
 #observCancelCheque{
   margin: 0 auto;

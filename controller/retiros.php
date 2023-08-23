@@ -10,6 +10,7 @@
     switch ($_GET["op"]) {        
         case "listar":
             $a_get_retiros = $retiro->get_retiros($_GET["identrega"]);
+            $a_Prep_Retiros = Array();
             $a_Retiros = Array();
             $a_get_statentr = $retiro->get_EntRet($_GET["identrega"]);
             if ($a_get_statentr=="CERRADA") {
@@ -17,21 +18,65 @@
             }else {
                 $estatEntrega= "enabled";
             }
-            foreach($a_get_retiros as $row){
+            
+            foreach($a_get_retiros[0] as $row){
                 $a_prep_retiros = array();
-                $a_prep_retiros[] = $row["cvemae"];
-                $a_prep_retiros[] = $row["motvret"];
-                $a_prep_retiros[] = $row["nomcommae"];
-                $a_prep_retiros[] = $row["montrettot"];
-                $a_prep_retiros[] = $row["estattramite"];
-                $a_prep_retiros[] = "<button type='button' onclick='editar(".$row['identret'].");' id='".$row['identret']."'class='BtIcEdit' ".$estatEntrega."><div><img src='../../img/lapiz.png' alt='edita' title='editar' height='20' width='20'></div></button>";
+                $a_prep_retiros['identret'] = $row["identret"];
+                $a_prep_retiros['cvemae'] = $row["cvemae"];
+                $a_prep_retiros['motvret'] = $row["motvret"];
+                $a_prep_retiros['nomcommae'] = $row["nomcommae"];
+                $a_prep_retiros['montrettot'] = $row["montrettot"];
+                $a_prep_retiros['folcheque'] = $row["folcheque"];
+                $a_prep_retiros['estattramite'] = $row["estattramite"];
+                $a_prep_retiros['btnE'] = "<button type='button' onclick='editar(".$row['identret'].");' id='".$row['identret']."'class='BtIcEdit' ".$estatEntrega."><div><img src='../../img/lapiz.png' alt='edita' title='editar' height='20' width='20'></div></button>";
                 //$a_prep_retiros[] = "<button type='button' onclick='detallar(".$row['identret'].",".$row['cvemae'].");'  id='".$row['identret']."'class='BtIcDetail' ".$estatEntrega."><div><i class='fa fa-eye'></i></div></button>";
-                $a_prep_retiros[] = "<button type='button' onclick='mostrar(".$row['identret'].",".$row["cvemae"].")'  id='".$row['identret']."'class='BtIcDetail' ".$estatEntrega."><div><img src='../../img/file.png' alt='muestra' title='mostrar' height='20' width='20'></div></button>";
-                $a_prep_retiros[] = "<button type='button' onclick='eliminarT(".$row['identret'].",".$row['cvemae'].");'  id='".$row['identret']."'class='BtIcDelete' ".$estatEntrega."><div><img src='../../img/goma-de-borrar.png' alt='eliminar' title='eliminar' height='21' width='21'></div></button>";
-                $a_prep_retiros[] = "<button type='button' onclick='imprimir(".$row['identret'].",".$row["cvemae"].");'  id='".$row['identret']."'class='BtIcPrint' ".$estatEntrega."><div><img src='../../img/impresora.png' alt='acuerdo' title='imprime acuerdo' height='23' width='23'></div></button>";
-                $a_prep_retiros[] = "<button type='button' onclick='printRecib(".$row['identret'].",".$row["cvemae"].");'  id='".$row['identret']."'class='BtPrintRb' ".$estatEntrega."><div><img src='../../img/recibido.png' alt='recibido' title='hoja de recibido' height='20' width='20'></div></button>";
-                $a_Retiros[] = $a_prep_retiros;  
+                $a_prep_retiros['btnM'] = "<button type='button' onclick='mostrar(".$row['identret'].",".$row["cvemae"].")'  id='".$row['identret']."'class='BtIcDetail' ".$estatEntrega."><div><img src='../../img/file.png' alt='muestra' title='mostrar' height='20' width='20'></div></button>";
+                $a_prep_retiros['btnD'] = "<button type='button' onclick='eliminarT(".$row['identret'].",".$row['cvemae'].");'  id='".$row['identret']."'class='BtIcDelete' ".$estatEntrega."><div><img src='../../img/goma-de-borrar.png' alt='eliminar' title='eliminar' height='21' width='21'></div></button>";
+                //$a_prep_retiros['btnP'] = "<button type='button' onclick='imprimir(".$row['identret'].",".$row["cvemae"].");'  id='".$row['identret']."'class='BtIcPrint' ".$estatEntrega."><div><img src='../../img/impresora.png' alt='acuerdo' title='imprime acuerdo' height='23' width='23'></div></button>";
+                $a_prep_retiros['btnS'] = "<button type='button' onclick='printRecib(".$row['identret'].",".$row["cvemae"].");'  id='".$row['identret']."'class='BtPrintRb' ".$estatEntrega."><div><img src='../../img/recibido.png' alt='recibido' title='hoja de recibido' height='20' width='20'></div></button>";
+                $a_Prep_Retiros[] = $a_prep_retiros;  
             }
+
+            foreach($a_get_retiros[1] as $rowF){
+                $a_prep_retirosF = array();
+                $a_prep_retirosF['identret'] = $rowF["identret"];
+                $a_prep_retirosF['cvemae'] = $rowF["cvemae"];
+                $a_prep_retirosF['motvret'] = $rowF["motvret"];
+                $a_prep_retirosF['nomcommae'] = $rowF["nomcommae"];
+                $a_prep_retirosF['montrettot'] = $rowF["montrettot"];
+                $a_prep_retirosF['folcheque'] = "0";
+                $a_prep_retirosF['estattramite'] = $row["estattramite"];
+                $a_prep_retirosF['btnE'] = "<button type='button' onclick='editar(".$rowF['identret'].");' id='".$rowF['identret']."'class='BtIcEdit' ".$estatEntrega."><div><img src='../../img/lapiz.png' alt='edita' title='editar' height='20' width='20'></div></button>";
+                //$a_prep_retirosF[] = "<button type='button' onclick='detallar(".$rowF['identret'].",".$rowF['cvemae'].");'  id='".$rowF['identret']."'class='BtIcDetail' ".$estatEntrega."><div><i class='fa fa-eye'></i></div></button>";
+                $a_prep_retirosF['btnM'] = "<button type='button' onclick='mostrar(".$rowF['identret'].",".$rowF["cvemae"].")'  id='".$rowF['identret']."'class='BtIcDetail' ".$estatEntrega."><div><img src='../../img/file.png' alt='muestra' title='mostrar' height='20' width='20'></div></button>";
+                $a_prep_retirosF['btnD'] = "<button type='button' onclick='eliminarT(".$rowF['identret'].",".$rowF['cvemae'].");'  id='".$rowF['identret']."'class='BtIcDelete' ".$estatEntrega."><div><img src='../../img/goma-de-borrar.png' alt='eliminar' title='eliminar' height='21' width='21'></div></button>";
+                //$a_prep_retirosF['btnP'] = "<button type='button' onclick='imprimir(".$rowF['identret'].",".$rowF["cvemae"].");'  id='".$rowF['identret']."'class='BtIcPrint' ".$estatEntrega."><div><img src='../../img/impresora.png' alt='acuerdo' title='imprime acuerdo' height='23' width='23'></div></button>";
+                $a_prep_retirosF['btnS'] = "<button type='button' onclick='printRecib(".$rowF['identret'].",".$rowF["cvemae"].");'  id='".$rowF['identret']."'class='BtPrintRb' ".$estatEntrega."><div><img src='../../img/recibido.png' alt='recibido' title='hoja de recibido' height='20' width='20'></div></button>";
+                $a_Prep_Retiros[] = $a_prep_retirosF;  
+            }
+
+            foreach ($a_Prep_Retiros as $key => $preRet) {
+                $aux[$key] = $preRet['identret'];
+            }
+
+            array_multisort($aux, SORT_DESC,$a_Prep_Retiros);
+
+            foreach($a_Prep_Retiros as $rowRet){
+                $a_prep_retirosOrd = array();
+                $a_prep_retirosOrd[] = $rowRet["cvemae"];
+                $a_prep_retirosOrd[] = $rowRet["motvret"];
+                $a_prep_retirosOrd[] = $rowRet["nomcommae"];
+                $a_prep_retirosOrd[] = $rowRet["montrettot"];
+                $a_prep_retirosOrd[] = $rowRet["folcheque"];
+                $a_prep_retirosOrd[] = $rowRet["estattramite"];
+                $a_prep_retirosOrd[] = $rowRet["btnE"];;
+                $a_prep_retirosOrd[] = $rowRet["btnM"];;
+                $a_prep_retirosOrd[] = $rowRet["btnD"];;
+                //$a_prep_retirosOrd[] = $rowRet["btnP"];;
+                $a_prep_retirosOrd[] = $rowRet["btnS"];;
+                $a_Retiros[] = $a_prep_retirosOrd;  
+            }
+
             $a_result_retiros_DT = array(
                 "sEcho"=> 1,
                 "iTotalRecords"=>count($a_Retiros),
@@ -207,10 +252,6 @@
             echo json_encode($output, JSON_FORCE_OBJECT);
             break;
 
-        case 'cancelCheque':
-            $a_cancel_cheque = $retiro->cancelaCheque($_POST["numcheque"],$_POST["motvcanc"],$_POST["observ"],$_SESSION['usuario']);
-            echo json_encode($a_cancel_cheque, JSON_FORCE_OBJECT);
-            break;
         default:
             break;
     }

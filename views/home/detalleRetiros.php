@@ -46,14 +46,15 @@
                         <tr>
                             <th class="wd-15p"> Clave </th>
                             <th class="wd-15p"> Motivo </th>
-                            <th class="wd-15p"> Beneficiario </th>
+                            <th class="wd-15p"> Maestro </th>
                             <th class="wd-15p"> Monto </th>
+                            <th class="wd-15p"> Fol. Cheque </th>
                             <th class="wd-15p"> Estatus </th>
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>
-                            <th class="wd-15p"></th>
+                            <!--<th class="wd-15p"></th>-->
                         </tr>
                     </thead>
                 </table>
