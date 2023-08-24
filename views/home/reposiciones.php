@@ -1,13 +1,13 @@
 <?php
     require_once("/var/www/html/sistge/views/head/header.php");
-    
+
     if(empty($_SESSION['usuario'])){
         header("Location:login.php");
     }
 
 ?>
 
-<section class="contenidoGral">        
+<section class="contenidoGral">
     <form class="FormcontenidoGral" action="" method="POST" name="" id="form_ReposicionCheq">
         <section class="sectNavegador">
             <div class="DivBotnsNav">
@@ -35,7 +35,7 @@
                 <table id="chequeC_data" class="table display responsive nowrap">
                     <caption>Cheque cancelado</caption>
                     <thead id="tabConsultCheqC">
-                        <tr>   
+                        <tr>
                             <th style="width: 5px;"> Entrega </th>
                             <th style="width: 150px;"> Nombre </th>
                             <th style="width: 25px;"> Estatus  </th>
@@ -47,6 +47,20 @@
 
                     </tbody>
                 </table>
+            </div>
+            <div class="divDatsReposCheq" id="divDatsReposCheq">
+              <div class="TitledivDatsReposCheq">Datos del nuevo cheque</div>
+              <div class="titlesDatosCheqs">
+                <div class="titleDatocheqRepos" id="titleNomBenef">Nombre</div>
+                <div class="titleDatocheqRepos" id="titleMonBenef">Monto</div>
+                <div class="titleDatocheqRepos" id="titleMonBenefLet">Monto Letra</div>
+              </div>
+              <div class="datsCheqRepos">
+                <div class="inputNomBenef" id="inputNomBenef"><input type="text" name="NomBenefRepos" id="NomBenefRepos"> </div>
+                <div class="inputMonBenef" id="inputMonBenef"><input type="text" name="MontBenefRepos" id="MontBenefRepos"></div>
+                <div class="inputMonBenefLet" id="inputMonBenefLet"><input type="text" name="MontLetRepos" id="MontLetRepos" disabled></div>
+              </div>
+
             </div>
             <div id="divReposicion">
                 <div id="divFolNuevo">Folio nuevo: <input type="text" id="numCheqRepos" name="numCheqRepos"></div>
@@ -64,9 +78,9 @@
 </section>
 
 <script src="../../libs/datatables/jquery-3.6.0.js"></script>
-<script src="../../libs/datatables/jquery-3.6.0.min.js"></script>  
+<script src="../../libs/datatables/jquery-3.6.0.min.js"></script>
 
-<script src="../../libs/datatables/moment.js"></script> 
+<script src="../../libs/datatables/moment.js"></script>
 <script src="../../libs/datatables/jquery-ui.js"></script>
 <script src="../../libs/datatables/jquery.peity.js"></script>
 <script src="../../libs/datatables/jquery.dataTables.js"></script>

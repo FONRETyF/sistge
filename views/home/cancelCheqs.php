@@ -1,13 +1,13 @@
 <?php
     require_once("/var/www/html/sistge/views/head/header.php");
-    
+
     if(empty($_SESSION['usuario'])){
         header("Location:login.php");
     }
 
 ?>
 
-<section class="contenidoGral">        
+<section class="contenidoGral">
     <form class="FormcontenidoGral" action="" method="POST" name="" id="form_CancelCheqs" enctype="multipart/form-data">
         <section class="sectNavegador">
             <div class="DivBotnsNav">
@@ -23,9 +23,9 @@
             </div>
         </section>
         <section id="secCalcelCheqs">
-            <div id="divTitleCancelcheqs">CANCELACION DE CHEQUES:  <input type="text" id="InputIdentrega" value="<?php echo $_GET["identr"];?>"></div>
+            <div id="divTitleCancelcheqs">CANCELACION DE CHEQUES</div>
             <div id="divCancelaciones" class="divsCancels">
-                <div id="titleFolChq"># cheque: 
+                <div id="titleFolChq"># cheque:
                     <div><input type="text" id="numCheqCalcel" class="folcheque"></div>
                 </div>
             </div>
@@ -36,6 +36,7 @@
                         <caption>Cheque encontrado</caption>
                         <thead id="tabCnsltCheque">
                             <tr>
+                                <th style="width: 15px;">Entrega</th>
                                 <th style="width: 15px;">Fol. cheque</th>
                                 <th style="width: 150px;">Nombre Beneficiario</th>
                                 <th style="width: 20px;">Monto</th>
@@ -51,7 +52,7 @@
             </div>
             <div class="divDatsCancelChqs">
                 <div id="titleDatsCancChqs">Datos de cancelacion</div>
-                <div> 
+                <div>
                     <select name="motivCancel" id="motivCancel" placeholder="Motivo de cancelacion" required>
                         <option selected="true" disabled="disabled">Motivo</option>
                         <option value="1">ERROR DE IMPRESIÓN</option>
@@ -86,7 +87,7 @@
                     <div><input type="text" id="observCancelCheque" name="observCancelCheque"></div>
                 </div>
             </div>
-            
+
             <div id="divButtonCancel" class="divsCancels">
                 <button type="submit" id="cancelCheque" name="cancelCheque" >CANCELAR</button>
             </div>
@@ -95,9 +96,9 @@
 </section>
 
 <script src="../../libs/datatables/jquery-3.6.0.js"></script>
-<script src="../../libs/datatables/jquery-3.6.0.min.js"></script>  
+<script src="../../libs/datatables/jquery-3.6.0.min.js"></script>
 
-<script src="../../libs/datatables/moment.js"></script> 
+<script src="../../libs/datatables/moment.js"></script>
 <script src="../../libs/datatables/jquery-ui.js"></script>
 <script src="../../libs/datatables/jquery.peity.js"></script>
 <script src="../../libs/datatables/jquery.dataTables.js"></script>

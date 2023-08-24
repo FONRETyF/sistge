@@ -1,32 +1,42 @@
 <?php
     session_start();
-    
+
     require_once("/var/www/html/sistge/model/formularioTram.php");
 
     class Retiros extends formularioTram{
-       
+
         public function __construct()
         {
             require_once("/var/www/html/sistge/config/dbfonretyf.php");
             $pdo = new dbfonretyf();
             $this->db=$pdo->conexfonretyf();
         }
-        
+
         public function get_retiros($identrega)
         {
             $results_rets=array();
 
             $estatentr = $this->get_EntRet($identrega);
             if ($estatentr =="CERRADA") {
-                $statement = $this->db->prepare('SELECT identrega,numentrega,anioentrega,identret,cvemae,motvret,nomsolic,montrettot,estattramite FROM public.tramites_fonretyf_hist where identrega= ? ORDER BY identret ASC');
-                $statement->bindValue(1,$identrega);
+                $consulta= "SELECT tab1.identrega,tab1.numentrega,tab1.anioentrega,tab1.identret,tab1.cvemae,tab1.motvret,tab2.nomcommae,tab1.montrettot,tab1.estattramite,tab3.folcheque FROM public.tramites_fonretyf_hist as tab1 LEFT JOIN public.beneficiarios_cheques_hist as tab3 on tab1.cvemae = tab3.cvemae LEFT JOIN(SELECT tab1.cvemae,tab2.nomcommae";
+                $consulta = $consulta . " FROM public.tramites_fonretyf_hist as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf_hist as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 on tab1.cvemae= tab2.cvemae WHERE identrega='" . $identrega . "' and (motvret='I' or motvret='J') ORDER BY identret DESC;";
+                $statement = $this->db->prepare($consulta);
                 $statement->execute();
-                $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-                return $results;
-                
+                $resultsJub = $statement->fetchAll(PDO::FETCH_ASSOC);
+                $results_rets[] = $resultsJub;
+
+                $consultaF= "SELECT tab1.identrega,tab1.numentrega,tab1.anioentrega,tab1.identret,tab1.cvemae,tab1.motvret,tab2.nomcommae,tab1.montrettot,tab1.estattramite FROM public.tramites_fonretyf_hist as tab1 LEFT JOIN(SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf_hist as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION";
+                $consultaF = $consultaF . " SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf_hist as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 on tab1.cvemae= tab2.cvemae WHERE identrega= '".$identrega."' and (motvret='FA' or motvret='FJ' or motvret='F') ORDER BY identret DESC;";
+                $statementF = $this->db->prepare($consultaF);
+                $statementF->execute();
+                $resultsFall = $statementF->fetchAll(PDO::FETCH_ASSOC);
+                $results_rets[] = $resultsFall;
+
+                return $results_rets;
+
             } else if ($estatentr=="ACTIVA") {
                 $consulta= "SELECT tab1.identrega,tab1.numentrega,tab1.anioentrega,tab1.identret,tab1.cvemae,tab1.motvret,tab2.nomcommae,tab1.montrettot,tab1.estattramite,tab3.folcheque FROM public.tramites_fonretyf as tab1 LEFT JOIN public.beneficiarios_cheques as tab3 on tab1.cvemae = tab3.cvemae LEFT JOIN(SELECT tab1.cvemae,tab2.nomcommae";
-                $consulta = $consulta . " FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 on tab1.cvemae= tab2.cvemae WHERE identrega='".$identrega."' and (motvret='I' or motvret='J') ORDER BY identret DESC;";
+                $consulta = $consulta . " FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 on tab1.cvemae= tab2.cvemae WHERE identrega='" . $identrega . "' and (motvret='I' or motvret='J') ORDER BY identret DESC;";
                 $statement = $this->db->prepare($consulta);
                 $statement->execute();
                 $resultsJub = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -40,9 +50,9 @@
                 $results_rets[] = $resultsFall;
 
                 return $results_rets;
-            }            
+            }
         }
-        
+
         public function get_EntRet($identrega){
             $statementEstEnt = $this->db->prepare('SELECT estatentrega FROM public.entregas_fonretyf WHERE identrega= ?');
             $statementEstEnt->bindValue(1,$identrega);
@@ -51,13 +61,13 @@
             $estatusE = $results[0]['estatentrega'];
             return $estatusE;
         }
-        
+
         public function deleteTram($identreret,$clavemae,$cveusu){
             require_once("/var/www/html/sistge/model/Entregas.php");
             $entrega = new Entrega();
 
             $get_entrega = $entrega -> get_entrega_id(substr($identreret,0,6));
-            
+
             $a_resultDeleteTram = array();
 
             $fecha = "";
@@ -66,7 +76,7 @@
             require_once("/var/www/html/sistge/model/Tramites.php");
             $retiros = new Tramite();
             $tramite = $retiros->get_retiro_Id($clavemae);
-            
+
             if ($tramite[0]['motvret'] == "J" || $tramite[0]['motvret'] == "I") {
                 $modoretiro = $tramite[0]['modretiro'];
                 switch ($modoretiro) {
@@ -85,13 +95,13 @@
                                 $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] - 1 .", numtraminha=". $get_entrega[0][13] - 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) - str_replace(",","",str_replace("$","",$tramite[0]['montrettot'])) ."  WHERE identrega='".substr($identreret,0,6)."'";
                                 $statementActEntr = $this->db->prepare($statementActEntr);
                                 $statementActEntr->execute();
-                                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
+                                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
                             } elseif ($tramite[0]['motvret']=="J") {
                                 $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". ($get_entrega[0][12] - 1) .", numtramjub=". ($get_entrega[0][14] - 1) .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) - str_replace(",","",str_replace("$","",$tramite[0]['montrettot'])) ."  WHERE identrega='".substr($identreret,0,6)."'";
                                 $statementActEntr = $this->db->prepare($statementActEntr);
                                 $statementActEntr->execute();
-                                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
-                            } 
+                                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                            }
                         }
 
                         return $a_resultDeleteTram;
@@ -123,15 +133,15 @@
                                 $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] - 1 .", numtraminha=". $get_entrega[0][13] - 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) - str_replace(",","",str_replace("$","",$tramite[0]['montrettot'])) ."  WHERE identrega='".substr($identreret,0,6)."'";
                                 $statementActEntr = $this->db->prepare($statementActEntr);
                                 $statementActEntr->execute();
-                                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
+                                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
                             } elseif ($tramite[0]['motvret'] == "J") {
                                 $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". ($get_entrega[0][12] - 1) .", numtramjub=". ($get_entrega[0][14] - 1) .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) - str_replace(",","",str_replace("$","",$tramite[0]['montrettot'])) ."  WHERE identrega='".substr($identreret,0,6)."'";
                                 $statementActEntr = $this->db->prepare($statementActEntr);
                                 $statementActEntr->execute();
-                                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
-                            } 
+                                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                            }
                         }
-                        
+
                         return $a_resultDeleteTram;
                         break;
 
@@ -158,20 +168,20 @@
                                 $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] - 1 .", numtraminha=". $get_entrega[0][13] - 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) - str_replace(",","",str_replace("$","",$tramite[0]['montrettot'])) ."  WHERE identrega='".substr($identreret,0,6)."'";
                                 $statementActEntr = $this->db->prepare($statementActEntr);
                                 $statementActEntr->execute();
-                                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
+                                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
                             } elseif ($motvret=="J") {
                                 $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". ($get_entrega[0][12] - 1) .", numtramjub=". ($get_entrega[0][14] - 1) .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) - str_replace(",","",str_replace("$","",$tramite[0]['montrettot'])) ."  WHERE identrega='".substr($identreret,0,6)."'";
                                 $statementActEntr = $this->db->prepare($statementActEntr);
                                 $statementActEntr->execute();
-                                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
-                            } 
+                                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                            }
                         }
 
                         return $a_resultDeleteTram;
                         break;
 
                     default:
-                        
+
                         break;
                 }
 
@@ -193,7 +203,7 @@
                         $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] - 1 .", numtramfall=". $get_entrega[0][15] - 1 .", numtramfallact=".$get_entrega[0][16] - 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) - str_replace(",","",str_replace("$","",$tramite[0]['montrettot'])) ."  WHERE identrega='".substr($identreret,0,6)."'";
                         $statementActEntr = $this->db->prepare($statementActEntr);
                         $statementActEntr->execute();
-                        $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);      
+                        $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
                     }
 
                     return $a_resultDeleteTram;
@@ -203,27 +213,27 @@
                     if ($programaFallec == "FMU") {
                         $eliminaBenefsMae = $this->eliminaBenefsMae($clavemae);
                         $a_resultDeleteTram["eliminaBenefs"] = $eliminaBenefsMae;
-    
+
                         $eliminaCheque = $this->deleteCheque($identreret);
                         $a_resultDeleteTram["eliminaCheque"] = $eliminaCheque;
-    
+
                         $actualizaMaestro = $this->actualizaMaeActJubMut($clavemae,$cveusu,$fecha);
                         $a_resultDeleteTram["actualizaMaestro"] = $actualizaMaestro;
-    
+
                         $eliminaTramite = $this->eliminaTramite($identreret);
                         $a_resultDeleteTram["eliminaTramite"] = $eliminaTramite;
-                        
+
                         if ($a_resultDeleteTram["eliminaBenefs"] == "Eliminado" && $a_resultDeleteTram["eliminaCheque"] == "Eliminado" && $a_resultDeleteTram["actualizaMaestro"] == "Actualizado" && $a_resultDeleteTram["eliminaTramite"] == "Eliminado" ) {
                             $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] - 1 .", numtramfall=". $get_entrega[0][15] - 1 .", numtramfalljubm=".$get_entrega[0][17] - 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) - str_replace(",","",str_replace("$","",$tramite[0]['montrettot'])) ."  WHERE identrega='".substr($identreret,0,6)."'";
                             $statementActEntr = $this->db->prepare($statementActEntr);
                             $statementActEntr->execute();
-                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);      
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
                         }
 
                         return $a_resultDeleteTram;
                     } elseif ($programaFallec == "FFJ") {
                         echo("es fondo fallecimiento");
-                    } 
+                    }
                 }
             }
         }
@@ -381,7 +391,7 @@
             $statementDTFA = $this->db->prepare($statementDTFA);
             $statementDTFA->execute();
             $results = $statementDTFA->fetchAll(PDO::FETCH_ASSOC);
-            
+
             return $results;
         }
 
@@ -402,12 +412,12 @@
             $results = $statementDTBenefs->fetchAll(PDO::FETCH_ASSOC);
             return $results;
         }
-        
+
         public function updateFolsCheques($identrega,$numfolini){
             $a_resultsUpdtFols = array();
             $a_resultAsigFols = array();
             $A_Cheques_Informatica = array();
-            
+
             /* INHABILITADOS */
             $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab1.motvret,tab1.modretiro,tab2.idbenefcheque,tab2.nombenef,tab2.montbenef,tab2.montbenefletra,tab2.statedad,tab2.chequeadeudo,tab2.adeudo,tab3.nomcommae FROM public.tramites_fonretyf as tab1 LEFT JOIN public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret";
             $consultacheques = $consultacheques . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab2.fcbasemae,tab2.fbajamae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab2.fechbajamae,tab2.fcfallecmae FROM public.tramites_fonretyf as tab1,";
@@ -416,22 +426,22 @@
             $statementCheques = $this->db->prepare($consultacheques);
             $statementCheques->execute();
             $resultsChequesI = $statementCheques->fetchAll(PDO::FETCH_ASSOC);
-            
+
             $auxI = array();
             foreach ($resultsChequesI as $key => $row) {
                 $auxI[$key]=$row["nomcommae"];
             }
-            
+
             $collator = collator_create("es");
             $collator->sort($auxI);
-            
+
             foreach ($auxI as $rowAuxI) {
                 foreach ($resultsChequesI as $key => $rowI) {
                     if ($rowAuxI === $rowI['nomcommae']) {
                         array_push($A_Cheques_Informatica, $rowI);
                         break;
-                    } 
-                }    
+                    }
+                }
             }
 
             /* JUBILADOS */
@@ -450,25 +460,25 @@
 
             $collator = collator_create("es");
             $collator->sort($auxJ);
-            
+
             foreach ($auxJ as $rowAuxJ) {
                 foreach ($resultsChequesJ as $key => $rowJ) {
                     if ($rowAuxJ === $rowJ['nomcommae']) {
                         array_push($A_Cheques_Informatica, $rowJ);
                         break;
-                    } 
-                }    
+                    }
+                }
             }
 
             /* FALLECIMIENTOS */
             $consultachequesF = "SELECT tab1.identret,tab1.cvemae,tab1.motvret,tab3.nomcommae,tab3.numcelmae,tab3.numfijmae FROM public.tramites_fonretyf as tab1 ";
             $consultachequesF = $consultachequesF . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab2.numcelmae,tab2.numfijmae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab2.numcelmae,tab2.numfijmae FROM public.tramites_fonretyf as tab1,";
             $consultachequesF = $consultachequesF . " public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') and (tab1.modretiro='C' or tab1.modretiro='D50') ORDER  BY nomcommae ASC;";
-            
+
             $statementChequesF = $this->db->prepare($consultachequesF);
             $statementChequesF->execute();
             $resultsChequesF = $statementChequesF->fetchAll(PDO::FETCH_ASSOC);
-       
+
             $auxF = array();
             foreach ($resultsChequesF as $key => $row) {
                 $auxF[$key]=$row["nomcommae"];
@@ -476,16 +486,16 @@
 
             $collator = collator_create("es");
             $collator->sort($auxF);
-            
+
             foreach ($auxF as $rowAuxF) {
                 foreach ($resultsChequesF as $key => $rowF) {
                     if ($rowAuxF === $rowF['nomcommae']) {
                         $clave= $rowF['cvemae'];
-                        
+
                         $consultachequesB = "SELECT tab1.identret,tab1.cvemae,tab1.motvret,tab1.modretiro,tab2.idbenefcheque,tab2.nombenef,tab2.montbenef,tab2.montbenefletra,tab2.statedad,tab2.chequeadeudo,tab2.adeudo,tab3.nomcommae FROM public.tramites_fonretyf as tab1 LEFT JOIN (SELECT tab1.identret,tab1.idbenef,tab1.cvemae,tab1.idbenefcheque,tab1.nombenef,tab1.montbenef,tab1.montbenefletra,tab1.statedad,tab1.chequeadeudo,tab1.adeudo,tab1.folcheque,tab2.parentbenef,tab2.edadbenef,tab2.vidabenef FROM public.beneficiarios_cheques as tab1";
                         $consultachequesB = $consultachequesB . " LEFT JOIN public.beneficiarios_maestros as tab2 on tab1.cvemae = tab2.cvemae and tab1.idbenefcheque=tab2.idbenefcheque and tab1.anioentrega=".substr($identrega,0,4)." and tab1.numentrega=".intval(substr($identrega,4,2)).") as tab2 on tab1.identret = tab2.identret LEFT JOIN (SELECT tab1.*, tab2.fechsinipsgs,tab2.fechsfinpsgs,tab2.diaspsgs  FROM (SELECT tab1.cvemae,tab2.nomcommae,tab2.fcbasemae,tab2.fbajamae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp and tab1.anioentrega=".substr($identrega,0,4)." and tab1.numentrega=".intval(substr($identrega,4,2));
                         $consultachequesB = $consultachequesB . " UNION SELECT tab1.cvemae,tab2.nomcommae,tab2.fechbajamae,tab2.fcfallecmae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym and tab1.anioentrega=".substr($identrega,0,4)." and tab1.numentrega=".intval(substr($identrega,4,2)).") as tab1 LEFT JOIN public.maestros_smsem as tab2 on tab1.cvemae=tab2.csp) as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and tab1.cvemae='".$clave."' and tab2.statedad = 'M' and tab2.chequeadeudo = 'N' ORDER BY nombenef ASC;";
-                        
+
                         $statementChequesB = $this->db->prepare($consultachequesB);
                         $statementChequesB->execute();
                         $resultsChequesB = $statementChequesB->fetchAll(PDO::FETCH_ASSOC);
@@ -502,27 +512,27 @@
                                     if ($rowBB === $rowBenef['nombenef']) {
                                         array_push($A_Cheques_Informatica, $rowBenef);
                                         break;
-                                    } 
-                                }    
+                                    }
+                                }
                             }
                         }else {
                             array_push($A_Cheques_Informatica, $resultsChequesB[0]);
                         }
                         break;
-                    } 
-                }    
+                    }
+                }
             }
-            
+
 
             /* MENORES DE EDAD */
             $consultachequesME = "SELECT DISTINCT tab1.identret,tab1.cvemae,tab1.motvret,tab2.statedad,tab3.nomcommae FROM public.tramites_fonretyf as tab1 LEFT JOIN public.beneficiarios_cheques as tab2 on tab1.cvemae=tab2.cvemae";
             $consultachequesME = $consultachequesME . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab2.numcelmae,tab2.numfijmae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab2.numcelmae,tab2.numfijmae FROM public.tramites_fonretyf as tab1,";
             $consultachequesME = $consultachequesME . " public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') and (tab1.modretiro='C' or tab1.modretiro='D50') and tab2.statedad = 'N' ORDER  BY nomcommae ASC;";
-            
+
             $statementChequesME = $this->db->prepare($consultachequesME);
             $statementChequesME->execute();
             $resultsChequesME = $statementChequesME->fetchAll(PDO::FETCH_ASSOC);
-       
+
             $auxME = array();
             foreach ($resultsChequesME as $key => $row) {
                 $auxME[$key]=$row["nomcommae"];
@@ -533,18 +543,18 @@
 
             foreach ($auxME as $rowAuxME) {
                 $nomMae = $rowAuxME;
-                foreach ($resultsChequesME as $rowF) {                  
+                foreach ($resultsChequesME as $rowF) {
                     if ($nomMae === $rowF['nomcommae']) {
                         $clave= $rowF['cvemae'];
-                        
+
                         $consultachequesB = "SELECT tab1.identret,tab1.cvemae,tab1.motvret,tab1.modretiro,tab2.idbenefcheque,tab2.nombenef,tab2.montbenef,tab2.montbenefletra,tab2.statedad,tab2.chequeadeudo,tab2.adeudo,tab3.nomcommae FROM public.tramites_fonretyf as tab1 LEFT JOIN (SELECT tab1.identret,tab1.idbenef,tab1.cvemae,tab1.idbenefcheque,tab1.nombenef,tab1.montbenef,tab1.montbenefletra,tab1.statedad,tab1.chequeadeudo,tab1.adeudo,tab1.folcheque,tab2.parentbenef,tab2.edadbenef,tab2.vidabenef FROM public.beneficiarios_cheques as tab1";
                         $consultachequesB = $consultachequesB . " LEFT JOIN public.beneficiarios_maestros as tab2 on tab1.cvemae = tab2.cvemae and tab1.idbenefcheque=tab2.idbenefcheque and tab1.anioentrega=".substr($identrega,0,4)." and tab1.numentrega=".intval(substr($identrega,4,2)).") as tab2 on tab1.identret = tab2.identret LEFT JOIN (SELECT tab1.*, tab2.fechsinipsgs,tab2.fechsfinpsgs,tab2.diaspsgs  FROM (SELECT tab1.cvemae,tab2.nomcommae,tab2.fcbasemae,tab2.fbajamae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp and tab1.anioentrega=".substr($identrega,0,4)." and tab1.numentrega=".intval(substr($identrega,4,2));
                         $consultachequesB = $consultachequesB . " UNION SELECT tab1.cvemae,tab2.nomcommae,tab2.fechbajamae,tab2.fcfallecmae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym and tab1.anioentrega=".substr($identrega,0,4)." and tab1.numentrega=".intval(substr($identrega,4,2)).") as tab1 LEFT JOIN public.maestros_smsem as tab2 on tab1.cvemae=tab2.csp) as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and tab1.cvemae='".$clave."' and tab2.statedad = 'N' and tab2.chequeadeudo = 'N' ORDER BY nombenef ASC;";
-                        
+
                         $statementChequesB = $this->db->prepare($consultachequesB);
                         $statementChequesB->execute();
                         $resultsChequesB = $statementChequesB->fetchAll(PDO::FETCH_ASSOC);
-                        
+
                         if (count($resultsChequesB) > 1) {
                             $auxB = array();
                             foreach ($resultsChequesB as $keyB => $rowB) {
@@ -556,27 +566,27 @@
                                 foreach ($resultsChequesB as $keyBenef => $rowBenef) {
                                     if ($rowBB === $rowBenef['nombenef']) {
                                         array_push($A_Cheques_Informatica, $rowBenef);
-                                        
-                                    } 
-                                }    
-                            }   
+
+                                    }
+                                }
+                            }
                         }else {
                             array_push($A_Cheques_Informatica, $resultsChequesB[0]);
-                            
+
                         }
                     }
                 }
             }
-           
+
             /* ADEUDOS */
             $consultachequesA = "SELECT tab1.identret,tab1.cvemae,tab1.motvret,tab1.modretiro,tab2.idbenefcheque,tab2.nombenef,tab2.montbenef,tab2.montbenefletra,tab2.statedad,tab2.chequeadeudo,tab2.adeudo,tab3.nomcommae FROM public.tramites_fonretyf as tab1 LEFT JOIN public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret";
             $consultachequesA = $consultachequesA . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab2.fcbasemae,tab2.fbajamae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab2.fechbajamae,tab2.fcfallecmae FROM public.tramites_fonretyf as tab1,";
             $consultachequesA = $consultachequesA . " public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and tab2.chequeadeudo = 'S' ORDER  BY nombenef ASC;";
-            
+
             $statementChequesA = $this->db->prepare($consultachequesA);
             $statementChequesA->execute();
             $resultsChequesA = $statementChequesA->fetchAll(PDO::FETCH_ASSOC);
-            
+
             $auxA = array();
             if (!empty($resultsChequesA)) {
                 foreach ($resultsChequesA as $key => $row) {
@@ -591,29 +601,29 @@
                         if ($row === $rowA['nombenef']) {
                             array_push($A_Cheques_Informatica, $rowA);
                             break;
-                        } 
-                    }    
+                        }
+                    }
                 }
-            }   
+            }
 
             $numBenefCheques = count($A_Cheques_Informatica);
-            
-            foreach ($A_Cheques_Informatica as $row) {
+
+            /*foreach ($A_Cheques_Informatica as $row) {
                echo($row["nomcommae"]."---".$row["nombenef"]."<br>");
-            }
+            }*/
 
             $contNumChqs = 0;
             $folio = $numfolini -1;
             $folioFinal = 0;
             foreach ($A_Cheques_Informatica as $row) {
                 $folcheque = "00" . $folio +1;
-                try {                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                try {
                     $consultaUpdateTram = "UPDATE public.beneficiarios_cheques SET folcheque='".$folcheque."' WHERE idbenefcheque='".$row["idbenefcheque"]."';";
                     $consultaUpdateTram = $this->db->prepare($consultaUpdateTram);
                     $consultaUpdateTram->execute();
-                    $results = $consultaUpdateTram->fetchAll(PDO::FETCH_ASSOC);    
-                    $a_resultsUpdtFols[$row["idbenefcheque"]] = "Actualizado";   
-                    $folioFinal = $folcheque; 
+                    $results = $consultaUpdateTram->fetchAll(PDO::FETCH_ASSOC);
+                    $a_resultsUpdtFols[$row["idbenefcheque"]] = "Actualizado";
+                    $folioFinal = $folcheque;
                     $contNumChqs++;
                 } catch (\Throwable $th) {
                     $a_resultsUpdtFols[$row["idbenefcheque"]] = "Fallo";
@@ -662,7 +672,7 @@
                         } catch (\Throwable $th) {
                             echo($th);
                         }
-                    } 
+                    }
                     return $result;
                 }elseif ($criterioBusq == 3) {
                     try {
@@ -684,30 +694,59 @@
                         } catch (\Throwable $th) {
                             echo($th);
                         }
-                    } 
+                    }
                     return $result;
                 }elseif ($criterioBusq == 4) {
                     try {
-                        $statement = "SELECT tab2.identret,tab1.motvret,tab2.cvemae,tab2.nombenef,tab1.montrettot,tab2.montbenef,tab1.fechrecib,tab2.fechentrega,tab1.estattramite,tab2.estatcheque,tab2.folcheque";
-                        $statement = $statement . " FROM public.tramites_fonretyf as tab1 INNER JOIN public.beneficiarios_cheques as tab2 on tab1.cvemae = tab2.cvemae WHERE tab2.folcheque='%".$valCriBusq."%';";
+                        $statement = "SELECT tab2.identret,tab1.cvemae,tab1.nombenef,tab1.montbenef,tab1.folcheque,tab1.fechentrega,tab1.estatcheque,tab2.motvret,tab2.montrettot,tab2.fechrecib,tab2.estattramite";
+                        $statement = $statement . " FROM public.beneficiarios_cheques as tab1 LEFT JOIN public.tramites_fonretyf as tab2 on tab1.cvemae=tab2.cvemae WHERE tab1.folcheque='".$valCriBusq."';";
                         $statement = $this->db->prepare($statement);
                         $statement->execute();
-                        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                        $resultact = $statement->fetchAll(PDO::FETCH_ASSOC);
                     } catch (\Throwable $th) {
                         echo($th);
                     }
-                    if (empty($result)) {
+                    if (empty($resultact)) {
                         try {
-                            $statement = "SELECT tab2.identret,tab1.motvret,tab2.cvemae,tab2.nombenef,tab1.montrettot,tab2.montbenef,tab1.fechrecib,tab2.fechentrega,tab1.estattramite,tab2.estatcheque,tab2.folcheque";
-                            $statement = $statement . " FROM public.tramites_fonretyf_hist as tab1 INNER JOIN public.beneficiarios_cheques_hist as tab2 on tab1.cvemae = tab2.cvemae WHERE tab2.folcheque='%".$valCriBusq."%';";
+                            $statement = "SELECT tab2.identret,tab1.cvemae,tab1.nombenef,tab1.montbenef,tab1.folcheque,tab1.fechentrega,tab1.estatcheque,tab2.motvret,tab2.montrettot,tab2.fechrecib,tab2.estattramite";
+                            $statement = $statement . " FROM public.beneficiarios_cheques_hist as tab1 LEFT JOIN public.tramites_fonretyf_hist as tab2 on tab1.cvemae=tab2.cvemae WHERE tab1.folcheque='".$valCriBusq."';";
                             $statement = $this->db->prepare($statement);
                             $statement->execute();
-                            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                            $resulthist = $statement->fetchAll(PDO::FETCH_ASSOC);
                         } catch (\Throwable $th) {
                             echo($th);
                         }
-                    } 
-                    return $result;
+                    }else {
+                      return $resultact;
+                    }
+                    if (empty($resulthist)) {
+                      try {
+                          $statement = "SELECT tab2.identret,tab1.cvemae,tab1.nombenef,tab1.montbenef,tab1.folcheque,tab1.fechentrega,tab1.estatcheque,tab2.motvret,tab2.montrettot,tab2.fechrecib,tab2.estattramite";
+                          $statement = $statement . " FROM public.cheqs_cancelados as tab1 LEFT JOIN public.tramites_fonretyf as tab2 on tab1.cvemae=tab2.cvemae WHERE tab1.folcheque='".$valCriBusq."';";
+                          $statement = $this->db->prepare($statement);
+                          $statement->execute();
+                          $resultCancelAct = $statement->fetchAll(PDO::FETCH_ASSOC);
+                      } catch (\Throwable $th) {
+                          echo($th);
+                      }
+                    }else {
+                      return $resulthist;
+                    }
+                    if (empty($resultCancelAct)) {
+                      try {
+                          $statement = "SELECT tab2.identret,tab1.cvemae,tab1.nombenef,tab1.montbenef,tab1.folcheque,tab1.fechentrega,tab1.estatcheque,tab2.motvret,tab2.montrettot,tab2.fechrecib,tab2.estattramite";
+                          $statement = $statement . " FROM public.cheqs_cancelados as tab1 LEFT JOIN public.tramites_fonretyf_hist as tab2 on tab1.cvemae=tab2.cvemae WHERE tab1.folcheque='".$valCriBusq."';";
+                          $statement = $this->db->prepare($statement);
+                          $statement->execute();
+                          $resultCancelhist = $statement->fetchAll(PDO::FETCH_ASSOC);
+                          return $resultCancelhist;
+                      } catch (\Throwable $th) {
+                          echo($th);
+                      }
+                    }else {
+                      return $resultCancelAct;
+                    }
+
                 }
             }
         }
@@ -723,7 +762,7 @@
             }
             return $result;
         }
-        
+
         public function gettrampend($cvemae){
             try {
                 $statement = "SELECT id,motvret,cvemae,nomcommae,fechrecib,estattramite FROM public.tramites_pendientes WHERE cvemae='".$cvemae."';";
@@ -735,7 +774,7 @@
             }
             return $result;
         }
-        
+
         public function getRetCheq($folcheque){
              try {
                 $consultaCheq = "SELECT identret,cvemae,movimtscheque FROM public.beneficiarios_cheques WHERE folcheque='".$folcheque."';";
@@ -748,8 +787,8 @@
             return $result;
         }
 
-        
-        
+
+
     }
 
 ?>

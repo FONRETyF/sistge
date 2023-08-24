@@ -405,7 +405,7 @@ a:nth-child(6) {
   .titEditEntr{
     height: 30px;
     font-size: medium;
-    color: #06461f;  
+    color: #06461f;
   }
   .DatsEntrNuv{
     width: 90%;
@@ -901,7 +901,7 @@ a:nth-child(6) {
   font-size: 20px;
   font-weight: bold;
   color: #042c03;
-  
+
 }
 #ConsltRetir {
   /*margin: 35px 0 0;*/
@@ -1133,7 +1133,7 @@ input[type="date"]{
   border-top: none;
   border-left: none;
   border-right: none;
-  background-color: #d4d1d1;  
+  background-color: #d4d1d1;
 }
 #nomComplMae:disabled{
   background-color: #d4d1d1;
@@ -1156,7 +1156,7 @@ input[type="date"]{
 #OpcRegSind{
   width: 59px;
   font-size: 12px;
-  text-align: center; 
+  text-align: center;
 }
 #regsindmae{
   width: 50px;
@@ -1166,7 +1166,7 @@ input[type="date"]{
   padding-top: 17px;
   display: inline-flex;
   margin: 0 auto;
-  
+
 }
 #DivTelCel{
   margin: 0 15px;
@@ -1627,7 +1627,7 @@ margin: 0 110px;
   height: 30px;
   border-radius: 3px;
   width: 90%;
-} 
+}
 #buttnUpImage{
   background: transparent;
   background-color: transparent;
@@ -1778,7 +1778,7 @@ margin: 0 110px;
 }
 #asignarFolio2{
   height: 230px;
-  
+
 }*/
 #DivRadBtnsListOfics{
   width: 50%;
@@ -1809,7 +1809,7 @@ margin: 0 110px;
 }
 #DivBtnImpOfics{
   width: 100%;
-  height: 20%;  
+  height: 20%;
 }
 #BtnImprimeOficio{
   display: inline-block;
@@ -2037,7 +2037,7 @@ margin: 0 110px;
 #DivsueldosBase{
   margin: 20px auto;
   display: inline-block;
-  
+
 }
 .datsSueldosBase{
   width: 350px;
@@ -2492,7 +2492,7 @@ input[type="date"]{
 }
 #divInfoNumCarpetas{
   display: inline-flex;
-  margin:10px 0; 
+  margin:10px 0;
 }
 #inputNumCarp{
   width: 80px;
@@ -2537,7 +2537,7 @@ input[type="date"]{
   display: inline-flex;
   width: 70%;
   text-align: center;
-  background-color: #2b3bc794;  
+  background-color: #2b3bc794;
 }
 .foliosInp{
   display: inline-flex;
@@ -2643,6 +2643,10 @@ input[type="date"]{
   font-size: 18px;
   font-weight: bold;
 }
+#divTitleCancelcheqs{
+  font-size: 18px;
+  font-weight: bold;
+}
 #secReposCheqs input{
   height: 30px;
   border-radius: 3px;
@@ -2690,6 +2694,65 @@ input[type="date"]{
 #numCheqRepos{
   width: 140px;
   text-align: center;
+}
+
+.divDatsReposCheq{
+  width: 70%;
+  height: 100px;
+  margin: 0 auto;
+}
+.divDatsReposCheq input{
+  height: 30px;
+  border-radius: 3px;
+}
+#TitledivDatsReposCheq{
+  color: #1B4B02;
+  text-align: center;
+}
+.titlesDatosCheqs{
+  display: flex;
+}
+.datsCheqRepos{
+  display: flex;
+}
+.titleDatocheqRepos{
+  padding-top: 15px
+  padding-left: 5px;
+  padding-right: 5px;
+}
+#titleNomBenef{
+  width: 400px;
+}
+#inputNomBenef{
+  width: 400px;
+  padding: 5px;
+}
+#NomBenefRepos{
+  width: 400px;
+  padding: 5px;
+}
+#titleMonBenef{
+  width: 120px;
+}
+#inputMonBenef{
+  width: 120px;
+  padding: 5px;
+}
+#MontBenefRepos{
+  width: 120px;
+  padding: 5px;
+  text-align: center;
+}
+#inputMonBenefLet{
+  width: 230px;
+  padding: 5px;
+}
+#MontLetRepos{
+  width: 230px;
+  padding: 5px;
+}
+#titleMonBenefLet{
+  width: 230px;
 }
 
 #reposCheque{
@@ -2805,35 +2868,35 @@ input[type="date"]{
 }
 .tab_emisiones th:nth-child(1){
   width: 3px;
-  border: 1.5px solid rgb(2, 48, 4); 
+  border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_emisiones th:nth-child(2){
   width: 3px;
-  border: 1.5px solid rgb(2, 48, 4); 
+  border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_emisiones th:nth-child(3){
   width: 250px;
-  border: 1.5px solid rgb(2, 48, 4); 
+  border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_emisiones th:nth-child(4){
   width: 3px;
-  border: 1.5px solid rgb(2, 48, 4); 
+  border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_emisiones th:nth-child(5){
   width: 5px;
-  border: 1.5px solid rgb(2, 48, 4); 
+  border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_emisiones th:nth-child(6){
   width: 3px;
-  border: 1.5px solid rgb(2, 48, 4); 
+  border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_emisiones th:nth-child(7){
   width: 3px;
-  border: 1.5px solid rgb(2, 48, 4); 
+  border: 1.5px solid rgb(2, 48, 4);
 }
 .tab_emisiones th:nth-child(8){
   width: 3px;
-  border: 1.5px solid rgb(2, 48, 4); 
+  border: 1.5px solid rgb(2, 48, 4);
 }
 
 /* ESTILOS MODAL DE EMISIONES DE MUTUALIDAD */
@@ -3085,7 +3148,7 @@ input[type="date"]{
 }
 .tab_solicsmut th:nth-child(10){
   border: 1.5px solid rgb(2, 48, 4);
-} 
+}
 #secSolicsMut{
   width: 80%;
   padding-top: 15px;

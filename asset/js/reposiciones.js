@@ -3,7 +3,7 @@ function init(){
 }
 
 $(document).ready(function () {
-    
+  document.getElementById("divDatsReposCheq").style.display = "none";
 });
 
 $("#BttnBuscarCheq").on("click",function (e) {
@@ -22,13 +22,21 @@ $("#BttnBuscarCheq").on("click",function (e) {
             for (let index = 0; index < resultBusqCheqC.length; index++) {
                 datosCheq = Object.values(resultBusqCheqC[index]);
                 var tr = `<tr>
-                        <td>`+datosCheq[4]+ `</td> 
-                        <td>`+datosCheq[8]+ `</td> 
-                        <td>`+datosCheq[19]+ `</td> 
-                        <td>`+datosCheq[31]+ `</td> 
-                        <td>`+datosCheq[20]+ `</td> 
+                        <td>`+datosCheq[4]+ `</td>
+                        <td>`+datosCheq[8]+ `</td>
+                        <td>`+datosCheq[19]+ `</td>
+                        <td>`+datosCheq[31]+ `</td>
+                        <td>`+datosCheq[20]+ `</td>
                     </tr>`;
                 $("#resultBusqCheqs").append(tr);
+            }
+
+            $("#NomBenefRepos").val(resultBusqCheqC[0][8]);
+            $("#MontBenefRepos").val(resultBusqCheqC[0][9].replace(",","").replace("$",""));
+            $("#MontLetRepos").val(resultBusqCheqC[0][10]);
+
+            if (resultBusqCheqC[0][22] == 2 || resultBusqCheqC[0][22] == 4 || resultBusqCheqC[0][22]==5 || resultBusqCheqC[0][22]==20 || resultBusqCheqC[0][22]==23) {
+                document.getElementById("divDatsReposCheq").style.display = "block";
             }
         }
     });
@@ -36,9 +44,9 @@ $("#BttnBuscarCheq").on("click",function (e) {
 
 $("#reposCheque").on("click", function (e) {
     e.preventDefault();
-    
-    $.post("../../controller/cheque.php?opcion=reponerCheque",{folioAnt:$("#numCheqCancel").val(),folioNuevo:$("#numCheqRepos").val(),fechRepos:$("#fechRepos").val(),observRepos:$("#observRepos").val()},function (data) {
-        data = Object.values(JSON.parse(data));   
+
+    $.post("../../controller/cheque.php?opcion=reponerCheque",{folioAnt:$("#numCheqCancel").val(),folioNuevo:$("#numCheqRepos").val(),fechRepos:$("#fechRepos").val(),observRepos:$("#observRepos").val(),nomBenef:$("#NomBenefRepos").val(),montBenef:$("#MontBenefRepos").val(),montBenefLet:$("#MontLetRepos").val()},function (data) {
+        data = Object.values(JSON.parse(data));
         resultPre = data.length;
         switch (resultPre) {
             case 1:
@@ -49,13 +57,13 @@ $("#reposCheque").on("click", function (e) {
                     );
                 }
                 break;
-        
+
             case 2:
                 if (data[0] == "Agregado" && data[1] == "Actualizado") {
                     Swal.fire(
                         "REPOSICION REALIZADA CORRECTAMENTE"
                     );
-                    location.href = "../../views/home/oficioReposicion.php" + "?folio=" + $("#numCheqCancel").val();                    
+                    location.href = "../../views/home/oficioReposicion.php" + "?folio=" + $("#numCheqCancel").val();
                 }
                 if (data[0] == "Agregado" && data[1] == "Fallo") {
                     Swal.fire(

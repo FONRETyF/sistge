@@ -21,19 +21,19 @@
                 </div>
             </div>
         </section>
-        <section id="secRetiros"> 
-            <div id="divNumEstatEntr"> 
+        <section id="secRetiros">
+            <div id="divNumEstatEntr">
                 <div id="divNumEntr">RELACION DE RETIROS DE LA ENTREGA:
                     <input type="text" id="InputIdentrega" value="<?php echo $_GET["identrega"];?>">
-                </div> 
+                </div>
             </div>
             <div id="ConsultRetiros">
                 <input type="hidden" id="estatentrega" name="estatentrega">
                 <div id="operationsEntr">
-                    <a id="tramNuevo" class="btnsOperations" href="tratimeCaptura.php?identrega=<?php echo $_GET["identrega"];?>"><img src="../../img/new-document.png" alt="Nuevo tramite" title="Nuevo tramite" height="35" width="35"></a>  
+                    <a id="tramNuevo" class="btnsOperations" href="tratimeCaptura.php?identrega=<?php echo $_GET["identrega"];?>"><img src="../../img/new-document.png" alt="Nuevo tramite" title="Nuevo tramite" height="35" width="35"></a>
                     <a id="asignFol" class="btnsOperations" href="#"><img src="../../img/asignafolio.png" alt="Asigna folios" title="Asigna folios" height="45" width="45"></a>
                     <a id="printLists" class="btnsOperations" href="#"><img src="../../img/imprimeListados.png" alt="Imprimir listados" title="Imprimir listados" height="35" width="35"></a>
-                    <a id="cancelCheqs" class="btnsOperations" href="#"><img src="../../img/cancelar.png" alt="Cancelar cheques" title="Cancelar cheques" height="40" width="40"></a>
+                    <!--<a id="cancelCheqs" class="btnsOperations" href="#"><img src="../../img/cancelar.png" alt="Cancelar cheques" title="Cancelar cheques" height="40" width="40"></a>-->
                     <a id="asignCarpts" class="btnsOperations" href="#"><img src="../../img/carpetas.png" alt="Carpetas" title="Asignar Carpetas" height="40" width="40"></a>
                 </div>
                 <div id="DivEstatEntr">ESTATUS: &nbsp
@@ -66,9 +66,9 @@
 
 
 <script src="../../libs/datatables/jquery-3.6.0.js"></script>
-<script src="../../libs/datatables/jquery-3.6.0.min.js"></script>  
+<script src="../../libs/datatables/jquery-3.6.0.min.js"></script>
 
-<script src="../../libs/datatables/moment.js"></script> 
+<script src="../../libs/datatables/moment.js"></script>
 <script src="../../libs/datatables/jquery-ui.js"></script>
 <script src="../../libs/datatables/jquery.peity.js"></script>
 <script src="../../libs/datatables/jquery.dataTables.js"></script>
@@ -86,4 +86,3 @@
 
 <?php require_once("/var/www/html/sistge/views/home/detalleRetiro.php"); ?>
 <?php require_once("/var/www/html/sistge/views/head/footer.php"); ?>
-

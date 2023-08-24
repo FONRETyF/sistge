@@ -4,7 +4,7 @@
 
     require_once "/var/www/html/sistge/model/Cheque.php";
     $cheque = new Cheque();
-    
+
     switch ($_GET["opcion"]) {
         case 'buscaCheque':
             $resultBusqCheq = $cheque->buscaCheque($_POST["folcheque"]);
@@ -17,15 +17,15 @@
             break;
 
         case 'reponerCheque':
-            $resultOperac = $cheque->reponerCheque($_POST["folioAnt"],$_POST["folioNuevo"],$_POST["fechRepos"],$_POST["observRepos"],$_SESSION["usuario"]);
+            $resultOperac = $cheque->reponerCheque($_POST["folioAnt"],$_POST["folioNuevo"],$_POST["fechRepos"],$_POST["observRepos"],$_POST["nomBenef"],$_POST["montBenef"],$_POST["montBenefLet"],$_SESSION["usuario"]);
             echo json_encode($resultOperac, JSON_FORCE_OBJECT);
             break;
-        
+
         case 'cancelCheque':
             $a_cancel_cheque = $cheque->cancelaCheque($_POST["numcheque"],$_POST["motvcanc"],$_POST["observ"],$_SESSION['usuario']);
             echo json_encode($a_cancel_cheque, JSON_FORCE_OBJECT);
             break;
-        
+
         default:
             # code...
             break;

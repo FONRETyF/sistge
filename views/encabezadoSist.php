@@ -30,16 +30,18 @@
                                     <li><a class="dropdown-item" href="entregas.php">ENTREGAS</a></li>
                                     <li><a class="dropdown-item" href="consultRetiros.php">CONSULTAS</a></li>
                                     <li><a class="dropdown-item" href="pendientes.php">PENDIENTES</a></li>
+                                    <li><a class="dropdown-item" href="#">PRORROGAS</a></li>
+                                    <li><a class="dropdown-item" href="cancelCheqs.php">CANCELACIONES</a></li>
                                     <li><a class="dropdown-item" href="reposiciones.php">REPOSICIONES</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle primermenu" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="primermenu">JUBILADOS</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="consultaEdosCtaMut.php">CONSULTAS</a></li> 
+                                    <li><a class="dropdown-item" href="consultaEdosCtaMut.php">CONSULTAS</a></li>
                                     <li><a class="dropdown-item" href="emisionesMut.php">MUTUALIDAD</a></li>
                                     <li><a class="dropdown-item" href="emisionesFF.php">FONDO FALLECIMIENTO</a></li>
-                                </ul>                              
+                                </ul>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle primermenu" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="primermenu">PROCESOS</a>
@@ -57,4 +59,3 @@
         </nav>
     </div>
 </div>
-

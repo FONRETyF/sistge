@@ -1,17 +1,17 @@
 var folioCheque = '';
 
 function init() {
-    
+
 }
 
 $(document).ready(function () {
-    
+
 });
 
 var accionCancelCheq = document.getElementById("cancelCheque")
 accionCancelCheq.addEventListener("click", function (e) {
     e.preventDefault();
-    
+
 
     /*folcheque = $("#numCheqCalcel").val();*/
     $.post("../../controller/cheque.php?opcion=cancelCheque",{numcheque:$("#numCheqCalcel").val(),motvcanc:$("#motivCancel").val(),observ:$("#observCancelCheque").val()},function (data) {
@@ -28,7 +28,7 @@ accionCancelCheq.addEventListener("click", function (e) {
             );
         }
     });
-    
+
 });
 
 $(".folcheque").keydown(function (event) {
@@ -45,7 +45,7 @@ $("#numCheqCalcel").change(function () {
         $.post("../../controller/cheque.php?opcion=buscaCheque",{folcheque:$folioCheque},function (dataCheque) {
             dataCheque =JSON.parse(dataCheque);
             dataResultCheque = Object.values(dataCheque);
-            
+
             $("#resultsBusqCheq").html("");
             if (dataResultCheque[0][5] == "CANCELADO") {
                 Swal.fire(
@@ -57,18 +57,19 @@ $("#numCheqCalcel").change(function () {
                 for (let index = 0; index < dataResultCheque.length; index++) {
                     datsCheq = Object.values(dataResultCheque[index]);
                     var tr = `<tr>
-                                <td>`+dataResultCheque[0][3]+ `</td> 
-                                <td>`+dataResultCheque[0][1]+ `</td> 
-                                <td>`+dataResultCheque[0][2]+ `</td> 
-                                <td>`+dataResultCheque[0][4]+ `</td>   
+                                <td>`+dataResultCheque[0][0]+ `</td>
+                                <td>`+dataResultCheque[0][4]+ `</td>
+                                <td>`+dataResultCheque[0][2]+ `</td>
+                                <td>`+dataResultCheque[0][3]+ `</td>
+                                <td>`+dataResultCheque[0][5]+ `</td>
                             </tr>`;
-                        $("#resultsBusqCheq").append(tr);                
+                        $("#resultsBusqCheq").append(tr);
                 }
             }
-            
+
         });
     } else {
-        
+
     }
 });
 

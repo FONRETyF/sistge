@@ -1,12 +1,12 @@
 const identrega =  $("#InputIdentrega").val();
 
 function init() {
-    
+
 }
 
 
 $(document).ready(
-    
+
     function () {
         var varstat = obtenEstatEntr(identrega);
         $('#retiros_data').dataTable({
@@ -17,7 +17,7 @@ $(document).ready(
             paging: true,
             pagingType: 'full_numbers',
             dom: 'Bfrtip', //definicion de los elementos del control de la tabla
-            buttons: [		          
+            buttons: [
                 'copyHtml5',
                 'excelHtml5',
                 'csvHtml5'
@@ -25,9 +25,9 @@ $(document).ready(
             "ajax":{
                 url: '../../controller/retiros.php?op=listar&identrega='+ identrega,
                 type : "post",
-                dataType : "json",						
+                dataType : "json",
                 error: function(e){
-                    console.log(e.responseText);	
+                    console.log(e.responseText);
                 }
             },
             "ordering": false,
@@ -49,7 +49,7 @@ $(document).ready(
                 "sUrl":            "",
                 "sInfoThousands":  ",",
                 "sLoadingRecords": "Cargando...",
-                "oPaginate": {          
+                "oPaginate": {
                     "sFirst":    "Primero",
                     "sLast":     "Último",
                     "sNext":     "Siguiente",
@@ -73,15 +73,15 @@ $(document).ready(
                 {width: "3px",targets:9}
             ]
         }
-    ).DataTable();   
-    
+    ).DataTable();
+
     $("#cerrarDetalleRet").click(function () {
         $("#detalleInfoRatiro").modal('hide');
     });
 });
 
 function obtenEstatEntr(identrega) {
-    $.post("../../controller/retiros.php?op=buscaEnt",{identrega:identrega},function(data){  
+    $.post("../../controller/retiros.php?op=buscaEnt",{identrega:identrega},function(data){
         datEntr = JSON.parse(data);
         if (datEntr.EstatEnt == "CERRADA") {
             document.getElementById("operationsEntr").style.display = "none";
@@ -108,7 +108,7 @@ accionBtnInicio.addEventListener("click", function (e) {
 var motivo='';
 var progamret='';
 function mostrar(identret,cvemae) {
-    $.post("../../controller/retiros.php?op=getTram",{identret:identret},function(data){  
+    $.post("../../controller/retiros.php?op=getTram",{identret:identret},function(data){
         datTramite = JSON.parse(data);
         var motivoRet = datTramite.motvret;
         var modretiro = datTramite.modretiro;
@@ -122,7 +122,7 @@ function mostrar(identret,cvemae) {
                 }else if (datos.motvret == "FA"){
                     motivo="FALLECIMIENTO";
                 }
-                
+
                 switch (datos.modretiro) {
                     case 'C':
                         progamret = "COMPLETO";
@@ -146,7 +146,7 @@ function mostrar(identret,cvemae) {
                     document.getElementById("DivDTPermisos").style.display="block";
                     document.getElementById("DivDTDiasPermisos").style.display="block";
                     document.getElementById("DivDTAniosBase").style.display="block";
-                    
+
 
                 }else if( motivoRet == "FA"){
                     document.getElementById("secBenefes").style.display="block";
@@ -155,7 +155,7 @@ function mostrar(identret,cvemae) {
                     document.getElementById("DivDTPermisos").style.display="block";
                     document.getElementById("DivDTDiasPermisos").style.display="block";
                     document.getElementById("DivDTAniosBase").style.display="block";
-                    
+
                     $.post("../../controller/retiros.php?op=busqbenefs",{cvemae:cvemae},function(data){
                         data = JSON.parse(data);
                         dataBenefs = Object.values(data);
@@ -163,19 +163,19 @@ function mostrar(identret,cvemae) {
                             for (var index = 0; index < dataBenefs.length; index++) {
                                 datosBenef = Object.values(dataBenefs[index]);
                                     var tr = `<tr>
-                                        <td>`+datosBenef[0]+ `</td> 
-                                        <td>`+datosBenef[1]+ `</td> 
-                                        <td>`+datosBenef[2]+ `</td> 
-                                        <td>`+datosBenef[3]+ `</td> 
-                                        <td>`+datosBenef[4]+ `</td> 
-                                        <td>`+datosBenef[5]+ `</td> 
-                                        <td>`+datosBenef[6]+ `</td> 
-                                        <td>`+datosBenef[7]+ `</td> 
-                                        <td>`+datosBenef[8]+ `</td> 
-                                        <td>`+datosBenef[9]+ `</td> 
+                                        <td>`+datosBenef[0]+ `</td>
+                                        <td>`+datosBenef[1]+ `</td>
+                                        <td>`+datosBenef[2]+ `</td>
+                                        <td>`+datosBenef[3]+ `</td>
+                                        <td>`+datosBenef[4]+ `</td>
+                                        <td>`+datosBenef[5]+ `</td>
+                                        <td>`+datosBenef[6]+ `</td>
+                                        <td>`+datosBenef[7]+ `</td>
+                                        <td>`+datosBenef[8]+ `</td>
+                                        <td>`+datosBenef[9]+ `</td>
                                     </tr>`;
                                 $("#resultDTBenefs").append(tr);
-                                }           
+                                }
                     });
                 }
 
@@ -205,7 +205,7 @@ function mostrar(identret,cvemae) {
             document.getElementById("DivDTPermisos").style.display="none";
             document.getElementById("DivDTDiasPermisos").style.display="none";
             document.getElementById("DivDTAniosBase").style.display="block";
-            
+
             $.post("../../controller/retiros.php?op=mostrarFJ",{identret:identret,modretiro:modretiro,cvemae:cvemae,motivoRet:motivoRet},function (datos) {
                 datos = JSON.parse(datos);
                 motivo="FALLECIMIENTO";
@@ -217,21 +217,21 @@ function mostrar(identret,cvemae) {
                     $("#resultDTBenefs").html("");
                         for (var index = 0; index < dataBenefs.length; index++) {
                             datosBenef = Object.values(dataBenefs[index]);
-                            
+
                                 var tr = `<tr>
-                                    <td>`+datosBenef[0]+ `</td> 
-                                    <td>`+datosBenef[1]+ `</td> 
-                                    <td>`+datosBenef[2]+ `</td> 
-                                    <td>`+datosBenef[3]+ `</td> 
-                                    <td>`+datosBenef[4]+ `</td> 
-                                    <td>`+datosBenef[5]+ `</td> 
-                                    <td>`+datosBenef[6]+ `</td> 
-                                    <td>`+datosBenef[7]+ `</td> 
-                                    <td>`+datosBenef[8]+ `</td> 
-                                    <td>`+datosBenef[9]+ `</td> 
+                                    <td>`+datosBenef[0]+ `</td>
+                                    <td>`+datosBenef[1]+ `</td>
+                                    <td>`+datosBenef[2]+ `</td>
+                                    <td>`+datosBenef[3]+ `</td>
+                                    <td>`+datosBenef[4]+ `</td>
+                                    <td>`+datosBenef[5]+ `</td>
+                                    <td>`+datosBenef[6]+ `</td>
+                                    <td>`+datosBenef[7]+ `</td>
+                                    <td>`+datosBenef[8]+ `</td>
+                                    <td>`+datosBenef[9]+ `</td>
                                 </tr>`;
                             $("#resultDTBenefs").append(tr);
-                            }           
+                            }
                 });
 
                 $("#DTIcvemae").val(datos.cvemae);
@@ -252,11 +252,11 @@ function mostrar(identret,cvemae) {
         }
     });
 
-    $('#detalleInfoRatiro').modal('show');  
+    $('#detalleInfoRatiro').modal('show');
 }
 
 function imprimir(identret,cvemae) {
-    $.post("../../controller/retiros.php?op=getTram",{identret:identret},function(data){  
+    $.post("../../controller/retiros.php?op=getTram",{identret:identret},function(data){
         datTramite = JSON.parse(data);
         var motivoRet = datTramite.motvret;
         if (motivoRet == "J" || motivoRet == "I") {
@@ -289,7 +289,7 @@ function eliminarT(identret,cvemae) {
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed){
-            $.post("../../controller/retiros.php?op=deleteTramite",{identret:identret,cvemae:cvemae},function(data){  
+            $.post("../../controller/retiros.php?op=deleteTramite",{identret:identret,cvemae:cvemae},function(data){
                 resultadoDelete = Object.values( JSON.parse(data));
                 NumregsResult = resultadoDelete.length;
                 switch (NumregsResult) {
@@ -309,7 +309,7 @@ function eliminarT(identret,cvemae) {
                             );
                         }
                         break;
-        
+
                     case 4:
                         if (resultadoDelete[0] == "Eliminado" && resultadoDelete[1] == "Eliminado" && resultadoDelete[2] == "Actualizado" && resultadoDelete[3] == "Eliminado" ) {
                             tabla = $('#retiros_data').DataTable();
@@ -326,7 +326,7 @@ function eliminarT(identret,cvemae) {
                             );
                         }
                         break;
-        
+
                     case 5:
                         if (resultadoDelete[0] == "Eliminado" && resultadoDelete[1] == "Eliminado" && resultadoDelete[2] == "Eliminado" && resultadoDelete[3] == "Actualizado" && resultadoDelete[4] == "Eliminado" ) {
                             tabla = $('#retiros_data').DataTable();
@@ -343,14 +343,14 @@ function eliminarT(identret,cvemae) {
                             );
                         }
                         break;
-        
+
                     default:
                         break;
                 }
             });
-            
+
         }
-    });   
+    });
 }
 
 var identr = $("#InputIdentrega").val();
@@ -390,13 +390,6 @@ accionGeneraListados.addEventListener("click",function (e) {
     e.preventDefault();
 
     location.href = "../../views/home/ListadosEntr.php" + "?identr=" + identr;
-});
-
-var accionCancelaCheques = document.getElementById('cancelCheqs');
-accionCancelaCheques.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    location.href = "../../views/home/cancelCheqs.php" + "?identr=" + identr;
 });
 
 var accionCarpetasArchivo = document.getElementById('asignCarpts');

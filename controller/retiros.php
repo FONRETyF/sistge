@@ -7,7 +7,7 @@
     require_once "/var/www/html/sistge/model/Tramites.php";
     $tramite = new Tramite();
 
-    switch ($_GET["op"]) {        
+    switch ($_GET["op"]) {
         case "listar":
             $a_get_retiros = $retiro->get_retiros($_GET["identrega"]);
             $a_Prep_Retiros = Array();
@@ -18,7 +18,7 @@
             }else {
                 $estatEntrega= "enabled";
             }
-            
+
             foreach($a_get_retiros[0] as $row){
                 $a_prep_retiros = array();
                 $a_prep_retiros['identret'] = $row["identret"];
@@ -34,7 +34,7 @@
                 $a_prep_retiros['btnD'] = "<button type='button' onclick='eliminarT(".$row['identret'].",".$row['cvemae'].");'  id='".$row['identret']."'class='BtIcDelete' ".$estatEntrega."><div><img src='../../img/goma-de-borrar.png' alt='eliminar' title='eliminar' height='21' width='21'></div></button>";
                 //$a_prep_retiros['btnP'] = "<button type='button' onclick='imprimir(".$row['identret'].",".$row["cvemae"].");'  id='".$row['identret']."'class='BtIcPrint' ".$estatEntrega."><div><img src='../../img/impresora.png' alt='acuerdo' title='imprime acuerdo' height='23' width='23'></div></button>";
                 $a_prep_retiros['btnS'] = "<button type='button' onclick='printRecib(".$row['identret'].",".$row["cvemae"].");'  id='".$row['identret']."'class='BtPrintRb' ".$estatEntrega."><div><img src='../../img/recibido.png' alt='recibido' title='hoja de recibido' height='20' width='20'></div></button>";
-                $a_Prep_Retiros[] = $a_prep_retiros;  
+                $a_Prep_Retiros[] = $a_prep_retiros;
             }
 
             foreach($a_get_retiros[1] as $rowF){
@@ -52,7 +52,7 @@
                 $a_prep_retirosF['btnD'] = "<button type='button' onclick='eliminarT(".$rowF['identret'].",".$rowF['cvemae'].");'  id='".$rowF['identret']."'class='BtIcDelete' ".$estatEntrega."><div><img src='../../img/goma-de-borrar.png' alt='eliminar' title='eliminar' height='21' width='21'></div></button>";
                 //$a_prep_retirosF['btnP'] = "<button type='button' onclick='imprimir(".$rowF['identret'].",".$rowF["cvemae"].");'  id='".$rowF['identret']."'class='BtIcPrint' ".$estatEntrega."><div><img src='../../img/impresora.png' alt='acuerdo' title='imprime acuerdo' height='23' width='23'></div></button>";
                 $a_prep_retirosF['btnS'] = "<button type='button' onclick='printRecib(".$rowF['identret'].",".$rowF["cvemae"].");'  id='".$rowF['identret']."'class='BtPrintRb' ".$estatEntrega."><div><img src='../../img/recibido.png' alt='recibido' title='hoja de recibido' height='20' width='20'></div></button>";
-                $a_Prep_Retiros[] = $a_prep_retirosF;  
+                $a_Prep_Retiros[] = $a_prep_retirosF;
             }
 
             foreach ($a_Prep_Retiros as $key => $preRet) {
@@ -74,7 +74,7 @@
                 $a_prep_retirosOrd[] = $rowRet["btnD"];;
                 //$a_prep_retirosOrd[] = $rowRet["btnP"];;
                 $a_prep_retirosOrd[] = $rowRet["btnS"];;
-                $a_Retiros[] = $a_prep_retirosOrd;  
+                $a_Retiros[] = $a_prep_retirosOrd;
             }
 
             $a_result_retiros_DT = array(
@@ -94,8 +94,8 @@
         case "deleteTramite":
             $a_deleteTram = $retiro->deleteTram($_POST["identret"],$_POST["cvemae"],$_SESSION['usuario']);
             echo json_encode($a_deleteTram);
-            break;    
-        
+            break;
+
         case 'getTram':
             $a_get_tram_id = $tramite->get_Tram_Id($_POST['identret']);
             foreach($a_get_tram_id as $row){
@@ -131,7 +131,7 @@
 
             echo json_encode($output, JSON_FORCE_OBJECT);
             break;
-        
+
         case 'mostrarFJ':
             $a_get_DT_FJ = $retiro->get_infoDTFJ($_POST['identret'],$_POST['modretiro'],$_POST['cvemae'],$_POST['motivoRet']);
             foreach ($a_get_DT_FJ as $row) {
@@ -173,12 +173,12 @@
             }
             echo json_encode( $a_beneficiarios,JSON_FORCE_OBJECT);
             break;
-        
+
         case 'updateTram':
             $a_get_DT_JIFA = $retiro->get_infoDTJI($_POST['identret'],$_POST['modretiro'],$_POST['cvemae'],$_POST['motivoRet']);
             echo json_encode($a_get_DT_JIFA,JSON_FORCE_OBJECT);
             break;
-        
+
         case 'updateTramFJ':
             $a_get_DT_FJ = $retiro->get_infoDTFJ($_POST['identret'],$_POST['modretiro'],$_POST['cvemae'],$_POST['motivoRet']);
             echo json_encode($a_get_DT_FJ,JSON_FORCE_OBJECT);
@@ -193,9 +193,9 @@
             $a_get_asigFols = $retiro->updateFolsCheques($_POST['identrega'],$_POST['folioini']);
             echo json_encode($a_get_asigFols,JSON_FORCE_OBJECT);
             break;
-        
+
         case 'consultRetiros':
-            
+
             break;
 
         case 'buscaRets':
