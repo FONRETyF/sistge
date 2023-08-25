@@ -57,7 +57,7 @@
               </div>
               <div class="datsCheqRepos">
                 <div class="inputNomBenef" id="inputNomBenef"><input type="text" name="NomBenefRepos" id="NomBenefRepos"> </div>
-                <div class="inputMonBenef" id="inputMonBenef"><input type="text" name="MontBenefRepos" id="MontBenefRepos"></div>
+                <div class="inputMonBenef" id="inputMonBenef"><input type="text" name="MontBenefRepos" id="MontBenefRepos" class="MontBenefRepos"></div>
                 <div class="inputMonBenefLet" id="inputMonBenefLet"><input type="text" name="MontLetRepos" id="MontLetRepos" disabled></div>
               </div>
 

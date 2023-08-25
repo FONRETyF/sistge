@@ -232,6 +232,7 @@
                 $a_prepRetsPend[] = $row["estattramite"];
                 $a_prepRetsPend[] = "<button type='button' onclick='' id='".$row['cvemae']."'class='BtIcEdit'><div><img src='../../img/lapiz.png' alt='edita' title='editar' height='20' width='20'></div></button>";
                 $a_prepRetsPend[] = "<button type='button' onclick='imprimeProga(".$row["cvemae"].");' id='".$row['cvemae']."'class='BtIcPrint'><div><img src='../../img/impresora.png' alt='acuerdo' title='imprime acuerdo' height='23' width='23'></div></button>";
+				$a_prepRetsPend[] = "<button type='button' onclick='eliminarTP(".$row['cvemae'].");'  id='".$row['cvemae']."'class='BtIcDelete'><div><img src='../../img/goma-de-borrar.png' alt='eliminar' title='eliminar' height='21' width='21'></div></button>";
                 $a_tramspends[] =  $a_prepRetsPend;
             }
             $a_result_DT_retpends = array(
@@ -252,6 +253,11 @@
             echo json_encode($output, JSON_FORCE_OBJECT);
             break;
 
+		case 'deleteTramiteP':
+			$a_get_deleteTP = $retiro->deleteTP($_POST["cvemae"]);
+			echo json_encode($a_get_deleteTP, JSON_FORCE_OBJECT);
+			break;
+			
         default:
             break;
     }

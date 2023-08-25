@@ -39,6 +39,7 @@
                             <th class="wd-15p"> Estatus Tramite </th>
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>
+							<th class="wd-15p"></th>
                         </tr>
                     </thead>
                 </table>

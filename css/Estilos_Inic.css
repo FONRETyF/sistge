@@ -2474,6 +2474,10 @@ input[type="date"]{
   width: 5px;
   border: 1.5px solid rgb(2, 48, 4);
 }
+.tabPendientes th:nth-child(9){
+  width: 5px;
+  border: 1.5px solid rgb(2, 48, 4);
+}
 
 #secCarpetasArchivo{
   width: 80%;
@@ -3262,3 +3266,48 @@ input[type="date"]{
   box-shadow: 0 9px rgb(175, 174, 174);
   width: 130px;
 }
+
+
+
+/*          ALTA DE MAESTROS           */
+.sectionsAltMaes{
+	margin: 0 auto;
+	width: 80%;	
+}
+#titleAltMae{
+	margin: 0 auto;
+	text-align:center;
+	color:#003600;
+	font-size: 25px;
+	font-weight: bold;
+	padding:20px;
+}
+#DivDatsAltNomMae{
+  height: 35px;
+}
+#divAgregaMae{
+  margin: 40px auto;
+  height: 80px;
+}
+#agregaMae{
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 17px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #0a6b1b;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px rgb(175, 174, 174);
+  font-weight: bold;
+}
+#cspMae{
+  width: 130px;
+}
+#cveIMae{
+  width: 80px;
+}
+/*------------------------------------*/

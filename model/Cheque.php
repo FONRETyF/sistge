@@ -11,9 +11,10 @@
             }
 
             public function buscaCheque($folio){
+				
                 try {
-                    $statement = $this->db->prepare("SELECT identret,idbenefcheque,nombenef,montbenef,folcheque,fechcheque,estatcheque FROM public.beneficiarios_cheques WHERE folcheque = ?");
-                    $statement -> bindValue(1,$folio);
+					$consulta="SELECT identret,idbenefcheque,nombenef,montbenef,folcheque,fechcheque,estatcheque FROM public.beneficiarios_cheques WHERE folcheque = '".$folio."';";
+					$statement = $this->db->prepare($consulta);
                     $statement->execute();
                     $result = $statement->fetchAll();
                 } catch (\Throwable $th) {

@@ -30,7 +30,7 @@
                                     <li><a class="dropdown-item" href="entregas.php">ENTREGAS</a></li>
                                     <li><a class="dropdown-item" href="consultRetiros.php">CONSULTAS</a></li>
                                     <li><a class="dropdown-item" href="pendientes.php">PENDIENTES</a></li>
-                                    <li><a class="dropdown-item" href="#">PRORROGAS</a></li>
+                                    <li><a class="dropdown-item" href="tramsProrrgs.php">PRORROGAS</a></li>
                                     <li><a class="dropdown-item" href="cancelCheqs.php">CANCELACIONES</a></li>
                                     <li><a class="dropdown-item" href="reposiciones.php">REPOSICIONES</a></li>
                                 </ul>
@@ -48,7 +48,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="parametros.php" >PARAMETROS RET</a></li>
                                     <li><a class="dropdown-item" href="#">NOMINAS ISSEMYM</a></li>
-                                    <li><a class="dropdown-item" href="#">ALTA DE MAESTROS</a></li>
+                                    <li><a class="dropdown-item" href="altMaestro.php">ALTA DE MAESTROS</a></li>
                                 </ul>
                                 <li><a class="dropdown-item" href="logout.php">CERRAR SESION</a></li>
                             </li>

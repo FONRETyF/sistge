@@ -64,11 +64,46 @@ $(document).ready(
                 {width: "5px",targets:4},
                 {width: "5px",targets:5},
                 {width: "5px",targets:6},
-                {width: "5px",targets:7}
+                {width: "5px",targets:7},
+				{width: "5px",targets:8}
             ]
         }
     ).DataTable();
 });
+
+function eliminarTP(cvemae) {
+    swal.fire({
+        title:'ELIMINACIÓN DE TRAMITE PENDIENTE',
+        text:"Eliminara el tramite de la clave " + cvemae +"?",
+        //icon: 'danger',
+        showCancelButton: true,
+        confirmButtonText:'Si',
+        cancelButtonText:'No',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed){
+            $.post("../../controller/retiros.php?op=deleteTramiteP",{cvemae:cvemae},function(data){
+                resultadoDelete = Object.values( JSON.parse(data));
+				
+				if(resultadoDelete == "Eliminado"){
+					tabla = $('#tramsPend_data').DataTable();
+                    tabla.ajax.reload();
+                    swal.fire(
+                        'Eliminado!',
+                        'El tramite se elimino correctamente!!!',
+                        'success'
+                    );
+				}else if(resultadoDelete == "Fallo"){
+					swal.fire(
+                        'FALLO!!!',
+                        'Algo salio mal, comuniquese con el admin del sistema!!!',
+                        'success'
+                    );
+				}
+            });
+        }
+    });
+}
 
 var accionRegresa = document.querySelector('.Btnregresar');
 accionRegresa.addEventListener("click", function (e) {

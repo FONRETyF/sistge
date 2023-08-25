@@ -45,28 +45,34 @@ $("#numCheqCalcel").change(function () {
         $.post("../../controller/cheque.php?opcion=buscaCheque",{folcheque:$folioCheque},function (dataCheque) {
             dataCheque =JSON.parse(dataCheque);
             dataResultCheque = Object.values(dataCheque);
-
+			
             $("#resultsBusqCheq").html("");
-            if (dataResultCheque[0][5] == "CANCELADO") {
+			if(dataResultCheque.length == 0){
+				Swal.fire(
+                    "CHEQUE NO ENCONTRADO!!!",
+                    'posiblemnete el folio ya fue repuesto, consulte en el sistema'
+                );
+			}else{
+				if (dataResultCheque[0][6] == "CANCELADO") {
                 Swal.fire(
                     "EL CHEQUE YA ESTA CANCELADO!!!",
                     'no se puede cancelar un cheque cancelado'
                 );
                 document.getElementById("cancelCheque").disabled = true;
-            } else {
-                for (let index = 0; index < dataResultCheque.length; index++) {
-                    datsCheq = Object.values(dataResultCheque[index]);
-                    var tr = `<tr>
-                                <td>`+dataResultCheque[0][0]+ `</td>
-                                <td>`+dataResultCheque[0][4]+ `</td>
-                                <td>`+dataResultCheque[0][2]+ `</td>
-                                <td>`+dataResultCheque[0][3]+ `</td>
-                                <td>`+dataResultCheque[0][5]+ `</td>
-                            </tr>`;
-                        $("#resultsBusqCheq").append(tr);
-                }
-            }
-
+				} else {
+					for (let index = 0; index < dataResultCheque.length; index++) {
+						datsCheq = Object.values(dataResultCheque[index]);
+						var tr = `<tr>
+									<td>`+dataResultCheque[0][0]+ `</td>
+									<td>`+dataResultCheque[0][4]+ `</td>
+									<td>`+dataResultCheque[0][2]+ `</td>
+									<td>`+dataResultCheque[0][3]+ `</td>
+									<td>`+dataResultCheque[0][5]+ `</td>
+								</tr>`;
+							$("#resultsBusqCheq").append(tr);
+					}
+				}
+			}
         });
     } else {
 

@@ -787,6 +787,20 @@
             return $result;
         }
 
+		public function deleteTP($cvemae){
+			$resultDeleteTram = array();
+            try {
+                $statementDelete = "DELETE FROM public.tramites_pendientes WHERE cvemae='".$cvemae."';";
+                $statementDelete = $this->db->prepare($statementDelete);
+                $statementDelete->execute();
+                $results = $statementDelete->fetchAll(PDO::FETCH_ASSOC);
+                $resultDeleteTram["resultado"] = "Eliminado";
+                return $resultDeleteTram;
+            } catch (\Throwable $th) {
+                $resultDeleteTram["resultado"] = "Fallo";
+                return $resultDeleteTram;
+            }
+        }
 
 
     }

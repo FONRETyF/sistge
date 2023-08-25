@@ -281,7 +281,7 @@ function editar(identret) {
 function eliminarT(identret,cvemae) {
     swal.fire({
         title:'ELIMINACIÓN DE TRAMITE',
-        text:"Eliminara el tramite de la clave" + cvemae +"?",
+        text:"Eliminara el tramite de la clave " + cvemae +"?",
         //icon: 'danger',
         showCancelButton: true,
         confirmButtonText:'Si',
