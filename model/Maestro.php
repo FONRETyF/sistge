@@ -109,5 +109,22 @@
             }
             return $a_EdoCta;
         }
+
+        public function insertMae($csp,$cveissemym,$apepat,$apemat,$nombre,$nomcom,$curp,$rfc,$region,$cveusu){
+            $resultInsertMae = array();
+            try {
+                $fecha = date("Y-m-d");
+                $consulta ="INSERT INTO public.maestros_smsem(csp, cveissemym, apepatmae, apematmae, nommae, nomcommae, curpmae, rfcmae, dommae, collocmae, mundommae, edodommae, zonescmae, regescmae, cctmae, nivescmae, numcelmae, numfijmae, numotromae, fcbasemae, diaservactmae, aservactmae, fbajamae, numpsgs, diaspsgs, fechsinipsgs, fechsfinpsgs, fechfallecmae, estatlabmae, afiprogfondfalle, cveusu, fechmodif)";
+                $consulta = $consulta . " VALUES ('".$csp."','".$cveissemym."','".$apepat."','".$apemat."','".$nombre."','".$nomcom."','".$curp."','".$rfc."','', '', '', '', '',".$region.",'', '', '', '', '', '1900-01-01', 0, 0, '1900-01-01', 0, 0, '{}', '{}', '1900-01-01', 'A', 0, '".$cveusu."', '".$fecha."');";
+                $statement = $this->db->prepare($consulta);
+                $statement->execute();
+                $resultsEdoCta = $statement->fetchAll(PDO::FETCH_ASSOC);
+                $resultInsertMae["insertMae"] = "Agregado";
+            } catch (\Throwable $th) {
+                $resultInsertMae["insertMae"] = "Fallo";
+                echo($th);
+            }
+            return $resultInsertMae;
+        }
     }
 ?>

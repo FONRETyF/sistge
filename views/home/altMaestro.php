@@ -35,9 +35,9 @@
             </div>
 			<div id="DivNomMae">Nombre del maestro: 
 				<div id="DivDatsAltNomMae">
-					<input type="text" class="DatsNomMae" id="apePatMae" name="apePatMae">
-					<input type="text" class="DatsNomMae" id="apeMatMae" name="apeMatMae">
-					<input type="text" class="DatsNomMae" id="nombreMae" name="nombreMae">
+					<input type="text" class="DatsNomMae" id="apePatMae" name="apePatMae" onblur="convierteMayusc(this)">
+					<input type="text" class="DatsNomMae" id="apeMatMae" name="apeMatMae" onblur="convierteMayusc(this)">
+					<input type="text" class="DatsNomMae" id="nombreMae" name="nombreMae" onblur="convierteMayusc(this)">
 				</div>
 				<div id="textnommae">
                     <div class="nomMaestro" id="TextApePat" disabled>Apellido Paterno</div>
@@ -77,6 +77,7 @@
                 <button type="submit" id="agregaMae" name="agregaMae" >AGREGAR</button>
             </div>
 		</section>
+        
 	</form>
 </section>
 

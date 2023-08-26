@@ -14,7 +14,7 @@
                     <button type="button" class="BtnsNav Btnregresar"  id="Btnregresar" name="Btnregresar">ATRAS</></button>
                 </div>
                 <div id="DivBtnInicio">
-                    <button type="button" class="BtnsNav" id="Btnnicio" name="Btnnicio">INICIO</></button>
+                    <button type="button" class="BtnsNav BtnInicio" id="Btnnicio" name="Btnnicio">INICIO</></button>
                 </div>
                 <div id="DivFechaActual">
                     <?php date_default_timezone_set('America/Mexico_City'); echo("Toluca, México a  " .date("d-m-y"));?>
@@ -33,7 +33,7 @@
                         <tr>
                             <th class="wd-15p"> id </th>
                             <th class="wd-15p"> Motivo </th>
-                            <th class="wd-15p"> Calve </th>
+                            <th class="wd-15p"> Clave </th>
                             <th class="wd-15p"> Nombre Maestro </th>
                             <th class="wd-15p"> Fecha Recib </th>
                             <th class="wd-15p"> Estatus Tramite </th>

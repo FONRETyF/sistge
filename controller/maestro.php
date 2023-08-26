@@ -175,8 +175,9 @@
             echo json_encode($a_EdoCta_Jub, JSON_FORCE_OBJECT);
             break;
 
-        case 'registrar':
-            
+        case 'insertMae':
+            $a_get_insertMae = $maestro->insertMae($_POST['csp'],$_POST['cveissemym'],$_POST['apepat'],$_POST['apemat'],$_POST['nombre'],$_POST['nomcom'],$_POST['curp'],$_POST['rfc'],$_POST['region'],$_SESSION['usuario']);
+            echo json_encode($a_get_insertMae, JSON_FORCE_OBJECT);
             break;
             
         default:

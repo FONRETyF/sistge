@@ -17,13 +17,13 @@
 
 <section class="contenidoGral">        
     <form class="FormcontenidoGral" action="" method="POST" name="" id="form_captTramite" enctype="multipart/form-data">
-    <section class="sectNavegador">
+        <section class="sectNavegador">
             <div class="DivBotnsNav">
                 <div id="DivBtnatras">
                     <button type="button" class="BtnsNav Btnregresar"  id="Btnregresar" name="Btnregresar">ATRAS</></button>
                 </div>
                 <div id="DivBtnInicio">
-                    <button type="button" class="BtnsNav" id="Btnnicio" name="Btnnicio">INICIO</></button>
+                    <button type="button" class="BtnsNav BtnInicio" id="Btnnicio" name="Btnnicio">INICIO</></button>
                 </div>
                 <div id="DivFechaActual">
                     <?php echo("Toluca, México a  " .date("d-m-y"));?>
