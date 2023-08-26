@@ -199,7 +199,7 @@
                     $a_cancel_cheq["cancelacion"] = "fallo";
                 }
 
-                if ($motivcancel == 12) {
+                if ($motivcancel == 13) {
                     try {
                         $statement = "UPDATE public.tramites_fonretyf SET estattramite='NO ENTREGADO' WHERE cvemae='".$retiroIdCheq[0]["cvemae"]."';";
                         $statement = $this->db->prepare($statement);
