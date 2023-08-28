@@ -26,7 +26,7 @@
         <section id="secRetiros"> RELACION DE TRAMITES CON PRORROGAS: 
             <div id="ConsultRetiros">
                 <div id="operationsEntr">
-                    <a id="tramNuevo" class="btnsOperations" href="capturaPendTram.php"><img src="../../img/new-document.png" alt="Nuevo tramite" title="Nuevo tramite" height="35" width="35"></a>  
+                    <a id="tramNuevo" class="btnsOperations" href="capturaTramProrg.php"><img src="../../img/new-document.png" alt="Nuevo tramite" title="Nuevo tramite" height="35" width="35"></a>  
                 </div>
             </div>
             <div id="ResultConsultRets">

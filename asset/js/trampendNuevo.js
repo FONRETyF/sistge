@@ -248,8 +248,7 @@ $(document).ready(function () {
         }
     });
 
-    const accionEditaNom = document.querySelector("#EditaNombre");
-    accionEditaNom.addEventListener("click", function (evento){
+    $(".DivDatsNomMae").on("click",".EditaNombre", function (evento) {
         evento.preventDefault();
         $('#modal-title').html('Modificando nombre');
         $.post("../../controller/maestro.php?op=mostrarNom",{clavemae:clavemae},function(data){       
@@ -321,16 +320,14 @@ function actNomMae(e){
     });
 }
 
-var accionRegresa = document.querySelector('.Btnregresar');
-accionRegresa.addEventListener("click", function (e) {
+$(".DivBotnsNav").on("click",".Btnregresar", function (e) {
     e.preventDefault();
     javascript:history.go(-1);
 });
 
-var accionBtnInicio = document.getElementById('Btnnicio');
-accionBtnInicio.addEventListener("click", function (e) {
+$(".DivBotnsNav").on("click",".BtnInicio", function (e) {
     e.preventDefault();
-    location.href = 'Inicio.php';
+    javascript:history.go(-1);
 });
 
 function agregaTramPend(){

@@ -31,7 +31,7 @@
 			<p>D A T O S &nbsp &nbsp P E R S O N A L E S</p>                  
             <div id="DivCveServPub">
                 <div>C.S.P: &nbsp <input type="text" id="cspMae" class="CSPMae" name="cspMae" placeholder="999999999" minlength="9" maxlength="9"  required></div>
-                <div>&nbsp &nbsp &nbsp Clave de ISSEMyM: &nbsp <input type="text" id="cveIMaeBusq" class="cveissemym" name="cveIMaeBusq" minlength="3" maxlength="6" placeholder="000000" ></div>                        
+                <div>&nbsp &nbsp &nbsp Clave de ISSEMyM: &nbsp <input type="text" id="cveIMaeBusq" class="cveissemym" name="cveIMaeBusq" minlength="3" maxlength="7" placeholder="0000000" ></div>                        
             </div>
 			<div id="DivNomMae">Nombre del maestro: 
 				<div id="DivDatsAltNomMae">

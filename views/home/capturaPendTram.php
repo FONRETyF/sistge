@@ -45,7 +45,7 @@
                             <input type="text" class="DatsNomMae" id="apePatMae" name="apePatMae" disabled>
                             <input type="text" class="DatsNomMae" id="apeMatMae" name="apeMatMae" disabled>
                             <input type="text" class="DatsNomMae" id="nombreMae" name="nombreMae" disabled>
-                            <button id="EditaNombre" disabled><img src="../../img/lapiz.png" alt="Editar nombre" title="Editar nombre" height="20" width="20" disabled></button>
+                            <button id="EditaNombre" class="EditaNombre" disabled><img src="../../img/lapiz.png" alt="Editar nombre" title="Editar nombre" height="20" width="20" disabled></button>
                             <!--<a id="EditaNombre" href="" disabled><img src="../../img/lapiz.png" alt="Editar nombre" title="Editar nombre" height="20" width="20" disabled></a>-->
                         </div>    
                         <div id="textnommae">
