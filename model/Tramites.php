@@ -299,10 +299,10 @@ use function PHPSTORM_META\type;
             $vigJuicRecib = $this -> calculaDifFechas($fechJuicio,$fechRecibido);
             $vigBajaJuic = $this -> calculaDifFechas($fechBaja,$fechJuicio);    
             
-            $statement = $this->db->prepare("SELECT * FROM public.prorrogas WHERE cvemae=? and estatuspro='ACTIVA'");
+            /*$statement = $this->db->prepare("SELECT * FROM public.prorrogas WHERE cvemae=? and estatuspro='ACTIVA'");
             $statement->bindValue(1,$clavemae);
             $statement->execute();
-            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);*/
 
             switch ($tipoTestamento) {
                 case 'CT':
