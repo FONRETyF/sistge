@@ -339,11 +339,11 @@ $(document).ready(function () {
                     for (let l = 0; l < datUpdateBenefs.length; l++) {
                         var infoBenefs = Object.values(datUpdateBenefs[l]);
                         a_nombres.push(infoBenefs[8]);
-                        a_curps.push(infoBenefs[31]);
-                        a_parentescos.push(infoBenefs[32]);
+                        a_curps.push(infoBenefs[32]);
+                        a_parentescos.push(infoBenefs[33]);
                         a_porcentajes.push(infoBenefs[24]);
-                        a_edades.push(infoBenefs[33]);
-                        a_vida.push(infoBenefs[34]);
+                        a_edades.push(infoBenefs[34]);
+                        a_vida.push(infoBenefs[35]);
                     }
                     $("#nomsbenefs").val(a_nombres);
                     $("#curpsbenefs").val(a_curps);
@@ -466,11 +466,11 @@ $(document).ready(function () {
                     for (let l = 0; l < datUpdateBenefs.length; l++) {
                         var infoBenefs = Object.values(datUpdateBenefs[l]);
                         a_nombres.push(infoBenefs[8]);
-                        a_curps.push(infoBenefs[31]);
-                        a_parentescos.push(infoBenefs[32]);
+                        a_curps.push(infoBenefs[32]);
+                        a_parentescos.push(infoBenefs[33]);
                         a_porcentajes.push(infoBenefs[24]);
-                        a_edades.push(infoBenefs[33]);
-                        a_vida.push(infoBenefs[34]);
+                        a_edades.push(infoBenefs[34]);
+                        a_vida.push(infoBenefs[35]);
                     }
                     $("#nomsbenefs").val(a_nombres);
                     $("#curpsbenefs").val(a_curps);

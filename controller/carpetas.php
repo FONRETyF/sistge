@@ -12,6 +12,26 @@ use function PHPSTORM_META\type;
             $this->db=$pdo->conexfonretyf();
         }
 
+        public function searchAsignFols(){
+            $identrega = $_GET["identr"];
+            $anioentrega=substr($identrega,0,4);
+            $numentrega=intval(substr($identrega,4,2));
+            $resultFolsCheqs = array();
+
+            try {
+                $statement = $this->db->prepare("SELECT folios FROM public.entregas_fonretyf WHERE anioentrega= ? and numentrega= ?");
+                $statement->bindValue(1,$anioentrega);
+                $statement->bindValue(2,$numentrega);
+                $statement->execute();
+                $result = $statement->fetchAll();
+            } catch (\Throwable $th) {
+                echo $th;
+            }
+
+            
+
+        }
+
         public function mostrarCarpetas(){
             $identrega = $_GET["identr"];
             $anioentrega=substr($identrega,0,4);

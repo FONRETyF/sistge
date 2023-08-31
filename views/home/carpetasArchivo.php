@@ -9,9 +9,9 @@
 
     $carpeta = new carpetas();
 
+    $validProcCarpts = $carpeta -> 
     $rangoCarpetas = $carpeta -> mostrarRango();
-    var_dump($rangoCarpetas);
-
+    
     $resultcarp = $carpeta -> mostrarCarpetas();
     
 ?>
