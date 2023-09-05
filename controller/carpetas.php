@@ -27,9 +27,6 @@ use function PHPSTORM_META\type;
             } catch (\Throwable $th) {
                 echo $th;
             }
-
-            
-
         }
 
         public function mostrarCarpetas(){
@@ -107,13 +104,13 @@ use function PHPSTORM_META\type;
                 $statement->bindValue(2,$numentrega);
                 $statement->execute();
                 $result = $statement->fetchAll();
+                //var_dump($result);
                 return $result;
             } catch (\Throwable $th) {
                 echo $th;
             }
         }
 
-    
     }
 
 ?>

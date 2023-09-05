@@ -134,7 +134,7 @@
             if ($row === $rowF['nomcommae']) {
                 $clave= $rowF['cvemae'];
                 
-                $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.montrettot,tab2.idbenef,tab2.cvemae,tab2.nombenef,tab2.montbenef,tab2.edadbenef,tab2.porcretbenef,tab2.parentbenef,tab2.edadbenef,tab2.vidabenef,tab3.fcbasemae,tab3.fbajamae,tab3.fechsinipsgs,tab3.fechsfinpsgs,tab3.diaspsgs FROM public.tramites_fonretyf as tab1 LEFT JOIN (SELECT tab1.identret,tab1.idbenef,tab1.cvemae,tab1.idbenefcheque,tab1.nombenef,tab1.montbenef,tab1.porcretbenef,tab2.parentbenef,tab2.edadbenef,tab2.vidabenef FROM public.beneficiarios_cheques as tab1";
+                $consultacheques = "SELECT tab1.identret,tab2.idbenefcheque,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.montrettot,tab2.idbenef,tab2.cvemae,tab2.nombenef,tab2.montbenef,tab2.edadbenef,tab2.porcretbenef,tab2.parentbenef,tab2.edadbenef,tab2.vidabenef,tab3.fcbasemae,tab3.fbajamae,tab3.fechsinipsgs,tab3.fechsfinpsgs,tab3.diaspsgs FROM public.tramites_fonretyf as tab1 LEFT JOIN (SELECT tab1.identret,tab1.idbenef,tab1.cvemae,tab1.idbenefcheque,tab1.nombenef,tab1.montbenef,tab1.porcretbenef,tab2.parentbenef,tab2.edadbenef,tab2.vidabenef FROM public.beneficiarios_cheques as tab1";
                 $consultacheques = $consultacheques . " LEFT JOIN public.beneficiarios_maestros as tab2 on tab1.cvemae = tab2.cvemae and tab1.idbenefcheque=tab2.idbenefcheque and tab1.anioentrega=".substr($identrega,0,4)." and tab1.numentrega=".intval(substr($identrega,4,2)).") as tab2 on tab1.identret = tab2.identret LEFT JOIN (SELECT tab1.*, tab2.fechsinipsgs,tab2.fechsfinpsgs,tab2.diaspsgs  FROM (SELECT tab1.cvemae,tab2.nomcommae,tab2.fcbasemae,tab2.fbajamae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp and tab1.anioentrega=".substr($identrega,0,4)." and tab1.numentrega=".intval(substr($identrega,4,2));
                 $consultacheques = $consultacheques . " UNION SELECT tab1.cvemae,tab2.nomcommae,tab2.fechbajamae,tab2.fcfallecmae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym and tab1.anioentrega=".substr($identrega,0,4)." and tab1.numentrega=".intval(substr($identrega,4,2)).") as tab1 LEFT JOIN public.maestros_smsem as tab2 on tab1.cvemae=tab2.csp) as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and tab1.cvemae='".$clave."' ORDER BY nombenef ASC;";
 
@@ -152,8 +152,13 @@
                     foreach ($auxB as $rowBB) {
                         foreach ($resultsChequesB as $keyBenef => $rowBenef) {
                             if ($rowBB === $rowBenef['nombenef']) {
-                                array_push($A_benefs_revision, $rowBenef);
-                                //break;
+                                if ($benefAdd == $rowBenef['idbenefcheque']) {
+                                    
+                                } else {
+                                    array_push($A_benefs_revision, $rowBenef);
+                                    $benefAdd = $rowBenef['idbenefcheque'];
+                                    break;
+                                }                                
                             } 
                         }    
                     }

@@ -142,7 +142,7 @@
             $pdf->SetFont('Arial','',12);
             $pdf->Cell(0.8, 0.8, "Yo ", 0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
-            $pdf->Cell(10.59, 0.8, $resultsT[0]['nomsolic'], 0, 0, 'C');
+            $pdf->Cell(10.59, 0.8, utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
             $pdf->Cell(6.2, 0.8, " con  clave  de  servidor  publico", 0, 0, 'L');
 
@@ -213,7 +213,7 @@
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',5.6,22.05,10.5,0.04);
             $pdf->SetY(22.0);
             $pdf->SetFont('Arial','B',11);
-            $pdf->Cell(17.59, 0.7,"C. " . $resultsT[0]['nomsolic'],0, 0, 'C');
+            $pdf->Cell(17.59, 0.7,"C. " . utf8_decode($resultsT[0]['nomsolic']),0, 0, 'C');
     
             $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',17.4,23,2.7,2.65);
             
@@ -243,7 +243,7 @@
             $pdf->SetFont('Arial','',12);
             $pdf->Cell(0.8, 0.7, "Yo ", 0, 0, 'L');
             $pdf->SetFont('Arial','B',11);
-            $pdf->Cell(10.59, 0.7, $resultsT[0]['nomsolic'], 0, 0, 'C');
+            $pdf->Cell(10.59, 0.7, utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
             $pdf->SetFont('Arial','',12);
             $pdf->Cell(6.2, 0.7, " con  clave  de  servidor  publico", 0, 0, 'L');
 
@@ -322,7 +322,7 @@
             $pdf->Image('/var/www/html/sistge/img/lineafirma.png',5.6,23.55,10.5,0.04);
             $pdf->SetY(23.5);
             $pdf->SetFont('Arial','B',11);
-            $pdf->Cell(17.59, 0.7,"C. " . $resultsT[0]['nomsolic'],0, 0, 'C');
+            $pdf->Cell(17.59, 0.7,"C. " . utf8_decode($resultsT[0]['nomsolic']),0, 0, 'C');
     
             $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',17.4,23,2.7,2.65);
             

@@ -9,10 +9,11 @@
 
     $carpeta = new carpetas();
 
-    $validProcCarpts = $carpeta -> 
+    //$validProcCarpts = $carpeta -> 
     $rangoCarpetas = $carpeta -> mostrarRango();
     
     $resultcarp = $carpeta -> mostrarCarpetas();
+
     
 ?>
 
@@ -57,24 +58,47 @@
                     </div>
                 </div>
                 <div class="folios" id="inputsFols">
-                    <div>
+                    <div id="divsDetallesCarpetas">
                     <?php 
                         $index = 0;
                         foreach ($resultcarp as $row) { ?> 
-                    <div id="divdetalleCarpeta">
-                        <div class="divNumCarp"><input type="text" class="inputnumcarp" id="numcarpeta[]" name="numcarpeta[]" value="<?php echo($row["numcarpeta"]);?>"></div>
-                        <div class="divFolIni"><input type="text" class="inputfolini" id="folinicial[]" name="folinicial[]" value="<?php echo($row["folini"]);?>"></div>
-                        <div class="divFolFin"><input type="text" class="inputfolfin" id="folfinal[]" name="folfinal[]" value="<?php echo($row["folfin"]);?>"></div>
-                        <div class="divEstat"><select class="opcestat" id="estatcomplet[]" name="estatcomplet[]" value="<?php echo($row["estatcomplet"]);?>"><option value="COMPLETA">COMPLETA</option><option value="INCOMPLETA">INCOMPLETA</option></select></div>
-                        <div class="divObserv"><input type="text" class="inputobserv" id="observcarp[]" name="observcarp[]" value="<?php echo($row["observaciones"]);?>"></div>
-                        <div class="divIconDelete"><a href="#" class="delete_Carpeta"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar carpeta" height="15" width="20"></a></div>
-                    </div>
-                    <?php 
-                        $index = $index + 1;
-                        } ?>
+                            <div id="divdetalleCarpeta" class="divdetalleCarpeta">
+                                <div class="divNumCarp"><input type="text" class="inputnumcarp" id="numcarpeta[]" name="numcarpeta[]" value="<?php echo($row["numcarpeta"]);?>"></div>
+                                <div class="divFolIni"><input type="text" class="inputfolini" id="folinicial[]" name="folinicial[]" value="<?php echo($row["folini"]);?>"></div>
+                                <div class="divFolFin"><input type="text" class="inputfolfin" id="folfinal[]" name="folfinal[]" value="<?php echo($row["folfin"]);?>"></div>
+                                <div class="divEstat"><select class="opcestat" id="estatcomplet[]" name="estatcomplet[]" value="<?php echo($row["estatcomplet"]);?>"><option value="COMPLETA">COMPLETA</option><option value="INCOMPLETA">INCOMPLETA</option></select></div>
+                                <div class="divObserv"><input type="text" class="inputobserv" id="observcarp[]" name="observcarp[]" value="<?php echo($row["observaciones"]);?>"></div>
+                                <div class="divIconDelete"><a href="#" class="delete_Carpeta"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar carpeta" height="15" width="20"></a></div>
+                            </div>
+                            <?php 
+                                $index = $index + 1;
+                        }   ?>
                     </div>
                 </div>
             </section>
+        </section>
+        <section class="secAddFolCheqs">
+            <div class="validCmplChqs">
+                <button type="submit" id="validChqs" name="validChqs">VALIDAR</button>
+            </div>
+            <div class="divAddFlsChqs"> 
+                <p>Folios para agregar</p>
+                <div class="divDatsFlsNw">
+                    <div id="divFolChqNew">Num. Folio: <input type="text" class="numFolNew" id="numFolNew[]" name="numFolNew[]"></div>
+                    <div id="divStatChq">Estatus:    
+                        <select class="opcStatChq" id="opcStatChq[]" name="opcStatChq[]">
+                            <option value="E">ENTREGADO</option>
+                            <option value="C">CANCELADO</option>
+                            <option value="NA">NO ASIGNADO</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="secGnrtCrps">
+            <div class="divGnrtCrpts">
+                <button type="submit" id="gnrtCrpts" name="gnrtCrpts">GENERAR</button>
+            </div>
         </section>
     </form>
 </section>

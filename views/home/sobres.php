@@ -80,13 +80,13 @@
     
     $collator = collator_create("es");
     $collator->sort($auxF);
-
+   
     foreach ($auxF as $key => $row) {
         foreach ($resultsChequesF as $key => $rowF) {
             if ($row === $rowF['nomcommae']) {
                 $clave= $rowF['cvemae'];
                 
-                $consultachequesB = "select tab1.identret,tab3.nomcommae,tab1.motvret,tab2.nombenef from public.tramites_fonretyf as tab1 left join public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret left join (";
+                $consultachequesB = "select tab1.identret,tab2.idbenefcheque,tab3.nomcommae,tab1.motvret,tab2.nombenef from public.tramites_fonretyf as tab1 left join public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret left join (";
                 $consultachequesB = $consultachequesB . "select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
                 $consultachequesB = $consultachequesB . " where tab1.identrega='".$identrega."' and tab1.cvemae='".$clave."' order by nombenef asc;";
 
@@ -100,12 +100,13 @@
                     }
                     $collator = collator_create("es");
                     $collator->sort($auxB);
+                    
                 
                     foreach ($auxB as $rowBB) {
                         foreach ($resultsChequesB as $keyBenef => $rowBenef) {
                             if ($rowBB === $rowBenef['nombenef']) {
                                 array_push($arregloMaestrosCheques, $rowBenef);
-                                //break;
+                                break;
                             } 
                         }    
                     }
@@ -117,7 +118,7 @@
             }
         }
     }
-    
+
     $numTramite=1;
    
     foreach ($arregloMaestrosCheques as $key => $row) {

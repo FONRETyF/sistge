@@ -22,7 +22,8 @@ accionBtnInicio.addEventListener("click", function (e) {
 var numcarpetas;
 $("#inputsFols").on("click", ".delete_Carpeta", function(e){
     e.preventDefault();
-    numcarpetas = parseInt(document.getElementById("inputNumCarp").value);    
+    numcarpetas = parseInt(document.getElementById("inputNumCarp").value);  
+    alert($(this).parent('div').parent('div').attr('id'));  
     $(this).parent('div').parent('div').remove();
     numcarpetas--;
     document.getElementById("inputNumCarp").value = numcarpetas;
@@ -53,17 +54,42 @@ $("#updateCarp").on("click", function (e) {
     folioini = parseInt($("#inpRangIniCarps").val());
     foliofinal = parseInt($("#inpRangFinCarps").val());
 
-    numcarpetas = ((foliofinal - folioini) + 1) / 30;
-    alert(folioini + "---" + foliofinal + "---" + numcarpetas);
-    
-    if (parseInt($("#inputNumCarp").val()) < numcarpetas) {
-        
-    } else if(parseInt($("#inputNumCarp").val()) > numcarpetas){
-        
-    } else if(parseInt($("#inputNumCarp").val()) == numcarpetas){
+    var pre_numcarpetas = ((foliofinal - folioini) + 1) / 30;
 
+    $(".divdetalleCarpeta").remove();
+    var numcarpeta=0;
+    var folIni=$("#inpRangIniCarps").val();
+    var folFin=$("#inpRangFinCarps").val();
+
+    if ((pre_numcarpetas - Math.trunc(pre_numcarpetas)) > 0) {
+        numcarpetas = Math.trunc(pre_numcarpetas) + 1;
+    } else {
+        numcarpetas = Math.trunc(pre_numcarpetas);
     }
-   
+
+    var folIniCarp = 0;
+    var folFinCarp = 0;
+
+    for (let index = 0; index < numcarpetas; index++) {
+        numcarpeta=index + 1;
+        
+        if (index == 0) {
+            folIniCarp = Math.trunc(folIni);
+            folFinCarp = Math.trunc(folIni) + 29;
+        } else {
+            if ((folFinCarp + 30) >= folFin) {
+                folIniCarp = folFinCarp + 1;
+                folFinCarp = Math.trunc(folFin);
+            } else {
+                folIniCarp = folFinCarp + 1;
+                folFinCarp = folIniCarp + 29;
+            }
+        }
+        $('#inputsFols').append(
+            '<div id="divsDetallesCarpetas"><div id="divdetalleCarpeta" class="divdetalleCarpeta"><div class="divNumCarp"><input type="text" class="inputnumcarp" id="numcarpeta['+index+']" name="numcarpeta['+index+']" value="'+numcarpeta+'"></div><div class="divFolIni"><input type="text" class="inputfolini" id="folinicial['+index+']" name="folinicial['+index+']" value="00'+folIniCarp+'"></div><div class="divFolFin"><input type="text" class="inputfolfin" id="folfinal['+index+']" name="folfinal['+index+']" value="00'+folFinCarp+'"></div><div class="divEstat"><select class="opcestat" name="estatcomplet['+index+']" id="estatcomplet['+index+']"><option value="COMPLETA">COMPLETA</option><option value="INCOMPLETA">INCOMPLETA</option></select></div><div class="divObserv"><input type="text" class="inputobserv" id="observcarp['+index+']" name="observcarp['+index+']"></div><div class="divIconDelete"><a href="#" class="delete_Carpeta"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar carpeta" height="15" width="20"></a></div></div></div>'
+        );       
+    }
+       
 });
 
 init();

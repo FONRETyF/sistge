@@ -148,7 +148,7 @@
                         foreach ($resultsChequesB as $keyBenef => $rowBenef) {
                             if ($rowBB === $rowBenef['nombenef']) {
                                 array_push($A_Cheques_Informatica, $rowBenef);
-                                //break;
+                                break;
                             } 
                         }    
                     }

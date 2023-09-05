@@ -71,7 +71,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div id="DivEliminaBenef" class="divsdatsbenef">Eliminar;
+                                        <div id="DivEliminaBenef" class="divsdatsbenef">
                                             <a href="#" class="delete_Benef"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar fecha" height="15" width="20"></a>
                                         </div> 
                                     </div>
