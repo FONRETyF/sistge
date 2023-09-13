@@ -50,32 +50,40 @@
             
         }
         
-        public function insert_entrega($identrega,$numentrega,$anioentrega,$descentrega,$cveusu,$fechentrega,$observaciones){
+        public function insert_entrega($identrega,$anioentrega,$numentrega,$descentrega,$cveusu,$fechentrega,$observaciones){
+            $resulInsert = array();
             $fecha = date("Y-m-d");
             try {
                 $consultaInsertEntr = "INSERT INTO public.entregas_fonretyf(identrega, anioentrega, numentrega, descentrega, estatentrega, fechentrega, folioinicial, foliofinal, folios, numcheques, numcarpetas, numtramites, numtraminha, numtramjub, numtramfall, numtramfallact, numtramfalljubm, numtramfalljubff, fechapertura, usuapert, fechcierre, usucierre, cheqsentre, cheqscancel, traspaso, soliccheqs, impcheqs,";
-                $consultaInsertEntr = $consultaInsertEntr . " statarchivo, monttotentr, totadeds, adedsfajam, montadedsf, adedsts, montadedsts, adedsfondpen, montadedsfp, adedsturismo, montadedst, observaciones, cveusu, fechmodif) VALUES ('".$identrega."', '".$anioentrega."', '".$numentrega."', '".$descentrega."', 'ACTIVA', '".$fechentrega."', '0', '0', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, '".$fecha."', '".$cveusu."',";
+                $consultaInsertEntr = $consultaInsertEntr . " statarchivo, monttotentr, totadeds, adedsfajam, montadedsf, adedsts, montadedsts, adedsfondpen, montadedsfp, adedsturismo, montadedst, observaciones, cveusu, fechmodif) VALUES ('".$identrega."', ".$anioentrega.", ".$numentrega.", '".$descentrega."', 'ACTIVA', '".$fechentrega."', '0', '0', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, '".$fecha."', '".$cveusu."',";
                 $consultaInsertEntr = $consultaInsertEntr . " '".$fecha."', '".$cveusu."', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '".$observaciones."', '".$cveusu."', '".$fecha."');";
                 $statement = $this->db->prepare($consultaInsertEntr);
                 $statement->execute();
                 $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-                return $results;
+                $resulInsert["resultado"] = "Agregado";
+                //return $results;
             } catch (\Throwable $th) {
+                $resulInsert["resultado"] = "Error";
                 echo $th;
             }
+            return $resulInsert;
         }
         
-        public function update_entrega($numentrega,$anioentrega,$descentrega,$fechentrega,$observaciones,$cveusu,$identrega){
+        public function update_entrega($identrega,$numentrega,$anioentrega,$descentrega,$fechentrega,$observaciones,$cveusu){
+            $resulUpdate = array();
+            
             try {
                 $fecha = date("Y-m-d");
-                $datsInsert=array($numentrega, $anioentrega, $descentrega, $fechentrega, $observaciones, $cveusu, $fecha, $identrega);
+                $datsInsert = array($numentrega, $anioentrega, $descentrega, $fechentrega, $observaciones, $cveusu, $fecha, $identrega);
                 $statement = $this->db->prepare("UPDATE public.entregas_fonretyf SET numentrega=?, anioentrega=?, descentrega=?, fechentrega=?, observaciones=?, cveusu=?, fechmodif= ?  WHERE identrega=?");
                 $statement->execute($datsInsert);
-                return $result = $statement->fetchAll();
+                $result = $statement->fetchAll();
+                $resulUpdate["resultado"] = "Actualizado";
             } catch (\Throwable $th) {
+                $resulUpdate["resultado"] = "Error";
                 echo $th;
             }
-            
+            return $resulUpdate;
         }
 
         public function updateFechEntrega($identrega,$fechaEntrega,$usuario){

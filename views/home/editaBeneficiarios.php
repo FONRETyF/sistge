@@ -64,12 +64,15 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div d="DivEdoVidBenef" class="divsdatsbenef">V/F:                                            
+                                        <div id="DivEdoVidBenef" class="divsdatsbenef">V/F:                                            
                                             <div><select name="opcEdoVidBenef[]" id="opcEdoVidBenef[]" class="estatedadBenef">
                                                 <option value="V">Vivo</option>
                                                 <option value="F">Fallecido</option>
                                                 </select>
                                             </div>
+                                        </div>
+                                        <div id="DivfolioBenef" class="divfoliosbenef"># Folio:
+                                            <div><input type="text" id="numcheqBenef[]" name="numcheqBenef[]" class="folsBenefs" minlength="7" maxlength="7"></div>
                                         </div>
                                         <div id="DivEliminaBenef" class="divsdatsbenef">
                                             <a href="#" class="delete_Benef"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar fecha" height="15" width="20"></a>

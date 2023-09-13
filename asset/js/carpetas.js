@@ -23,7 +23,7 @@ var numcarpetas;
 $("#inputsFols").on("click", ".delete_Carpeta", function(e){
     e.preventDefault();
     numcarpetas = parseInt(document.getElementById("inputNumCarp").value);  
-    alert($(this).parent('div').parent('div').attr('id'));  
+    //alert($(this).parent('div').parent('div').attr('id'));  
     $(this).parent('div').parent('div').remove();
     numcarpetas--;
     document.getElementById("inputNumCarp").value = numcarpetas;
@@ -33,7 +33,7 @@ $("#addCarp").on("click", function (e) {
     e.preventDefault();
     numcarpetas = parseInt($("#inputNumCarp").val()) + 1;
     $('#inputsFols').append(
-        '<div><div id="divdetalleCarpeta"><div class="divNumCarp"><input type="text" class="inputnumcarp" id="numcarpeta[]" name="numcarpeta[]"></div><div class="divFolIni"><input type="text" class="inputfolini" id="folinicial[]" name="folinicial[]"></div><div class="divFolFin"><input type="text" class="inputfolfin" id="folfinal[]" name="folfinal[]"></div><div class="divEstat"><select class="opcestat" name="estatcomplet[]" id="estatcomplet[]"><option value="COMPLETA">COMPLETA</option><option value="INCOMPLETA">INCOMPLETA</option></select></div><div class="divObserv"><input type="text" class="inputobserv" id="observcarp[]" name="observcarp[]"></div><div class="divIconDelete"><a href="#" class="delete_Carpeta"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar carpeta" height="15" width="20"></a></div></div></div>'
+        '<div><div id="divdetalleCarpeta"><div class="divNumCarp"><input type="text" class="inputnumcarp" id="numcarpeta[]" name="numcarpeta[]"></div><div class="divFolIni"><input type="text" class="inputfolini" id="folinicial[]" name="folinicial[]"></div><div class="divFolFin"><input type="text" class="inputfolfin" id="folfinal[]" name="folfinal[]"></div><div class="divObserv"><input type="text" class="inputobserv" id="observcarp[]" name="observcarp[]"></div><div class="divIconDelete"><a href="#" class="delete_Carpeta"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar carpeta" height="15" width="20"></a></div></div></div>'
     );
     $("#inputNumCarp").val(numcarpetas);    
 });
@@ -86,7 +86,7 @@ $("#updateCarp").on("click", function (e) {
             }
         }
         $('#inputsFols').append(
-            '<div id="divsDetallesCarpetas"><div id="divdetalleCarpeta" class="divdetalleCarpeta"><div class="divNumCarp"><input type="text" class="inputnumcarp" id="numcarpeta['+index+']" name="numcarpeta['+index+']" value="'+numcarpeta+'"></div><div class="divFolIni"><input type="text" class="inputfolini" id="folinicial['+index+']" name="folinicial['+index+']" value="00'+folIniCarp+'"></div><div class="divFolFin"><input type="text" class="inputfolfin" id="folfinal['+index+']" name="folfinal['+index+']" value="00'+folFinCarp+'"></div><div class="divEstat"><select class="opcestat" name="estatcomplet['+index+']" id="estatcomplet['+index+']"><option value="COMPLETA">COMPLETA</option><option value="INCOMPLETA">INCOMPLETA</option></select></div><div class="divObserv"><input type="text" class="inputobserv" id="observcarp['+index+']" name="observcarp['+index+']"></div><div class="divIconDelete"><a href="#" class="delete_Carpeta"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar carpeta" height="15" width="20"></a></div></div></div>'
+            '<div id="divsDetallesCarpetas"><div id="divdetalleCarpeta" class="divdetalleCarpeta"><div class="divNumCarp"><input type="text" class="inputnumcarp" id="numcarpeta['+index+']" name="numcarpeta['+index+']" value="'+numcarpeta+'"></div><div class="divFolIni"><input type="text" class="inputfolini" id="folinicial['+index+']" name="folinicial['+index+']" value="00'+folIniCarp+'"></div><div class="divFolFin"><input type="text" class="inputfolfin" id="folfinal['+index+']" name="folfinal['+index+']" value="00'+folFinCarp+'"></div><div class="divObserv"><input type="text" class="inputobserv" id="observcarp['+index+']" name="observcarp['+index+']"></div><div class="divIconDelete"><a href="#" class="delete_Carpeta"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar carpeta" height="15" width="20"></a></div></div></div>'
         );       
     }
        

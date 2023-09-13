@@ -173,6 +173,10 @@ a:nth-child(6) {
 #ContenEntregas{
   width: 100%;
 }
+#ContenEntregas input{
+  height: 33px;
+  border-radius: 5px;
+}
 #form_entrega{
   text-align: center;
 }
@@ -350,16 +354,17 @@ a:nth-child(6) {
     pointer-events: none;
   }
   #DatsEntrDetalle{
-    margin: 15px 15px 0;
-    width: 95%;
+    margin: 3px 3px 0;
+    width: 100%;
     height: 400px;
     font-size: 20px;
   }
   #divFechaEntrega{
     display: inline-flex;
-    width: 90%;
-    height: 100px;
+    width: 100%;
+    height: 70px;
     align-items: center;
+    padding-left: 25px;
   }
   .modal-content .fechEntrEdit{
     margin: 15px;
@@ -386,6 +391,16 @@ a:nth-child(6) {
     border-radius: 3px;
     font-size: 15px;
   }
+  .obsrEntrEdit{
+    padding-left: 25px;
+  }
+  .obsrEntrEdit input{
+    margin: 10px 10px 0;
+    width: 480px;
+    height: 35px;
+    border-radius: 3px;
+    font-size: 15px;
+  }
   #modal-footer{
     margin: 250px auto;
   }
@@ -408,12 +423,12 @@ a:nth-child(6) {
     color: #06461f;
   }
   .DatsEntrNuv{
-    width: 90%;
+    width: 100%;
     display: inline-flex;
     font-size: 20px;
   }
   .DatsEntrNuv select{
-    margin: 0 20px 0;
+    margin: 0 10px 0;
     text-align: center;
     height: 30px;
     font-size: 15px;
@@ -424,13 +439,14 @@ a:nth-child(6) {
     margin: 0 auto;
   }
   #DvAnioEntrNuev{
-    margin: 15px;
+    margin: 0 15px;
     padding-left: 20px;
   }
   #DvNumEntrNuev{
-    margin: 15px;
+    margin: 0 15px;
     /*padding-left: 150px;*/
   }
+  
   #numentrega{
     width: 55px;
     height: 35px;
@@ -438,6 +454,7 @@ a:nth-child(6) {
     margin-left: 35px;
     text-align: center;
   }
+  
   #DvAnioEntrNuev input{
     width: 90px;
     text-align: center;
@@ -509,7 +526,7 @@ a:nth-child(6) {
     border-color: 1px solid #2b2c2b;
   }
   #DvDescEntrNuv{
-    margin: 15px;
+    margin: 5px 25px;
     align-content: center;
     align-items: baseline;
     display: inline-flex;
@@ -1026,16 +1043,20 @@ input[type="date"]{
   min-width: 500px;
 }
 #causaRetiro{
-  width: 50%;
+  width: 40%;
   height: 30px;
   display: inline-flex;
   justify-content: center;
   font-size: 1em;
 }
+.divTipTramNE{
+  width: 100px;
+}
 #DivMotFolTram{
   width: 50%;
   margin: 0 auto;
   font-size: 17px;
+  display: inline-flex;
 }
 #DivMotFolTram input{
   text-align: center;
@@ -1584,6 +1605,10 @@ margin: 0 110px;
 .opcEdoVidBenef{
   text-align: center;
 }
+.folsBenefs{
+  width: 80px;
+  text-align: center;
+}
 
 
 
@@ -1753,14 +1778,14 @@ margin: 0 110px;
 
 /*TERMINAN ESTILOS CAPTURA DE TRAMITES*/
 #DivAsignaFecha{
-  margin: 55px 0px;
+  margin: 15px 0px;
   text-align: left;
   width: 20%;
   align-content: center;
 }
 
 #DivAsignaFecha input{
-  height: 25px;
+  height: 17px;
   width: 15px;
   border-color: #727171;
   font-size: 10px;
@@ -1891,10 +1916,11 @@ margin: 0 110px;
   margin: 0 auto;
 }
 #InputIdentrega{
-  width: 80px;
+  width: 100px;
   font-size: 15px;
   font-weight: bold;
   border: none;
+  text-align: center;
 }
 #ConsultRetiros{
   width: 90%;
@@ -2264,7 +2290,9 @@ margin: 0 110px;
 .divsdatsbenef{
   padding: 5px;
 }
-
+.divfoliosbenef{
+  padding: 5px;
+}
 
 
 
@@ -3487,3 +3515,117 @@ input[type="date"]{
   font-size: 13px;
 }
 /*   ------------------------------------   */
+
+
+
+
+/*   MODAL ENTREGAS   */
+.modalEntrega{
+  position: fixed;
+  top:0;
+  left: 0;
+  right:0 ;
+  bottom: 0;
+  display: flex; /*para qu ese centre junto con el margin del container*/
+  opacity: 0;
+  pointer-events: none; /*desactivamos cualquier evento del mouse*/
+  transition: opacity .5s;
+}
+.DatsEntregaDetalle{
+  display: inline-block;
+  width: 100%;
+  height: 250px;
+}
+.modalE_close{
+  text-decoration: none;
+  color: #0428f3;
+  /*background-color: #155c03;
+  margin: auto;
+  margin-top: 5px;
+  padding: .2em 1em;
+  border: 1px solid;
+  border-radius: 6px;
+  /*display: inline-block;
+  font-weight: 150;*/
+  font-size: 17px;
+  /*transition: background-color .3s;*/
+  margin-left: 550px;
+}
+.modalE_close:hover{
+  color: #165306;
+  background-color: #fdfdfd;
+}
+.modalE--show{
+  /* clase moficicadora */
+  opacity: 1;
+  pointer-events: unset;
+  transition: opacity .5s;
+}
+.modal_contenedorEntr{
+  margin: auto;
+  width: 90%;
+  max-width: 750px;
+  max-height: 90%;
+  background-color: #c5dbc9;
+  border-radius: 6px;
+  border-top: 1px solid rgb(9, 39, 1);
+  border-bottom: 1px solid rgb(9, 39, 1);
+  padding: 1.5em 1.5em;
+  display: grid;
+  gap: 1em;
+  place-items: center;
+}
+
+.addEntrega{
+  margin: auto;
+  width: 100%;
+  
+}
+
+.closeWindowEntr{
+  width: 100%;
+  height: 10px;
+  align-content:flex-end;
+}
+
+.addEntrega{
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #155c03;
+  margin: auto;
+  margin-top: 5px;
+  padding-bottom: .5em;
+  padding: .5em 1.5em;
+  border: 1px solid;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 17px;
+  transition: background-color .3s;
+}
+.addEntrega:hover{
+  color: #165306;
+  background-color: #fdfdfd;
+}
+.updateEntr{
+  margin: auto;
+  width: 100%;
+}
+.updateEntr{
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #155c03;
+  margin: auto;
+  margin-top: 5px;
+  padding: .5em 1.5em;
+  border: 1px solid;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 17px;
+  transition: background-color .3s;
+}
+.updateEntr:hover{
+  color: #165306;
+  background-color: #fdfdfd;
+}
+
+/*   FIN MODAL ENTREGAS   */

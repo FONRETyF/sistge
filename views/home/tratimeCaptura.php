@@ -35,23 +35,28 @@
                 <div id="DvNumEntrNuev">Num. Entrega:
                     <input type="text" class="InptsEntrDetalle" id="InputNumEntr" name="InputNumEntr" value="<?php echo substr($_GET["identrega"],4,2);?>" disabled>
                     <input type="hidden" id="numentr" name="numentr">
+                    
                 </div> 
                 <div id="DvAnioEntrNuev">Año:
                     <input type="text" class="InptsEntrDetalle" id="InputAnioEntr" name="InputAnioEntr" value="<?php echo substr($_GET["identrega"],0,4);?>" disabled>
                     <input type="hidden" id="AnioEntr" name="AnioEntr">
-                    <input type="hidden" id="IdEntrega" name="IdEntrega">
+                    <input type="hidden" id="IdEntrega" name="IdEntrega" value="<?php echo $_GET["identrega"];?>">
                 </div>  
                 <input type="hidden" id="identrega" name="identrega"> 
             </div>
             <div id="causaRetiro">Causa Retiro: &nbsp
-                        <select name="OpcCauRetiro" id="OpcCauRetiro" placeholder="MOTIVO RET" onchange="">
-                            <option selected="true" disabled="disabled">Seleccione Motivo</option>
-                            <option value="I">INHABILITACION</option>
-                            <option value="J">JUBILACION</option>
-                            <option value="FA">FALLECIMIENTO ACT</option>
-                            <option value="FJ">FALLECIMIENTO JUB</option>
-                        </select>
+                <select name="OpcCauRetiro" id="OpcCauRetiro" placeholder="MOTIVO RET" onchange="">
+                    <option selected="true" disabled="disabled">Seleccione Motivo</option>
+                    <option value="I">INHABILITACION</option>
+                    <option value="J">JUBILACION</option>
+                    <option value="FA">FALLECIMIENTO ACT</option>
+                    <option value="FJ">FALLECIMIENTO JUB</option>
+                </select>
+                <div class="divTipTramNE">
+                    <label for="tipTramNE"><input type="checkbox" id="tipTramNE" value="tipTramNE" disabled>Extra</label>
+                </div>
             </div>
+            
             <div class="CapturaJub">
             <section id="SecDatPerson">
                 <div class="DatosCaptura">
@@ -152,6 +157,7 @@
                             <input type="hidden" id="porcentsbenefs" name="porcentsbenefs" value="">
                             <input type="hidden" id="edadesbenefs" name="edadesbenefs" value="">
                             <input type="hidden" id="vidasbenefs" name="vidasbenefs" value="">
+                            <input type="hidden" id="foliosbenefs" name="foliosbenefs" value="">
                             <div id="DivOpcTestamento">
                                 <select name="OpcTestamento" id="OpcTestamento" placeholder="Doc Testamentario" disabled>
                                     <option selected="true" disabled="disabled">Doc Testamentario</option>
@@ -226,6 +232,9 @@
                 </div>
                 <div id="divObservacionesTram">
                     <div>Observaciones</div><div><input type="text" id="observTramite" name="observTramite" maxlength="500"></div>                   
+                </div>
+                <div id="numfolioTEJI">
+                    <div># Folio</div><div><input type="text" id="numfolcheqTEJI" name="numfolcheqTEJI" minlength="7" maxlength="7"></div>                   
                 </div>
                 <div id="divAgregaTram">
                     <button type="submit" id="agregaTramite" name="agregaTramite" >AGREGAR</button>

@@ -4,22 +4,26 @@ var clavemae;
 
 function init() {
     $("#edita_NomMae").on("submit",function(e){
-        
         actNomMae(e);
     });
 }
 
+
+
 $(document).ready(function(){
+    
     var fechaRecibido = fechaActual();
 
     document.getElementById('numentr').value = document.getElementById('InputNumEntr').value;
     document.getElementById('AnioEntr').value = document.getElementById('InputAnioEntr').value;
-    document.getElementById('IdEntrega').value = document.getElementById('AnioEntr').value + document.getElementById('numentr').value;
+    //document.getElementById('IdEntrega').value = document.getElementById('AnioEntr').value + document.getElementById('numentr').value;
     document.getElementById("montRetFondFall").style.display = "none";
     document.getElementById("DivTestBenefsMae").style.display = "none";
     document.getElementById("DivExcepciones").style.display = "none";
     document.getElementById("DivTpoDiferido").style.display = "none";
     document.getElementById("DivFechInicioJuicio").style.display = "none";
+    document.getElementById("numfolioTEJI").style.display = "none";
+    document.getElementById("DivfolioBenef").style.display = "none";
     document.getElementById('fechRecibido').value = fechaRecibido;
     $('#tituto_BasJubBajFall').html('BASE Y BAJA');
     $('#tituto_InptBasJub').html('Base: &nbsp');
@@ -32,7 +36,6 @@ $(document).ready(function(){
     $("#cerrarEditBenefs").click(function () {
         $("#editarBenefs").modal('hide');
     });
-
 });
 
 
@@ -45,6 +48,7 @@ $("#OpcCauRetiro").change(function () {
             document.getElementById("EditaNombre").disabled =  false;
             document.getElementById("cveIMaeBusq").disabled =  false;
             document.getElementById("OpcRegSind").disabled =  false;
+            document.getElementById("tipTramNE").disabled = false;
             document.getElementById("DivPsgs").style.display =  "block";
             document.getElementById("DivDictamen").style.display = "block";
             document.getElementById("DivTestBenefsMae").style.display = "none";
@@ -59,6 +63,7 @@ $("#OpcCauRetiro").change(function () {
             document.getElementById("EditaNombre").disabled =  false;
             document.getElementById("cveIMaeBusq").disabled =  false;
             document.getElementById("OpcRegSind").disabled =  false;
+            document.getElementById("tipTramNE").disabled = false;
             document.getElementById("DivPsgs").style.display =  "block";
             document.getElementById("DivDictamen").style.display = "block";
             document.getElementById("DivTestBenefsMae").style.display = "none"; 
@@ -73,6 +78,7 @@ $("#OpcCauRetiro").change(function () {
             document.getElementById("EditaNombre").disabled =  false;
             document.getElementById("cveIMaeBusq").disabled =  false;
             document.getElementById("OpcRegSind").disabled =  false;
+            document.getElementById("tipTramNE").disabled = false;
             document.getElementById("DivPsgs").style.display =  "block";
             document.getElementById("DivDictamen").style.display = "none";
             document.getElementById("DivTestBenefsMae").style.display = "block";
@@ -87,6 +93,7 @@ $("#OpcCauRetiro").change(function () {
             document.getElementById("EditaNombre").disabled =  false;
             document.getElementById("cveIMaeBusq").disabled =  false;
             document.getElementById("OpcRegSind").disabled =  false;
+            document.getElementById("tipTramNE").disabled = false;
             document.getElementById("DivPsgs").style.display =  "none";
             document.getElementById("DivDictamen").style.display = "none";
             document.getElementById("DivTestBenefsMae").style.display = "block";
@@ -488,6 +495,27 @@ accionFechBase.addEventListener("blur", function (evento) {
         document.getElementById("fechBaseMae").style.border =  ".1em black solid";
     }
 });
+
+var tipTramite = '0';
+var checkBoxTipTram = document.getElementById('tipTramNE');
+checkBoxTipTram.addEventListener("change", tramExtra, false);
+function tramExtra() {
+    var checkedTE = checkBoxTipTram.checked;
+
+    if (checkedTE) {
+        if (motivo == 'J' || motivo == 'I') {
+            document.getElementById("numfolioTEJI").style.display = "block";
+        } else {
+            document.getElementById("numfolioTEJI").style.display = "none";
+            document.getElementById("DivfolioBenef").style.display = "block";
+        }
+        tipTramite = '1';
+    } else {
+        document.getElementById("numfolioTEJI").style.display = "none";
+        document.getElementById("DivfolioBenef").style.display = "none";
+        tipTramite = '0';
+    }
+}
 
 var checkboxPSGS = document.getElementById('sinPSGS');
 checkboxPSGS.addEventListener("change", validaCheckPSGS, false);
@@ -1422,6 +1450,7 @@ accionBenefs.addEventListener("click", function (evento){
         var aB_porcents = document.getElementById('porcentsbenefs').value.split(",");
         var aB_edades = document.getElementById('edadesbenefs').value.split(",");
         var aB_vida = document.getElementById('vidasbenefs').value.split(",");
+		var aB_folios = document.getElementById('foliosbenefs').value.split(",");
 
         indexA = 0;
         formulario = document.getElementById('edita_Benefs');
@@ -1450,9 +1479,12 @@ accionBenefs.addEventListener("click", function (evento){
         
                     case 'opcEdoVidBenef[]':
                         formulario.elements[i].value = aB_vida[indexA];
-                        indexA++;
                         break;
-        
+						
+					case 'numcheqBenef[]':
+						formulario.elements[i].value = aB_folios[indexA];
+                        indexA++;
+						break;
                     default:
                         break;
                 }
@@ -1489,9 +1521,11 @@ $("#editarBenefs").on("submit",function(evento){
     var a_porcentajes = [];
     var a_edades = [];
     var a_vida = [];
+    var a_folios = [];
     var porcentajeBenefs = 0;
     var integridadDats = true;
     var curpvacia=false;
+    
 
     formulario = document.getElementById('edita_Benefs');
     for (let index = 0; index < formulario.elements.length - 1; index++) {
@@ -1552,6 +1586,10 @@ $("#editarBenefs").on("submit",function(evento){
                     a_vida.push(formulario.elements[index].value);
                 }
                 break;
+            
+            case 'numcheqBenef[]':
+                a_folios.push(formulario.elements[index].value);
+                break;
 
             default:
                 break;
@@ -1577,6 +1615,7 @@ $("#editarBenefs").on("submit",function(evento){
         document.getElementById('porcentsbenefs').value = a_porcentajes;
         document.getElementById('edadesbenefs').value = a_edades;
         document.getElementById('vidasbenefs').value = a_vida;
+        document.getElementById('foliosbenefs').value = a_folios;
         document.getElementById('numBenefs'). value = document.getElementById('numsBenefs').value;
         numBenefs = document.getElementById('numsBenefs').value;
         $('#edita_Benefs')[0].reset();
@@ -1705,7 +1744,9 @@ function agregaRetFallecimiento() {
                                                         Ifechtestamnt:$("#fechCTJuicio").val(),
                                                         Icurpmae:$("#CURPMae").val(),
                                                         Irfcmae: $("#RFCMae").val(),
-                                                        IObserv: $("#observTramite").val()
+                                                        IObserv: $("#observTramite").val(),
+                                                        ItipTram: tipTramite,
+                                                        IfolBenefs: $("#foliosbenefs").val().split(",")
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
@@ -1776,7 +1817,9 @@ function agregajubilado() {
                                                         IdiaHaber: $("#montSalMin").val().replace(",",""),
                                                         Icurpmae:$("#CURPMae").val(),
                                                         Irfcmae: $("#RFCMae").val(),
-                                                        IObserv: $("#observTramite").val()
+                                                        IObserv: $("#observTramite").val(),
+                                                        ItipTram: tipTramite,
+                                                        IFolCheq: $("#numfolcheqTEJI").val()
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
@@ -1871,7 +1914,9 @@ function agregaRetFallecimientoJ() {
                                                         Icurpmae:document.getElementById('CURPMae').value,
                                                         Irfcmae:document.getElementById('RFCMae').value,
                                                         Ifechtestamnt:$("#fechCTJuicio").val(),
-                                                        IObserv: $("#observTramite").val()
+                                                        IObserv: $("#observTramite").val(),
+														ItipTram: tipTramite,
+                                                        IfolBenefs: $("#foliosbenefs").val().split(",")
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;

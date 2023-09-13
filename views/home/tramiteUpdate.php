@@ -49,6 +49,9 @@
                 <div id="DivFolioRet">Folio: &nbsp
                     <input type="text" id="folioTram" name="folioTram" disabled>
                 </div>
+				<div class="divTipTramNE">
+                    <label for="tipTramNE"><input type="checkbox" id="tipTramNE" value="tipTramNE">Extra</label>
+                </div>
             </div>
             <!--<div class="CapturaJub">-->
             <section id="SecDatPerson">
@@ -132,6 +135,7 @@
                             <input type="hidden" id="porcentsbenefs" name="porcentsbenefs" value="">
                             <input type="hidden" id="edadesbenefs" name="edadesbenefs" value="">
                             <input type="hidden" id="vidasbenefs" name="vidasbenefs" value="">
+							<input type="hidden" id="foliosbenefs" name="foliosbenefs" value="">
                             <div id="DivOpcTestamento">
                                 <select name="OpcTestamento" id="OpcTestamento">
                                     <option selected="true" disabled="disabled">Doc Testamentario</option>
@@ -228,6 +232,9 @@
                 </div>
                 <div id="divObservacionesTram">
                     <div>Observaciones</div><div><input type="text" id="observTramite" name="observTramite" maxlength="500"></div>                   
+                </div>
+				<div id="numfolioTEJI">
+                    <div># Folio</div><div><input type="text" id="numfolcheqTEJI" name="numfolcheqTEJI" minlength="7" maxlength="7"></div>                   
                 </div>
                 <div id="divAgregaTram">
                     <button type="submit" id="updateTramite" name="updateTramite" >GUARDAR</button>

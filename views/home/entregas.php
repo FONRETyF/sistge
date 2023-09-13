@@ -45,10 +45,56 @@
                 </table>
             </div>
         </section>
+
+
+        <section class="modalEntrega">
+            <div class="modal_contenedorEntr">
+                <h2 class="modal_title"></h2>
+                <div class="divseparador"></div>
+                <section class="DatsEntregaDetalle">
+                    <input type="hidden" id="identrega" name="identrega">      
+                    <section id="ContenEntregas">
+                        <section id="DatsEntrDetalle">
+                            <div class="DatsEntrNuv">
+                                <div id="DvAnioEntrNuev">Año: 
+                                    <input type="text" class="Anioentrega" name="Anioentrega" id="Anioentrega" minlength="4" maxlength="4" required>
+                                </div>
+                                <div id="DvNumEntrNuev">Num. Entrega:
+                                    <input type="text" class="numentrega" name="numentrega" id="numentrega" minlength="1" maxlength="2" required>
+                                </div>
+                            </div>
+                            <div class="DatsEntrNuv">
+                                <div id="DvDescEntrNuv">Descripcion:
+                                    <input type="text" id="descentrega" name="descentrega">
+                                </div>
+                            </div>
+                            <div id="divFechaEntrega">
+                                <div class="fechEntrEdit">Fecha Entrega:
+                                    <input type="date" id="fechentrega" name="fechentrega" pattern="\d{4}-\d{2}-\d{2}">
+                                </div>
+                                <div id="DivAsignaFecha">
+                                    <label><input type="checkbox" id="CheckAsigFech" value="checkfechentr"> Asigna Fecha</label for="checkfechentr"><br>
+                                </div>
+                            </div>
+                            <div class="obsrEntrEdit">Observaciones:
+                                <input type="text" id="observaciones" name="observaciones">
+                            </div>
+                        </section>
+                    </section>
+                </section>
+                <section class="divaddEntr">
+                    <a href="#" class="addEntrega">Agregar</a>
+                    <a href="#" id="updateEntr" class="updateEntr">Guardar</a>
+                </section>
+                <section class="closeWindowEntr">
+                    <a href="#" class="modalE_close">Cerrar</a>
+                </section>
+            </div>
+        </section>
+
+
     </form>
 </section>
-
-<?php require_once("/var/www/html/sistge/views/home/editarEntrega.php"); ?>
 
 <script src="../../libs/datatables/jquery-3.6.0.js"></script>
 <script src="../../libs/datatables/jquery-3.6.0.min.js"></script>  

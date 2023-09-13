@@ -6,7 +6,6 @@ function init() {
 
 
 $(document).ready(function () {
-
     var varstat = obtenEstatEntr(identrega);
     $('#retiros_data').dataTable({
         "aProcessing": true, //procesamiento dle datatable
@@ -290,6 +289,7 @@ function eliminarT(identret,cvemae) {
             $.post("../../controller/retiros.php?op=deleteTramite",{identret:identret,cvemae:cvemae},function(data){
                 resultadoDelete = Object.values( JSON.parse(data));
                 NumregsResult = resultadoDelete.length;
+                
                 switch (NumregsResult) {
                     case 3:
                         if (resultadoDelete[0] == "Eliminado" && resultadoDelete[1] == "Actualizado" && resultadoDelete[2] == "Eliminado" ) {
@@ -346,7 +346,6 @@ function eliminarT(identret,cvemae) {
                         break;
                 }
             });
-
         }
     });
 }

@@ -36,15 +36,15 @@
             $fechaEntrega = substr($resultsE[0]['fechentrega'],8,2) . " DE " . $meses[intval(substr($resultsE[0]['fechentrega'],5,2))] . " DE " . substr($resultsE[0]['fechentrega'],0,4);
             $this->entregaOrdinal= $funciones->numordinales([intval(substr($identr,4,2))]);
 
-            $statementTI = $this->db->prepare("SELECT COUNT(*), SUM(montrettot) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and motvret='I'");
+            $statementTI = $this->db->prepare("SELECT COUNT(*), SUM(montretentr) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and motvret='I'");
             $statementTI->execute();
             $resultsTI = $statementTI->fetchAll(PDO::FETCH_ASSOC);
 
-            $statementTJ = $this->db->prepare("SELECT COUNT(*), SUM(montrettot) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and motvret='J'");
+            $statementTJ = $this->db->prepare("SELECT COUNT(*), SUM(montretentr) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and motvret='J'");
             $statementTJ->execute();
             $resultsTJ = $statementTJ->fetchAll(PDO::FETCH_ASSOC);
             
-            $statementTF = $this->db->prepare("SELECT COUNT(*), SUM(montrettot) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and (motvret='FA' or motvret='FJ')");
+            $statementTF = $this->db->prepare("SELECT COUNT(*), SUM(montretentr) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and (motvret='FA' or motvret='FJ')");
             $statementTF->execute();
             $resultsTF = $statementTF->fetchAll(PDO::FETCH_ASSOC);
 
@@ -57,7 +57,38 @@
             $statementTChqs = $this->db->prepare($consulta);
             $statementTChqs->execute();
             $resultsTChqs = $statementTChqs->fetchAll(PDO::FETCH_ASSOC);
-
+			
+			$consulta_AdedsFajam = "SELECT COUNT(*), SUM(adfajam) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and adfajam > '0.0';";
+			$get_AdedsFajam = $this->db->prepare($consulta_AdedsFajam);
+			$get_AdedsFajam->execute();
+			$resultAdedsFajam = $get_AdedsFajam->fetchAll(PDO::FETCH_ASSOC);
+			
+			$consulta_AdedsTS = "SELECT COUNT(*), SUM(adts) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and adts > '0.0';";
+			$get_AdedsTS = $this->db->prepare($consulta_AdedsTS);
+			$get_AdedsTS->execute();
+			$resultAdedsTS = $get_AdedsTS->fetchAll(PDO::FETCH_ASSOC);
+			
+			$consulta_AdedsTuris = "SELECT COUNT(*), SUM(adturismo) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and adturismo > '0.0';";
+			$get_AdedsTuris = $this->db->prepare($consulta_AdedsTuris);
+			$get_AdedsTuris->execute();
+			$resultAdedsTuris = $get_AdedsTuris->fetchAll(PDO::FETCH_ASSOC);
+		
+			$numAdeudos = 0;
+			$montAdeudos = 0;
+			if($resultAdedsFajam[0]['count'] > 0){
+				$numAdeudos = $numAdeudos + $resultAdedsFajam[0]['count'];
+				$montAdeudos = $montAdeudos + str_replace("$","",str_replace(",","",$resultAdedsFajam[0]['sum']));
+			}
+			if($resultAdedsTS[0]['count'] > 0){
+				$numAdeudos = $numAdeudos + $resultAdedsTS[0]['count'];
+				$montAdeudos = $montAdeudos + str_replace("$","",str_replace(",","",$resultAdedsTS[0]['sum']));
+			}
+			if($resultAdedsTuris[0]['count'] > 0){
+				$numAdeudos = $numAdeudos + $resultAdedsTuris[0]['count'];
+				$montAdeudos = $montAdeudos + str_replace("$","",str_replace(",","",$resultAdedsTuris[0]['sum']));
+			}
+						
+			
             $this->Image('/var/www/html/sistge/img/escudooficio.png',1.8,0.4,3.7,4.5);
             $this->Image('/var/www/html/sistge/img/escudofondoAcuerdo.jpg',4.8,7.3,12,11.5);
             
@@ -181,77 +212,153 @@
             $this->cell(4,0.5,$resultsTF[0]['count'],1,0,'C');
             $this->cell(4,0.5,$resultsTF[0]['sum'],1,0,'C');
             $this->cell(4,0.5,$resultsTB[0]['count'],1,0,'C');
+			
+			if($numAdeudos > 0){
+				$this->Ln(0.5); 
+				$this->setX(2.795);
+				$this->cell(4,0.5,"ADEUDOS",1,0,'C');
+				$this->cell(4,0.5,$numAdeudos,1,0,'C');
+				$this->cell(4,0.5,"$".number_format($montAdeudos,2,'.',','),1,0,'C');
+				$this->cell(4,0.5,"",1,0,'C');
+				
+				$this->Ln(1);
+				$this->setX(2.795);
+				$this->SetFont('Arial','B',10);
+				$this->setX(2.795);
+				$this->SetFillColor(191,191,191);
+				$this->cell(4,0.5,"",1,0,'C',true);
+				$this->cell(4,0.5, utf8_decode("TRÁMITES"),1,0,'C',true);
+				$this->cell(4,0.5,"CHEQUES",1,0,'C',true);
+				$this->cell(4,0.5,"MONTO",1,0,'C',true);
+				$this->Ln(0.5);
+				$this->setX(2.795);
+				$this->cell(4,0.5,"TOTALES",1,0,'C');
+				$this->cell(4,0.5,$resultsT[0]['count'],1,0,'C');
+				$this->cell(4,0.5,$resultsTChqs[0]['count'],1,0,'C');
+				$this->cell(4,0.5,$resultsT[0]['sum'],1,0,'C');
+				
+				$this->Ln(1);
+				$this->SetFont('Arial','',11);
+				$this->MultiCell(16.59,0.5,utf8_decode("Sin más por el momento me despido de usted, quedando a sus órdenes para cualquier aclaración."),0 ,'J');
+				
+				$this->Ln(0.2);
+				$this->setX(2.5);
+				$this->SetFont('Arial','B',10);
+				$this->cell(16.59,0.5,"A T E N T A M E N T E",0,0,'C');
+				$this->Ln(1.5);
+				$this->setX(2.5);
+				$this->cell(16.59,0.5,utf8_decode("PROFR. HORACIO LÓPEZ SALINAS"),0,0,'C');
+				$this->Ln(0.35);
+				$this->setX(2.5);
+				$this->SetFont('Arial','B',9);
+				$this->cell(16.59,0.5,utf8_decode("DIRECTOR DEL FONDO DE RETIRO Y FALLECIMIENTO"),0,0,'C');
 
-            $this->Ln(1);
-            $this->setX(2.795);
-            $this->SetFont('Arial','B',10);
-            $this->setX(2.795);
-            $this->SetFillColor(191,191,191);
-            $this->cell(4,0.5,"",1,0,'C',true);
-            $this->cell(4,0.5, utf8_decode("TRÁMITES"),1,0,'C',true);
-            $this->cell(4,0.5,"CHEQUES",1,0,'C',true);
-            $this->cell(4,0.5,"MONTO",1,0,'C',true);
-            $this->Ln(0.5);
-            $this->setX(2.795);
-            $this->cell(4,0.5,"TOTALES",1,0,'C');
-            $this->cell(4,0.5,$resultsT[0]['count'],1,0,'C');
-            $this->cell(4,0.5,$resultsTChqs[0]['count'],1,0,'C');
-            $this->cell(4,0.5,$resultsT[0]['sum'],1,0,'C');
-            
-            $this->Ln(1);
-            $this->SetFont('Arial','',11);
-            $this->MultiCell(16.59,0.5,utf8_decode("Sin más por el momento me despido de usted, quedando a sus órdenes para cualquier aclaración."),0 ,'J');
-            
-            $this->Ln(0.2);
-            $this->setX(2.5);
-            $this->SetFont('Arial','B',10);
-            $this->cell(16.59,0.5,"A T E N T A M E N T E",0,0,'C');
-            $this->Ln(1.5);
-            $this->setX(2.5);
-            $this->cell(16.59,0.5,utf8_decode("PROFR. HORACIO LÓPEZ SALINAS"),0,0,'C');
-            $this->Ln(0.35);
-            $this->setX(2.5);
-            $this->SetFont('Arial','B',9);
-            $this->cell(16.59,0.5,utf8_decode("DIRECTOR DEL FONDO DE RETIRO Y FALLECIMIENTO"),0,0,'C');
+				$this->Ln(1.5);
+				$this->setX(2.5);
+				$this->cell(16.59,0.5,utf8_decode("PROFR. JESÚS SOTELO SOTELO"),0,0,'C');
+				$this->Ln(0.35);
+				$this->setX(2.5);
+				$this->SetFont('Arial','B',9);
+				$this->cell(16.59,0.5,utf8_decode("SECRETARIO DE SEGURIDAD SOCIAL SINDICAL"),0,0,'C');
 
-            $this->Ln(1.5);
-            $this->setX(2.5);
-            $this->cell(16.59,0.5,utf8_decode("PROFR. JESÚS SOTELO SOTELO"),0,0,'C');
-            $this->Ln(0.35);
-            $this->setX(2.5);
-            $this->SetFont('Arial','B',9);
-            $this->cell(16.59,0.5,utf8_decode("SECRETARIO DE SEGURIDAD SOCIAL SINDICAL"),0,0,'C');
+				$this->Ln(0.7);
+				$this->setX(2.5);
+				$this->cell(16.59,0.5,utf8_decode("AUTORIZÓ"),0,0,'C');
+				$this->Ln(1.5);
+				$this->setX(2.5);
+				$this->cell(16.59,0.5,utf8_decode(" PROFR.  MARCO AURELIO CARBAJAL LEYVA"),0,0,'C');
+				$this->Ln(0.35);
+				$this->setX(2.5);
+				$this->SetFont('Arial','B',9);
+				$this->cell(16.59,0.5,utf8_decode("SECRETARIO GENERAL"),0,0,'C');
+				
+				$this->Image('/var/www/html/sistge/img/logoplanilla.png',17,23.3,2.57,2.38);
+				
+				$this->Image('/var/www/html/sistge/img/lineaoficio.png',1,26.4,19.7,0.05);
+				
+				$this->SetY(-1.5);
+				$this->SetFont('Arial','B',8);
+				$this->setX(1.75);
+				$this->Cell(17.9, 0.5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
+				$this->Ln(0.5);
+					
+				$this->setX(1.4);
+				$this->SetFont('Arial','B',7);
+				$this->Cell(18.52, 0.5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
+				$this->Ln(0.3);
+				$this->setX(1.4);
+				$this->Cell(18.52, 0.5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+				
+			}else{
+				$this->Ln(1);
+				$this->setX(2.795);
+				$this->SetFont('Arial','B',10);
+				$this->setX(2.795);
+				$this->SetFillColor(191,191,191);
+				$this->cell(4,0.5,"",1,0,'C',true);
+				$this->cell(4,0.5, utf8_decode("TRÁMITES"),1,0,'C',true);
+				$this->cell(4,0.5,"CHEQUES",1,0,'C',true);
+				$this->cell(4,0.5,"MONTO",1,0,'C',true);
+				$this->Ln(0.5);
+				$this->setX(2.795);
+				$this->cell(4,0.5,"TOTALES",1,0,'C');
+				$this->cell(4,0.5,$resultsT[0]['count'],1,0,'C');
+				$this->cell(4,0.5,$resultsTChqs[0]['count'],1,0,'C');
+				$this->cell(4,0.5,$resultsT[0]['sum'],1,0,'C');
+				
+				$this->Ln(1);
+				$this->SetFont('Arial','',11);
+				$this->MultiCell(16.59,0.5,utf8_decode("Sin más por el momento me despido de usted, quedando a sus órdenes para cualquier aclaración."),0 ,'J');
+				
+				$this->Ln(0.2);
+				$this->setX(2.5);
+				$this->SetFont('Arial','B',10);
+				$this->cell(16.59,0.5,"A T E N T A M E N T E",0,0,'C');
+				$this->Ln(1.5);
+				$this->setX(2.5);
+				$this->cell(16.59,0.5,utf8_decode("PROFR. HORACIO LÓPEZ SALINAS"),0,0,'C');
+				$this->Ln(0.35);
+				$this->setX(2.5);
+				$this->SetFont('Arial','B',9);
+				$this->cell(16.59,0.5,utf8_decode("DIRECTOR DEL FONDO DE RETIRO Y FALLECIMIENTO"),0,0,'C');
 
-            $this->Ln(0.7);
-            $this->setX(2.5);
-            $this->cell(16.59,0.5,utf8_decode("AUTORIZÓ"),0,0,'C');
-            $this->Ln(1.5);
-            $this->setX(2.5);
-            $this->cell(16.59,0.5,utf8_decode(" PROFR.  MARCO AURELIO CARBAJAL LEYVA"),0,0,'C');
-            $this->Ln(0.35);
-            $this->setX(2.5);
-            $this->SetFont('Arial','B',9);
-            $this->cell(16.59,0.5,utf8_decode("SECRETARIO GENERAL"),0,0,'C');
-            
-            $this->Image('/var/www/html/sistge/img/logoplanilla.png',17,23.3,2.57,2.38);
-            
-            $this->Image('/var/www/html/sistge/img/lineaoficio.png',1,25.8,19.7,0.05);
-        }
+				$this->Ln(1.5);
+				$this->setX(2.5);
+				$this->cell(16.59,0.5,utf8_decode("PROFR. JESÚS SOTELO SOTELO"),0,0,'C');
+				$this->Ln(0.35);
+				$this->setX(2.5);
+				$this->SetFont('Arial','B',9);
+				$this->cell(16.59,0.5,utf8_decode("SECRETARIO DE SEGURIDAD SOCIAL SINDICAL"),0,0,'C');
 
-        function Footer()
-        {
-            $this->SetY(-2.1);
-            $this->SetFont('Arial','B',8);
-            $this->setX(1.75);
-            $this->Cell(17.9, 0.5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
-            $this->Ln(0.7);
-            
-            $this->setX(1.4);
-            $this->SetFont('Arial','B',7);
-            $this->Cell(18.52, 0.5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
-            $this->Ln(0.3);
-            $this->setX(1.4);
-            $this->Cell(18.52, 0.5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+				$this->Ln(0.7);
+				$this->setX(2.5);
+				$this->cell(16.59,0.5,utf8_decode("AUTORIZÓ"),0,0,'C');
+				$this->Ln(1.5);
+				$this->setX(2.5);
+				$this->cell(16.59,0.5,utf8_decode(" PROFR.  MARCO AURELIO CARBAJAL LEYVA"),0,0,'C');
+				$this->Ln(0.35);
+				$this->setX(2.5);
+				$this->SetFont('Arial','B',9);
+				$this->cell(16.59,0.5,utf8_decode("SECRETARIO GENERAL"),0,0,'C');
+				
+				$this->Image('/var/www/html/sistge/img/logoplanilla.png',17,23.3,2.57,2.38);
+				
+				$this->Image('/var/www/html/sistge/img/lineaoficio.png',1,25.8,19.7,0.05);
+				
+
+				$this->SetY(-2.1);
+				$this->SetFont('Arial','B',8);
+				$this->setX(1.75);
+				$this->Cell(17.9, 0.5,utf8_decode("IGNACIO LÓPEZ RAYÓN No. 602           ESQ. FRANCISCO MURGUÍA          COL. CUAUHTÉMOC          C.P. 50130          TOLUCA, MÉXICO"),0,0,'C');
+				$this->Ln(0.7);
+					
+				$this->setX(1.4);
+				$this->SetFont('Arial','B',7);
+				$this->Cell(18.52, 0.5,utf8_decode("TELS.: (722)       2-12-10-72               2-12-25-00                2-12-25-07              2-12-25-09               2-12-25-14               2-12-25-21               2-12-25-28               2-12-25-78"),0,0,'C');
+				$this->Ln(0.3);
+				$this->setX(1.4);
+				$this->Cell(18.52, 0.5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
+			}
         }
     }
 

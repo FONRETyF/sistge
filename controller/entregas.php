@@ -34,15 +34,27 @@
             echo json_encode($a_result_entregas_DT);
             break;
         
-        case "guardaryeditar":
+        case "agregar":
             $a_get_entrega = $entrega->get_entrega_id($_POST["identrega"]);
+            $resulInsert = array();
             if(empty($a_get_entrega)){
+                if(is_array($a_get_entrega)==true and count($a_get_entrega)==0){
+                    $resulInsert = $entrega->insert_entrega($_POST["identrega"],$_POST["Anioentrega"],$_POST["numentrega"],$_POST["descentrega"],$_SESSION['usuario'],$_POST["fechentrega"],$_POST["observaciones"]);
+                }
+            }else{
+                $resulInsert["resultado"] = "Existente";
+            }
+            echo json_encode($resulInsert);
+            break;
+        
+        case "guardaryeditar":
+            $result_insertEntrega = $entrega->update_entrega($_POST["identrega"],$_POST["numentrega"],$_POST["Anioentrega"],$_POST["descentrega"],$_POST["fechentrega"],$_POST["observaciones"],$_SESSION['usuario']);
+            echo json_encode($result_insertEntrega);
+            /*if(empty($a_get_entrega)){
                 if(is_array($a_get_entrega)==true and count($a_get_entrega)==0){
                     $entrega->insert_entrega($_POST["identrega"],$_POST["numentrega"],$_POST["Anioentrega"],$_POST["descentrega"],$_SESSION['usuario'],$_POST["fechentrega"],$_POST["observaciones"]);
                 }
-            }else{
-                $entrega->update_entrega($_POST["numentrega"],$_POST["Anioentrega"],$_POST["descentrega"],$_POST["fechentrega"],$_POST["observaciones"],$_SESSION['usuario'],$_POST["identrega"]);
-            }
+            }*/
             break;
             
         case "mostrar":

@@ -32,7 +32,7 @@
             $fechaEntrega = substr($resultsE[0]['fechentrega'],8,2) . " DE " . $meses[intval(substr($resultsE[0]['fechentrega'],5,2))] . " DE " . substr($resultsE[0]['fechentrega'],0,4);
             $this->entregaOrdinal= $funciones->numordinales([intval(substr($identr,4,2))]);
 
-            $consulta = "SELECT COUNT(*), SUM(montbenef) FROM public.beneficiarios_cheques WHERE numentrega=".intval(substr($identr,4,2))." and anioentrega=".substr($identr,0,4);
+            $consulta = "SELECT COUNT(*), SUM(montbenef) FROM public.beneficiarios_cheques WHERE numentrega=".intval(substr($identr,4,2))." and anioentrega=".substr($identr,0,4)." and tipimpcheq='0'";
             $statementTChqs = $this->db->prepare($consulta);
             $statementTChqs->execute();
             $resultsTChqs = $statementTChqs->fetchAll(PDO::FETCH_ASSOC);
