@@ -23,11 +23,11 @@
 
             $meses=[1=>"ENERO", 2=>"FEBRERO", 3=>"MARZO", 4=>"ABRIL", 5=>"MAYO", 6=>"JUNIO", 7=>"JULIO", 8=>"AGOSTO", 9=>"SEPTIEMBRE", 10=>"OCTUBRE", 11=>"NOVIEMBRE", 12=>"DICIEMBRE"];
 
-            $statementT = $this->db->prepare("SELECT COUNT(*), SUM(montrettot) FROM public.tramites_fonretyf WHERE identrega='".$identr."'");
+            $statementT = $this->db->prepare("SELECT COUNT(*), SUM(montretentr) FROM public.tramites_fonretyf WHERE identrega='".$identr."'");
             $statementT->execute();
             $resultsT = $statementT->fetchAll(PDO::FETCH_ASSOC);
             $fecha = fechactual();
-            $montLetra= "(" . $this->CantLet = $cantidadLetras->cantidadLetras(str_replace("$","",str_replace(",","",$resultsT[0]['sum']))).")";
+            //$montLetra= "(" . $this->CantLet = $cantidadLetras->cantidadLetras(str_replace("$","",str_replace(",","",$resultsT[0]['sum']))).")";
 
             $statementE = $this->db->prepare("SELECT numentrega,fechentrega FROM public.entregas_fonretyf WHERE identrega='".$identr."'");
             $statementE->execute();
@@ -87,8 +87,10 @@
 				$numAdeudos = $numAdeudos + $resultAdedsTuris[0]['count'];
 				$montAdeudos = $montAdeudos + str_replace("$","",str_replace(",","",$resultAdedsTuris[0]['sum']));
 			}
-						
-			
+	    $monttotentrega = str_replace("$","",str_replace(",","", $resultsT[0]['sum']))+ $montAdeudos;					
+	    
+            $montLetra= "(" . $this->CantLet = $cantidadLetras->cantidadLetras($monttotentrega).")";
+		
             $this->Image('/var/www/html/sistge/img/escudooficio.png',1.8,0.4,3.7,4.5);
             $this->Image('/var/www/html/sistge/img/escudofondoAcuerdo.jpg',4.8,7.3,12,11.5);
             
@@ -173,7 +175,7 @@
             $this->setX(2.5);
             $this->Cell(9.4, 0.5, "corresponda a efecto de que se realice el traspaso de", 0, 0, 'L');
             $this->SetFont('Arial','B',11);
-            $this->Cell(3.3, 0.5, $resultsT[0]['sum'], 0, 0, 'C');
+            $this->Cell(3.3, 0.5, "$".number_format($monttotentrega,2,'.',','), 0, 0, 'C');
             $this->Ln(0.5);
             $this->SetFont('Arial','',8);
             $this->Cell(16.59,0.5,$montLetra,0,0,'C');
@@ -185,7 +187,7 @@
             $this->setX(2.795);
             $this->SetFont('Arial','B',10);
             $this->SetFillColor(128,128,128);
-            $this->cell(16,0.5,"CEREMONIA DEL ".$fechaEntrega,1,0,'C',true);
+            $this->cell(16,0.5,"MONTOS DE LA ENTREGA No. ". $entrOfic ,1,0,'C',true);
             $this->Ln(0.5);
             $this->SetFont('Arial','',10);
             $this->setX(2.795);
@@ -235,7 +237,7 @@
 				$this->cell(4,0.5,"TOTALES",1,0,'C');
 				$this->cell(4,0.5,$resultsT[0]['count'],1,0,'C');
 				$this->cell(4,0.5,$resultsTChqs[0]['count'],1,0,'C');
-				$this->cell(4,0.5,$resultsT[0]['sum'],1,0,'C');
+				$this->cell(4,0.5,"$".number_format($monttotentrega,2,'.',','),1,0,'C');
 				
 				$this->Ln(1);
 				$this->SetFont('Arial','',11);
