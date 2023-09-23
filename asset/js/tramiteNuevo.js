@@ -418,49 +418,93 @@ accionEditaNom.addEventListener("click", function (evento){
     $('#modal-title').html('Modificando nombre');
     $.post("../../controller/maestro.php?op=mostrarNom",{clavemae:clavemae},function(data){       
         data = JSON.parse(data);
-        $('#cvemae').val(data.csp);
+        //$('#cvemae').val(data.csp);
+		document.getElementById('cvemae').value = data.csp;	
         $('#apepatModif').val(data.apepatmae);
         $('#apematModif').val(data.apematmae);
         $('#nommaeModif').val(data.nommae);
         $('#nomcomModif').val(data.nomcommae);
     });
     $('#editarNomMae').modal('show');
+	
 });
 
 function actNomMae(e){
     e.preventDefault();
     nomComMae = $('#apepatModif').val() + " " + $('#apematModif').val() + " " + $('#nommaeModif').val();
     $('#nomcomModif').val(nomComMae);
+	
+	if($('#OpcCauRetiro').val() == "FJ"){
+		$.post("../../controller/maestro.php?op=actNomMae",{apepatModif:$('#apepatModif').val(),apematModif:$('#apematModif').val(),nommaeModif:$('#nommaeModif').val(),nomcomModif:$('#nomcomModif').val(),cvemae:$('#cvemae').val()},function(data){ 
+			resultadoUpd = Object.values( JSON.parse(data));
+			if(resultadoUpd[0] == "actualizado"){
+				
+				swal.fire(
+					'Modificacion!',
+					'Los Datos se actualizaron correctamente!!!',
+					'success'
+				);
+				$('#edita_NomMae')[0].reset();
+				$("#editarNomMae").modal('hide');
+			}else{
+				swal.fire(
+					'ERROR!!!',
+					'Surgio un error consultelo con el administrador dle sistema!!!',
+					'success'
+				);
+			}
+		});
+		$('#edita_NomMae')[0].reset();
+		$("#editarNomMae").modal('hide');
+		clavemae = $("#cveIMaeBusq").val();
+	
+		$.post("../../controller/maestro.php?op=buscarJub",{claveisemym:clavemae},function(data){ 
+			data = JSON.parse(data);
+			$('#apePatMae').val(data.apepatmae);
+			$('#apeMatMae').val(data.apematmae);
+			$('#nombreMae').val(data.nommae);
+			//$('#estLaboral').val(estatusMae);
+			$('#nomComplMae').val(data.nomcommae);
+			$('#nomSolic').val(data.nomcommae); 
+		});
+	}else{
+		var formData = new FormData($("#edita_NomMae")[0]);
     
-    var formData = new FormData($("#edita_NomMae")[0]);
+		$.ajax({
+			url: '../../controller/maestro.php?op=actNomMae',
+			type: "POST",
+			data: formData,
+			contentType: false,
+			processData: false,
+			success: function(datos){
+				$('#edita_NomMae')[0].reset();
+				$("#editarNomMae").modal('hide');
+				swal.fire(
+					'Modificacion!',
+					'Los Datos se actualizaron correctamente!!!',
+					'success'
+				);
+			}
+		});
+		
+		clavemae = $("#cvemae").val();
+	
+		$.post("../../controller/maestro.php?op=buscar",{clavemae:clavemae},function(data){ 
+			data = JSON.parse(data);
+			$('#apePatMae').val(data.apepatmae);
+			$('#apeMatMae').val(data.apematmae);
+			$('#nombreMae').val(data.nommae);
+			$('#estLaboral').val(estatusMae);
+			$('#nomComplMae').val(data.nomcommae);
+			$('#nomSolic').val(data.nomcommae); 
+		});
+		
+	}
+	
     
-    $.ajax({
-        url: '../../controller/maestro.php?op=actNomMae',
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(datos){
-            $('#edita_NomMae')[0].reset();
-            $("#editarNomMae").modal('hide');
-            swal.fire(
-                'Modificacion!',
-                'Los Datos se actualizaron correctamente!!!',
-                'success'
-            );
-        }
-    });
 
-    clavemae = $("#cspMaeBusq").val();
-    $.post("../../controller/maestro.php?op=buscar",{clavemae:clavemae},function(data){ 
-        data = JSON.parse(data);
-        $('#apePatMae').val(data.apepatmae);
-        $('#apeMatMae').val(data.apematmae);
-        $('#nombreMae').val(data.nommae);
-        $('#estLaboral').val(estatusMae);
-        $('#nomComplMae').val(data.nomcommae);
-        $('#nomSolic').val(data.nomcommae); 
-    });
+
+    
 }
 
 const accionFechBaja = document.querySelector("#fechBajaMae");

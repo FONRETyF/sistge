@@ -38,7 +38,7 @@ accionBtnImpOfic.addEventListener("click", function (e) {
     }else if (document.getElementById("RadBtnImpCheqInform").checked) {
         location.href = "../../views/home/oficioImpChqs.php" + "?identr=" + identrega;
     } else if(document.getElementById("RadBtnArchContad").checked){
-        
+        location.href = "../../views/home/oficioContabilidad.php" + "?identr=" + identrega;
     }
 });
 

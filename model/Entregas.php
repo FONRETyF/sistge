@@ -148,6 +148,103 @@
                 echo $th;
             }
         }
+		
+		public function agregaCarpetas($identrega,$numcarpetas,$folsini,$folsfin,$obsrvscarp,$usuario){
+			$fecha = "";
+            $fecha = date("Y-m-d H:i:s");
+			
+			$consultaBorraCaprs = "DELETE FROM public.carpetas WHERE anioentrega=" . substr($identrega,0,4) . " and numentrega=" . substr($identrega,4,2) . ";" ;
+			$consultaBorraCaprs = $this->db->prepare($consultaBorraCaprs);
+            $consultaBorraCaprs->execute();
+            $resultsCarps = $consultaBorraCaprs->fetchAll(PDO::FETCH_ASSOC);
+			
+			$a_resultInserts = array();
+			
+			$numerocarpetas = count($numcarpetas);
+			for($i=0 ; $i < $numerocarpetas ; $i++){
+				$idcarpeta = "E".substr($identrega,4,2)."-".substr($identrega,0,4)."-C".$numcarpetas[$i];
+				$consultaInsertCarpeta = "INSERT INTO public.carpetas(anioentrega, numentrega, numcarpeta, idcarpeta, folini, folfin, folioscarp, estatcomplet, estatarchiv, estatrevcontab, observaciones, fecharchivcontab, cveusu, fechmodif)VALUES ";
+				try{
+					$consultaInsertCarpeta = $consultaInsertCarpeta . "(".substr($identrega,0,4).",".substr($identrega,4,2).",".$numcarpetas[$i].",'".$idcarpeta."','".$folsini[$i]."','".$folsfin[$i]."','".$folsini[$i]."-".$folsfin[$i]."','COMPLETA','CONTAB','REVISADA','".$obsrvscarp[$i]."','1900-01-01','".$usuario."','".$fecha."');";
+					$consultaInsertCarpeta = $this->db->prepare($consultaInsertCarpeta);
+					$consultaInsertCarpeta->execute();
+					$resultsInsertCarps = $consultaInsertCarpeta->fetchAll(PDO::FETCH_ASSOC);
+					array_push($a_resultInserts,"A"); 
+				}catch (\Throwable $th) {
+					echo $th;
+					array_push($a_resultInserts,"F"); 
+					//$a_resultInserts["agregado"] = $i;
+				}
+			}
+			return $a_resultInserts;
+		}
+		
+		public function validExistFols($folioI,$folioF){
+			$FI = intval($folioI);
+			$FF = intval($folioF);
+			$a_resultFolsInexist = array();
+			$existentes = array();
+			$inexistentes = array();
+			
+			for($i=$FI ; $i <= $FF ; $i++){
+			
+				$consultaExistCheq = "SELECT idbenefcheque,folcheque FROM public.beneficiarios_cheques WHERE folcheque='00".$i."'";
+				try{
+					$consultaExistFol = $this->db->prepare($consultaExistCheq);
+					$consultaExistFol->execute();
+					$resultExistFol = $consultaExistFol->fetchAll(PDO::FETCH_ASSOC);
+				}catch (\Throwable $th) {
+					echo $th;
+				}
+				if(!empty($resultExistFol)){
+					array_push($existentes, array("00" . $resultExistFol[0]['folcheque'],"beneficiarios_cheques"));
+				}else{
+					$consultaExistCheq = "SELECT idbenefcheque,folcheque FROM public.beneficiarios_cheques_hist WHERE folcheque='00".$i."'";
+					try{
+						$consultaExistFol = $this->db->prepare($consultaExistCheq);
+						$consultaExistFol->execute();
+						$resultExistFol = $consultaExistFol->fetchAll(PDO::FETCH_ASSOC);
+					}catch (\Throwable $th) {
+						echo $th;
+					}
+					if(!empty($resultExistFol)){
+						array_push($existentes, array("00" . $resultExistFol[0]['folcheque'],"beneficiarios_cheques_hist")); 
+					}else{
+						$consultaExistCheq = "SELECT idret,folcheque FROM public.cheqs_cancelados WHERE folcheque='00".$i."'";
+						try{
+							$consultaExistFol = $this->db->prepare($consultaExistCheq);
+							$consultaExistFol->execute();
+							$resultExistFol = $consultaExistFol->fetchAll(PDO::FETCH_ASSOC);
+						}catch (\Throwable $th) {
+							echo $th;
+						}
+						if(!empty($resultExistFol)){
+							array_push($existentes, array("00" . $resultExistFol[0]['folcheque'],"cheqs_cancelados"));  
+						}else{
+							$consultaExistCheq = "SELECT idbenefcheque,folio FROM public.adm_chqs WHERE folio='00".$i."'";
+							try{
+								$consultaExistFol = $this->db->prepare($consultaExistCheq);
+								$consultaExistFol->execute();
+								$resultExistFol = $consultaExistFol->fetchAll(PDO::FETCH_ASSOC);
+							}catch (\Throwable $th) {
+								echo $th;
+							}
+							if(!empty($resultExistFol)){
+								array_push($existentes, array("00" . $resultExistFol[0]['folio'],"adm_chqs"));  
+							}else{
+								$inexistentes[] = "00".$i;
+							}							
+						}
+					}
+				}
+			}
+			
+			$a_resultFolsInexist[] = $existentes;
+			$a_resultFolsInexist[] = $inexistentes;
+		
+			return $a_resultFolsInexist;
+		}
+
     }
 
 ?>

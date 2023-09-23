@@ -209,6 +209,9 @@ $(document).ready(function () {
                     $("#fechBaseMae").val(infoTramite[57]);
                     $("#fechBajaMae").val(infoTramite[59]);
                     /*$("#DiasServOriginal").val(infoTramite[]);*/
+					
+					clavemae = document.getElementById("cspMaeBusq").value;				
+					
                     if (infoTramite[60] == 0) {
                         document.getElementById('sinPSGS').checked = true;
                         document.getElementById('editaPSGS').disabled = true;
@@ -450,9 +453,11 @@ $(document).ready(function () {
 				if ( tipTramit == 0) {
 					document.getElementById("tipTramNE").checked = false;
 					document.getElementById("numfolioTEJI").style.display = "none";
+					document.getElementById("DivfolioBenef").style.display = "none";
                 } else{
 					document.getElementById("tipTramNE").checked = true;
-					document.getElementById("numfolioTEJI").style.display = "block";
+					document.getElementById("numfolioTEJI").style.display = "none";
+					document.getElementById("DivfolioBenef").style.display = "block";
 				}
 					
                 $("#AnioEntr").val(infoTramite[1]);
@@ -522,7 +527,7 @@ $(document).ready(function () {
                     $("#edadesbenefs").val(a_edades);
                     $("#vidasbenefs").val(a_vida);
 					$("#foliosbenefs").val(a_folsBenefs);
-					$("#foliosbenefs").val(a_folsBenefs);
+					
                 });
 
                 $("#diasServMae").val(infoTramite[65]);
@@ -694,36 +699,73 @@ function actNomMae(e){
     nomComMae = $('#apepatModif').val() + " " + $('#apematModif').val() + " " + $('#nommaeModif').val();
     $('#nomcomModif').val(nomComMae);
     
-    var formData = new FormData($("#edita_NomMae")[0]);
+	
+	if($('#OpcCauRetiro').val() == "FJ"){
+		$.post("../../controller/maestro.php?op=actNomMae",{apepatModif:$('#apepatModif').val(),apematModif:$('#apematModif').val(),nommaeModif:$('#nommaeModif').val(),nomcomModif:$('#nomcomModif').val(),cvemae:$('#cvemae').val()},function(data){ 
+			resultadoUpd = Object.values( JSON.parse(data));
+			
+			if(resultadoUpd[0] == "actualizado"){
+				
+				swal.fire(
+					'Modificacion!',
+					'Los Datos se actualizaron correctamente!!!',
+					'success'
+				);
+				$('#edita_NomMae')[0].reset();
+				$("#editarNomMae").modal('hide');
+			}else{
+				swal.fire(
+					'ERROR!!!',
+					'Surgio un error consultelo con el administrador dle sistema!!!',
+					'success'
+				);
+			}
+		});
+		
+		clavemae = $("#cveIMaeBusq").val();
+	
+		$.post("../../controller/maestro.php?op=buscarJub",{claveisemym:clavemae},function(data){ 
+			data = JSON.parse(data);
+			$('#apePatMae').val(data.apepatmae);
+			$('#apeMatMae').val(data.apematmae);
+			$('#nombreMae').val(data.nommae);
+			//$('#estLaboral').val(estatusMae);
+			$('#nomComplMae').val(data.nomcommae);
+			$('#nomSolic').val(data.nomcommae); 
+		});
+	}else{
+		var formData = new FormData($("#edita_NomMae")[0]);
     
-    $.ajax({
-        url: '../../controller/maestro.php?op=actNomMae',
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(datos){
-            $('#edita_NomMae')[0].reset();
-            $("#editarNomMae").modal('hide');
-            swal.fire(
-                'Modificacion!',
-                'Los Datos se actualizaron correctamente!!!',
-                'success'
-            );
-        }
-    });
-    
-    clavemae = $("#cspMaeBusq").val();
+		$.ajax({
+			url: '../../controller/maestro.php?op=actNomMae',
+			type: "POST",
+			data: formData,
+			contentType: false,
+			processData: false,
+			success: function(datos){
+				$('#edita_NomMae')[0].reset();
+				$("#editarNomMae").modal('hide');
+				swal.fire(
+					'Modificacion!',
+					'Los Datos se actualizaron correctamente!!!',
+					'success'
+				);
+			}
+		});
+		
+		//clavemae = $("#cspMaeBusq").val();
 
-    $.post("../../controller/maestro.php?op=buscar",{clavemae:clavemae},function(data){ 
-        data = JSON.parse(data);
-        $('#apePatMae').val(data.apepatmae);
-        $('#apeMatMae').val(data.apematmae);
-        $('#nombreMae').val(data.nommae);
-        $('#estLaboral').val($("#estLaboral").val());
-        $('#nomComplMae').val(data.nomcommae);
-        $('#nomSolic').val(data.nomcommae); 
-    });
+		$.post("../../controller/maestro.php?op=buscar",{clavemae:clavemae},function(data){ 
+			data = JSON.parse(data);
+			$('#apePatMae').val(data.apepatmae);
+			$('#apeMatMae').val(data.apematmae);
+			$('#nombreMae').val(data.nommae);
+			$('#estLaboral').val($("#estLaboral").val());
+			$('#nomComplMae').val(data.nomcommae);
+			$('#nomSolic').val(data.nomcommae); 
+		});
+		
+	}
 }
 
 const accionFechBaja = document.querySelector("#fechBajaMae");

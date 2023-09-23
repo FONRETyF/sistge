@@ -121,7 +121,17 @@
         case 'updataEntrImpCheqs':
             $a_get_update_Entr = $entrega->updateEntrImpCheques($_POST['identrega']);
             break;
-        
+			
+        case 'agregarCarps':
+			$a_agregaCarpetas = $entrega->agregaCarpetas($_POST['identrega'],$_POST['numcarpetas'],$_POST['folsini'],$_POST['folsfin'],$_POST['obsrvscarp'],$_SESSION['usuario']);
+			echo json_encode($a_agregaCarpetas, JSON_FORCE_OBJECT);
+			break;
+		
+		case 'validExistFols':
+			$a_resultValidExistfols = $entrega->validExistFols($_POST['folioI'],$_POST['folioF']);
+			echo json_encode($a_resultValidExistfols, JSON_FORCE_OBJECT);
+			break;
+			
         default:
             
             break;

@@ -2542,6 +2542,19 @@ input[type="date"]{
   margin:15px auto;
   display: inline-flex;
 }
+#secRangFolsCarps{
+	width: 50%;
+	min-height: 50px;
+	margin:15px auto;
+	font-weight: bold;
+}
+#secRangFolsCarps input{
+	width:110px;
+	border: none;
+	text-align: center;
+	font-weight: bold;
+	color: black;
+}
 #editRang{
   background-color: transparent;
   border-color: transparent;
@@ -2605,7 +2618,14 @@ input[type="date"]{
 #inputsFols{
   display: inline-block;
 }
-
+#addChq{
+  padding-top:17px;
+  background-color: transparent;
+  border-color: transparent;
+}
+#divButtonFolChqNew{
+	align-content:center;
+}
 .divNumCarp{
   width: 70px;
   margin: 5px 5px;
@@ -3447,42 +3467,83 @@ input[type="date"]{
   min-height: 150px;
   margin: 0 auto;
   margin-top: 25px;
-  background-color: #0428f3;
+  /*background-color: #0428f3;*/
 }
 .validCmplChqs{
   width: 100%;
   height: 40px;
-  background-color: #00a800;
+  /*background-color: #00a800;*/
 }
 #validChqs{
   display: inline-block;
   padding: 7px 15px;
   font-size: 12px;
+  font-weight: bold;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
   outline: none;
   color: #ffffff;
-  background-color: #011b55;
+  background-color: #010255;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 5px rgb(175, 174, 174);
+}
+#generateCarps{
+  display: inline-block;
+  padding: 7px 15px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #109cdd;
   border: none;
   border-radius: 3px;
   box-shadow: 0 5px rgb(175, 174, 174);
 }
 .divAddFlsChqs{
-  width: 70%;
+  width: 100%;
   min-height: 100px;
   margin: 0 auto;
   display: block;
-  background-color: #abf5c7;
+  padding-top:15px;
+  
 }
 .divDatsFlsNw{
+  width:100%;
   display: inline-flex;
+}
+#folsInexs{
+	width:630px;
+	height:50px;
+}
+.folsinexs{
+  height:28px;
+  border-radius: 3px;
+  padding: 1px;
+  text-align: center;
 }
 .numFolNew{
   height: 30px;
-  width: 120px;
+  width: 100px;
   text-align: center;
   border-radius: 3px;
+}
+
+#numFolNew{
+  width: 85px;
+}
+#nomBenNew{
+  width:350px;
+}
+#montBenNew{
+  width:125px;
+}
+#cvemaeNew{
+	width:110px
 }
 .secGnrtCrps{
   width: 100%;
@@ -3510,7 +3571,10 @@ input[type="date"]{
 #divStatChq{
   margin-left: 10px;
 }
-.opcStatChq{
+#divMotvChq{
+	margin-left: 10px;
+}
+.opcMotvChq{
   text-align: center;
   font-size: 13px;
 }

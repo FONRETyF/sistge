@@ -51,9 +51,36 @@
             $fecha = date("Y-m-d");
             $nomcommae = $apepatmae . " " . $apematmae . " " . $nommae;
             $datsInsert=array($apepatmae, $apematmae, $nommae, $nomcommae, $cveusu, $fecha,$cvemae);
-            $statement = $this->db->prepare("UPDATE public.maestros_smsem SET apepatmae=?, apematmae=?, nommae=?, nomcommae=?, cveusu=?, fechmodif= ?  WHERE csp=?");
-            $statement->execute($datsInsert);
-            return $result = $statement->fetchAll();
+			
+			$resultUPNomMae = array();
+			
+			if(strlen($cvemae) === 9){
+				try{
+					$statement = $this->db->prepare("UPDATE public.maestros_smsem SET apepatmae=?, apematmae=?, nommae=?, nomcommae=?, cveusu=?, fechmodif= ?  WHERE csp=?");
+					$statement->execute($datsInsert);
+				} catch (\Throwable $th) {
+					echo($th);
+				}
+				return $result = $statement->fetchAll();
+			}else{
+				$maejub = $this->get_maestroJub($cvemae);
+				if ($maejub[0]['programfallec'] == 'M'){
+					try{
+						$statement = $this->db->prepare("UPDATE public.jubilados_smsem SET apepatjub=?, apematjub=?, nomjub=?, nomcomjub=?, cveusumodif=?, fechmodif= ?  WHERE cveissemym=?");
+						$statement->execute($datsInsert);
+						$statement = $this->db->prepare("UPDATE public.mutualidad SET apepatmae=?, apematmae=?, nommae=?, nomcommae=?, cveusu=?, fechmodif= ?  WHERE cveissemym=?");
+						$statement->execute($datsInsert);
+						
+						$resultUPNomMae["updateMae"] = 'actualizado';
+					} catch (\Throwable $th) {
+						echo($th);
+						$resultUPNomMae["updateMae"] = 'fallo';
+					}
+					return $resultUPNomMae;
+				}else{
+					
+				}
+			}
         }
         
         public function buscaTrsmitesHist($clavemae){

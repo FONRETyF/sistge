@@ -81,7 +81,7 @@ class cantidadLetras{
                 $resultado = $resultado . "";
             }
         }      
-        return $resultado;
+        return $resultado;		
     }
 }
 

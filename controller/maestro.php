@@ -140,7 +140,7 @@
                 $a_get_nomMae = $maestro->get_maestroJub($clavemae);
                 if(is_array($a_get_nomMae)==true and count($a_get_nomMae)>0){
                     foreach($a_get_nomMae as $row){
-                        $output["csp"] = $row["csp"];
+                        $output["csp"] = $row["cveissemym"];
                         $output["apepatmae"] = $row["apepatjub"];
                         $output["apematmae"] = $row["apematjub"];
                         $output["nommae"] = $row["nomjub"];
@@ -154,7 +154,8 @@
             break;
         
         case "actNomMae":
-            $maestro->update_nomMae($_POST["apepatModif"],$_POST["apematModif"],$_POST["nommaeModif"],$_POST["nomcomModif"],$_SESSION['usuario'],$_POST["cvemae"]);
+            $a_getupdatenommae = $maestro->update_nomMae($_POST["apepatModif"],$_POST["apematModif"],$_POST["nommaeModif"],$_POST["nomcomModif"],$_SESSION['usuario'],$_POST["cvemae"]);
+			echo json_encode($a_getupdatenommae, JSON_FORCE_OBJECT);
             break;
             
         case 'buscaEdoCta':

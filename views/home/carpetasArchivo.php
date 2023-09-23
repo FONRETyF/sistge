@@ -9,12 +9,17 @@
 
     $carpeta = new carpetas();
 
-    //$validProcCarpts = $carpeta -> 
     $rangoCarpetas = $carpeta -> mostrarRango();
-    
     $resultcarp = $carpeta -> mostrarCarpetas();
-
-    
+	
+	if(count($resultcarp) > 0){
+		$identrega = $_GET["identr"];
+		$anioEntrega = intval(substr($identrega,0,4));
+		$numEntrega = intval(substr($identrega,4,2));
+	
+		$folIniFinCarpetas = $carpeta -> getFolsIniFinCaprs($anioEntrega,$numEntrega);
+	}
+		
 ?>
 
 <section class="contenidoGral">        
@@ -42,10 +47,26 @@
             </div>
             <div id="titleDetalleCarps">Detalle de carpetas para archivo</div>
             <section id="secRangFolios">
-                <div><div id="divtitleRang">Rango de carpetas: </div><div id="divRanCarpetas"><input type="text" id="inpRangIniCarps" class="inptsRangCarps" value="<?php echo($rangoCarpetas[0]['folioinicial'])?>" disabled><input type="text" id="inpRangFinCarps" class="inptsRangCarps" value="<?php echo($rangoCarpetas[0]['foliofinal'])?>" disabled></div></div>
+                <div>
+					<div id="divtitleRang">Rango de folios de entrega: </div>
+					<div id="divRanCarpetas">
+						<input type="text" id="inpRangIniCarps" class="inptsRangCarps" value="<?php echo($rangoCarpetas[0]['folioinicial']);?>" disabled>
+						<input type="text" id="inpRangFinCarps" class="inptsRangCarps" value="<?php echo($rangoCarpetas[0]['foliofinal']);?>" disabled>
+					</div>
+				</div>
                 <div id="diveditaRang"><button id="editRang" value="editarang"><img src="../../img/lapiz.png" alt="Editar Rango" height="25" width="25"></button></div>
                 <div id="diveupdateRang"><button id="updateCarp" value="updatenumcarps"><img src="../../img/actualizaRet.png" alt="Actualiza" height="25" width="25"></button></div>
             </section>
+			<section id="secRangFolsCarps">
+				<div>
+					<div id="divtitleRang">Rango de folios de carpetas: </div>
+					<div id="divRanCarpetas">
+						<input type="text" id="inpFolIniCarps" class="inptsRangCarps" value="<?php echo($folIniFinCarpetas['foliniCarps']);?>" disabled>-
+						<input type="text" id="inpFolFinCarps" class="inptsRangCarps" value="<?php echo($folIniFinCarpetas['folfinCarps']);?>" disabled>
+					</div>
+				</div>
+			</section>
+			
             <section id="sectDetalleCarpetas">
                 <div class="folios">
                     <div id="divtitlesCarp">
@@ -77,19 +98,36 @@
         </section>
         <section class="secAddFolCheqs">
             <div class="validCmplChqs">
-                <button type="submit" id="validChqs" name="validChqs">VALIDAR</button>
+                <button type="submit" id="generateCarps" name="generateCarps">CARPETAS</button>
+				<button type="submit" id="validChqs" name="validChqs">VALIDAR</button>
+				<input type="hidden" id="validExistFols" name="validExistFols">
             </div>
             <div class="divAddFlsChqs"> 
                 <p>Folios para agregar</p>
+				<div>Folios inexistentes:<input type="text" class="folsinexs" id="folsInexs" name="folsInexs"></div>
                 <div class="divDatsFlsNw">
-                    <div id="divFolChqNew">Num. Folio: <input type="text" class="numFolNew" id="numFolNew[]" name="numFolNew[]"></div>
-                    <div id="divStatChq">Estatus:    
-                        <select class="opcStatChq" id="opcStatChq[]" name="opcStatChq[]">
-                            <option value="E">ENTREGADO</option>
-                            <option value="C">CANCELADO</option>
-                            <option value="NA">NO ASIGNADO</option>
+                    <div id="divFolChqNew">Num. Fol: <input type="text" class="folsinexs" id="numFolNew" name="numFolNew"></div>
+					<div id="divFolChqNew">Clave Mae: <input type="text" class="folsinexs" id="cvemaeNew" name="cvemaeNew"></div>
+					<div id="divFolChqNew">Nom. Benef.: <input type="text" class="folsinexs" id="nomBenNew" name="nomBenNew"></div>
+					<div id="divFolChqNew">Mont. Benef.: <input type="text" class="folsinexs" id="montBenNew" name="montBenNew"></div>					
+					<div id="divFolChqNew">Observ: <input type="text" class="folsinexs" id="observNew" name="observNew"></div>					
+                    <div id="divMotChq">Motivo:    
+                        <select class="opcMotvChq" id="opcMotvChq" name="opcMotvChq">
+							<option value="I">INHA</option>
+                            <option value="J">JUB</option>
+                            <option value="FA">F ACT</option>
+							<option value="FJ">F MUT</option>
+							<option value="FJ">F FF</option>
+                            <option value="NA">NO ASIG</option>
                         </select>
                     </div>
+					<div id="divStatChq">Estatus:    
+                        <select class="opcMotvChq" id="opcMotvChq" name="opcMotvChq">
+							<option value="E">ENTR</option>
+                            <option value="C">CANC</option>
+                        </select>
+                    </div>
+					<div id="divButtonFolChqNew"> <button id="addChq" name="addChq"><img src="../../img/subir.png" alt="Agregar" height="25" width="25"></button></div>
                 </div>
             </div>
         </section>

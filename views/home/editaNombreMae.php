@@ -10,11 +10,12 @@
                     <div class="modal-header" id="modalHeader">
                         <h4 id="modal-title"></h4>
                     </div>
-                    <input type="hidden" id="cvemae" name="cvemae">
+                    
                     
                     <section id="ContenNomMae">
                         <section id="DatsNomMae">
                             <div id="DatNomMaeModif">
+								<input type="hidden" id="cvemae" name="cvemae">
                                 <div id="DivApePat">Apellido paterno:<input type="text" id="apepatModif" name="apepatModif"></div>
                                 <div id="DivApeMat">Apellido materno<input type="text" id="apematModif" name="apematModif"></div>
                                 <div id="DivNomMae">Nombre (s):<input type="text" id="nommaeModif" name="nommaeModif"></div>

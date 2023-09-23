@@ -110,7 +110,46 @@ use function PHPSTORM_META\type;
                 echo $th;
             }
         }
-
-    }
+		
+		public function getFolsIniFinCaprs($anioentrega,$numentrega){
+			$resultRangFolCarps = array();
+			
+			try {
+                $statementMax = $this->db->prepare("SELECT max(numcarpeta) FROM public.carpetas WHERE anioentrega=? AND numentrega=?");
+                $statementMax->bindValue(1,$anioentrega);
+                $statementMax->bindValue(2,$numentrega);
+                $statementMax->execute();
+                $resultMax = $statementMax->fetchAll();
+            } catch (\Throwable $th) {
+                echo $th;
+            }
+			
+			try {
+                $statementFolI = $this->db->prepare("SELECT folini FROM public.carpetas WHERE anioentrega=? AND numentrega=? AND numcarpeta=1");
+                $statementFolI->bindValue(1,$anioentrega);
+                $statementFolI->bindValue(2,$numentrega);
+                $statementFolI->execute();
+                $resultFolI = $statementFolI->fetchAll();
+            } catch (\Throwable $th) {
+                echo $th;
+            }
+			
+			try {
+                $resultFolF = $this->db->prepare("SELECT folfin FROM public.carpetas WHERE anioentrega=? AND numentrega=? AND numcarpeta=?");
+                $resultFolF->bindValue(1,$anioentrega);
+                $resultFolF->bindValue(2,$numentrega);
+				$resultFolF->bindValue(3,intval($resultMax[0]['max']));
+                $resultFolF->execute();
+                $resultFolF = $resultFolF->fetchAll();
+            } catch (\Throwable $th) {
+                echo $th;
+            }
+			$resultRangFolCarps["foliniCarps"] = $resultFolI[0]['folini'];
+			$resultRangFolCarps["folfinCarps"] = $resultFolF[0]['folfin'];
+			return $resultRangFolCarps;
+		}
+	
+    
+	}
 
 ?>

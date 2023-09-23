@@ -66,6 +66,7 @@
                         <div>&nbsp &nbsp &nbsp Clave de ISSEMyM: &nbsp<input type="text" id="cveIMaeBusq" class="cveissemym" name="cveIMaeBusq" minlength="3" maxlength="6" placeholder="000000" disabled></div>
                         <div id="EstatLaboral">Estatus: &nbsp<input type="text" id="estLaboral" name="estLaboral" placeholder="Estatus laboral" disabled></div>
                         <input type="hidden" id="inputProgramFall" name="inputProgramFall">
+						<input type="hidden" id="cvemae" name="cvemae" >
                     </div>
                     <!--<div id="DivInforTram"><h1 id="infoTramite"></h1></div>  -->
                     <div id="DivNomMae">Nombre del maestro: 
