@@ -244,6 +244,35 @@
 		
 			return $a_resultFolsInexist;
 		}
+		
+		
+		public function addFolsInexs($folCheq,$nomMae,$nomBenef,$montBenef,$observCheque,$concepCheq,$estatCheq,$usuario){
+			$fecha = "";
+            $fecha = date("Y-m-d H:i:s");
+			$resultAdd = array();
+			
+			try{
+				$consultaFol = "SELECT id,folio FROM public.adm_chqs WHERE folio='".$folCheq."'";
+				$consultaFol = $this->db->prepare($consultaFol);
+				$consultaFol->execute();
+				$consultaFol = $consultaFol->fetchAll(PDO::FETCH_ASSOC);
+				if(count($consultaFol) > 0){
+					$resultAdd["insercion"] = 'existente';
+				}else{
+					$consultaAddFol = "INSERT INTO public.adm_chqs(anioentrega, numentrega, idbenefcheque, folio, concepto, estatuscheq, observcnscheqs, numcarpeta, cveusureg, fechreg, nombenef, nommae, montbenef) VALUES (";
+					$consultaAddFol = $consultaAddFol . "0,0,'','".$folCheq."','".$concepCheq."','".$estatCheq."','".$observCheque."','','".$usuario."','".$fecha."','".$nomBenef."','".$nomMae."',".$montBenef.");";
+					$addFolInexist = $this->db->prepare($consultaAddFol);
+					$addFolInexist->execute();
+					$addFolInexist = $addFolInexist->fetchAll(PDO::FETCH_ASSOC);
+					$resultAdd["insercion"] = 'agregado';
+				}				
+			}catch (\Throwable $th) {
+				echo $th;
+				$resultAdd["insercion"] = 'fallo';
+			}
+			return $resultAdd;
+		}
+		
 
     }
 

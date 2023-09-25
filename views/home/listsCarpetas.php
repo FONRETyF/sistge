@@ -119,7 +119,21 @@
 					if(count($resultFolsCarp) > 0){
 						array_push($a_get_folsCheqs_Carp,array("cancelado",$resultFolsCarp[0]));
 					}else{
+						try{
+							$consultacheque = "SELECT * FROM public.adm_chqs WHERE folio='00".$ic."';";
+							$resultFolsCarp = $db->prepare($consultacheque);
+							$resultFolsCarp->execute();
+							$resultFolsCarp = $resultFolsCarp->fetchAll();
+							
+						}catch (\Throwable $th) {
+							echo $th;
+						}
 						
+						if(count($resultFolsCarp) > 0){
+							array_push($a_get_folsCheqs_Carp,array("admincheque",$resultFolsCarp[0]));
+						}else{
+							
+						}
 					}
 				}
 			}
@@ -190,6 +204,32 @@
 				$pdf->Cell(1.5, $largeCell,$row[1]['estatcheque'],1, 0, 'C');
 				$pdf->SetFont('Arial','',5);
 				$pdf->MultiCell(4.24,0.5,utf8_decode($row[1]['observcancel']),1 ,'J',false);
+			}elseif($row[0]=="admincheque"){
+				$observacionesC = "";
+				
+				if(strlen($row[1]['observcnscheqs']) < 30){
+					$largeCell = 0.5;
+				}elseif(strlen($row[1]['observcnscheqs']) >= 30 and strlen($observacionesC) < 60){
+					$largeCell = 1;
+				}elseif(strlen($row[1]['observcnscheqs']) >= 60){
+					$largeCell = 1.5;
+				}
+				$pdf->SetFont('Arial','',10);
+				$pdf->Cell(1, $largeCell,$id,1, 0, 'C');
+				$pdf->SetFont('Arial','B',9);
+				$pdf->Cell(1.5, $largeCell,$row[1]['folio'],1, 0, 'C');
+				$pdf->SetFont('Arial','',7);
+				$pdf->Cell(7, $largeCell,utf8_decode($row[1]['nommae']),1, 0, 'L');
+				$pdf->SetFont('Arial','',7.5);
+				$pdf->Cell(7.5, $largeCell,utf8_decode($row[1]['nombenef']),1, 0, 'L');
+				$pdf->SetFont('Arial','B',8);
+				$pdf->Cell(2.1, $largeCell,$row[1]['montbenef'],1, 0, 'C');
+				$pdf->SetFont('Arial','B',8);
+				$pdf->Cell(0.9, $largeCell,$row[1]['concepto'],1, 0, 'C');
+				$pdf->SetFont('Arial','',6);
+				$pdf->Cell(1.5, $largeCell,$row[1]['estatuscheq'],1, 0, 'C');
+				$pdf->SetFont('Arial','',5);
+				$pdf->MultiCell(4.24,0.5,utf8_decode($row[1]['observcnscheqs']),1 ,'J',false);
 			}
 		}	
 	}

@@ -131,6 +131,12 @@
 			$a_resultValidExistfols = $entrega->validExistFols($_POST['folioI'],$_POST['folioF']);
 			echo json_encode($a_resultValidExistfols, JSON_FORCE_OBJECT);
 			break;
+		
+		case 'addFolInex':
+			
+			$a_get_addfolsNew = $entrega->addFolsInexs($_POST['folCheq'],$_POST['nombreMae'],$_POST['nomBenef'],$_POST['montBenef'],$_POST['observCheque'],$_POST['concepCheq'],$_POST['estatCheq'],$_SESSION['usuario']);
+			echo json_encode($a_get_addfolsNew, JSON_FORCE_OBJECT);
+			break;
 			
         default:
             

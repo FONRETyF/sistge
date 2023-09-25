@@ -107,7 +107,7 @@
 				<div>Folios inexistentes:<input type="text" class="folsinexs" id="folsInexs" name="folsInexs"></div>
                 <div class="divDatsFlsNw">
                     <div id="divFolChqNew">Num. Fol: <input type="text" class="folsinexs" id="numFolNew" name="numFolNew"></div>
-					<div id="divFolChqNew">Clave Mae: <input type="text" class="folsinexs" id="cvemaeNew" name="cvemaeNew"></div>
+					<div id="divFolChqNew">Nombre Mae: <input type="text" class="folsinexs" id="nombreMaeF" name="nombreMaeF"></div>
 					<div id="divFolChqNew">Nom. Benef.: <input type="text" class="folsinexs" id="nomBenNew" name="nomBenNew"></div>
 					<div id="divFolChqNew">Mont. Benef.: <input type="text" class="folsinexs" id="montBenNew" name="montBenNew"></div>					
 					<div id="divFolChqNew">Observ: <input type="text" class="folsinexs" id="observNew" name="observNew"></div>					
@@ -118,13 +118,13 @@
                             <option value="FA">F ACT</option>
 							<option value="FJ">F MUT</option>
 							<option value="FJ">F FF</option>
-                            <option value="NA">NO ASIG</option>
+                            <option value="N/A">NO ASIG</option>
                         </select>
                     </div>
 					<div id="divStatChq">Estatus:    
-                        <select class="opcMotvChq" id="opcMotvChq" name="opcMotvChq">
-							<option value="E">ENTR</option>
-                            <option value="C">CANC</option>
+                        <select class="opcMotvChq" id="opcEstatCheq" name="opcEstatCheq">
+							<option value="ENTREGADO">E</option>
+                            <option value="CANCELADO">C</option>
                         </select>
                     </div>
 					<div id="divButtonFolChqNew"> <button id="addChq" name="addChq"><img src="../../img/subir.png" alt="Agregar" height="25" width="25"></button></div>

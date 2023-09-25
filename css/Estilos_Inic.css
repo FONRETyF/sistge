@@ -3542,7 +3542,7 @@ input[type="date"]{
 #montBenNew{
   width:125px;
 }
-#cvemaeNew{
+#nombreMaeF{
 	width:110px
 }
 .secGnrtCrps{
@@ -3575,6 +3575,10 @@ input[type="date"]{
 	margin-left: 10px;
 }
 .opcMotvChq{
+  text-align: center;
+  font-size: 13px;
+}
+#opcEstatCheq{
   text-align: center;
   font-size: 13px;
 }

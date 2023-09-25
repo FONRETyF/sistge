@@ -97,6 +97,7 @@ $("#validChqs").on("click",function(e){
 	var folioInicial = $("#inpFolIniCarps").val();
 	var folioFinal = $("#inpFolFinCarps").val();
 
+	$("#folsInexs").val("");
 	$.post("../../controller/entregas.php?op=validExistFols",{folioI: folioInicial,folioF:folioFinal},function(data){
 		resultadoValid = Object.values( JSON.parse(data));
         NumregsResult = resultadoValid.length;
@@ -200,7 +201,7 @@ $("#generateCarps").on("click",function(e){
 			}else{
 				Swal.fire(
 					"ERROR EN LOS DATOS",
-					'surgio un error consulte ocn el admin del sistema'
+					'surgio un error consulte con el admin del sistema'
 				);
 			}
 		});
@@ -225,10 +226,50 @@ $("#gnrtCrpts").on("click", function(e){
 	}
 });
 
+
 $("#addChq").on("click", function(e){
 	e.preventDefault();
 	
-    alert("vamos a subir cheque");	
+    $.post("../../controller/entregas.php?op=addFolInex",{folCheq: $("#numFolNew").val(),
+														  nombreMae: $("#nombreMaeF").val(),
+														  nomBenef: $("#nomBenNew").val(),
+														  montBenef: $("#montBenNew").val(),
+														  observCheque: $("#observNew").val(),
+														  concepCheq: $("#opcMotvChq").val(),
+														  estatCheq: $("#opcEstatCheq").val()											
+															},function(data){
+																resultadoAddFols = Object.values( JSON.parse(data));
+																switch (resultadoAddFols[0]){
+																	case 'existente':
+																		Swal.fire(
+																			"¡¡¡   ATENCION   !!!",
+																			'el folio ingresado ya existe'
+																		);
+																		break;
+																	
+																	case 'agregado':
+																		folCheq: $("#numFolNew").val('');
+																		nombreMae: $("#nombreMaeF").val('');
+																		nomBenef: $("#nomBenNew").val('');
+																		montBenef: $("#montBenNew").val('');
+																		observCheque: $("#observNew").val('');
+																		concepCheq: $("#opcMotvChq").val('');
+																		estatCheq: $("#opcEstatCheq").val('E');
+																		Swal.fire(
+																			"FOLIO AGREGADO CORRECTAMENTE",
+																			'El folio se agrego correctamente'
+																		);
+																				
+																		break;
+																		
+																	case 'fallo':
+																		Swal.fire(
+																			"ERROR EN LOS DATOS",
+																			'surgio un error consulte con el admin del sistema'
+																		);
+																		break;
+																}
+															});	
 });
 
 init();
