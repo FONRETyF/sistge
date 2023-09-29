@@ -690,7 +690,8 @@ use function PHPSTORM_META\type;
             $entrega = new Entrega();
 
             $get_entrega = $entrega -> get_entrega_id($identr);
-
+	
+			
             if ($programfallec == "M") {
                 $a_resultAddTramFJ = array();
 
@@ -725,10 +726,11 @@ use function PHPSTORM_META\type;
                     }
 
                     try {
+						
                         $consultaAdd = "INSERT INTO public.tramites_fonretyf(";
                         $consultaAdd = $consultaAdd . "anioentrega, numentrega, identrega, idret, identret, cvemae, motvret, numdictam,fechdictam, fechbajfall, nomsolic, numcelsolic, numpartsolic, docttestamnt, fechdocttestmnt, numjuicio, numbenef, numbeneffall, modretiro, montrettot,montretletra, montretsinads, montretentr, montretentrletra, montretfall, montretfallletra, observtrami, fechrecib, fechentrega, estattramite, tramtexcepcion, numoficioaut, fechautori, imgautori, proceautori, numadeds, montadeudos, adfajam, adts, adfondpension, adturismo, montretnepfall, foliotramite, cveusureg, fechreg, montsalmin, imgacuerdo, estatacuerdo, cveusumodif, fechmodif, histmodif,tiptramne)";
-                        $consultaAdd = $consultaAdd . " VALUES (".$anioentr.", ".$numentre.", '".$identr."', ".$idretiro.", '".$identregRet."', '".$cveissemym."', '".$motvret."', '', '1900-01-01', '".$fechbajfall."', '".$nomsolic."', '".$numcel."', '".$numpart."', '".$testamento."', '".$fechtestamnt."', '', ".$numbenefs.", ".$benefsFallcs.", '".$modret."', ".$montrettot.",'". $montrettotLet . "', ".$montrettot.", ".$montretentr.",'". $montretentrLet."', 0, '', '".$observaciones."', '".$fechrecib."', '1900-01-01', 'PROCESADO', ".$exception.", '".$numoficautori."', '".$fechautori."', '".$imgautori."', '', 0, 0, 0, 0, 0, 0, 0, '".$folioTram."', '".$cveusu."','".$fecha."',0,'',0,'','1900-01-01','','".$tipTram."');";
-                        $consultaAdd = $this->db->prepare($consultaAdd);
+                        $consultaAdd = $consultaAdd . " VALUES (".$anioentr.", ".$numentre.", '".$identr."', ".$idretiro.", '".$identregRet."', '".$cveissemym."', '".$motvret."', '', '1900-01-01', '".$fechbajfall."', '".$nomsolic."', '".$numcel."', '".$numpart."', '".$testamento."', '".$fechtestamnt."', '', ".$numbenefs.", ".$benefsFallcs.", '".$modret."', ".$montrettot.",'". $montrettotLet . "', ".$montrettot.", ".$montretentr.",'". $montretentrLet."', 0, '', '".$observaciones."', '".$fechrecib."', '1900-01-01', 'PROCESADO', ".$exception.", '".$numoficautori."', '".$fechautori."', '".$imgautori."', '', 0, 0, 0, 0, 0, 0, 0, '".$folioTram."', '".$cveusu."','".$fecha."',0,'',0,'','1900-01-01','','".$tiptram."');";
+					    $consultaAdd = $this->db->prepare($consultaAdd);
                         $consultaAdd->execute();
                         $results = $consultaAdd->fetchAll(PDO::FETCH_ASSOC);
                         
@@ -741,7 +743,7 @@ use function PHPSTORM_META\type;
                     $actualizaMae = $this->actualizaMaestroMut($cveissemym,$curpmae,$rfcmae,$region,$numcel,$numpart,$aniosserv,$fechbajfall,$motvret,$modret,$diasserv,$cveusu,$fecha,$fechbase);
                     $a_resultAddTramFJ["updateMaestro"] = $actualizaMae;
                     
-                    $insertaCheques = $this->insertChequeF($anioentr,$numentre,$idretiro,$identregRet,$cveissemym,$nomsbenefs,$numbenefs,$montretentr,$edadesbenefs,$porcsbenefs,$vidabenefs,$cveusu,$fecha,$motvret,$tiptram,$folbenefs,);
+                    $insertaCheques = $this->insertChequeF($anioentr,$numentre,$idretiro,$identregRet,$cveissemym,$nomsbenefs,$numbenefs,$montretentr,$edadesbenefs,$porcsbenefs,$vidabenefs,$cveusu,$fecha,$motvret,$tiptram,$folbenefs);
                     $a_resultAddTramFJ["insertCheque"] = $insertaCheques;
 
                     $insertaBenefsMae = $this -> insertBeneficiaroisMae($anioentr,$numentre,$idretiro,$identregRet,$cveissemym,$nomsbenefs,$numbenefs,$montretentr,$curpsbenefs,$parentsbenefs,$edadesbenefs,$porcsbenefs,$vidabenefs,$cveusu,$fecha,$motvret);
