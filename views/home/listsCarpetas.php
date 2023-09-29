@@ -78,8 +78,8 @@
 		$pdf->SetFont('Arial','B',10);
 		$pdf->Cell(1, 0.6,"ID",1, 0, 'C');
 		$pdf->Cell(1.5, 0.6,"FOLIO",1, 0, 'C');
-		$pdf->Cell(7, 0.6,"MAESTRO",1, 0, 'C');
 		$pdf->Cell(7.5, 0.6,"BENEFICIARIO",1, 0, 'C');
+		$pdf->Cell(7, 0.6,"MAESTRO",1, 0, 'C');
 		$pdf->Cell(2.1, 0.6,"MONTO",1, 0, 'C');
 		$pdf->Cell(0.9, 0.6,"MOT",1, 0, 'C');
 		$pdf->Cell(1.5, 0.6,"EST",1, 0, 'C');
@@ -89,8 +89,8 @@
 		
 		$a_get_folsCheqs_Carp = array();
 		for($ic=$folioIniCarp ; $ic <= $folioFinCarp ; $ic++){            			
-			$consultacheque = "SELECT tab1.identret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcheque,tab3.nomcommae,tab3.motvret,tab1.estatcheque,tab1.chequeadeudo,tab1.adeudo,tab1.statedad,tab1.observreposcn FROM public.beneficiarios_cheques as tab1";
-            $consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret";
+			$consultacheque = "SELECT tab1.identret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcheque,tab3.nomcommae,tab3.motvret,tab1.estatcheque,tab1.chequeadeudo,tab1.adeudo,tab1.statedad,tab1.observreposcn,tab3.numadeds FROM public.beneficiarios_cheques as tab1";
+            $consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds";
             $consultacheque = $consultacheque . " FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE folcheque='00".$ic."';";
 			$resultFolsCarp = $db->prepare($consultacheque);
 			$resultFolsCarp->execute();
@@ -99,8 +99,8 @@
 			if(count($resultFolsCarp) > 0){
 				array_push($a_get_folsCheqs_Carp,array("cheque",$resultFolsCarp[0]));
 			}else{
-				$consultacheque = "SELECT tab1.identret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcheque,tab3.nomcommae,tab3.motvret,tab1.estatcheque,tab1.chequeadeudo,tab1.adeudo,tab1.statedad,tab1.observreposcn FROM public.beneficiarios_cheques_hist as tab1";
-				$consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret";
+				$consultacheque = "SELECT tab1.identret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcheque,tab3.nomcommae,tab3.motvret,tab1.estatcheque,tab1.chequeadeudo,tab1.adeudo,tab1.statedad,tab1.observreposcn,tab3.numadeds FROM public.beneficiarios_cheques_hist as tab1";
+				$consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds";
 				$consultacheque = $consultacheque . " FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE folcheque='00".$ic."';";
 				$resultFolsCarp = $db->prepare($consultacheque);
 				$resultFolsCarp->execute();
@@ -145,6 +145,10 @@
 				$observacionesC = "";
 				if($row[1]['chequeadeudo'] == "S"){
 					$observacionesC="ADEUDO DE " . $row[1]['adeudo'];
+				}else{
+					if($row[1]['numadeds'] > 0){
+					$observacionesC= $observacionesC . " TIENE ADEUDO";
+					}
 				}
 				if($row[1]['statedad'] == 'N'){
 					$observacionesC="MENOR DE EDAD";
@@ -153,24 +157,25 @@
 					$observacionesC=$row[1]['observreposcn'];
 				}
 				
-				if(strlen($observacionesC) < 30){
+				
+				
+				//$pdf->SetFont('Arial','',5);
+				if(strlen($observacionesC) <= 35){
 					$largeCell = 0.5;
-				}elseif(strlen($observacionesC) >= 30 and strlen($observacionesC) < 60){
+				}elseif(strlen($observacionesC) > 35 && strlen($observacionesC) <= 70){
 					$largeCell = 1;
-				}elseif(strlen($observacionesC) >= 60){
+				}elseif(strlen($observacionesC) > 70){
 					$largeCell = 1.5;
 				}
-				
-								
 				
 				$pdf->SetFont('Arial','',10);
 				$pdf->Cell(1, $largeCell,$id,1, 0, 'C');
 				$pdf->SetFont('Arial','B',9);
 				$pdf->Cell(1.5, $largeCell,$row[1]['folcheque'],1, 0, 'C');
-				$pdf->SetFont('Arial','',7);
-				$pdf->Cell(7, $largeCell,utf8_decode($row[1]['nomcommae']),1, 0, 'L');
 				$pdf->SetFont('Arial','',7.5);
 				$pdf->Cell(7.5, $largeCell,utf8_decode($row[1]['nombenef']),1, 0, 'L');
+				$pdf->SetFont('Arial','',7);
+				$pdf->Cell(7, $largeCell,utf8_decode($row[1]['nomcommae']),1, 0, 'L');
 				$pdf->SetFont('Arial','B',8);
 				$pdf->Cell(2.1, $largeCell,$row[1]['montbenef'],1, 0, 'C');
 				$pdf->SetFont('Arial','B',8);
@@ -180,53 +185,56 @@
 				$pdf->SetFont('Arial','',5);
 				$pdf->MultiCell(4.24,0.5,utf8_decode($observacionesC),1 ,'J');			
 				
+				
 			}elseif($row[0]=="cancelado"){
-				if(strlen($row[1]['observcancel']) < 30){
+				if(strlen($row[1]['observcancel']) <= 35){
 					$largeCell = 0.5;
-				}elseif(strlen($row[1]['observcancel']) >= 30 and strlen($observacionesC) < 60){
+				}elseif(strlen($row[1]['observcancel']) > 35 && strlen($row[1]['observcancel']) <= 70){
 					$largeCell = 1;
-				}elseif(strlen($row[1]['observcancel']) >= 60){
+				}elseif(strlen($row[1]['observcancel']) > 70){
 					$largeCell = 1.5;
 				}
+				
 				$pdf->SetFont('Arial','',10);
 				$pdf->Cell(1, $largeCell,$id,1, 0, 'C');
 				$pdf->SetFont('Arial','B',9);
 				$pdf->Cell(1.5, $largeCell,$row[1]['folcheque'],1, 0, 'C');
-				$pdf->SetFont('Arial','',7);
-				$pdf->Cell(7, $largeCell,utf8_decode($row[1]['nomcommae']),1, 0, 'L');
 				$pdf->SetFont('Arial','',7.5);
 				$pdf->Cell(7.5, $largeCell,utf8_decode($row[1]['nombenef']),1, 0, 'L');
+				$pdf->SetFont('Arial','',7);
+				$pdf->Cell(7, $largeCell,utf8_decode($row[1]['nomcommae']),1, 0, 'L');
 				$pdf->SetFont('Arial','B',8);
 				$pdf->Cell(2.1, $largeCell,$row[1]['montbenef'],1, 0, 'C');
 				$pdf->SetFont('Arial','B',8);
 				$pdf->Cell(0.9, $largeCell,$row[1]['motvret'],1, 0, 'C');
-				$pdf->SetFont('Arial','',6);
+				$pdf->SetFont('Arial','',5);
 				$pdf->Cell(1.5, $largeCell,$row[1]['estatcheque'],1, 0, 'C');
 				$pdf->SetFont('Arial','',5);
 				$pdf->MultiCell(4.24,0.5,utf8_decode($row[1]['observcancel']),1 ,'J',false);
+			
 			}elseif($row[0]=="admincheque"){
 				$observacionesC = "";
 				
-				if(strlen($row[1]['observcnscheqs']) < 30){
+				if(strlen($row[1]['observcnscheqs']) <= 35){
 					$largeCell = 0.5;
-				}elseif(strlen($row[1]['observcnscheqs']) >= 30 and strlen($observacionesC) < 60){
+				}elseif(strlen($row[1]['observcnscheqs']) > 35 && strlen($observacionesC) <= 70){
 					$largeCell = 1;
-				}elseif(strlen($row[1]['observcnscheqs']) >= 60){
+				}elseif(strlen($row[1]['observcnscheqs']) > 70){
 					$largeCell = 1.5;
 				}
 				$pdf->SetFont('Arial','',10);
 				$pdf->Cell(1, $largeCell,$id,1, 0, 'C');
 				$pdf->SetFont('Arial','B',9);
 				$pdf->Cell(1.5, $largeCell,$row[1]['folio'],1, 0, 'C');
-				$pdf->SetFont('Arial','',7);
-				$pdf->Cell(7, $largeCell,utf8_decode($row[1]['nommae']),1, 0, 'L');
 				$pdf->SetFont('Arial','',7.5);
 				$pdf->Cell(7.5, $largeCell,utf8_decode($row[1]['nombenef']),1, 0, 'L');
+				$pdf->SetFont('Arial','',7);
+				$pdf->Cell(7, $largeCell,utf8_decode($row[1]['nommae']),1, 0, 'L');
 				$pdf->SetFont('Arial','B',8);
 				$pdf->Cell(2.1, $largeCell,$row[1]['montbenef'],1, 0, 'C');
 				$pdf->SetFont('Arial','B',8);
 				$pdf->Cell(0.9, $largeCell,$row[1]['concepto'],1, 0, 'C');
-				$pdf->SetFont('Arial','',6);
+				$pdf->SetFont('Arial','',5);
 				$pdf->Cell(1.5, $largeCell,$row[1]['estatuscheq'],1, 0, 'C');
 				$pdf->SetFont('Arial','',5);
 				$pdf->MultiCell(4.24,0.5,utf8_decode($row[1]['observcnscheqs']),1 ,'J',false);
