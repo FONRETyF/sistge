@@ -174,11 +174,11 @@
 				
 				
 				//$pdf->SetFont('Arial','',5);
-				if(strlen($observacionesC) <=37){
+				if(strlen($observacionesC) <= 36){
 					$largeCell = 0.5;
-				}elseif(strlen($observacionesC) > 37 && strlen($observacionesC) <= 70){
+				}elseif(strlen($observacionesC) > 36 && strlen($observacionesC) <= 72){
 					$largeCell = 1;
-				}elseif(strlen($observacionesC) > 70){
+				}elseif(strlen($observacionesC) > 72){
 					$largeCell = 1.5;
 				}
 				
@@ -197,15 +197,15 @@
 				$pdf->SetFont('Arial','',5);
 				$pdf->Cell(1.5, $largeCell,$row[1]['estatcheque'],1, 0, 'C');
 				$pdf->SetFont('Arial','',5);
-				$pdf->MultiCell(4.24,0.5,utf8_decode($observacionesC),1 ,'J');			
+				$pdf->MultiCell(4.24,0.5,utf8_decode($observacionesC),1 ,'L');			
 				
 				
 			}elseif($row[0]=="cancelado"){
-				if(strlen($row[1]['observcancel']) <= 35){
+				if(strlen($row[1]['observcancel']) <= 36){
 					$largeCell = 0.5;
-				}elseif(strlen($row[1]['observcancel']) > 35 && strlen($row[1]['observcancel']) <= 70){
+				}elseif(strlen($row[1]['observcancel']) > 36 && strlen($row[1]['observcancel']) <= 72){
 					$largeCell = 1;
-				}elseif(strlen($row[1]['observcancel']) > 70){
+				}elseif(strlen($row[1]['observcancel']) > 72){
 					$largeCell = 1.5;
 				}
 				
@@ -229,11 +229,11 @@
 			}elseif($row[0]=="admincheque"){
 				$observacionesC = "";
 				
-				if(strlen($row[1]['observcnscheqs']) <= 35){
+				if(strlen($row[1]['observcnscheqs']) <= 36){
 					$largeCell = 0.5;
-				}elseif(strlen($row[1]['observcnscheqs']) > 35 && strlen($observacionesC) <= 70){
+				}elseif(strlen($row[1]['observcnscheqs']) > 36 && strlen($observacionesC) <= 72){
 					$largeCell = 1;
-				}elseif(strlen($row[1]['observcnscheqs']) > 70){
+				}elseif(strlen($row[1]['observcnscheqs']) > 72){
 					$largeCell = 1.5;
 				}
 				$pdf->SetFont('Arial','',10);
