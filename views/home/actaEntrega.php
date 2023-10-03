@@ -267,7 +267,7 @@
                     $pdf->cell(0.5);
                     $pdf->SetFont('Arial','',11);
                     $pdf->cell(2,0.5,$rowAd["folcheque"],0,0,'C');
-                    switch ($rowAd["adeudo"]) {
+                    /*switch ($rowAd["adeudo"]) {
                         case 'adfajam':
                             $oficadeudo="FAJAM";
                             break;
@@ -280,13 +280,13 @@
                         default:
                             # code...
                             break;
-                    }
+                    }*/
                     
                     $pdf->SetFont('Arial','',10);
-                    $pdf->cell(3.2,0.5,$oficadeudo,0,0,'C');
+                    $pdf->cell(3.2,0.5,$rowAd["adeudo"],0,0,'C');
                     $pdf->cell(2.8,0.5,$rowAd["montbenef"],0,0,'C');
                     $pdf->SetFont('Arial','',9);
-                    $pdf->cell(6.59,0.5,$rowAd["montbenefletra"],0,0,'C');
+                    $pdf->MultiCell(6.59,0.5,$rowAd["montbenefletra"],0,'J');
 
                 }
                 $pdf->Ln(0.7);
@@ -404,15 +404,15 @@
             $statementBenefs = $db->prepare($consultaBenefs);
             $statementBenefs->execute();
             $results = $statementBenefs->fetchAll(PDO::FETCH_ASSOC);
-
+			
+			$auxB1=array();
             foreach ($results as $key => $row) {
-                $aux[$key]=$row["nombenef"];
+                $auxB1[$key]=$row["nombenef"];
             }
-        
             $collator = collator_create("es");
-            $collator->sort($aux);
+            $collator->sort($auxB1);
         
-            foreach ($aux as $row) {
+            foreach ($auxB1 as $row) {
                 foreach ($results as $key => $row1) {
                     if ($row === $row1['nombenef']) {
                         //$arregloMaestrosCheques[$key] = $row1;

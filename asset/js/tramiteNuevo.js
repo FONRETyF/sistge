@@ -419,7 +419,8 @@ accionEditaNom.addEventListener("click", function (evento){
     $.post("../../controller/maestro.php?op=mostrarNom",{clavemae:clavemae},function(data){       
         data = JSON.parse(data);
         //$('#cvemae').val(data.csp);
-		document.getElementById('cvemae').value = data.csp;	
+		//document.getElementById('cvemae').value = data.csp;
+		$('#cvemae').val(data.csp);		
         $('#apepatModif').val(data.apepatmae);
         $('#apematModif').val(data.apematmae);
         $('#nommaeModif').val(data.nommae);
@@ -454,8 +455,9 @@ function actNomMae(e){
 				);
 			}
 		});
-		$('#edita_NomMae')[0].reset();
-		$("#editarNomMae").modal('hide');
+		//$('#edita_NomMae')[0].reset();
+		//$("#editarNomMae").modal('hide');
+		
 		clavemae = $("#cveIMaeBusq").val();
 	
 		$.post("../../controller/maestro.php?op=buscarJub",{claveisemym:clavemae},function(data){ 
@@ -469,8 +471,30 @@ function actNomMae(e){
 		});
 	}else{
 		var formData = new FormData($("#edita_NomMae")[0]);
-    
-		$.ajax({
+		
+		clavemae = $("#cveIMaeBusq").val();
+	
+		$.post("../../controller/maestro.php?op=actNomMae",{apepatModif:$('#apepatModif').val(),apematModif:$('#apematModif').val(),nommaeModif:$('#nommaeModif').val(),nomcomModif:$('#nomcomModif').val(),cvemae:$('#cspMaeBusq').val()},function(data){ 
+			resultadoUpd = Object.values( JSON.parse(data));
+			if(resultadoUpd[0] == "actualizado"){
+				
+				swal.fire(
+					'Modificacion!',
+					'Los Datos se actualizaron correctamente!!!',
+					'success'
+				);
+				$('#edita_NomMae')[0].reset();
+				$("#editarNomMae").modal('hide');
+			}else{
+				swal.fire(
+					'ERROR!!!',
+					'Surgio un error consultelo con el administrador dle sistema!!!',
+					'success'
+				);
+			}
+		});
+		
+		/*$.ajax({
 			url: '../../controller/maestro.php?op=actNomMae',
 			type: "POST",
 			data: formData,
@@ -485,7 +509,7 @@ function actNomMae(e){
 					'success'
 				);
 			}
-		});
+		});*/
 		
 		clavemae = $("#cvemae").val();
 	
@@ -497,14 +521,8 @@ function actNomMae(e){
 			$('#estLaboral').val(estatusMae);
 			$('#nomComplMae').val(data.nomcommae);
 			$('#nomSolic').val(data.nomcommae); 
-		});
-		
+		});	
 	}
-	
-    
-
-
-    
 }
 
 const accionFechBaja = document.querySelector("#fechBajaMae");

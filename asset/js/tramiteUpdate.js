@@ -695,15 +695,12 @@ $("#updNomMae").on("click", function (event) {
 
 function actNomMae(e){
     e.preventDefault();
-    
     nomComMae = $('#apepatModif').val() + " " + $('#apematModif').val() + " " + $('#nommaeModif').val();
     $('#nomcomModif').val(nomComMae);
-    
 	
 	if($('#OpcCauRetiro').val() == "FJ"){
 		$.post("../../controller/maestro.php?op=actNomMae",{apepatModif:$('#apepatModif').val(),apematModif:$('#apematModif').val(),nommaeModif:$('#nommaeModif').val(),nomcomModif:$('#nomcomModif').val(),cvemae:$('#cvemae').val()},function(data){ 
 			resultadoUpd = Object.values( JSON.parse(data));
-			
 			if(resultadoUpd[0] == "actualizado"){
 				
 				swal.fire(
@@ -735,7 +732,6 @@ function actNomMae(e){
 		});
 	}else{
 		var formData = new FormData($("#edita_NomMae")[0]);
-    
 		$.ajax({
 			url: '../../controller/maestro.php?op=actNomMae',
 			type: "POST",

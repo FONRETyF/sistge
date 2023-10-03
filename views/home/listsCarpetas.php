@@ -151,18 +151,32 @@
 					}
 				}
 				if($row[1]['statedad'] == 'N'){
-					$observacionesC="MENOR DE EDAD";
-				}
-				if($row[1]['observcheque'] == 'REPOSICION'){
-					$observacionesC=$row[1]['observreposcn'];
+					if (strlen($observacionesC)>0){
+						$observacionesC= $observacionesC . ", MENOR DE EDAD";
+					}else{
+						$observacionesC="MENOR DE EDAD";
+					}
 				}
 				
+				if($row[1]['observcheque'] == 'REPOSICION'){
+					if (strlen($observacionesC)>0){
+						$observacionesC= $observacionesC . ", ".$row[1]['observreposcn'];
+					}else{
+						$observacionesC=$row[1]['observreposcn'];
+					}
+				}elseif( $row[1]['observcheque'] <> 'REPOSICION' && strlen($row[1]['observcheque'])>0 ){
+					if (strlen($observacionesC)>0){
+						$observacionesC= $observacionesC . ", ".$row[1]['observcheque'];
+					}else{
+						$observacionesC=$row[1]['observcheque'];
+					}
+				}		
 				
 				
 				//$pdf->SetFont('Arial','',5);
-				if(strlen($observacionesC) <= 35){
+				if(strlen($observacionesC) <=37){
 					$largeCell = 0.5;
-				}elseif(strlen($observacionesC) > 35 && strlen($observacionesC) <= 70){
+				}elseif(strlen($observacionesC) > 37 && strlen($observacionesC) <= 70){
 					$largeCell = 1;
 				}elseif(strlen($observacionesC) > 70){
 					$largeCell = 1.5;

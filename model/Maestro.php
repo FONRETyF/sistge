@@ -47,7 +47,7 @@
             return $results;
         }
 
-        public function update_nomMae($apepatmae,$apematmae,$nommae,$nomcommae,$cveusu,$cvemae){
+        public function update_nomMae($apepatmae,$apematmae,$nommae,$nomcommae,$cvemae,$cveusu){
             $fecha = date("Y-m-d");
             $nomcommae = $apepatmae . " " . $apematmae . " " . $nommae;
             $datsInsert=array($apepatmae, $apematmae, $nommae, $nomcommae, $cveusu, $fecha,$cvemae);
@@ -58,10 +58,13 @@
 				try{
 					$statement = $this->db->prepare("UPDATE public.maestros_smsem SET apepatmae=?, apematmae=?, nommae=?, nomcommae=?, cveusu=?, fechmodif= ?  WHERE csp=?");
 					$statement->execute($datsInsert);
+					$resultUPNomMae["updateMae"] = 'actualizado';
 				} catch (\Throwable $th) {
 					echo($th);
+					
+					$resultUPNomMae["updateMae"] = 'fallo';
 				}
-				return $result = $statement->fetchAll();
+				return $resultUPNomMae;
 			}else{
 				$maejub = $this->get_maestroJub($cvemae);
 				if ($maejub[0]['programfallec'] == 'M'){

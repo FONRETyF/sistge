@@ -154,7 +154,7 @@
             break;
         
         case "actNomMae":
-            $a_getupdatenommae = $maestro->update_nomMae($_POST["apepatModif"],$_POST["apematModif"],$_POST["nommaeModif"],$_POST["nomcomModif"],$_SESSION['usuario'],$_POST["cvemae"]);
+            $a_getupdatenommae = $maestro->update_nomMae($_POST["apepatModif"],$_POST["apematModif"],$_POST["nommaeModif"],$_POST["nomcomModif"],$_POST["cvemae"],$_SESSION['usuario']);
 			echo json_encode($a_getupdatenommae, JSON_FORCE_OBJECT);
             break;
             

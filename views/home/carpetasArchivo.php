@@ -125,6 +125,7 @@
                         <select class="opcMotvChq" id="opcEstatCheq" name="opcEstatCheq">
 							<option value="ENTREGADO">E</option>
                             <option value="CANCELADO">C</option>
+							<option value="PENDIENTE">P</option>
                         </select>
                     </div>
 					<div id="divButtonFolChqNew"> <button id="addChq" name="addChq"><img src="../../img/subir.png" alt="Agregar" height="25" width="25"></button></div>
