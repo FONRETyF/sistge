@@ -133,7 +133,6 @@ $("#generateCarps").on("click",function(e){
 	var a_obsrvsCarpetas = [];
 	var integridadDats = true;
 	
-	//indexA = 0;
 	formulario = document.getElementById('form_CarpetasArchivo');
 	for (let i = 0; i < formulario.elements.length - 1; i++){
 		elemento = formulario.elements[i].className;

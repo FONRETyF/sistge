@@ -4,11 +4,10 @@
     if(empty($_SESSION['usuario'])){
         header("Location:login.php");
     }
-
 ?>
 
 <section class="contenidoGral">        
-    <form class="FormcontenidoGral" action="" method="POST" name="" id="form_captTramite" enctype="multipart/form-data">
+    <form class="FormcontenidoGral" action="" method="POST" name="" id="form_captProrroga" enctype="multipart/form-data">
         <section class="sectNavegador">
             <div class="DivBotnsNav">
                 <div id="DivBtnatras">
@@ -78,14 +77,17 @@
                         <div class="DatsAutTExc">
                             <div id="divNumOficTExc"># Oficio: &nbsp;<input type="text" id="numOficTExc" name="numOficTExc" value=""></div>
                             <div id="DivArchOficTExc"><label for="imageOficTExc"></label><input type="file" id="imageOficTExc" name="imageOficTExc" accept=".png, .jpg, .jpeg" ></div>
-                            <div id="divFechOficAut"><input type="date" id="fechOficAut" name="fechOficAut" min="2022-01-01" max="2050-12-31" pattern="\d{4}-\d{2}-\d{2}" required></div>
-                        </div>
+                            <!--<div id="divFechOficAut"><input type="date" id="fechOficAut" name="fechOficAut" min="2022-01-01" max="2050-12-31" pattern="\d{4}-\d{2}-\d{2}" required></div>-->
+                            <div id="divButtonOficAut"> <button type="submit" id="addOficAut" class="addOficAut" name="submit"><img src="../../img/subir.png" alt="Subir" height="25" width="25"></button></div>
+                            <div id="divResponseOficAut" class="divResponseOficAut"></div>
+                            <div id="divAutProrg"><label for="estatAutProrg"><input type="checkbox" id="estatAutProrg" value="estatAutProrg" disabled>Autorizada</label></div>
+                            <div id="divNoAutProrg"><label for="estatNoAutProrg"><input type="checkbox" id="estatNoAutProrg" value="estatNoAutProrg" disabled>No Autorizada</label></div>
+                        </div>               
                     </div>
-					
 				</div>
             </section>
             <div id="divAgregaTram">
-                <button type="submit" id="agregaTExc" name="agregaTExc" >AGREGAR</button>
+                <button type="submit" id="updateTExc" name="updateTExc" >GUARDAR</button>
             </div>
         </section>
         </div>
@@ -114,7 +116,7 @@
 <script src="../../libs/datatables/select2.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<script type="text/javascript" src="../../asset/js/prorroga.js"></script>
+<script type="text/javascript" src="../../asset/js/updateProrg.js"></script>
 
 
 <?php require_once("/var/www/html/sistge/views/head/footer.php"); ?>

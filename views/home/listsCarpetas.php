@@ -24,9 +24,10 @@
 			
 	$meses=[1=>"ENERO", 2=>"FEBRERO", 3=>"MARZO", 4=>"ABRIL", 5=>"MAYO", 6=>"JUNIO", 7=>"JULIO", 8=>"AGOSTO", 9=>"SEPTIEMBRE", 10=>"OCTUBRE", 11=>"NOVIEMBRE", 12=>"DICIEMBRE"];
 	
-	$statementE = $db->prepare("SELECT numentrega,fechentrega FROM public.entregas_fonretyf WHERE identrega='".$identr."'");
+	$statementE = $db->prepare("SELECT numentrega,fechentrega,statarchivo FROM public.entregas_fonretyf WHERE identrega='".$identr."'");
     $statementE->execute();
     $resultsE = $statementE->fetchAll(PDO::FETCH_ASSOC);
+	$estatArchivacion = $resultsE[0]['statarchivo'];
     $fechaEntrega = substr($resultsE[0]['fechentrega'],8,2) . " DE " . $meses[intval(substr($resultsE[0]['fechentrega'],5,2))] . " DE " . substr($resultsE[0]['fechentrega'],0,4);
 	
 	$statementFolI = $db->prepare("SELECT folini FROM public.carpetas WHERE anioentrega=? AND numentrega=? AND numcarpeta=1");
@@ -48,6 +49,7 @@
     $resultFolF = $resultFolF->fetchAll();
 	
 	$idFol = 1;
+		
 	for($i=0 ;  $i < count($resultsCarpetas) ; $i++){
 		$pdf->AddPage();
 		$pdf->SetFont('Arial','B',10);
@@ -88,18 +90,10 @@
 		
 		
 		$a_get_folsCheqs_Carp = array();
-		for($ic=$folioIniCarp ; $ic <= $folioFinCarp ; $ic++){            			
-			$consultacheque = "SELECT tab1.identret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcheque,tab3.nomcommae,tab3.motvret,tab1.estatcheque,tab1.chequeadeudo,tab1.adeudo,tab1.statedad,tab1.observreposcn,tab3.numadeds FROM public.beneficiarios_cheques as tab1";
-            $consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds";
-            $consultacheque = $consultacheque . " FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE folcheque='00".$ic."';";
-			$resultFolsCarp = $db->prepare($consultacheque);
-			$resultFolsCarp->execute();
-			$resultFolsCarp = $resultFolsCarp->fetchAll();
-			
-			if(count($resultFolsCarp) > 0){
-				array_push($a_get_folsCheqs_Carp,array("cheque",$resultFolsCarp[0]));
-			}else{
-				$consultacheque = "SELECT tab1.identret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcheque,tab3.nomcommae,tab3.motvret,tab1.estatcheque,tab1.chequeadeudo,tab1.adeudo,tab1.statedad,tab1.observreposcn,tab3.numadeds FROM public.beneficiarios_cheques_hist as tab1";
+		
+		if ($estatArchivacion == 1) {
+			for($ic=$folioIniCarp ; $ic <= $folioFinCarp ; $ic++){        			
+				$consultacheque = "SELECT tab1.identret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcheque,tab3.nomcommae,tab3.motvret,tab1.estatcheque,tab1.chequeadeudo,tab1.adeudo,tab1.statedad,tab1.observreposcn,tab3.numadeds FROM public.beneficiarios_cheques as tab1";
 				$consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds";
 				$consultacheque = $consultacheque . " FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE folcheque='00".$ic."';";
 				$resultFolsCarp = $db->prepare($consultacheque);
@@ -109,35 +103,99 @@
 				if(count($resultFolsCarp) > 0){
 					array_push($a_get_folsCheqs_Carp,array("cheque",$resultFolsCarp[0]));
 				}else{
-					$consultacheque = "SELECT tab1.idret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcancel,tab3.nomcommae,tab3.motvret,tab1.estatcheque FROM public.cheqs_cancelados as tab1";
-					$consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret";
+					$consultacheque = "SELECT tab1.identret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcheque,tab3.nomcommae,tab3.motvret,tab1.estatcheque,tab1.chequeadeudo,tab1.adeudo,tab1.statedad,tab1.observreposcn,tab3.numadeds FROM public.beneficiarios_cheques_hist as tab1";
+					$consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds";
 					$consultacheque = $consultacheque . " FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE folcheque='00".$ic."';";
 					$resultFolsCarp = $db->prepare($consultacheque);
 					$resultFolsCarp->execute();
 					$resultFolsCarp = $resultFolsCarp->fetchAll();
 					
 					if(count($resultFolsCarp) > 0){
-						array_push($a_get_folsCheqs_Carp,array("cancelado",$resultFolsCarp[0]));
+						array_push($a_get_folsCheqs_Carp,array("cheque",$resultFolsCarp[0]));
 					}else{
-						try{
-							$consultacheque = "SELECT * FROM public.adm_chqs WHERE folio='00".$ic."';";
-							$resultFolsCarp = $db->prepare($consultacheque);
-							$resultFolsCarp->execute();
-							$resultFolsCarp = $resultFolsCarp->fetchAll();
-							
-						}catch (\Throwable $th) {
-							echo $th;
-						}
+						$consultacheque = "SELECT tab1.idret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcancel,tab3.nomcommae,tab3.motvret,tab1.estatcheque FROM public.cheqs_cancelados as tab1";
+						$consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret";
+						$consultacheque = $consultacheque . " FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE folcheque='00".$ic."';";
+						$resultFolsCarp = $db->prepare($consultacheque);
+						$resultFolsCarp->execute();
+						$resultFolsCarp = $resultFolsCarp->fetchAll();
 						
 						if(count($resultFolsCarp) > 0){
-							array_push($a_get_folsCheqs_Carp,array("admincheque",$resultFolsCarp[0]));
+							array_push($a_get_folsCheqs_Carp,array("cancelado",$resultFolsCarp[0]));
 						}else{
+							try{
+								$consultacheque = "SELECT * FROM public.adm_chqs WHERE folio='00".$ic."';";
+								$resultFolsCarp = $db->prepare($consultacheque);
+								$resultFolsCarp->execute();
+								$resultFolsCarp = $resultFolsCarp->fetchAll();
+								
+								if(count($resultFolsCarp) > 0){
+									array_push($a_get_folsCheqs_Carp,array("admincheque",$resultFolsCarp[0]));
+								}else{
+
+								}
+
+							}catch (\Throwable $th) {
+								echo $th;
+							}							
+						}
+					}
+				}
+			}
+		} else {
+			for($ic=$folioIniCarp ; $ic <= $folioFinCarp ; $ic++){            			
+				$consultacheque = "SELECT tab1.identret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcheque,tab3.nomcommae,tab3.motvret,tab1.estatcheque,tab1.chequeadeudo,tab1.adeudo,tab1.statedad,tab1.observreposcn,tab3.numadeds,tab4.numcarpeta FROM public.beneficiarios_cheques as tab1";
+				$consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds";
+				$consultacheque = $consultacheque . " FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae LEFT JOIN public.adm_chqs as tab4 on tab1.folcheque=tab4.folio WHERE folcheque='00".$ic."';";
+				$resultFolsCarp = $db->prepare($consultacheque);
+				$resultFolsCarp->execute();
+				$resultFolsCarp = $resultFolsCarp->fetchAll();
+				
+				if(count($resultFolsCarp) > 0 &&  $resultFolsCarp[0]["numcarpeta"]==''){
+					array_push($a_get_folsCheqs_Carp,array("cheque",$resultFolsCarp[0]));
+				}elseif (count($resultFolsCarp) == 0 ) {
+					$consultacheque = "SELECT tab1.identret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcheque,tab3.nomcommae,tab3.motvret,tab1.estatcheque,tab1.chequeadeudo,tab1.adeudo,tab1.statedad,tab1.observreposcn,tab3.numadeds,tab4.numcarpeta FROM public.beneficiarios_cheques_hist as tab1";
+					$consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds";
+					$consultacheque = $consultacheque . " FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae LEFT JOIN public.adm_chqs as tab4 on tab1.folcheque=tab4.folio WHERE folcheque='00".$ic."';";
+					$resultFolsCarp = $db->prepare($consultacheque);
+					$resultFolsCarp->execute();
+					$resultFolsCarp = $resultFolsCarp->fetchAll();
+					
+					if(count($resultFolsCarp) > 0 &&  $resultFolsCarp[0]["numcarpeta"]==''){
+						array_push($a_get_folsCheqs_Carp,array("cheque",$resultFolsCarp[0]));
+					}elseif (count($resultFolsCarp) == 0){
+						$consultacheque = "SELECT tab1.idret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcancel,tab3.nomcommae,tab3.motvret,tab1.estatcheque,tab4.numcarpeta FROM public.cheqs_cancelados as tab1";
+						$consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret";
+						$consultacheque = $consultacheque . " FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae LEFT JOIN public.adm_chqs as tab4 on tab1.folcheque=tab4.folio WHERE folcheque='00".$ic."';";
+						$resultFolsCarp = $db->prepare($consultacheque);
+						$resultFolsCarp->execute();
+						$resultFolsCarp = $resultFolsCarp->fetchAll();
+						
+						if(count($resultFolsCarp) > 0 &&  $resultFolsCarp[0]["numcarpeta"]==''){
+							array_push($a_get_folsCheqs_Carp,array("cancelado",$resultFolsCarp[0]));
+						}elseif (count($resultFolsCarp) == 0){
+							try{
+								$consultacheque = "SELECT * FROM public.adm_chqs WHERE folio='00".$ic."';";
+								$resultFolsCarp = $db->prepare($consultacheque);
+								$resultFolsCarp->execute();
+								$resultFolsCarp = $resultFolsCarp->fetchAll();
+								
+								if(count($resultFolsCarp) > 0 && $resultFolsCarp[0]["numcarpeta"]==''){
+									array_push($a_get_folsCheqs_Carp,array("admincheque",$resultFolsCarp[0]));
+								}else{
+								}
+
+							}catch (\Throwable $th) {
+								echo $th;
+							}
+							
 							
 						}
 					}
 				}
 			}
 		}
+		
 		
 		foreach($a_get_folsCheqs_Carp as $row){
 			$id++;

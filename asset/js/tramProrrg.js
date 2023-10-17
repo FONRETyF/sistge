@@ -1,16 +1,17 @@
+var tabla;
+
 function init() {
-    
+   
 }
 
 $(document).ready(function () {
-    
-    $('#tramsProrrg_data').dataTable({
-        "aProcessing": true, //procesamiento dle datatable
+	$.noConflict();
+    var table = $('#prorrogas_data').dataTable({
+        "aProcessing": true, //procesamiento del datatable
         "aServerSide": true, //paginacion y filtrado por el servidor
         scrollY: '500px',
         scrollCollapse: true,
         paging: true,
-        pagingType: 'full_numbers',
         dom: 'Bfrtip', //definicion de los elementos del control de la tabla
         buttons: [		          
             'copyHtml5',
@@ -18,7 +19,7 @@ $(document).ready(function () {
             'csvHtml5'
         ],
         "ajax":{
-            url: '../../controller/retiros.php?op=listarPendts',
+            url: '../../controller/tramites.php?op=listarProrg',
             type : "post",
             dataType : "json",						
             error: function(e){
@@ -55,20 +56,14 @@ $(document).ready(function () {
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
             }
         },
-        columnDefs:[
-            {width: "5px",targets:0},
-            {width: "5px",targets:1},
-            {width: "5px",targets:2},
-            {width: "5px",targets:3},
-            {width: "5px",targets:4},
-            {width: "5px",targets:5},
-            {width: "5px",targets:6},
-            {width: "5px",targets:7},
-            {width: "5px",targets:8}
-        ]
+    
     }).DataTable();
+
 });
 
+function editProrg(idProrg) {
+    location.href = "../../views/home/editaTramProrg.php" + "?idProrg=" + idProrg;
+}
 
 $(".DivBotnsNav").on("click",".Btnregresar", function (e) {
     e.preventDefault();

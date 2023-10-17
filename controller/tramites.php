@@ -137,6 +137,100 @@
             echo json_encode($output, JSON_FORCE_OBJECT); 
             break;
             
+		case 'listarProrg':
+			$a_get_tramsProrg = $tramite->getTramsProrg();
+			
+			$a_Prorrogas = Array();
+            $contador=0;
+            foreach($a_get_tramsProrg as $row){
+                $a_prep_prorrogas = array();
+                $contador++;
+                $a_prep_prorrogas[] = $contador;
+                $a_prep_prorrogas[] = $row["motivret"];
+                $a_prep_prorrogas[] = $row["cvemae"];
+                $a_prep_prorrogas[] = $row["nomcommae"];
+                $a_prep_prorrogas[] = $row["fechsolic"];
+                switch ($row["estatprorg"]) {
+                    case 'R':
+                        $estatProrg= "REVISION";
+                        $estatProrroga = "enabled";
+                        break;
+
+                    case 'NA':
+                        $estatProrg= "NO AUTORIZADA";
+                        $estatProrroga = "disabled";
+                        break;
+
+                    case 'A':
+                        $estatProrg= "AUTORIZADA";
+                        $estatProrroga = "disabled";
+                        break;
+                }
+                $a_prep_prorrogas[] = $estatProrg;
+                $a_prep_prorrogas[] = "<button type='button' onclick='editProrg(".$row['id'].");'  id='".$row['id']."'class='BtIcDetail'><div><img src='../../img/lapiz.png' alt='editar-capturar' title='editar-capturar' height='18' width='18'></div></button>";
+                $a_prep_prorrogas[] = "<button type='button' onclick='detalProrg(".$row['id'].");' id='".$row['id']."'class='BtIcEdit' ".$estatProrroga."><div><img src='../../img/file.png' alt='modificar' title='modificar' height='20' width='20'></div></button>";
+                $a_prep_prorrogas[] = "<button type='button' onclick='deleteProrg(".$row['id'].");'  id='".$row['id']."'class='BtIcDelete'".$estatProrroga."><div><img src='../../img/goma-de-borrar.png' alt='eliminar' title='eliminar' height='17' width='17'></div></button>";
+                $a_Prorrogas[] = $a_prep_prorrogas;  
+            }
+            $a_result_prorrogas_DT = array(
+                "sEcho"=> 1,
+                "iTotalRecords"=>count($a_Prorrogas),
+                "iTotalDisplayRecords"=>count($a_Prorrogas),
+                "aaData"=>$a_Prorrogas);
+            echo json_encode($a_result_prorrogas_DT);
+			break;
+		
+		case 'agregarProrg':
+			$a_get_addProrg = $tramite->addProrroga($_POST["Icvemae"],$_POST["Imotret"],$_POST["Ifechbaj"],$_POST["InomSolic"],$_POST["INumCel"],$_POST["InumPart"],$_POST["IfechRecibido"],$_POST["Idescmotprorg"],$_POST["Isoporte"],$_SESSION["usuario"]);
+			echo json_encode($a_get_addProrg, JSON_FORCE_OBJECT);
+			break;
+
+		case 'getProrg':
+            $a_getProrroga = $tramite->getProrroga($_POST['idProrg']);
+            echo json_encode($a_getProrroga, JSON_FORCE_OBJECT);
+            break;
+
+        case 'subirImgAut':
+            $target_directory = "/var/www/html/sistge/imgaut/"; 
+            $target_file = $target_directory . basename($_FILES["imageOficTExc"]["name"]);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            if (file_exists($target_file)) {
+                echo "4. El archivo ya existe.";
+                $uploadOk = 0;
+            }
+
+            if ($_FILES["imageOficTExc"]["size"] > 5 * 1024 * 1024) {
+                echo "5. El archivo es demasiado grande.";
+                $uploadOk = 0;
+            }
+
+            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+                echo "6. Solo se permiten archivos JPG, JPEG, PNG y GIF.";
+                $uploadOk = 0;
+            }
+
+            if ($uploadOk == 0) {
+                echo "3. No se pudo subir el archivo.";
+            } else {
+                if (move_uploaded_file($_FILES["imageOficTExc"]["tmp_name"], $target_file)) {
+                    echo "1. El archivo ". basename( $_FILES["imageOficTExc"]["name"]). " se ha subido correctamente.";
+                } else {
+                    echo "2. Hubo un error al subir el archivo.";
+                }
+            }
+            break;
+        
+        case 'updateProrg':
+            $a_get_updProrroga = $tramite->updateProrroga($_POST['Uidprorg'],$_POST['Ucvemae'],$_POST['Ufechbaj'],$_POST['UnomSolic'],$_POST['UNumCel'],$_POST['UnumPart'],$_POST['UfechRecibido'],$_POST['Udescmotprorg'],$_POST['Usoporte'],$_POST['UoficAut'],$_POST['UdocOficAut'],$_POST['UestatAut'],$_POST['UestatProrg'],$_SESSION['usuario']);
+            echo json_encode($a_get_updProrroga, JSON_FORCE_OBJECT);
+            break;
+        
+        case 'value':
+            $a_get_deleteProrg = $tramite->deleteProrroga($_POST['idprorg']);
+            echo json_encode($a_get_updProrroga, JSON_FORCE_OBJECT);
+            break;
         default:            
             break;
     }

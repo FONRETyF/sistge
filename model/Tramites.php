@@ -1587,6 +1587,75 @@ use function PHPSTORM_META\type;
             }
             return $a_resultAddTram;
         }
+		
+		public function getTramsProrg(){		
+			try {                                                                                                                                                                                                                                                                                                                                                                                                                               
+                $consultaProrgs = "SELECT tab1.id,tab1.cvemae,tab1.motivret,tab1.fechsolic,tab1.estatprorg,tab2.nomcommae FROM public.prorrogas as tab1 LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae FROM public.prorrogas as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp";
+				$consultaProrgs = $consultaProrgs . " UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.prorrogas as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 ON tab1.cvemae= tab2.cvemae ORDER BY tab1.id DESC;";
+				$consultaProrgs = $this->db->prepare($consultaProrgs);
+                $consultaProrgs->execute();
+                $resultsProgs = $consultaProrgs->fetchAll(PDO::FETCH_ASSOC); 
+            } catch (\Throwable $th) {
+                echo($th);
+            }
+			
+			return $resultsProgs;
+		}
+		
+		public function addProrroga($cvemae,$motret,$fechbaj,$nomSolic,$NumCel,$numPart,$fechRecibido,$descmotprorg,$soporte,$usuario){
+			$a_resultAddProrg = array();
+
+            $fecha = "";
+            $fecha = date("Y-m-d H:i:s");
+			
+			try {                                                                                                                                                                                                                                                                                                                                                                                                                               
+                $consultaAdd = "INSERT INTO public.prorrogas(";
+                $consultaAdd = $consultaAdd . "cvemae, nomsolic, motivret, fechsolic, fechbajfall, docsoprt, telpart, telcel, descmotivpro, oficaut, fechoficaut, imgoficaut, estatprorg, autorizada, cveusureg, fechreg, cveusumodif, fechmodif, aucom1, fechauc1, aucom2, fechauc2, aucom3, fechauc3, aucom4, fechauc4, aucom5, fechauc5, aucom6, fechauc6)";
+                $consultaAdd = $consultaAdd . " VALUES ('".$cvemae."','".$nomSolic."','".$motret."','".$fechRecibido."','".$fechbaj."','".$soporte."','".$numPart."','".$NumCel."','".$descmotprorg."','','1900-01-01','','R','0','".$usuario."','".$fecha."','','1900-01-01','0','1900-01-01','0','1900-01-01','0','1900-01-01','0','1900-01-01','0','1900-01-01','0','1900-01-01')";
+                $consultaAdd = $this->db->prepare($consultaAdd);
+                $consultaAdd->execute();
+                $results = $consultaAdd->fetchAll(PDO::FETCH_ASSOC);              
+                $a_resultAddProrg["insertProrg"] = "Agregado";
+            } catch (\Throwable $th) {
+                $a_resultAddProrg["insertProrg"] = "Fallo";
+				echo($th);
+            }
+			return $a_resultAddProrg;
+		}
+		
+		public function getProrroga($idProrroga){
+            try {                                                                                                                                                                                                                                                                                                                                                                                                                               
+                $consulta = "SELECT tab1.*,tab2.apepatmae,tab2.apematmae,tab2.nommae,tab2.nomcommae, tab2.estatlab FROM public.prorrogas as tab1 LEFT JOIN (SELECT tab1.cvemae,tab2.apepatmae,tab2.apematmae,tab2.nommae,tab2.nomcommae,tab2.estatlabmae as estatlab FROM public.prorrogas as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp";
+				$consulta = $consulta . " UNION SELECT tab1.cvemae,tab2.apepatmae,tab2.apematmae,tab2.nommae,tab2.nomcommae,tab2.estatusmae as estatlab FROM public.prorrogas as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 ON tab1.cvemae= tab2.cvemae WHERE id=".$idProrroga.";";
+                $consulta = $this->db->prepare($consulta);
+                $consulta->execute();
+                $results = $consulta->fetchAll(PDO::FETCH_ASSOC);              
+            } catch (\Throwable $th) {
+				echo($th);
+            }
+			return $results;
+        }
+
+
+        public function updateProrroga($idprorg,$cvemae,$fechbajfall,$nomsolic,$numcell,$numpart,$fechrecib,$descmotv,$soporte,$numoficaut,$imgoficaut,$estataut,$estatprorg,$cveusu){
+            
+            $resultUpdProrg = array();
+            $fecha = "";
+            $fecha = date("Y-m-d H:i:s");
+
+            try {                                                                                                                                                                                                                                                                                                                                                                                                                               
+                $consultaUpd = "UPDATE public.prorrogas SET nomsolic='".$nomsolic."', fechbajfall='".$fechbajfall."', docsoprt='".$soporte."', telpart='".$numpart."', telcel='".$numcell."', descmotivpro='".$descmotv."', oficaut='".$numoficaut."', imgoficaut='".$imgoficaut."', estatprorg='".$estatprorg."', autorizada='".$estataut."', cveusumodif='".$cveusu."', fechmodif='".$fecha."' WHERE id=".$idprorg." and cvemae='".$cvemae."';";
+                $consultaUpd = $this->db->prepare($consultaUpd);
+                $consultaUpd->execute();
+                $results = $consultaUpd->fetchAll(PDO::FETCH_ASSOC); 
+                $resultUpdProrg["resultadoUpd"]="Actualizado";             
+            } catch (\Throwable $th) {
+				echo($th);
+                $resultUpdProrg["resultadoUpd"]="Fallo";   
+            }
+			return $resultUpdProrg;
+        }
+
     }
 
 

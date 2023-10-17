@@ -87,11 +87,23 @@
         }
         
         public function buscaTrsmitesHist($clavemae){
-            $statement = $this->db->prepare('SELECT identrega,identret,cvemae,motvret,fechentrega FROM public.tramites_fonretyf_hist WHERE cvemae=?');
-            $statement->bindValue(1,$clavemae);
-            $statement->execute();
-            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-            return $results;
+			try{
+				$statement = $this->db->prepare('SELECT identrega,identret,cvemae,motvret,fechentrega FROM public.tramites_fonretyf WHERE cvemae=?');
+				$statement->bindValue(1,$clavemae);
+				$statement->execute();
+				$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+				if(count($results) == 0){
+					$statement = $this->db->prepare('SELECT identrega,identret,cvemae,motvret,fechentrega FROM public.tramites_fonretyf_hist WHERE cvemae=?');
+					$statement->bindValue(1,$clavemae);
+					$statement->execute();
+					$resultsH = $statement->fetchAll(PDO::FETCH_ASSOC);
+					return $resultsH;
+				}else{
+					return $results;
+				}
+			}catch (\Throwable $th){
+				echo($th);
+			}
         }
 
         public function busca_EdoCta($criterioBusq,$valorCriterio){

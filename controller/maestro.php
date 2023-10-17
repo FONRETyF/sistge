@@ -11,7 +11,7 @@
             if (count($a_get_maestro)>0){
                 $a_get_maestro = $maestro->get_maestro($_POST["clavemae"]);
                 $a_get_TrmtsHist = $maestroTramites->buscaTrsmitesHist($_POST["clavemae"]);
-                
+				
                 if(is_array($a_get_maestro)==true and count($a_get_TrmtsHist)==0){
                     foreach($a_get_maestro as $row){
                         $estatLabMae = $row["estatlabmae"];
@@ -109,8 +109,7 @@
                             # code...
                             break;
                     }
-                }                  
-                else if(count($a_get_TrmtsHist)>0){
+                }else if(count($a_get_TrmtsHist)>0){
                     foreach($a_get_TrmtsHist as $row){
                         $output["motivo"] = "existente";
                         $output["cvemae"] = $row["cvemae"];

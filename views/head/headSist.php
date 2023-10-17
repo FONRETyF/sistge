@@ -17,9 +17,10 @@
     <script src="https://kit.fontawesome.com/fae5672c64.js" crossorigin="anonymous"></script>
     
 
-    
+    <!--<script src="../../libs/datatables/jquery-1.12.4.js"></script>
+    <script src="../../libs/datatables/jquery-1.12.4.min.js"></script>-->
     <script src="../../libs/datatables/jquery-3.6.0.js"></script>
-    <script src="../../libs/datatables/jquery-3.6.0.min.js"></script> 
+    <script src="../../libs/datatables/jquery-3.6.0.min.js"></script>
     
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>  

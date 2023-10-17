@@ -29,29 +29,33 @@
                     <a id="tramNuevo" class="btnsOperations" href="capturaTramProrg.php"><img src="../../img/new-document.png" alt="Nuevo tramite" title="Nuevo tramite" height="35" width="35"></a>  
                 </div>
             </div>
-            <div id="ResultConsultRets">
-                <table id ="tramsProrrg_data" class="table display responsive nowrap despliegue_tabla">
-                    <thead class="tabProrrogas">
-                        <tr>
-                            <th class="wd-15p"> id </th>
-                            <th class="wd-15p"> Motivo </th>
-                            <th class="wd-15p"> Clave </th>
-                            <th class="wd-15p"> Nombre Maestro </th>
-                            <th class="wd-15p"> Fecha Recib </th>
-                            <th class="wd-15p"> Estatus Tramite </th>
-                            <th class="wd-15p"></th>
-                            <th class="wd-15p"></th>
+            <div id="ResultConsult">
+				<table id ="prorrogas_data" class="table display responsive nowrap despliegue_tabla">
+					<thead class="tabla_Prorrogas">
+						<tr>
+							<th class="wd-15p"> id </th>
+							<th class="wd-15p"> Motivo </th>
+							<th class="wd-15p"> Clave </th>
+							<th class="wd-15p"> Nombre Maestro </th>
+							<th class="wd-15p"> Fecha Recib </th>
+							<th class="wd-15p"> Estatus de Prorroga </th>
 							<th class="wd-15p"></th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
+							<th class="wd-15p"></th>
+							<th class="wd-15p"></th>
+						</tr>
+					</thead>
+                    <tbody id="tbodProrrogas" class="tbodProrrogas">
+                    </tbody>
+				</table>
+			</div>
         </section>
 
 
     </form>
 </section>
 
+<!--<script src="../../libs/datatables/jquery-1.12.4.js"></script>
+<script src="../../libs/datatables/jquery-1.12.4.min.js"></script>-->
 <script src="../../libs/datatables/jquery-3.6.0.js"></script>
 <script src="../../libs/datatables/jquery-3.6.0.min.js"></script>  
 
@@ -71,7 +75,7 @@
 <script src="../../libs/datatables/select2.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<script type="text/javascript" src="../../asset/js/pendientes.js"></script>
+<script type="text/javascript" src="../../asset/js/tramProrrg.js"></script>
 
 
 <?php require_once("/var/www/html/sistge/views/head/footer.php"); ?>

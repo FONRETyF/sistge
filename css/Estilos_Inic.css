@@ -1946,6 +1946,7 @@ margin: 0 110px;
   background-color: #30b446;
   color: rgb(10, 10, 10);
 }
+
 #ResultConsultRets{
   border-top: thick solid #a19f9f;
   margin: 0 auto;
@@ -1990,6 +1991,48 @@ margin: 0 110px;
 /*.rets_dats  th:nth-child(10){
   border: 1.5px solid rgb(2, 48, 4);
 }*/
+
+.resultProrgs{
+  border-top: thick solid #a19f9f;
+  margin: 0 auto;
+  width: 80%;
+  margin: 3px 15px 0;
+  border-radius: 5px;
+  border-width: .2em;
+}
+
+
+#prorrogas_data{
+  font-size: small;
+}
+.tabla_Prorrogas th:nth-child(1){
+	border: 1.5px solid rgb(2, 48, 4);
+}
+.tabla_Prorrogas th:nth-child(2){
+	border: 1.5px solid rgb(2, 48, 4);
+}
+.tabla_Prorrogas th:nth-child(3){
+	border: 1.5px solid rgb(2, 48, 4);
+}
+.tabla_Prorrogas th:nth-child(4){
+	border: 1.5px solid rgb(2, 48, 4);
+}
+.tabla_Prorrogas th:nth-child(5){
+	border: 1.5px solid rgb(2, 48, 4);
+}
+.tabla_Prorrogas th:nth-child(6){
+	border: 1.5px solid rgb(2, 48, 4);
+}
+.tabla_Prorrogas th:nth-child(7){
+	border: 1.5px solid rgb(2, 48, 4);
+}
+.tabla_Prorrogas th:nth-child(8){
+	border: 1.5px solid rgb(2, 48, 4);
+}
+.tabla_Prorrogas th:nth-child(9){
+	border: 1.5px solid rgb(2, 48, 4);
+}
+
 
 #benefs_data{
   font-size: 12px;
@@ -2623,8 +2666,16 @@ input[type="date"]{
   background-color: transparent;
   border-color: transparent;
 }
+#addOficAut{
+  /*padding-top:17px;*/
+  background-color: transparent;
+  border-color: transparent;
+}
 #divButtonFolChqNew{
 	align-content:center;
+}
+#divButtonOficAut{
+  align-content:center;
 }
 .divNumCarp{
   width: 70px;
@@ -3381,7 +3432,7 @@ input[type="date"]{
 
 #SecDatProrrogaTExc{
   width: 80%;
-  min-height: 550px;
+  min-height: 650px;
   margin: 15px auto;
   border-top: .1em solid #034203;
   border-radius: 3px;
@@ -3456,6 +3507,31 @@ input[type="date"]{
   box-shadow: 0 9px rgb(175, 174, 174);
 }
 
+#updateTExc{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #0a6b1b;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px rgb(175, 174, 174);
+}
+
+#divResponseOficAut{
+  color:#000252;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: rgba(187, 187, 187, 0.582);
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  outline: none;
+}
 /*-------------------------------------*/
 
 
@@ -3697,3 +3773,30 @@ input[type="date"]{
 }
 
 /*   FIN MODAL ENTREGAS   */
+
+#DivdocSoporte{
+   height:23px;
+   padding-top:10px;
+   padding-left:10px;
+}
+
+#docSoport{
+  margin: 5px;
+  width: 17px;
+  height: 17px;
+  border-color: #023014;
+}
+
+#estatAutProrg{
+  margin: 5px;
+  width: 17px;
+  height: 17px;
+  border-color: #023014;
+}
+
+#estatNoAutProrg{
+  margin: 5px;
+  width: 17px;
+  height: 17px;
+  border-color: #023014;
+}
