@@ -231,6 +231,7 @@
             $a_get_deleteProrg = $tramite->deleteProrroga($_POST['idprorg']);
             echo json_encode($a_get_updProrroga, JSON_FORCE_OBJECT);
             break;
+
         default:            
             break;
     }
