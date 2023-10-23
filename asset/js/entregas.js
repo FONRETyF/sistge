@@ -1,6 +1,6 @@
 var tabla;
 
-const windowsModalEntrega = document.querySelector('.modalbenefs');
+const windowsModalEntrega = document.querySelector('.modalEntrega');
 const closeModalEntrega = document.querySelector('.modal_close');
 
 function init(){
@@ -260,12 +260,7 @@ function eliminar(identrega){
 }
 
 function detalleRetiros(identrega){
-    if (parseInt((identrega.toString()).substr(0,4))>2015) {
-        location.href = "../../views/home/detalleRetiros.php" + "?identrega=" + identrega;
-    }else{
-        location.href = "../../views/home/detalleRetiros12-15.php" + "?identrega=" + identrega;
-    }
-    
+    location.href = "../../views/home/detalleRetiros.php" + "?identrega=" + identrega;
 }
 
 $(document).on("click","#entrNueva",function(e) {
