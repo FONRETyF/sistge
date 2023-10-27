@@ -2403,17 +2403,20 @@ function actualizaFallJub(){
                                                         Udoctestamnt:$("#OpcTestamento").val(),
                                                         Ufechdoctestmnt:$("#fechCTJuicio").val(),
                                                         Ucurpmae:document.getElementById('CURPMae').value,
-                                                        Urfcmae:document.getElementById('RFCMae').value
+                                                        Urfcmae:document.getElementById('RFCMae').value,
+                                                        UtipTram:tipTramit,
+                                                        UfolCheqBenef:document.getElementById('foliosbenefs').value
                                                         },function (data) {
-                                                            resultadoAdd = JSON.parse(data);
+                                                            resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
+
                                                             switch (NumregsResult) {
                                                                 case 6:
                                                                     if (resultadoAdd[0] == "Actualizado" && resultadoAdd[1] == "Actualizado" && resultadoAdd[2] == "Eliminado" && resultadoAdd[3] == "Eliminado" && resultadoAdd[4] == "Agregado" && resultadoAdd[5] == "Agregado") {
                                                                         Swal.fire(
                                                                             "TRAMITE MODIFICADO CORRECTAMENTE"
                                                                         );
-                                                                        javascript:history.go(-1);
+                                                                        javascript:history.go(-1);xx
                                                                     } else {
                                                                         Swal.fire(
                                                                             "ALGO SALIO MAL",

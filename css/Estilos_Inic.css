@@ -63,22 +63,6 @@
 	transition: all .3s ease 0s;
 	border-radius: 8px;
 }
-/*a:nth-child(2) {
-	width: 140px;
-}
-a:nth-child(3) {
-	width: 140px;
-}
-a:nth-child(4) {
-	width: 180px;
-}
-a:nth-child(5) {
-	width: 250px;
-}
-a:nth-child(6) {
-	width: 150px;
-}*/
-
 .menu{
   display: flex;
   position: absolute;
@@ -227,14 +211,6 @@ a:nth-child(6) {
   font-size: small;
   border-color: rgb(7, 107, 4);
 }
-/*.tabresult{
-  table-layout: fixed;
-  width: 100%;
-  border-collapse: collapse;
-  border: 1.5px solid rgb(2, 48, 4);
-  align-self: center;
-  font-size: 12px;
-}*/
 .tab_entregas th:nth-child(1){
   width: 3px;
   border: 1.5px solid rgb(2, 48, 4);

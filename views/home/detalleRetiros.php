@@ -1,9 +1,7 @@
 <?php
     session_start();
+
     require_once("/var/www/html/sistge/views/head/header.php");
-    /*if(empty($_SESSION['usuario'])){
-        header("Location:login.php");
-    }*/
 ?>
 
 <section class="contenidoGral">
@@ -33,7 +31,6 @@
                     <a id="tramNuevo" class="btnsOperations" href="tratimeCaptura.php?identrega=<?php echo $_GET["identrega"];?>"><img src="../../img/new-document.png" alt="Nuevo tramite" title="Nuevo tramite" height="35" width="35"></a>
                     <a id="asignFol" class="btnsOperations" href="#"><img src="../../img/asignafolio.png" alt="Asigna folios" title="Asigna folios" height="45" width="45"></a>
                     <a id="printLists" class="btnsOperations" href="#"><img src="../../img/imprimeListados.png" alt="Imprimir listados" title="Imprimir listados" height="35" width="35"></a>
-                    <!--<a id="cancelCheqs" class="btnsOperations" href="#"><img src="../../img/cancelar.png" alt="Cancelar cheques" title="Cancelar cheques" height="40" width="40"></a>-->
                     <a id="asignCarpts" class="btnsOperations" href="#"><img src="../../img/carpetas.png" alt="Carpetas" title="Asignar Carpetas" height="40" width="40"></a>
                 </div>
                 <div id="DivEstatEntr">ESTATUS: &nbsp
@@ -54,12 +51,12 @@
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>
                             <th class="wd-15p"></th>
-                            <!--<th class="wd-15p"></th>-->
                         </tr>
                     </thead>
                 </table>
             </div>
         </section>
+
     </form>
 </section>
 
