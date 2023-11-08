@@ -26,22 +26,24 @@
             <div id="contParamRetAct">
                 <div id="datsParamRetAct">
                     <div id="DicEstatParamRet">Estatus: &nbsp
-                        <input type="checkbox" id="checkStatParam" checked onchange='cambiastatus();' data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger">
+                        <input type="checkbox" id="checkStatParam" data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger" >
                     </div>
-                    <div id="DivsueldosBase">
-                        <div class="datsSueldosBase" id="DivsueldosBaseSp">SUELDO BASE DE UN SUPERVISOR:&nbsp
-                            <input type="text" class="sueldosBase" id="sueldBaseSuperv" name="sueldBaseSuperv" placeholder="$000.00">
+                    <div>SUELDOS BASE</div>
+                    <div id="DivsueldosBase"> 
+                        <div class="datsSueldosBase" id="DivsueldosBaseSp">Supervisor: &nbsp
+                            <input type="text" class="sueldosBase" id="sueldBaseSuperv" name="sueldBaseSuperv" placeholder="$000.00" >
                         </div>
-                        <div class="datsSueldosBase" id="DivsueldosBasePt">SUELDO BASE DE UN PROFR. TITULADO:&nbsp
-                            <input type="text" class="sueldosBase" id="sueldBaseProfrTit" name="sueldBaseProfrTit" placeholder="$000.00"></br>
+                        <div class="datsSueldosBase" id="DivsueldosBasePt">Profr. Titulado:&nbsp
+                            <input type="text" class="sueldosBase" id="sueldBaseProfrTit" name="sueldBaseProfrTit" placeholder="$000.00" ></br>
+                            <div><button type="submit" id="BttnCalcProm" name="BttnCalcProm">...</button></div>
                         </div>
-                        <div id="DivpromSueldos">Promedio: &nbsp
-                            <input type="text" class="sueldosBase" id="promSueldos" name="promSueldos" disabled>
-                        </div>
-                        <div id="datsAdicinls">
-                            <div id="DivaniosLey">Años ley:
-                                <input type="text" id="aniosLey" name="aniosLey" value="30" disabled>
-                            </div>
+                    </div>
+                    <div id="DivpromSueldos">Promedio: &nbsp
+                        <input type="text" class="sueldosBase" id="promSueldos" name="promSueldos" disabled>
+                    </div>
+                    <div id="datsAdicinls">
+                        <div id="DivaniosLey">Años ley:
+                             <input type="text" id="aniosLey" name="aniosLey" value="30" disabled>
                         </div>
                     </div>
                     <div id="DivMontRetAn">Monto de retiro anual:
@@ -49,16 +51,16 @@
                     </div>
                     <div id="entregasApli">
                         <div class="DivEntrsApli" id="DivEntrApliIni">Entrega inicial de aplicacion:
-                            <input type="text" class="EntrsApliIni" id="NumEntApliIni" name="NumEntApliIni" placeholder="Num">
-                            <input type="text" class="EntrsApliFin" id="AnioEntApliIni" name="AnioEntApliIni" placeholder="Año">
+                            <input type="text" class="EntrsApliIni" id="NumEntApliIni" name="NumEntApliIni" placeholder="Num" minlength="2" maxlength="2">
+                            <input type="text" class="EntrsApliFin" id="AnioEntApliIni" name="AnioEntApliIni" placeholder="Año" minlength="4" maxlength="4">
                         </div>
                         <div class="DivEntrsApli" id="DivEntrApliFin">Entrega final de aplicacion:
-                            <input type="text" class="EntrsApliIni" id="NumEntApliFin" name="NumEntApliFin" placeholder="Num">
-                            <input type="text" class="EntrsApliFin" id="AnioEntApliFin" name="AnioEntApliFin" placeholder="Año">
+                            <input type="text" class="EntrsApliIni" id="NumEntApliFin" name="NumEntApliFin" placeholder="Num" minlength="2" maxlength="2">
+                            <input type="text" class="EntrsApliFin" id="AnioEntApliFin" name="AnioEntApliFin" placeholder="Año" minlength="4" maxlength="4">
                         </div>
                     </div>
                     <div id="divAgregaParam">
-                        <button id="agregaParam" name="agregaParam" class="">AGREGAR</button>
+                        <button id="updtParam" name="updtParam">GUARDAR</button>
                     </div>
                 </div>
             </div>
@@ -66,6 +68,6 @@
     </form>
 </section>
 
-<script type="text/javascript" src="../../asset/js/parametrosUpdate.js"></script>
+<script type="text/javascript" src="../../asset/js/parametrosUpd.js"></script>
 
 <?php require_once("/var/www/html/sistge/views/head/footer.php"); ?>

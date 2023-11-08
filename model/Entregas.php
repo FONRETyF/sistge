@@ -272,7 +272,94 @@
 			}
 			return $resultAdd;
 		}
+
+        
+        public function addParamRet($sbSup,$sbTit,$promSB,$montRetA,$numEntIni,$anioEntIni,$cveusu){
+            $fecha = "";
+            $fecha = date("Y-m-d H:i:s");
+			$resultAdd = array();   
+            
+            if (intval($numEntIni)<10) {
+                $identrega= $anioEntIni . "0" . $numEntIni;
+            }else {
+                $identrega= $anioEntIni . $numEntIni;
+            }
+
+            try {
+                $consultaParam = "SELECT id FROM public.parametros_retiro WHERE entrapliini='".$identrega."' OR entraplifin='".$identrega."';";
+				$consultaParam = $this->db->prepare($consultaParam);
+				$consultaParam->execute();
+				$consultaParam = $consultaParam->fetchAll(PDO::FETCH_ASSOC);
+				if(count($consultaParam) > 0){
+					$resultAdd["insercion"] = 'existente';
+				}else{
+                    $consultaParamA = "SELECT id FROM public.parametros_retiro WHERE estatparam='ACTIVO';";
+				    $consultaParamA = $this->db->prepare($consultaParamA);
+				    $consultaParamA->execute();
+				    $consultaParamA = $consultaParamA->fetchAll(PDO::FETCH_ASSOC);
+                    if (count($consultaParamA) > 0) {
+                        $resultAdd["insercion"] = 'inconsistente';
+                    } else {
+                        $consultaAddParam = "INSERT INTO public.parametros_retiro(aportsuperv,aportproftit,aportprom, montretanual,aniosley,incremntanual,entrapliini,entraplifin,estatparam,observaciones,cveusureg,fechreg,cveusumodif,fechmodif) VALUES (";
+                        $consultaAddParam = $consultaAddParam . $sbSup.",".$sbTit.",".$promSB.",".$montRetA.",30,0,'".$identrega."','','ACTIVO','','".$cveusu."','".$fecha."','','1900-01-01');";
+                        $addParametro = $this->db->prepare($consultaAddParam);
+                        $addParametro->execute();
+                        $addParametro = $addParametro->fetchAll(PDO::FETCH_ASSOC);
+                        $resultAdd["insercion"] = 'agregado';
+                    }                    
+                }
+            } catch (\Throwable $th) {
+                echo $th;
+				$resultAdd["insercion"] = 'fallo';
+            }
+
+            return $resultAdd;
+        }
+
+        public function getParam($idparam){
+            $consultaParam = "SELECT * FROM public.parametros_retiro WHERE id=".$idparam.";";
+			$consultaParam = $this->db->prepare($consultaParam);
+			$consultaParam->execute();
+			$consultaParam = $consultaParam->fetchAll(PDO::FETCH_ASSOC);
+
+            return $consultaParam;
+
+        }
 		
+        public function updtParamRet($sbSup,$sbTit,$promSB,$montRetA,$numEntIni,$anioEntIni,$numEntFin,$anioEntFin,$estatParam,$idParm,$cveusu){
+            $fecha = "";
+            $fecha = date("Y-m-d H:i:s");
+			$resultUpdt = array();  
+
+            if (intval($numEntIni)<10) {
+                $identrI= $anioEntIni . "0" . $numEntIni;
+            }else {
+                $identrI= $anioEntIni . $numEntIni;
+            }
+
+            if ($numEntFin <> "") {
+                if (intval($numEntFin)<10) {
+                    $identrF= $anioEntFin . "0" . $numEntFin;
+                }else {
+                    $identrF= $anioEntFin . $numEntFin;
+                }
+            }else {
+                $identrF="";
+            }
+            
+            try {
+                $consultaUpdtParam = "UPDATE public.parametros_retiro SET aportsuperv=".$sbSup.",aportproftit=".$sbTit.",aportprom=".$promSB.", montretanual=".$montRetA.",entrapliini='".$identrI."',entraplifin='".$identrF."',estatparam='".$estatParam."',cveusumodif='".$cveusu."',fechmodif='".$fecha."' WHERE id=".$idParm.";";
+                $updtParametro = $this->db->prepare($consultaUpdtParam);
+                $updtParametro->execute();
+                $updtParametro = $updtParametro->fetchAll(PDO::FETCH_ASSOC);
+                $resultUpdt["actualizacion"] = 'actualizado';
+            } catch (\Throwable $th) {
+                echo $th;
+				$resultUpdt["actualizacion"] = 'fallo';
+            }
+
+            return $resultUpdt;
+        }
 
     }
 

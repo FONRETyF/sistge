@@ -24,7 +24,7 @@
         <section id="secParametros">Relacion de parametros para los retiros
             <div id="ConsultParametros">
                 <div id="AgregaParam">
-                    <a id="paramNuevo" href="parametrosRetAct.php"><img src="../../img/add.png" alt="Nuevo" title="Parametro Nuevo" height="35" width="35"></a>    
+                    <a id="paramNuevo" href="parametrosRet.php"><img src="../../img/add.png" alt="Nuevo" title="Parametro Nuevo" height="35" width="35"></a>    
                 </div>
             </div>
             <div id="ResultConsult">

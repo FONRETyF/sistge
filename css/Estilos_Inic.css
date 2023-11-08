@@ -942,6 +942,19 @@
   text-decoration: none;
   outline: none;
 }
+
+#BttnCalcProm{
+  width: 30px;
+  height: 30px;
+  border-color: #d3d6d4;
+  border-width: 0.1em;
+  border-radius: 5px;
+  margin: auto 0px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+}
 #opcRadsBusq{
   width: 60%;
   height: 40px;
@@ -2081,11 +2094,11 @@ margin: 0 110px;
 }
 #DivsueldosBase{
   margin: 20px auto;
-  display: inline-block;
+  display: inline-flex;
 
 }
 .datsSueldosBase{
-  width: 350px;
+  width: 300px;
   display: inline-flex;
   align-items: center;
 }
@@ -2115,6 +2128,10 @@ margin: 0 110px;
   height: 30px;
   background-color: #d8d2d2;
   border-radius: 3px;
+}
+#DivMontRetAn{
+  margin: 20px auto;
+  font-weight: bold;
 }
 #entregasApli{
   padding-top: 30px;
@@ -2156,6 +2173,20 @@ margin: 0 110px;
   margin: 25px auto;
 }
 #agregaParam{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #0a6b1b;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px rgb(175, 174, 174);
+}
+#updtParam{
   display: inline-block;
   padding: 10px 20px;
   font-size: 15px;
@@ -2882,27 +2913,27 @@ input[type="date"]{
   width: 5px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-.tab_entregas th:nth-child(2){
+.tab_parametros th:nth-child(2){
   width: 20px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-.tab_entregas th:nth-child(3){
+.tab_parametros th:nth-child(3){
   width: 20px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-.tab_entregas th:nth-child(4){
+.tab_parametros th:nth-child(4){
   width: 30px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-.tab_entregas th:nth-child(5){
+.tab_parametros th:nth-child(5){
   width: 30px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-.tab_entregas th:nth-child(6){
+.tab_parametros th:nth-child(6){
   width: 30px;
   border: 1.5px solid rgb(2, 48, 4);
 }
-.tab_entregas th:nth-child(7){
+.tab_parametros th:nth-child(7){
   width: 20px;
   border: 1.5px solid rgb(2, 48, 4);
 }

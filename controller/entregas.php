@@ -99,7 +99,7 @@
                 }
                 $a_prep_params[] = $row["entrapliini"];
                 $a_prep_params[] = $row["entraplifin"];
-                $a_prep_params[] = "<button type='button' onclick='editar(".$row['id'].");' id='".$row['id']."'class='BtIcEdit' ".$estatParametro."><div><img src='../../img/file.png' alt='modificar' title='modificar' height='20' width='20'></div></button>";
+                $a_prep_params[] = "<button type='button' onclick='editar(".$row['id'].");' id='".$row['id']."'class='BtIcEdit' ".$estatParametro."><div><img src='../../img/lapiz.png' alt='modificar' title='modificar' height='20' width='20'></div></button>";
                 $a_Parametros[] = $a_prep_params;  
             }
             $a_result_parametros_DT = array(
@@ -138,6 +138,30 @@
 			echo json_encode($a_get_addfolsNew, JSON_FORCE_OBJECT);
 			break;
 			
+        case 'calcPromSsBs':
+            $a_PromRetA = array();
+
+            $promSBs = round(((($_POST['SBSup'] / 2) * 0.015) + (($_POST['SBTit'] / 2) * 0.015)) / 2,6);
+            $a_PromRetA['promedio'] = $promSBs;
+            $a_PromRetA['retiroAnual'] = round((((($promSBs * 24) * 30) * 0.4) * .99),2);
+            echo json_encode($a_PromRetA, JSON_FORCE_OBJECT);
+            break;
+
+        case 'addPramRet':
+            $a_getAddParam = $entrega -> addParamRet($_POST['SBSup'],$_POST['SBTit'],$_POST['PromSB'],$_POST['MontRetA'],$_POST['numEntIni'],$_POST['anioEntIni'],$_SESSION['usuario']);
+            echo json_encode($a_getAddParam, JSON_FORCE_OBJECT);
+            break;
+
+        case 'updtPramRet':
+            $a_getupdtParam = $entrega -> updtParamRet($_POST['SBSup'],$_POST['SBTit'],$_POST['PromSB'],$_POST['MontRetA'],$_POST['numEntIni'],$_POST['anioEntIni'],$_POST['numEntFin'],$_POST['anioEntFin'],$_POST['estatParam'],$_POST['idparam'],$_SESSION['usuario']);
+            echo json_encode($a_getupdtParam, JSON_FORCE_OBJECT);
+            break;
+
+        case 'getParam':
+            $a_getParam = $entrega -> getParam($_POST['idParam']);
+            echo json_encode($a_getParam, JSON_FORCE_OBJECT);
+            break;
+
         default:
             
             break;

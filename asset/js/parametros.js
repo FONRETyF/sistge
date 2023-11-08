@@ -63,7 +63,7 @@ accionBtnInicio.addEventListener("click", function (e) {
 });
 
 function editar(idparam) {
-    location.href = "../../views/home/paramUpdate.php" + "?id=" + idparam;
+    location.href = "../../views/home/parametrosRetUpd.php" + "?id=" + idparam;
 }
 
 init();

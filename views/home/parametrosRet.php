@@ -26,22 +26,24 @@
             <div id="contParamRetAct">
                 <div id="datsParamRetAct">
                     <div id="DicEstatParamRet">Estatus: &nbsp
-                        <input type="checkbox" checked data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger">
+                        <input type="checkbox" id="checkStatParam" checked data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger" disabled>
                     </div>
-                    <div id="DivsueldosBase">
-                        <div class="datsSueldosBase" id="DivsueldosBaseSp">SUELDO BASE DE UN SUPERVISOR:&nbsp
-                            <input type="text" class="sueldosBase" id="sueldBaseSuperv" name="sueldBaseSuperv" placeholder="$000.00">
+                    <div>SUELDOS BASE</div>
+                    <div id="DivsueldosBase"> 
+                        <div class="datsSueldosBase" id="DivsueldosBaseSp">Supervisor: &nbsp
+                            <input type="text" class="sueldosBase" id="sueldBaseSuperv" name="sueldBaseSuperv" placeholder="$000.00" >
                         </div>
-                        <div class="datsSueldosBase" id="DivsueldosBasePt">SUELDO BASE DE UN PROFR. TITULADO:&nbsp
-                            <input type="text" class="sueldosBase" id="sueldBaseProfrTit" name="sueldBaseProfrTit" placeholder="$000.00"></br>
+                        <div class="datsSueldosBase" id="DivsueldosBasePt">Profr. Titulado:&nbsp
+                            <input type="text" class="sueldosBase" id="sueldBaseProfrTit" name="sueldBaseProfrTit" placeholder="$000.00" ></br>
+                            <div><button type="submit" id="BttnCalcProm" name="BttnCalcProm">...</button></div>
                         </div>
-                        <div id="DivpromSueldos">Promedio: &nbsp
-                            <input type="text" class="sueldosBase" id="promSueldos" name="promSueldos" disabled>
-                        </div>
-                        <div id="datsAdicinls">
-                            <div id="DivaniosLey">Años ley:
-                                <input type="text" id="aniosLey" name="aniosLey" value="30" disabled>
-                            </div>
+                    </div>
+                    <div id="DivpromSueldos">Promedio: &nbsp
+                        <input type="text" class="sueldosBase" id="promSueldos" name="promSueldos" disabled>
+                    </div>
+                    <div id="datsAdicinls">
+                        <div id="DivaniosLey">Años ley:
+                             <input type="text" id="aniosLey" name="aniosLey" value="30" disabled>
                         </div>
                     </div>
                     <div id="DivMontRetAn">Monto de retiro anual:
@@ -58,12 +60,14 @@
                         </div>
                     </div>
                     <div id="divAgregaParam">
-                        <button id="agregaParam" name="agregaParam" class="">AGREGAR</button>
+                        <button id="agregaParam" name="agregaParam">AGREGAR</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 </section>
+
+<script type="text/javascript" src="../../asset/js/parametrosNuevo.js"></script>
 
 <?php require_once("/var/www/html/sistge/views/head/footer.php"); ?>
