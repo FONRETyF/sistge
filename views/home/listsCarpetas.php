@@ -104,8 +104,8 @@
 					array_push($a_get_folsCheqs_Carp,array("cheque",$resultFolsCarp[0]));
 				}else{
 					$consultacheque = "SELECT tab1.identret,tab1.cvemae,tab1.folcheque,tab1.nombenef,tab1.montbenef,tab1.observcheque,tab3.nomcommae,tab3.motvret,tab1.estatcheque,tab1.chequeadeudo,tab1.adeudo,tab1.statedad,tab1.observreposcn,tab3.numadeds FROM public.beneficiarios_cheques_hist as tab1";
-					$consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds";
-					$consultacheque = $consultacheque . " FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE folcheque='00".$ic."';";
+					$consultacheque = $consultacheque . " LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds FROM public.tramites_fonretyf_hist as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab1.motvret,tab1.numadeds";
+					$consultacheque = $consultacheque . " FROM public.tramites_fonretyf_hist as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE folcheque='00".$ic."';";
 					$resultFolsCarp = $db->prepare($consultacheque);
 					$resultFolsCarp->execute();
 					$resultFolsCarp = $resultFolsCarp->fetchAll();
