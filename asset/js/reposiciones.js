@@ -25,7 +25,7 @@ $("#BttnBuscarCheq").on("click",function (e) {
                         <td>`+datosCheq[4]+ `</td>
                         <td>`+datosCheq[8]+ `</td>
                         <td>`+datosCheq[19]+ `</td>
-                        <td>`+datosCheq[31]+ `</td>
+                        <td>`+datosCheq[22]+ `</td>
                         <td>`+datosCheq[20]+ `</td>
                     </tr>`;
                 $("#resultBusqCheqs").append(tr);
