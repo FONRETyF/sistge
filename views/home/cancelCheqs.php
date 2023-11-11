@@ -80,6 +80,8 @@
                         <option value="23">DEVUELTO POR EL BANCO (DATOS DEL CHEQUE)</option>
                         <option value="24">DEVUELTO POR EL BANCO (OTRO BANCO)</option>
                         <option value="25">DUPLICIDAD CHEQUE</option>
+                        <option value="26">ERROR FIRMA ELECTRONICA</option>
+                        <option value="27">DEPOSITO</option>
                     </select>
                 </div>
                 <div id="divObservCheque">
