@@ -58,7 +58,7 @@ use function PHPSTORM_META\type;
             $i=0;
 
             if ($fechRecibido > $fechDictamen && $fechRecibido > $fechBaseMae && $fechRecibido > $fechBajaMae) {
-                if ($fechDictamen > $fechBaseMae && $fechDictamen < $fechBajaMae) {
+                if ($fechDictamen > $fechBaseMae && $fechDictamen <=  $fechBajaMae) {
                     if ($fechBaseMae < $fechBajaMae) {
                         $vigenciaTram = $this -> validaVigencia($fechBajaMae,$fechRecibido);
                         if (($vigenciaTram/365) < 1) {
