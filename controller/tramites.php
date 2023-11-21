@@ -5,11 +5,6 @@
     $tramite = new Tramite();
 
     switch ($_GET["op"]) {
-        case 'validaFechs':
-            $a_validFechas = $tramite->validaFechas($_POST["clavemae"],$_POST["motret"],$_POST["diasInacPsgs"],$_POST["NumPersgs"],$_POST["fechRecibido"],$_POST["fechDictamen"],$_POST["fechBaseMae"],$_POST["fechBajaMae"]);
-            echo json_encode($a_validFechas, JSON_FORCE_OBJECT);
-            break;
-
         case 'diasPSGS':
             $fechI=array();
             $fechF=array();
@@ -29,6 +24,16 @@
                 $output["fechFin"] = $fechF;
                 echo json_encode($output, JSON_FORCE_OBJECT);
             }
+            break;
+
+        case 'validaFechs':
+            $a_validFechas = $tramite->validaFechasIJR($_POST["clavemae"],$_POST["motret"],$_POST["diasInacPsgs"],$_POST["NumPersgs"],$_POST["fechRecibido"],$_POST["fechBaseMae"],$_POST["fechBajaMae"]);
+            echo json_encode($a_validFechas, JSON_FORCE_OBJECT);
+            break;
+
+        case 'validaFechsFA':
+            $a_validFechas = $tramite->validaFechasFA($_POST["clavemae"],$_POST['motret'],$_POST['diasInacPsgs'],$_POST['NumPersgs'],$_POST["fechRecibido"],$_POST["fechBaseMae"],$_POST["fechBajaMae"],$_POST['fecInicioJuic'],$_POST['fechaIniJuic'],$_POST['tiptest'],$_POST['fechJuiCTL']);
+            echo json_encode($a_validFechas, JSON_FORCE_OBJECT);
             break;
 
         case 'obtenRetiro':
@@ -76,10 +81,7 @@
             echo json_encode($a_getVigTramJuicio, JSON_FORCE_OBJECT);
             break;
 
-        case 'validaFechsFA':
-            $a_validFechas = $tramite->validaFechasFA($_POST["clavemae"],$_POST['motret'],$_POST['diasInacPsgs'],$_POST['NumPersgs'],$_POST["fechRecibido"],$_POST["fechBaseMae"],$_POST["fechBajaMae"],$_POST['fecInicioJuic'],$_POST['fechaIniJuic'],$_POST['tiptest'],$_POST['fechJuiCTL']);
-            echo json_encode($a_validFechas, JSON_FORCE_OBJECT);
-            break;
+        
 
         case 'validaFechsFJ':
             $a_validFechasFJ = $tramite->validaFechasFJ($_POST["clavemae"],$_POST['motret'],$_POST["fechRecibido"],$_POST["fechBaseMae"],$_POST["fechBajaMae"],$_POST["opTest"],$_POST["fechCTJuic"],$_POST["fechIniJuic"]);

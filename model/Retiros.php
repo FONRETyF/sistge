@@ -35,14 +35,14 @@
 
             } else if ($estatentr=="ACTIVA") {
                 $consulta= "SELECT tab1.identrega,tab1.numentrega,tab1.anioentrega,tab1.identret,tab1.cvemae,tab1.motvret,tab2.nomcommae,tab1.montrettot,tab1.estattramite,tab3.folcheque FROM public.tramites_fonretyf as tab1 LEFT JOIN public.beneficiarios_cheques as tab3 on tab1.cvemae = tab3.cvemae LEFT JOIN(SELECT tab1.cvemae,tab2.nomcommae";
-                $consulta = $consulta . " FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 on tab1.cvemae= tab2.cvemae WHERE identrega='" . $identrega . "' and (motvret='I' or motvret='J') ORDER BY identret DESC;";
+                $consulta = $consulta . " FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 on tab1.cvemae= tab2.cvemae WHERE identrega='" . $identrega . "' and (motvret='I' or motvret='J' or motvret='FRI' or motvret='FRJ' or motvret='FRR' or motvret='FRD') ORDER BY identret DESC;";
                 $statement = $this->db->prepare($consulta);
                 $statement->execute();
                 $resultsJub = $statement->fetchAll(PDO::FETCH_ASSOC);
                 $results_rets[] = $resultsJub;
 
                 $consultaF= "SELECT tab1.identrega,tab1.numentrega,tab1.anioentrega,tab1.identret,tab1.cvemae,tab1.motvret,tab2.nomcommae,tab1.montrettot,tab1.estattramite FROM public.tramites_fonretyf as tab1 LEFT JOIN(SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION";
-                $consultaF = $consultaF . " SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 on tab1.cvemae= tab2.cvemae WHERE identrega= '".$identrega."' and (motvret='FA' or motvret='FJ') ORDER BY identret DESC;";
+                $consultaF = $consultaF . " SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 on tab1.cvemae= tab2.cvemae WHERE identrega= '".$identrega."' and (motvret='FA' or motvret='FJ' or motvret='FRF' or motvret='FFJ' or motvret='FMJ') ORDER BY identret DESC;";
                 $statementF = $this->db->prepare($consultaF);
                 $statementF->execute();
                 $resultsFall = $statementF->fetchAll(PDO::FETCH_ASSOC);
@@ -95,7 +95,7 @@
 									$statementActEntr = $this->db->prepare($statementActEntr);
 									$statementActEntr->execute();
 									$resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
-									//$a_resultDeleteTram["updateEntrega"] = "Actualizada";
+									$a_resultDeleteTram["updateEntrega"] = "Actualizada";
 								} catch (\Throwable $th){
 									$a_resultDeleteTram["updateEntrega"] = "Fallo";
 									echo($th);
@@ -107,7 +107,7 @@
 									$statementActEntr = $this->db->prepare($statementActEntr);
 									$statementActEntr->execute();
 									$resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
-									//$a_resultDeleteTram["updateEntrega"] = "Actualizada";
+									$a_resultDeleteTram["updateEntrega"] = "Actualizada";
 								}catch(\Throwable $th){
 									$a_resultDeleteTram["updateEntrega"] = "Fallo";
 									echo($th);
@@ -151,8 +151,7 @@
                                 $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
                             }
                         }
-						echo($a_resultDeleteTram);
-                        //return $a_resultDeleteTram;
+                        return $a_resultDeleteTram;
                         break;
 
                     case 'D100':
@@ -186,8 +185,7 @@
                                 $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
                             }
                         }
-						echo($a_resultDeleteTram);
-                        //return $a_resultDeleteTram;
+                        return $a_resultDeleteTram;
                         break;
 
                     default:
@@ -267,7 +265,6 @@
                 $statementUpdate = "UPDATE public.maestros_smsem";
                 $statementUpdate = $statementUpdate . " SET cveissemym='', regescmae=0 , numcelmae='', numfijmae='', fcbasemae='1900-01-01', aservactmae=0, fbajamae='1900-01-01', numpsgs=0, diaspsgs=0, estatlabmae='A', cveusu='".$cveusu."', fechmodif='".$fecha."', diaservactmae=0, afiprogfondfalle=0, fechsinipsgs='{}', fechsfinpsgs='{}'";
                 $statementUpdate = $statementUpdate . " WHERE csp='" . $clavemae."';";
-
                 $statementUpdate = $this->db->prepare($statementUpdate);
                 $statementUpdate->execute();
                 $results = $statementUpdate->fetchAll(PDO::FETCH_ASSOC);
@@ -353,7 +350,7 @@
         }
 
         public function get_infoDTJI($identret,$modretiro,$cvemae,$motivoRet){
-            if ($motivoRet == "J" || $motivoRet == "I") {
+            if ($motivoRet == "FRJ" || $motivoRet == "FRI" || $motivoRet == "FRR" || $motivoRet == "FRD") {
                 if ($modretiro == "D100") {
                     $statementDT = "SELECT tab1.*,tab2.nomcommae,tab2.curpmae,tab2.rfcmae,tab2.regescmae,tab2.fcbasemae,tab2.aservactmae,tab2.fbajamae,tab2.numpsgs,tab2.diaspsgs,tab2.fechfallecmae,tab2.estatlabmae,";
                     $statementDT = $statementDT . " tab2.cveissemym, tab2.apepatmae, tab2.apematmae, tab2.nommae, tab2.fechsinipsgs, tab2.fechsfinpsgs, tab2.diaservactmae";
@@ -372,7 +369,7 @@
                     $statementDT->execute();
                     $results = $statementDT->fetchAll(PDO::FETCH_ASSOC);
                 }
-            }elseif ($motivoRet == "FA") {
+            }elseif ($motivoRet == "FRF") {
                 $statementDT = "SELECT tab1.*,tab2.nomcommae,tab2.curpmae,tab2.rfcmae,tab2.regescmae,tab2.fcbasemae,tab2.aservactmae,tab2.fbajamae,tab2.numpsgs,tab2.diaspsgs,tab2.fechfallecmae,tab2.estatlabmae,tab2.cveissemym, tab2.apepatmae, tab2.apematmae, tab2.nommae, tab2.fechsinipsgs, tab2.fechsfinpsgs, tab2.diaservactmae";
                 $statementDT = $statementDT . " FROM public.tramites_fonretyf as tab1 LEFT JOIN public.maestros_smsem as tab2 ON tab1.cvemae=tab2.csp";
                 $statementDT = $statementDT . " WHERE tab1.cvemae='".$cvemae."' and tab1.identret='".$identret."';";

@@ -4,8 +4,8 @@
 
 <header>
     <div class="escudo_Ini">
-        <img class="imagen1" src="/../../img/escudosmsem.png" width="55" height="75">
-        <img class="imagen2" src="/../../img/planilla2021-2024.png" width="60" height="40">
+        <img class="imagen1" src="../../img/escudosmsem.png" width="55" height="75">
+        <img class="imagen2" src="../../img/planilla2021-2024.png" width="60" height="40">
     </div>
     <div class="texto_Ini">
         <div class="texfonretif_Ini">SMSEM - FONDO DE RETIRO Y FALLECIMIENTO</div>
@@ -17,7 +17,7 @@
     <div class="container-fluid">
         <nav class="navbar fixed-top headencabezado">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img id="imgAhorro" src="/../../img/cash.png" alt="" width="70" height="40"></a>
+                <a class="navbar-brand" href="#"><img id="imgAhorro" src="../../img/cash.png" alt="" width="70" height="40"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -48,6 +48,12 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle primermenu" aria-current="page" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="primermenu">PROCESOS</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="parametros.php" >PARAMETROS RET</a></li>
+                                    <li><a class="dropdown-item" href="#">NOMINAS ISSEMYM</a></li>
+                                    <li><a class="dropdown-item" href="altMaestro.php">ALTA DE MAESTROS</a></li>
+                                </ul>
                                 <li><a class="dropdown-item" href="logout.php">CERRAR SESION</a></li>
                             </li>
                         </ul>

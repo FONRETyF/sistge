@@ -4,15 +4,6 @@
     if(empty($_SESSION['usuario'])){
         header("Location:login.php");
     }
-
-    if (isset($_POST['uploadImage'])) {
-        //echo("va subir imahebnjhh");
-    } else {
-       // echo("no va subir nada");
-    }
-    
-    
-
 ?>
 
 <section class="contenidoGral">        
@@ -46,36 +37,44 @@
             </div>
             <div id="causaRetiro">Causa Retiro: &nbsp
                 <select name="OpcCauRetiro" id="OpcCauRetiro" placeholder="MOTIVO RET" onchange="">
-                    <option selected="true" disabled="disabled">Seleccione Motivo</option>
-                    <option value="I">INHABILITACION</option>
-                    <option value="J">JUBILACION</option>
-                    <option value="FA">FALLECIMIENTO ACT</option>
-                    <option value="FJ">FALLECIMIENTO JUB</option>
+                    <option selected="true" disabled="disabled">Seleccione Programa</option>
+                    <option value="FR">FONDO RETIRO</option>
+                    <option value="FF">FONDO FALLECIMIENTO</option>
+                    <option value="FM">FONDO MUTUALIDAD</option>
                 </select>
                 <div class="divTipTramNE">
                     <label for="tipTramNE"><input type="checkbox" id="tipTramNE" value="tipTramNE" disabled>Extra</label>
                 </div>
             </div>
-            
+            <div id="motivRetiro">Motivo: &nbsp
+                <div id="divmotfondRet">
+                    <select name="OpcMotivRetiro" id="OpcMotivRetiro" placeholder="MOTIVO RET" onchange="">
+                        <option selected="true" disabled="disabled">Seleccione Motivo</option>
+                        <option value="I">INHABILITACION</option>
+                        <option value="J">JUBILACION</option>
+                        <option value="R">RENUNCIA</option>
+                        <option value="D">RESCESION</option>
+                        <option value="F">FALLECIMIENTO</option>
+                    </select>
+                </div>
+            </div>
             <div class="CapturaJub">
             <section id="SecDatPerson">
                 <div class="DatosCaptura">
                     <p>D A T O S &nbsp &nbsp P E R S O N A L E S</p>                  
                     <div id="DivCveServPub">
                         <div>C.S.P: &nbsp<input type="text" id="cspMaeBusq" class="CSPMae" name="cspMaeBusq" placeholder="999999999" change="" minlength="9" maxlength="9" disabled required></div>
-                        <div>&nbsp &nbsp &nbsp Clave de ISSEMyM: &nbsp<input type="text" id="cveIMaeBusq" class="cveissemym" name="cveIMaeBusq" minlength="3" maxlength="6" placeholder="000000" disabled></div>
+                        <div>&nbsp &nbsp &nbsp Clave de ISSEMyM: &nbsp<input type="text" id="cveIMaeBusq" class="cveissemym" name="cveIMaeBusq" minlength="3" maxlength="7" placeholder="000000" disabled></div>
                         <div id="EstatLaboral">Estatus: &nbsp<input type="text" id="estLaboral" name="estLaboral" placeholder="Estatus laboral" disabled></div>
                         <input type="hidden" id="inputProgramFall" name="inputProgramFall">
 						<input type="hidden" id="cvemae" name="cvemae" >
                     </div>
-                    <!--<div id="DivInforTram"><h1 id="infoTramite"></h1></div>  -->
                     <div id="DivNomMae">Nombre del maestro: 
                         <div id="DivDatsNomMae">
                             <input type="text" class="DatsNomMae" id="apePatMae" name="apePatMae" disabled>
                             <input type="text" class="DatsNomMae" id="apeMatMae" name="apeMatMae" disabled>
                             <input type="text" class="DatsNomMae" id="nombreMae" name="nombreMae" disabled>
                             <button id="EditaNombre" disabled><img src="../../img/lapiz.png" alt="Editar nombre" title="Editar nombre" height="20" width="20" disabled></button>
-                            <!--<a id="EditaNombre" href="" disabled><img src="../../img/lapiz.png" alt="Editar nombre" title="Editar nombre" height="20" width="20" disabled></a>-->
                         </div>    
                         <div id="textnommae">
                             <div class="nomMaestro" id="TextApePat" disabled>Apellido Paterno</div>
@@ -105,7 +104,6 @@
                                     <option value="12">12</option>
                                     <option value="13">13</option>
                                 </select>
-                                <!--<input type="text" id="RegionMae" name="RegionMae" placeholder="" required>-->
                             </div>
                         </div>   
                         <div id="DivTelsMae">
@@ -127,7 +125,7 @@
                             <div >Fecha: <input type="date" id="fechDictamen" name="fechDictamen" min="2000-01-01" max="2050-12-31" pattern="\d{4}-\d{2}-\d{2}" required disabled></div></br>
                             <div>Folio: &nbsp &nbspCP<input type="text" id="folioDictamen" name="folioDictamen" placeholder="00000/00" disabled ></div>
                         </div>
-                        <div id="DivBaseBaja"><!--<p>BASE Y BAJA</p> --><h4 id="tituto_BasJubBajFall" class="titulosDivs"></h4>
+                        <div id="DivBaseBaja"><h4 id="tituto_BasJubBajFall" class="titulosDivs"></h4>
                             <div id="DivInputFechBase"><h5 id="tituto_InptBasJub"></h5><input type="date" id="fechBaseMae" name="fechBaseMae" min="1930-01-01" max="2050-12-31"  pattern="\d{4}-\d{2}-\d{2}" disabled required></div></br>   
                             <div id="DivInputFechBaja"><h4 id="tituto_InptBajFall"></h4><input type="date" id="fechBajaMae" name="fechBajaMae" min="2000-01-01" max="2050-12-31"  pattern="\d{4}-\d{2}-\d{2}" disabled required></div>
                         </div>
@@ -149,7 +147,6 @@
                                     <div class="textPeriodPSGS">dias psgs</div>
                                 </div>
                             </div>
-                                <!--<a id="EditaNombre" href="#" disabled><img src="../../img/editar.png" alt="Editar nombre" title="Editar nombre" height="25" width="25" disabled></a> -->                           
                         </div>
                         <div id="DivTestBenefsMae"><p>TESTAMENTO</p>
                             <input type="hidden" id="nomsbenefs" name="nomsbenefs" value="">
@@ -180,7 +177,6 @@
                                 <div><input type="date" id="fechOficAut" name="fechOficAut" min="2022-01-01" max="2050-12-31" pattern="\d{4}-\d{2}-\d{2}" required></div>
                             </div>
                             <div id="DivArchOficTarj"><label for="imageOficTarj"></label><input type="file" id="imageOficTarj" name="imageOficTarj" accept=".png, .jpg, .jpeg" ></div>
-                            <!--<div><button type="submit" name="uploadImage" id="uploadImage"><img src="../../img/subir.png" alt="Subir imagen" title="Subir imagen" height="23" width="23"></button></div>-->
                         </div>
                         <div id="DivCalculaRetiro"><p>CALCULO RETIRO</p>
                             <div id="DivCalculadora"><button id="calcDiasAnios" disabled><img src="../../img/calcula.png" alt="Calcula dias y años" title="Calcula dias y años" height="23" width="24" disabled></button></div>
@@ -206,7 +202,7 @@
                 <div id="tipModRetiro">
                     <div id="DivModRetiro">Tipo de retiro: &nbsp
                         <div id="DivOpcModRetiro">
-                            <input type="hidden" id="ModalRetiro" name="ModalRetiro" value="">
+                            <input type="hidden" id="ModalRetiro" name="ModalRetiro">
                             <select name="ModoRetiro" id="ModoRetiro" disabled>
                                 <option selected="true" disabled="disabled">Seleccione Modalidad</option>
                                 <option value="C">COMPLETO</option>
@@ -223,7 +219,7 @@
                 </div>
                 <input type="hidden" id="aportProm" name="aportProm">
                 <div id="divCalcRetiro">
-                    <div class="montsRet">Monto de retiro: &nbsp $<input type="text" id="monRetEntr" name="monRetEntr" value="0" disabled></div>
+                    <div class="montsRet">Monto de retiro: &nbsp $<input type="text" id="monRetEntr" name="monRetEntr" disabled></div>
                     <div class="montsRet" id="montRetFondFall">&nbsp RETIRO PARA EL FONDO DE FALLECIMIENTO &nbsp
                         <div id="divmontsrets">
                             <div class="divsmonts">Monto retiro por fallecimiento: &nbsp $<input type="text" id="montRetFF" name="montRetFF" value="0" disabled></div>
@@ -238,7 +234,7 @@
                     <div># Folio</div><div><input type="text" id="numfolcheqTEJI" name="numfolcheqTEJI" minlength="7" maxlength="7"></div>                   
                 </div>
                 <div id="divAgregaTram">
-                    <button type="submit" id="agregaTramite" name="agregaTramite" >AGREGAR</button>
+                    <button type="submit" id="agregaTramite" name="agregaTramite" disabled>AGREGAR</button>
                 </div>
             </section>
             </div>

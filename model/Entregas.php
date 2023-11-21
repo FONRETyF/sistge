@@ -55,8 +55,8 @@
             $fecha = date("Y-m-d");
             try {
                 $consultaInsertEntr = "INSERT INTO public.entregas_fonretyf(identrega, anioentrega, numentrega, descentrega, estatentrega, fechentrega, folioinicial, foliofinal, folios, numcheques, numcarpetas, numtramites, numtraminha, numtramjub, numtramfall, numtramfallact, numtramfalljubm, numtramfalljubff, fechapertura, usuapert, fechcierre, usucierre, cheqsentre, cheqscancel, traspaso, soliccheqs, impcheqs,";
-                $consultaInsertEntr = $consultaInsertEntr . " statarchivo, monttotentr, totadeds, adedsfajam, montadedsf, adedsts, montadedsts, adedsfondpen, montadedsfp, adedsturismo, montadedst, observaciones, cveusu, fechmodif) VALUES ('".$identrega."', ".$anioentrega.", ".$numentrega.", '".$descentrega."', 'ACTIVA', '".$fechentrega."', '0', '0', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, '".$fecha."', '".$cveusu."',";
-                $consultaInsertEntr = $consultaInsertEntr . " '".$fecha."', '".$cveusu."', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '".$observaciones."', '".$cveusu."', '".$fecha."');";
+                $consultaInsertEntr = $consultaInsertEntr . " statarchivo, monttotentr, totadeds, adedsfajam, montadedsf, adedsts, montadedsts, adedsfondpen, montadedsfp, adedsturismo, montadedst, observaciones, cveusu, fechmodif, numtramren, numtramresc, adedsceso, montadedsceso) VALUES ('".$identrega."', ".$anioentrega.", ".$numentrega.", '".$descentrega."', 'ACTIVA', '".$fechentrega."', '0', '0', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, '".$fecha."', '".$cveusu."',";
+                $consultaInsertEntr = $consultaInsertEntr . " '".$fecha."', '".$cveusu."', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '".$observaciones."', '".$cveusu."', '".$fecha."',0,0,0,0);";
                 $statement = $this->db->prepare($consultaInsertEntr);
                 $statement->execute();
                 $results = $statement->fetchAll(PDO::FETCH_ASSOC);

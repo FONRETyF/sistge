@@ -256,14 +256,11 @@ function imprimir(identret,cvemae) {
     $.post("../../controller/retiros.php?op=getTram",{identret:identret},function(data){
         datTramite = JSON.parse(data);
         var motivoRet = datTramite.motvret;
-        if (motivoRet == "J" || motivoRet == "I") {
+        if (motivoRet == "FRJ" || motivoRet == "FRI" || motivoRet == "FRR" || motivoRet == "FRD") {
             location.href = "../../views/home/acuerdoRetiro.php" + "?identret=" + identret;
-        } else {
-            swal.fire(
-                '¡¡¡ATENCION!!!',
-                'No se genera acuerdo de retiro de un tramite por fallecimiento'
-            );
-        }
+        } else if (motivoRet == "FRF" || motivoRet == "FFJ" || motivoRet == "FFM") {
+            location.href = "../../views/home/sheetRecib.php" + "?identret=" + identret;
+        } 
     });
 }
 

@@ -47,7 +47,7 @@ $(document).ready(function () {
 
         motivo = motivoRet;
 
-        if(motivoRet == "J" || motivoRet == "I") {
+        if(motivoRet == "FRJ" || motivoRet == "FRI" || motivoRet == "FRR" || motivoRet == "FRD") {
             $.post("../../controller/retiros.php?op=updateTram",{identret:paramidret,modretiro:modretiro,cvemae:cvemae,motivoRet:motivoRet},function(data){
                 datUpdateTram = Object.values(JSON.parse(data));
                 var infoTramite = Object.values(datUpdateTram[0]);
@@ -55,18 +55,25 @@ $(document).ready(function () {
                 idretiro = infoTramite[4];
                 
                 switch (infoTramite[7]) {
-                    case 'I':
+                    case 'FRI':
                         var estatLabMae = "INHABILITADO";
                         break;
-                    case 'J':
+                    case 'FRJ':
                         var estatLabMae = "JUBILADO";
+                        break;
+                    case 'FRR':
+                        var estatLabMae = "RENUNCIO";
+                        break;
+                    case 'FRD':
+                        var estatLabMae = "RESCISIÓN";
                         break;
                     default:
                         break;
                 }
                 
                 if (infoTramite.length == 79) {
-                    $("#OpcCauRetiro").val(infoTramite[7]);
+                    //$("#OpcCauRetiro").val(infoTramite[7]);
+                    $("#inputcausaret").val(infoTramite[7]);
                     $("#numentr").val(infoTramite[5].substr(4,2));
                     $("#AnioEntr").val(infoTramite[5].substr(0,4));
                     $("#IdEntrega").val(infoTramite[5].substr(0,4) + infoTramite[5].substr(4,2));
@@ -266,7 +273,7 @@ $(document).ready(function () {
                 
                 
             });
-        }else if (motivoRet == "FA") {
+        }else if (motivoRet == "FRF") {
             document.getElementById("DivDictamen").style.display = "none";
             document.getElementById("DivTestBenefsMae").style.display = "block";
             document.getElementById("OpcTestamento").disabled = true;

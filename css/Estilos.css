@@ -32,10 +32,6 @@ header{
 }
 footer{
   width: 100%;
-  
-  /*height: 50px;
-  margin: 0 auto;
-  justify-content: space-around;*/
 }
 /* TERMINA ESTILOS GENERALES */
 
@@ -95,22 +91,11 @@ footer{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-decoration: none;
   margin: 30px 0;
-  /*border: 2px solid red;*/
   padding: 14px 60px;
   text-transform: uppercase;
   overflow: hidden;
   transition: 1s all case;
   text-align: center;
-
-  /*color: black;
-  font-family: sans-serif;
-  border-top: .2em solid rgb(2, 2, 75);
-  border-bottom: .2em solid rgb(2, 2, 75);
-  border-left: .2em solid rgb(30, 7, 233);
-  border-right: .2em solid rgb(30, 7, 233);
-  text-decoration: none;
-  padding: 5px;
-  width: 10px;*/
 }
 .botonP::before{
   background: #08920d41;
@@ -144,12 +129,6 @@ footer{
 .botonSA:hover::before{
   height: 380%;
 }
-
-/*.botonP:hover{
-  border: 3px solid rgb(8, 216, 8);
-  font-weight:bold;
-  color: rgb(4, 85, 2);
-}*/
 .redesSociales{
   height: 30px;
   width: 20%;
@@ -327,7 +306,7 @@ footer{
 /*ESTILOS DE LA SECCION SECTION ARTICLE -  CONTENEDOR*/
 .contenedor {
   width: 100%;
-  padding-top: 330px;
+  padding-top: 270px;
 }
 .frame{
   height: 300px;
@@ -387,7 +366,7 @@ padding-right:100px;
   font-weight:bold;
   color: rgba(255,255,255, 1);
 	border-radius: 15px;
-  background-color: rgba(16,89,255, 1);
+  background-color: rgb(24, 87, 12);
   transition: all .5s ease, top .5s ease .5s, height .5s ease .5s, background-color .5s ease .75s;
   margin: 5px 35px 0;
 }
@@ -405,13 +384,3 @@ padding-right:100px;
 #contraseña{
   margin: 3px 55px 0;
 }
-
-/*.section{
-  min-height: 700px;
-  background-color: #FFF;
-}
-h1{
-  text-align: center;
-  margin: 20px;
-  padding: 20px;
-}*/

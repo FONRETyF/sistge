@@ -36,14 +36,15 @@
             </div>
             <div id="DivMotFolTram">
                 <div id="causaRetiro">Causa Retiro: &nbsp
-                    <select name="OpcCauRetiro" id="OpcCauRetiro" placeholder="MOTIVO RET" onchange="">
+                    <input type="text" id="inputcausaret" name="inputcausaret">
+                    <!--<select name="OpcCauRetiro" id="OpcCauRetiro" placeholder="MOTIVO RET" onchange="">
                         <option selected="true" disabled="disabled">Seleccione Motivo</option>
                         <option value="I">INHABILITACION</option>
                         <option value="J">JUBILACION</option>
                         <option value="FA">FALLECIMIENTO ACT</option>
                         <option value="FJ">FALLECIMIENTO JUB</option>
                     </select>
-                    <!--<input type="text" id="causaret" name="causaret">-->
+                    <input type="text" id="causaret" name="causaret">-->
                     <input type="hidden" id="motvret" name="motvret">
                 </div>
                 <div id="DivFolioRet">Folio: &nbsp
@@ -53,7 +54,6 @@
                     <label for="tipTramNE"><input type="checkbox" id="tipTramNE" value="tipTramNE">Extra</label>
                 </div>
             </div>
-            <!--<div class="CapturaJub">-->
             <section id="SecDatPerson">
                 <div class="DatosCaptura">
                     <p>D A T O S &nbsp &nbsp P E R S O N A L E S</p>                  
@@ -63,14 +63,12 @@
                         <div id="EstatLaboral">Estatus: &nbsp<input type="text" id="estLaboral" name="estLaboral" disabled></div>
                         <input type="hidden" id="programfallec" name="programfallec">
                     </div>
-                    <!--<div id="DivInforTram"><h1 id="infoTramite"></h1></div>  -->
                     <div id="DivNomMae">Nombre del maestro: 
                         <div id="DivDatsNomMae">
                             <input type="text" class="DatsNomMae" id="apePatMae" name="apePatMae" disabled>
                             <input type="text" class="DatsNomMae" id="apeMatMae" name="apeMatMae" disabled>
                             <input type="text" class="DatsNomMae" id="nombreMae" name="nombreMae" disabled>
                             <button id="EditaNombre"><img src="../../img/lapiz.png" alt="Editar nombre" title="Editar nombre" height="20" width="20"></button>
-                            <!--<a id="EditaNombre" href="" disabled><img src="../../img/lapiz.png" alt="Editar nombre" title="Editar nombre" height="20" width="20" disabled></a>-->
                         </div>    
                         <div id="textnommae">
                             <div class="nomMaestro" id="TextApePat" disabled>Apellido Paterno</div>
@@ -190,6 +188,7 @@
                             <div id="AdeudoTS" class="procedAdeudo"><label for="AdedTS">Tienda Sindical</label>$<input type="text" id="AdedTS" name="AdedTS" value="0"></div>
                             <div id="AdeudoFondPension" class="procedAdeudo"><label for="AdedFondPension">Fondo Prensionario</label>$<input type="text" id="AdedFondPension" name="AdedFondPension" value="0"></div>
                             <div id="AdeudoTurismo" class="procedAdeudo"><label for="AdedTurismo">Turismo</label>$<input type="text" id="AdedTurismo" name="AdedTurismo" value="0"></div>
+                            <div id="AdeudoCeso" class="procedAdeudo"><label for="AdedCeso">CESO</label>$<input type="text" id="AdedCeso" name="AdedCeso" value="0"></div>
                         </div>
                         <div id="DivActRetconAdeds">
                             <div><button id="ActRetAdeds"><img src="../../img/actualizaRet.png" alt="Actualiza calculo de Retiro" title="Actualiza Retiro" height="25" width="25"></button></div>
@@ -258,7 +257,6 @@
 <script src="../../libs/datatables/jquery.dataTables.js"></script>
 <script src="../../libs/datatables/jquery.dataTables.min.js"></script>
 
-
 <script src="../../libs/datatables-responsive/dataTables.responsive.js"></script>
 <script src="../../libs/datatables/dataTables.buttons.min.js"></script>
 <script src="../../libs/datatables/buttons.html5.min.js"></script>
@@ -268,10 +266,6 @@
 <script src="../../libs/datatables/select2.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<!--<script type="text/javascript" src="../../asset/js/tramiteNuevo.js"></script>-->
-
 <script type="text/javascript" src="../../asset/js/tramiteUpdate.js"></script>
-
-
 
 <?php require_once("/var/www/html/sistge/views/head/footer.php"); ?>

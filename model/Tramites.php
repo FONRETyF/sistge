@@ -24,12 +24,26 @@ use function PHPSTORM_META\type;
             $statement = $this->db->prepare("SELECT aportprom FROM public.parametros_retiro WHERE estatparam='ACTIVO'");
             $statement->execute();
             $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($results as $row){
-                $montprom = substr($row['aportprom'],1,strlen($row['aportprom'])-1);
-            }
-            $result = $this->calculaRet($aniosserv,$montprom,$fechBaja);
+            $result = $this->calculaRet($aniosserv,$results[0]['aportprom']);
             return $result;
         }  
+
+        private function calculaRet($aniosserv,$montprom){
+            if ($aniosserv >= 30) {
+                $retiro = ((($montprom * 24) * 30) * 0.4) * .99;
+                $dats_ret = array();
+                $dats_ret[] = [
+                    "montRet" => $retiro
+                ];
+            } else {
+                $retiro = ((($montprom * 24) * $aniosserv) * 0.4) * .99;
+                $dats_ret = array();
+                $dats_ret[] = [
+                    "montRet" => $retiro
+                ];
+            } 
+            return $dats_ret;            
+        }
 
         public function get_RetiroJub($aniosserv,$programfallec){
             $retiroJub = array();
@@ -52,64 +66,61 @@ use function PHPSTORM_META\type;
             return $retiroJub;
         }  
 
-        public function validaFechas($clavemae,$motret,$diasInacPsgs,$NumPersgs,$fechRecibido,$fechDictamen,$fechBaseMae,$fechBajaMae){
+        public function calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs){
+            $diasServPre = $this->calculaDifFechas($fechBaseMae,$fechBajaMae);
+            $diasServ = $diasServPre - $diasInacPsgs;
+            return $diasServ;
+        }
+
+        public function tiempoPSGS($contPSGS,$fechaIni,$fechaFin){
+            $diasPSGS = array();
+            for ($i=0 ; $i<$contPSGS ; $i++){
+                $FechLicIni = new DateTime($fechaIni[$i]);
+                $FechLicFin = new DateTime($fechaFin[$i]);
+                $tiempoDiff = $FechLicIni->diff($FechLicFin);
+                $diasPSGS[$i]= $tiempoDiff->format('%a');
+            }
+            return $diasPSGS;
+        }
+
+        public function validaFechasIJR($clavemae,$motret,$diasInacPsgs,$NumPersgs,$fechRecibido,$fechBaseMae,$fechBajaMae){
             $validesFechs = array();
             $dias_Serv = array();
             $i=0;
 
-            if ($fechRecibido > $fechDictamen && $fechRecibido > $fechBaseMae && $fechRecibido > $fechBajaMae) {
-                if ($fechDictamen > $fechBaseMae && $fechDictamen <=  $fechBajaMae) {
-                    if ($fechBaseMae < $fechBajaMae) {
-                        $vigenciaTram = $this -> validaVigencia($fechBajaMae,$fechRecibido);
-                        if (($vigenciaTram/365) < 1) {
-                            $dias_Serv["descResult"] = "vigenciaVal";
-                            $dias_Serv["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
-                            return $dias_Serv;
+            if ($fechRecibido > $fechBaseMae && $fechRecibido >= $fechBajaMae) {
+                if($fechBajaMae > $fechBaseMae){
+                    $vigenciaTram = $this -> validaVigencia($fechBajaMae,$fechRecibido);
+                    if (($vigenciaTram/365) <= 1) {
+                        $dias_Serv["descResult"] = "vigenciaVal";
+                        $dias_Serv["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
+                        return $dias_Serv;
+                    } else {
+                        $get_prorrogas = $this->getTramsProrg($clavemae);
+                        if ($get_prorrogas > 0 && $get_prorrogas[0]['autorizada'] == '0') {
+                            # code...
                         } else {
-                            $validesFechs["descResult"] = "vigenciaCad";
-                            $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
-                            $validesFechs["excepcion"] = "SI";
+                            $validesFechs["descResult"] = "noprocede";
+                            $validesFechs["diasServ"] = "Tramite no procedente, excede limite de vigencia y no tiene prorroga autorizada";
+                            $validesFechs["excepcion"] = "NO";
                             $validesFechs["prorroga"] = "NO";
                             return $validesFechs;
                         }
-                    } else {
-                        $validesFechs["descResult"] = "errorFecha";
-                        $validesFechs["diasServ"] = "La fecha de BASE no puede ser mayor a la fecha de BAJA";
-                        $validesFechs["excepcion"] = "NO";
-                        $validesFechs["prorroga"] = "NO";
-                        return $validesFechs;
                     }
-                } else {
-                    if ($fechDictamen < $fechBaseMae) {
-                        $validesFechs["descResult"] = "errorFecha";
-                        $validesFechs["diasServ"] = "La fecha del DICTAMEN no puede ser menor a la fecha de Base";
-                        $validesFechs["excepcion"] = "NO";
-                        $validesFechs["prorroga"] = "NO";
-                        return $validesFechs;
-                    }
-                    if ($fechDictamen > $fechBajaMae){
-                        $vigenciaTram = $this -> validaVigencia($fechBajaMae,$fechRecibido);
-                        if (($vigenciaTram/365) <= 1){ 
-                            $dias_Serv["descResult"] = "vigenciaVal";
-                            $dias_Serv["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
-                            return $dias_Serv;
-                        }elseif (($vigenciaTram/365) > 1) {
-                            $validesFechs["descResult"] = "vigenciaCadD";
-                            $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
-                            $validesFechs["excepcion"] = "SI";
-                            $validesFechs["prorroga"] = "SI";
-                            return $validesFechs;
-                        }
-                    }
-                }
-            }else {
+                }else{
+                    $validesFechs["descResult"] = "errorFecha";
+                    $validesFechs["diasServ"] = "La fecha de BASE no puede ser mayor a la fecha de BAJA";
+                    $validesFechs["excepcion"] = "NO";
+                    $validesFechs["prorroga"] = "NO";
+                    return $validesFechs;
+                }                            
+            } else {
                 $validesFechs["descResult"] = "errorFecha";
                 $validesFechs["diasServ"] = "La fecha de RECIBIDO no puede ser menor a las demas";
                 $validesFechs["excepcion"] = "NO";
                 $validesFechs["prorroga"] = "NO";
                 return $validesFechs;
-            }
-                
+            }                           
         }
 
         public function validaFechasFA($clavemae,$motret,$diasInacPsgs,$NumPersgs,$fechRecibido,$fechBaseMae,$fechBajaMae,$fechIniJ,$fechaInicJuic,$tiptest,$fechJuiCTL){
@@ -127,22 +138,32 @@ use function PHPSTORM_META\type;
                     } elseif(($vigenciaTramBR/365) > 1 && $fechIniJ == 1) {
                         $vigenciaTramBInJuic = $this -> validaVigencia($fechBajaMae,$fechaInicJuic);
                         $vigenciaTramJuiR = $this -> validaVigencia($fechJuiCTL,$fechRecibido);
-                        if (($vigenciaTramBInJuic/365) <= 1 && ($vigenciaTramJuiR/365) <= 1) {
+                        if (($vigenciaTramBInJuic/365) <= 1 && ($vigenciaTramJuiR+1) <= 93) {
                             $dias_Serv["descResult"] = "vigenciaVal";
                             $dias_Serv["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
                             return $dias_Serv;
-                        } elseif (($vigenciaTramBInJuic/365) > 1 && ($vigenciaTramJuiR/365) <= 1) {
-                            $validesFechs["descResult"] = "vigenciaCad";
-                            $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
-                            $validesFechs["excepcion"] = "SI";
-                            $validesFechs["prorroga"] = "NO";
-                            return $validesFechs;
-                        } elseif (($vigenciaTramBInJuic/365) <= 1 && ($vigenciaTramJuiR/365) > 1) {
-                            $validesFechs["descResult"] = "vigenciaCad";
-                            $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
-                            $validesFechs["excepcion"] = "SI";
-                            $validesFechs["prorroga"] = "NO";
-                            return $validesFechs;
+                        } elseif (($vigenciaTramBInJuic/365) > 1 && ($vigenciaTramJuiR+1) > 93) {
+                            $get_prorrogas = $this->getTramsProrg($clavemae);
+                            if ($get_prorrogas > 0 && $get_prorrogas[0]['autorizada'] == '0') {
+                                # code...
+                            } else {
+                                $validesFechs["descResult"] = "noprocede";
+                                $validesFechs["diasServ"] = "Tramite no procedente, excede limite de vigencia y no tiene prorroga autorizada";
+                                $validesFechs["excepcion"] = "SI";
+                                $validesFechs["prorroga"] = "NO";
+                                return $validesFechs;
+                            }
+                        } elseif (($vigenciaTramBInJuic/365) <= 1 && ($vigenciaTramJuiR+1) > 93) {
+                            $get_prorrogas = $this->getTramsProrg($clavemae);
+                            if ($get_prorrogas > 0 && $get_prorrogas[0]['autorizada'] == '0') {
+                                # code...
+                            } else {
+                                $validesFechs["descResult"] = "noprocede";
+                                $validesFechs["diasServ"] = "Tramite no procedente, excede limite de vigencia y no tiene prorroga autorizada";
+                                $validesFechs["excepcion"] = "SI";
+                                $validesFechs["prorroga"] = "NO";
+                                return $validesFechs;
+                            }
                         }
                     }elseif (($vigenciaTramBR/365) > 1 && $fechIniJ == 0) {
                         $vigenciaTramBJuic = $this -> validaVigencia($fechBajaMae,$fechJuiCTL);
@@ -153,17 +174,27 @@ use function PHPSTORM_META\type;
                             $dias_Serv["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
                             return $dias_Serv;
                         }elseif (($vigenciaTramBJuic/365) > 1 && ($vigenciaTramJuiR/365) <= 1) {
-                            $validesFechs["descResult"] = "vigenciaCad";
-                            $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
-                            $validesFechs["excepcion"] = "SI";
-                            $validesFechs["prorroga"] = "NO";
-                            return $validesFechs;
+                            $get_prorrogas = $this->getTramsProrg($clavemae);
+                            if ($get_prorrogas > 0 && $get_prorrogas[0]['autorizada'] == '0') {
+                                # code...
+                            } else {
+                                $validesFechs["descResult"] = "noprocede";
+                                $validesFechs["diasServ"] = "Tramite no procedente, excede limite de vigencia y no tiene prorroga autorizada";
+                                $validesFechs["excepcion"] = "SI";
+                                $validesFechs["prorroga"] = "NO";
+                                return $validesFechs;
+                            }
                         } elseif (($vigenciaTramBJuic/365) <= 1 && ($vigenciaTramJuiR/365) > 1) {
-                            $validesFechs["descResult"] = "vigenciaCad";
-                            $validesFechs["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
-                            $validesFechs["excepcion"] = "SI";
-                            $validesFechs["prorroga"] = "NO";
-                            return $validesFechs;
+                            $get_prorrogas = $this->getTramsProrg($clavemae);
+                            if ($get_prorrogas > 0 && $get_prorrogas[0]['autorizada'] == '0') {
+                                # code...
+                            } else {
+                                $validesFechs["descResult"] = "noprocede";
+                                $validesFechs["diasServ"] = "Tramite no procedente, excede limite de vigencia y no tiene prorroga autorizada";
+                                $validesFechs["excepcion"] = "SI";
+                                $validesFechs["prorroga"] = "NO";
+                                return $validesFechs;
+                            }
                         }
                     }
                 } else {
@@ -359,35 +390,6 @@ use function PHPSTORM_META\type;
                     break;
             }
         }
-        
-        /*public function validaVigencia($fechBajaMae,$fechRecibido){
-            $diasValid = $this->calculaDifFechas($fechBajaMae,$fechRecibido);      
-            return $diasValid;
-        }*/
-
-        public function calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs){
-            $diasServPre = $this->calculaDifFechas($fechBaseMae,$fechBajaMae);
-            $diasServ = $diasServPre - $diasInacPsgs;
-            return $diasServ;
-        }
-
-        /*public function calculaDifFechas($fechIni,$fechFin){
-            $FechaI = date_create($fechIni);
-            $FechaF = date_create($fechFin);
-            $difFechas = date_diff($FechaI,$FechaF);
-            return $difFechas->format("%a");
-        }*/
-
-        public function tiempoPSGS($contPSGS,$fechaIni,$fechaFin){
-            $diasPSGS = array();
-            for ($i=0 ; $i<$contPSGS ; $i++){
-                $FechLicIni = new DateTime($fechaIni[$i]);
-                $FechLicFin = new DateTime($fechaFin[$i]);
-                $tiempoDiff = $FechLicIni->diff($FechLicFin);
-                $diasPSGS[$i]= $tiempoDiff->format('%a');
-            }
-            return $diasPSGS;
-        }
 
         public function validFechaCTJuic($tipotestamento,$fechabase,$fechabaja,$fechactjuic,$fecharecibido){
             $resultValidCTJuic = array();
@@ -458,38 +460,6 @@ use function PHPSTORM_META\type;
             }
         }
 
-        private function calculaRet($aniosserv,$montprom,$fechBaja){
-            $fechaLimCalAnt = '15-09-2023';
-            $tabuladorRetiros = [1=>1498.5,2=>2997,3=>4500,4=>5998.5,5=>7497,6=>9000,7=>10498.5,8=>11997,9=>13500,10=>14998.5,11=>16497,12=>18000,13=>19498.5,14=>20997,15=>22500,16=>23998.5,17=>25497,18=>27000,19=>28498.5,20=>29997,21=>31500,22=>32998.5,23=>34497,24=>36000,25=>37498.5,26=>38997,27=>40500,28=>41998.5,29=>43497];
-
-            if ($fechBaja < $fechaLimCalAnt) {
-                $dats_ret = array();
-                if ($aniosserv > 29) {
-                    $retiro = 45000;
-                } else {
-                    $retiro = $tabuladorRetiros[$aniosserv];
-                }                
-                $dats_ret[] = [
-                    "montRet" => $retiro
-                ];
-            } else {
-                if ($aniosserv >= 30) {
-                    $retiro = ((($montprom * 24) * 30) * 0.4) * .99;
-                    $dats_ret = array();
-                    $dats_ret[] = [
-                        "montRet" => $retiro
-                    ];
-                } else {
-                    $retiro = ((($montprom * 24) * $aniosserv) * 0.4) * .99;
-                    $dats_ret = array();
-                    $dats_ret[] = [
-                        "montRet" => $retiro
-                    ];
-                }
-            }   
-            return $dats_ret;            
-        }
-
         public function addTramiteJI($anioentr,$numentre,$identr,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$numdictam,$fechdictam,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$montretfall,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$diaHaber,$curpmae,$rfcmae,$observaciones,$tipTram,$folcheque,$cveusu){
             require_once("/var/www/html/sistge/model/Entregas.php");
             $entrega = new Entrega();
@@ -546,17 +516,27 @@ use function PHPSTORM_META\type;
                     $a_resultAddTram["insertCheque"] = $insertaCheque;
 
                     if ($a_resultAddTram["insertTramite"] == "Agregado" && $a_resultAddTram["updateMaestro"] == "Actualizado" && $a_resultAddTram["insertCheque"] == "Agregado" ) {
-                        if ($motvret=="I") {
+                        if ($motvret=="FRI") {
                             $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtraminha=". $get_entrega[0][13] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
                             $statementActEntr = $this->db->prepare($statementActEntr);
                             $statementActEntr->execute();
                             $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
-                        } elseif ($motvret=="J") {
+                        } elseif ($motvret=="FRJ") {
                             $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". ($get_entrega[0][12] + 1) .", numtramjub=". ($get_entrega[0][14] + 1) .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr ."'";
                             $statementActEntr = $this->db->prepare($statementActEntr);
                             $statementActEntr->execute();
                             $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
-                        } 
+                        } elseif ($motvret=="FRR") {
+                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtramren=". $get_entrega[0][42] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
+                            $statementActEntr = $this->db->prepare($statementActEntr);
+                            $statementActEntr->execute();
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                        }elseif ($motvret=="FRD") {
+                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtramresc=". $get_entrega[0][43] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
+                            $statementActEntr = $this->db->prepare($statementActEntr);
+                            $statementActEntr->execute();
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                        }
                     }
                     return $a_resultAddTram; 
                     
@@ -572,41 +552,61 @@ use function PHPSTORM_META\type;
                         $insertaMaeJub = $this->insertJubiladoSmsem($cveissemym,$apepat,$apemat,$nombre,$nomcom,$programfalle,$cveusu,$fecha);
                         $a_resultAddTram["insertJubilado"] = $insertaMaeJub;
 
-                        $insertaFondFallec = $this->insertFondoFallecimiento($identregRet,$cveissemym,$montrettot,$modret,$montretentr,$montretfall,$fechbajfall,$fechrecib,$diaHaber,$cveusu,$fecha);
+                        $insertaFondFallec = $this->insertFondoFallecimiento($identregRet,$cveissemym,$montrettot,$modret,$montretentr,$montretfall,$fechbajfall,$fechrecib,$diaHaber,$cveusu,$fecha,$apepat,$apemat,$nombre,$nomcom,$region,$numcel,$numpart,$curpmae,$rfcmae);
                         $a_resultAddTram["insertFondFallec"] = $insertaFondFallec;
                     }elseif ($modret == "D100") {
                         $programfalle = "FF";
                         $insertaMaeJub = $this->insertJubiladoSmsem($cveissemym,$apepat,$apemat,$nombre,$nomcom,$programfalle,$cveusu,$fecha);
                         $a_resultAddTram["insertJubilado"] = $insertaMaeJub;
 
-                        $insertaFondFallec = $this->insertFondoFallecimiento($identregRet,$cveissemym,$montrettot,$modret,$montretentr,$montretfall,$fechbajfall,$fechrecib,$diaHaber,$cveusu,$fecha);
+                        $insertaFondFallec = $this->insertFondoFallecimiento($identregRet,$cveissemym,$montrettot,$modret,$montretentr,$montretfall,$fechbajfall,$fechrecib,$diaHaber,$cveusu,$fecha,$apepat,$apemat,$nombre,$nomcom,$region,$numcel,$numpart,$curpmae,$rfcmae);
                         $a_resultAddTram["insertFondFallec"] = $insertaFondFallec;
                     }        
                     
                     if ($a_resultAddTram["insertTramite"] == "Agregado" && $a_resultAddTram["updateMaestro"] == "Actualizado" && $a_resultAddTram["insertJubilado"] == "Agregado" && $a_resultAddTram["insertFondFallec"] == "Agregado") {
-                        if ($motvret=="I") {
+                        if ($motvret=="FRI") {
                             $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtraminha=". $get_entrega[0][13] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
                             $statementActEntr = $this->db->prepare($statementActEntr);
                             $statementActEntr->execute();
                             $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
-                        } elseif ($motvret=="J") {
+                        } elseif ($motvret=="FRJ") {
                             $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". ($get_entrega[0][12] + 1) .", numtramjub=". ($get_entrega[0][14] + 1) .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr ."'";
                             $statementActEntr = $this->db->prepare($statementActEntr);
                             $statementActEntr->execute();
                             $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
-                        } 
+                        } elseif ($motvret=="FRR") {
+                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtramren=". $get_entrega[0][42] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
+                            $statementActEntr = $this->db->prepare($statementActEntr);
+                            $statementActEntr->execute();
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                        } elseif ($motvret=="FRD") {
+                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtramresc=". $get_entrega[0][43] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
+                            $statementActEntr = $this->db->prepare($statementActEntr);
+                            $statementActEntr->execute();
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                        }
                     }elseif ($a_resultAddTram["insertTramite"] == "Agregado" && $a_resultAddTram["updateMaestro"] == "Actualizado" && $a_resultAddTram["insertCheque"] == "Agregado" && $a_resultAddTram["insertJubilado"] == "Agregado" && $a_resultAddTram["insertFondFallec"] == "Agregado") {
-                        if ($motvret=="I") {
+                        if ($motvret=="FRI") {
                             $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtraminha=". $get_entrega[0][13] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
                             $statementActEntr = $this->db->prepare($statementActEntr);
                             $statementActEntr->execute();
                             $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
-                        } elseif ($motvret=="J") {
+                        } elseif ($motvret=="FRJ") {
                             $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". ($get_entrega[0][12] + 1) .", numtramjub=". ($get_entrega[0][14] + 1) .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr ."'";
                             $statementActEntr = $this->db->prepare($statementActEntr);
                             $statementActEntr->execute();
                             $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);     
-                        } 
+                        } elseif ($motvret=="FRR") {
+                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtramren=". $get_entrega[0][42] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
+                            $statementActEntr = $this->db->prepare($statementActEntr);
+                            $statementActEntr->execute();
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                        } elseif ($motvret=="FRD") {
+                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] + 1 .", numtramresc=". $get_entrega[0][43] + 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) + $montrettot ."  WHERE identrega='".$identr."'";
+                            $statementActEntr = $this->db->prepare($statementActEntr);
+                            $statementActEntr->execute();
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                        }
                     }
                     return $a_resultAddTram; 
                 }
@@ -864,19 +864,7 @@ use function PHPSTORM_META\type;
                 $numRetiro = $numret;
             }
             
-            if ($motvret == "I" || $motvret == "J") {
-                $numfolio = "FR" . $motvret . "2124" . $numentre . $numRetiro;
-            }
-            if ($motvret == "FA") {
-                $numfolio = "FFA" . "2124" . $numentre . $numRetiro;
-            }
-            if ($motvret == "FJ") {
-                if ($estatlaboral == "JUBILADO FF") {
-                    $numfolio = "FFJ" . "2124" . $numentre . $numRetiro;
-                }elseif ($estatlaboral == "JUBILADO M") {
-                    $numfolio = "FMU" . "2124" . $numentre . $numRetiro;
-                }
-            }
+            $numfolio = $motvret . "2124" . $numentre . $numRetiro;
             return $numfolio;
         }  
         
@@ -889,11 +877,12 @@ use function PHPSTORM_META\type;
 						
             $fechaini=str_replace('"','',$fechinipsgs);
             $fechafin=str_replace('"','',$fechfinpsgs);
-
-            if ($motivret == "J" || $motivret == "I") {
+ 
+            if ($motivret == "FRI" || $motivret == "FRJ" || $motivret == "FRR" || $motivret == "FRD") {
                 try {
+                    $estatusMaeAct = substr($motivret,2,1);
                     $statementUpdate = "UPDATE public.maestros_smsem";
-                    $statementUpdate = $statementUpdate . " SET cveissemym='".$cveissemym."', curpmae='".$curpmae."', rfcmae='".$rfcmae."', regescmae= ".$region ." , numcelmae='" .$numcelmae."', numfijmae='".$numpartmae."', fcbasemae='".$fechbase."', aservactmae=".$aniosserv.", fbajamae='".$fechbaja."', numpsgs=".$numpsgs.", diaspsgs=".$diaspsgs.", estatlabmae='". $motivret ."', cveusu='".$usuario."', fechmodif='".$fecha."', diaservactmae=".$diasserv.", afiprogfondfalle=".$afifonfall.", fechsinipsgs=' " .$fechaini."', fechsfinpsgs='".$fechafin."'";
+                    $statementUpdate = $statementUpdate . " SET cveissemym='".$cveissemym."', curpmae='".$curpmae."', rfcmae='".$rfcmae."', regescmae= ".$region ." , numcelmae='" .$numcelmae."', numfijmae='".$numpartmae."', fcbasemae='".$fechbase."', aservactmae=".$aniosserv.", fbajamae='".$fechbaja."', numpsgs=".$numpsgs.", diaspsgs=".$diaspsgs.", estatlabmae='". $estatusMaeAct ."', cveusu='".$usuario."', fechmodif='".$fecha."', diaservactmae=".$diasserv.", afiprogfondfalle=".$afifonfall.", fechsinipsgs=' " .$fechaini."', fechsfinpsgs='".$fechafin."'";
                     $statementUpdate = $statementUpdate . " WHERE csp='" . $cvemae."';";
    					$statementUpdate = $this->db->prepare($statementUpdate);
                     $statementUpdate->execute();
@@ -904,10 +893,10 @@ use function PHPSTORM_META\type;
 					echo($th);
                     
                 }
-            } else {
+            } else if($motivret == "FRF") {
                 try {
                     $statementUpdate = "UPDATE public.maestros_smsem";
-                    $statementUpdate = $statementUpdate . " SET cveissemym='".$cveissemym."', curpmae='".$curpmae."', rfcmae='".$rfcmae."', regescmae= ".$region ." , numcelmae='" .$numcelmae."', numfijmae='".$numpartmae."', fcbasemae='".$fechbase."', aservactmae=".$aniosserv.", fbajamae='".$fechbaja."', numpsgs=".$numpsgs.", diaspsgs=".$diaspsgs.",fechfallecmae='".$fechbaja."', estatlabmae='". $motivret ."', cveusu='".$usuario."', fechmodif='".$fecha."', diaservactmae=".$diasserv.", afiprogfondfalle=".$afifonfall.", fechsinipsgs=' " .$fechaini."', fechsfinpsgs='".$fechafin."'";
+                    $statementUpdate = $statementUpdate . " SET cveissemym='".$cveissemym."', curpmae='".$curpmae."', rfcmae='".$rfcmae."', regescmae= ".$region ." , numcelmae='" .$numcelmae."', numfijmae='".$numpartmae."', fcbasemae='".$fechbase."', aservactmae=".$aniosserv.", fbajamae='".$fechbaja."', numpsgs=".$numpsgs.", diaspsgs=".$diaspsgs.",fechfallecmae='".$fechbaja."', estatlabmae='F', cveusu='".$usuario."', fechmodif='".$fecha."', diaservactmae=".$diasserv.", afiprogfondfalle=".$afifonfall.", fechsinipsgs=' " .$fechaini."', fechsfinpsgs='".$fechafin."'";
                     $statementUpdate = $statementUpdate . " WHERE csp='" . $cvemae."';";
                     $statementUpdate = $this->db->prepare($statementUpdate);
                     $statementUpdate->execute();
@@ -1052,11 +1041,12 @@ use function PHPSTORM_META\type;
             }
         }
 
-        public function insertFondoFallecimiento($identrret,$cvejub,$montretT,$modret,$montretentr,$montretfall,$fechbaja,$fechrecib,$diahaber,$usuario,$fecha){
+        public function insertFondoFallecimiento($identrret,$cvejub,$montretT,$modret,$montretentr,$montretfall,$fechbaja,$fechrecib,$diahaber,$usuario,$fecha,$apepat,$apemat,$nombre,$nomcom,$region,$numcel,$numpart,$curpmae,$rfcmae){
+            $idMae = $this->obtenMaxMaeFF();
             try {                
                 $statementInsertFF = "INSERT INTO public.fondo_fallecimiento(";
-                $statementInsertFF = $statementInsertFF . "identret, anioemifondfalle, numemifondfalle, idmae, cveissemym, montret, modalretiro, montretentr, montretfondfall, fechbajamae, docacuerdo, fechacuerdo, montdiahaber, estatfondfall, fechafifondfalle, fechfallemae, estatusmae, cveusureg, fechreg)";
-                $statementInsertFF = $statementInsertFF . " VALUES ('".$identrret."', 0, 0, 0, '".$cvejub."', ".$montretT.", '".$modret."', ".$montretentr.", ".$montretfall.", '".$fechbaja."', '', '".$fechrecib."', ".$diahaber.", 'P', '1900-01-01', '1900-01-01', 'JA', '".$usuario."', '".$fecha."');";
+                $statementInsertFF = $statementInsertFF . "identret, anioemision, numemision, idmae, cveissemym, apepatmae, apematmae, nommae, nomcommae, curpmae, rfcmae, regmae, numcelmae, numfijmae, numotromae, modalretiro, montretentr, montretfondfall, fechbajamae, montdiahaber, estatfondfall, fechafifondfalle, fechfallemae, estatusmae, aniosjub, diasjub, cveusureg, fechreg, fechmodif)";
+                $statementInsertFF = $statementInsertFF . " VALUES ('".$identrret."', 0, 0, ".$idMae.", '".$cvejub."','".$apepat."','".$apemat."','".$nombre."','".$nomcom."','".$curpmae."','".$rfcmae."',".$region.",'".$numcel."','".$numpart."','', '".$modret."', ".$montretentr.", ".$montretfall.", '".$fechbaja."', ".$diahaber.", 'P', '1900-01-01', '1900-01-01', 'J', 0, 0, '".$usuario."', '".$fecha."', '1900-01-01');";
                 $statementInsertFF = $this->db->prepare($statementInsertFF);
                 $statementInsertFF->execute();
                 $results = $statementInsertFF->fetchAll(PDO::FETCH_ASSOC);
@@ -1064,6 +1054,7 @@ use function PHPSTORM_META\type;
                 return $resultInsertFF;
             } catch (\Throwable $th) {
                 $resultInsertFF = "Fallo";
+                echo($th);
                 return $resultInsertFF;
             }
         }
@@ -1078,6 +1069,18 @@ use function PHPSTORM_META\type;
                 $idBenef = $results[0]['numbenef'];
             }
             return $idBenef;
+        }
+
+        public function obtenMaxMaeFF(){
+            $statementIdBenef = $this->db->prepare("SELECT MAX(idmae) as nummae FROM public.fondo_fallecimiento WHERE estatfondfall='P';");
+            $statementIdBenef->execute();
+            $results = $statementIdBenef->fetchAll();
+            if (is_null($results[0]['nummae'])) {
+                $idMaeFF = 1;
+            } else {
+                $idMaeFF = $results[0]['nummae'];
+            }
+            return $idMaeFF;
         }
 
         public function updateCheqJI($identregret,$cvemae,$nombenef,$montretentr,$usuario,$fecha,$motivret,$tiptramU,$folcheqU){
@@ -1588,17 +1591,15 @@ use function PHPSTORM_META\type;
             return $a_resultAddTram;
         }
 		
-		public function getTramsProrg(){		
+		public function getTramsProrg($cvemae){		
 			try {                                                                                                                                                                                                                                                                                                                                                                                                                               
-                $consultaProrgs = "SELECT tab1.id,tab1.cvemae,tab1.motivret,tab1.fechsolic,tab1.estatprorg,tab2.nomcommae FROM public.prorrogas as tab1 LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae FROM public.prorrogas as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp";
-				$consultaProrgs = $consultaProrgs . " UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.prorrogas as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 ON tab1.cvemae= tab2.cvemae ORDER BY tab1.id DESC;";
+                $consultaProrgs = "SELECT id, cvemae, autorizada FROM public.prorrogas FROM public.prorrogas WHERE cvemae = '".$cvemae."';";
 				$consultaProrgs = $this->db->prepare($consultaProrgs);
                 $consultaProrgs->execute();
                 $resultsProgs = $consultaProrgs->fetchAll(PDO::FETCH_ASSOC); 
             } catch (\Throwable $th) {
                 echo($th);
             }
-			
 			return $resultsProgs;
 		}
 		

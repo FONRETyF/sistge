@@ -1,6 +1,9 @@
 var motivo = "";
+var causaRet = "";
 var programfallec = "";
 var clavemae;
+var validVig="";
+var modalRetiro="";
 
 function init() {
     $("#edita_NomMae").on("submit",function(e){
@@ -16,7 +19,7 @@ $(document).ready(function(){
 
     document.getElementById('numentr').value = document.getElementById('InputNumEntr').value;
     document.getElementById('AnioEntr').value = document.getElementById('InputAnioEntr').value;
-    //document.getElementById('IdEntrega').value = document.getElementById('AnioEntr').value + document.getElementById('numentr').value;
+    document.getElementById("motivRetiro").style.display = "none";
     document.getElementById("montRetFondFall").style.display = "none";
     document.getElementById("DivTestBenefsMae").style.display = "none";
     document.getElementById("DivExcepciones").style.display = "none";
@@ -40,10 +43,70 @@ $(document).ready(function(){
 
 
 $("#OpcCauRetiro").change(function () {
-    motivo= $("#OpcCauRetiro").val();
+    causaRet= $("#OpcCauRetiro").val();
 
-    switch (motivo) {
+    switch (causaRet) {
+        case "FR":
+            document.getElementById("motivRetiro").style.display = "block";
+            document.getElementById("cspMaeBusq").disabled =  true;
+            document.getElementById("EditaNombre").disabled =  true;
+            document.getElementById("cveIMaeBusq").disabled =  true;
+            document.getElementById("OpcRegSind").disabled =  true;
+            document.getElementById("tipTramNE").disabled = false;
+            document.getElementById("DivPsgs").style.display =  "block";
+            document.getElementById("DivDictamen").style.display = "block";
+            document.getElementById("DivTestBenefsMae").style.display = "none";
+            document.getElementById("nomSolic").disabled = true;
+            $('#tituto_BasJubBajFall').html('BASE Y BAJA');
+            $('#tituto_InptBasJub').html('Base: &nbsp');
+            $('#tituto_InptBajFall').html('Baja: &nbsp'); 
+            break;
+
+        case "FF":
+            document.getElementById("motivRetiro").style.display = "none";
+            document.getElementById("cspMaeBusq").disabled =  true;
+            document.getElementById("EditaNombre").disabled =  false;
+            document.getElementById("cveIMaeBusq").disabled =  false;
+            document.getElementById("OpcRegSind").disabled =  false;
+            document.getElementById("tipTramNE").disabled = false;
+            document.getElementById("DivPsgs").style.display =  "none";
+            document.getElementById("DivDictamen").style.display = "none";
+            document.getElementById("DivTestBenefsMae").style.display = "block";
+            document.getElementById("nomSolic").disabled = false;
+            $('#tituto_BasJubBajFall').html('JUBILACION Y FALLECIMIENTO');
+            $('#tituto_InptBasJub').html('Jubilacion:&nbsp ');
+            $('#tituto_InptBajFall').html('Fallecim.: &nbsp'); 
+            motivo="FFJ";
+            break;
+        
+        case "FM":
+            document.getElementById("motivRetiro").style.display = "none";
+            document.getElementById("cspMaeBusq").disabled =  true;
+            document.getElementById("EditaNombre").disabled =  false;
+            document.getElementById("cveIMaeBusq").disabled =  false;
+            document.getElementById("OpcRegSind").disabled =  false;
+            document.getElementById("tipTramNE").disabled = false;
+            document.getElementById("DivPsgs").style.display =  "none";
+            document.getElementById("DivDictamen").style.display = "none";
+            document.getElementById("DivTestBenefsMae").style.display = "block";
+            document.getElementById("nomSolic").disabled = false;
+            $('#tituto_BasJubBajFall').html('JUBILACION Y FALLECIMIENTO');
+            $('#tituto_InptBasJub').html('Jubilacion:&nbsp ');
+            $('#tituto_InptBajFall').html('Fallecim.: &nbsp'); 
+            motivo="FMJ";
+            break;
+
+        default:
+            break;
+    }
+});
+
+$("#OpcMotivRetiro").change(function () {
+    var motRet = $("#OpcMotivRetiro").val();
+
+    switch (motRet) {
         case "I":
+            motivo="FRI";
             document.getElementById("cspMaeBusq").disabled =  false;
             document.getElementById("EditaNombre").disabled =  false;
             document.getElementById("cveIMaeBusq").disabled =  false;
@@ -57,7 +120,7 @@ $("#OpcCauRetiro").change(function () {
             $('#tituto_InptBasJub').html('Base: &nbsp');
             $('#tituto_InptBajFall').html('Baja: &nbsp');   
             break;
-
+        
         case "J":
             document.getElementById("cspMaeBusq").disabled =  false;
             document.getElementById("EditaNombre").disabled =  false;
@@ -70,10 +133,43 @@ $("#OpcCauRetiro").change(function () {
             document.getElementById("nomSolic").disabled = true; 
             $('#tituto_BasJubBajFall').html('BASE Y BAJA'); 
             $('#tituto_InptBasJub').html('Base: &nbsp');  
-            $('#tituto_InptBajFall').html('Baja: &nbsp');     
+            $('#tituto_InptBajFall').html('Baja: &nbsp'); 
+            motivo="FRJ";    
+            break;
+        
+        case "R":
+            document.getElementById("cspMaeBusq").disabled =  false;
+            document.getElementById("EditaNombre").disabled =  false;
+            document.getElementById("cveIMaeBusq").disabled =  false;
+            document.getElementById("OpcRegSind").disabled =  false;
+            document.getElementById("tipTramNE").disabled = false;
+            document.getElementById("DivPsgs").style.display =  "block";
+            document.getElementById("DivDictamen").style.display = "block";
+            document.getElementById("DivTestBenefsMae").style.display = "none"; 
+            document.getElementById("nomSolic").disabled = true; 
+            $('#tituto_BasJubBajFall').html('BASE Y BAJA'); 
+            $('#tituto_InptBasJub').html('Base: &nbsp');  
+            $('#tituto_InptBajFall').html('Baja: &nbsp');  
+            motivo="FRR";   
+            break;
+            
+        case "D":
+            document.getElementById("cspMaeBusq").disabled =  false;
+            document.getElementById("EditaNombre").disabled =  false;
+            document.getElementById("cveIMaeBusq").disabled =  false;
+            document.getElementById("OpcRegSind").disabled =  false;
+            document.getElementById("tipTramNE").disabled = false;
+            document.getElementById("DivPsgs").style.display =  "block";
+            document.getElementById("DivDictamen").style.display = "block";
+            document.getElementById("DivTestBenefsMae").style.display = "none"; 
+            document.getElementById("nomSolic").disabled = true; 
+            $('#tituto_BasJubBajFall').html('BASE Y BAJA'); 
+            $('#tituto_InptBasJub').html('Base: &nbsp');  
+            $('#tituto_InptBajFall').html('Baja: &nbsp');  
+            motivo="FRD";   
             break;
 
-        case "FA":
+        case "F":
             document.getElementById("cspMaeBusq").disabled =  false;
             document.getElementById("EditaNombre").disabled =  false;
             document.getElementById("cveIMaeBusq").disabled =  false;
@@ -86,28 +182,13 @@ $("#OpcCauRetiro").change(function () {
             $('#tituto_BasJubBajFall').html('JUBILACION Y FALLECIMIENTO');
             $('#tituto_InptBasJub').html('Base: &nbsp');
             $('#tituto_InptBajFall').html('Fallecim.: &nbsp'); 
+            motivo="FRF";
             break;
-
-        case "FJ":
-            document.getElementById("cspMaeBusq").disabled =  true;
-            document.getElementById("EditaNombre").disabled =  false;
-            document.getElementById("cveIMaeBusq").disabled =  false;
-            document.getElementById("OpcRegSind").disabled =  false;
-            document.getElementById("tipTramNE").disabled = false;
-            document.getElementById("DivPsgs").style.display =  "none";
-            document.getElementById("DivDictamen").style.display = "none";
-            document.getElementById("DivTestBenefsMae").style.display = "block";
-            document.getElementById("nomSolic").disabled = false;
-            $('#tituto_BasJubBajFall').html('JUBILACION Y FALLECIMIENTO');
-            $('#tituto_InptBasJub').html('Jubilacion:&nbsp ');
-            $('#tituto_InptBajFall').html('Fallecim.: &nbsp'); 
-            break;
-
+    
         default:
             break;
-    }
+    }        
 });
-
 
 $(".CSPMae").keydown(function (event) {
     var key = window.event ? event.which : event.keyCode;
@@ -116,7 +197,6 @@ $(".CSPMae").keydown(function (event) {
     }
 });
 
-
 $(".cveissemym").keydown(function (event) {
     var key = window.event ? event.which : event.keyCode;
     if((key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
@@ -124,14 +204,12 @@ $(".cveissemym").keydown(function (event) {
     }
 });
 
-
 $('#CURPMae').keydown(function (event) {
     var key = window.event ? event.which : event.keyCode;
     if((key < 65 || key > 90)  && (key < 97 || key > 122) && (key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
         return false;
     }
 });
-
 
 $('#CURPMae').change(function () {
     document.getElementById('RFCMae').value = document.getElementById('CURPMae').value.substr(0,10).toUpperCase();
@@ -212,58 +290,76 @@ $("#cveIMaeBusq").change(function() {
             'LA CLAVE DE ISSEMYM ES INCORRECTA',
             'debe tener un maximo de 6 digitos y minimo 3 digitos'
         )
-    }
-    
-    if (motivo == "FJ") {
-        clavemae = $("#cveIMaeBusq").val();
-        if (claveisemym.length <= 6 && $("#cveIMaeBusq").val() != ""){
-            $.post("../../controller/maestro.php?op=buscarJub",{claveisemym:claveisemym},function(dataJ){ 
-                if(jQuery.isEmptyObject(dataJ)){
-                    Swal.fire(
-                        'LA CLAVE ES INCORRECTA',
-                        'no esta afiliado al programa de MUTUALIDAD'
-                    )
-                    document.getElementById("cspMaeBusq").value="";
-                    document.getElementById("cveIMaeBusq").value="";
-                    document.getElementById("apePatMae").value="";
-                    document.getElementById("apeMatMae").value="";
-                    document.getElementById("nombreMae").value="";
-                    document.getElementById("estLaboral").value="";
-                    document.getElementById("nomComplMae").value="";
-                    document.getElementById("nomSolic").value="";
-                    document.getElementById("RFCMae").value="";
-                    document.getElementById("TelPartiMae").value="";
-                    document.getElementById("TelCelMae").value="";
-                }else{
-                    dataJ = JSON.parse(dataJ);
-                    var motivo = dataJ.motivo;
-                    var estatusmae = dataJ.estatusjub;
-                    programfallec = dataJ.programafallec;
-                    if (motivo == "nuevo" && estatusmae == "A") {
-                        estatusMae = "JUBILADO " + programfallec;
-                        $('#apePatMae').val(dataJ.apepatmae);
-                        $('#apeMatMae').val(dataJ.apematmae);
-                        $('#nombreMae').val(dataJ.nommae);
-                        $('#estLaboral').val(estatusMae);
-                        $('#nomComplMae').val(dataJ.nomcommae);
-                        $('#CURPMae').val(dataJ.curpmae);
-                        $('#RFCMae').val(dataJ.rfcmae);
-                        $('#fechBaseMae').val(dataJ.fechbajamae);
-                        $('#inputProgramFall').val(dataJ.programafallec);
-    
-                        document.getElementById("TelPartiMae").disabled =  false;
-                        document.getElementById("TelCelMae").disabled =  false;
-                        document.getElementById("fechRecibido").disabled =  false;
-                        document.getElementById("fechBaseMae").disabled =  false;
-                        document.getElementById("fechBajaMae").disabled =  false;
-                        document.getElementById("OpcTestamento").disabled = false;
-                        document.getElementById('CURPMae').disabled = false;
-                        document.getElementById('RFCMae').disabled = false;
-                    } else if (motivo == "existente" || estatusmae == "F") {
-                        if (dataJ.motivo == "existente") {
+    }else{
+        if (causaRet == "FF" || causaRet == "FM") {
+            clavemae = $("#cveIMaeBusq").val();
+            if (claveisemym.length <= 7 && $("#cveIMaeBusq").val() != ""){
+                $.post("../../controller/maestro.php?op=buscarJub",{claveisemym:claveisemym},function(dataJ){
+                    if(jQuery.isEmptyObject(dataJ)){
+                        Swal.fire(
+                            'LA CLAVE ES INCORRECTA',
+                            'no esta afiliado al programa de MUTUALIDAD'
+                        )
+                        document.getElementById("cspMaeBusq").value="";
+                        document.getElementById("cveIMaeBusq").value="";
+                        document.getElementById("apePatMae").value="";
+                        document.getElementById("apeMatMae").value="";
+                        document.getElementById("nombreMae").value="";
+                        document.getElementById("estLaboral").value="";
+                        document.getElementById("nomComplMae").value="";
+                        document.getElementById("nomSolic").value="";
+                        document.getElementById("RFCMae").value="";
+                        document.getElementById("TelPartiMae").value="";
+                        document.getElementById("TelCelMae").value="";
+                    }else{
+                        dataJ = JSON.parse(dataJ);
+                        var motivoC = dataJ.motivo;
+                        var estatusmae = dataJ.estatusjub;
+                        programfallec = dataJ.programafallec;
+                        if (motivoC == "nuevo" && estatusmae == "A") {
+                            var estatusMae = "JUBILADO " + programfallec;
+                            $('#apePatMae').val(dataJ.apepatmae);
+                            $('#apeMatMae').val(dataJ.apematmae);
+                            $('#nombreMae').val(dataJ.nommae);
+                            $('#estLaboral').val(estatusMae);
+                            $('#nomComplMae').val(dataJ.nomcommae);
+                            $('#CURPMae').val(dataJ.curpmae);
+                            $('#RFCMae').val(dataJ.rfcmae);
+                            $('#fechBaseMae').val(dataJ.fechbajamae);
+                            $('#inputProgramFall').val(dataJ.programafallec);
+        
+                            document.getElementById("TelPartiMae").disabled =  false;
+                            document.getElementById("TelCelMae").disabled =  false;
+                            document.getElementById("fechRecibido").disabled =  false;
+                            document.getElementById("fechBaseMae").disabled =  false;
+                            document.getElementById("fechBajaMae").disabled =  false;
+                            document.getElementById("OpcTestamento").disabled = false;
+                            document.getElementById('CURPMae').disabled = false;
+                            document.getElementById('RFCMae').disabled = false;
+                        } else if (motivoC == "existente" || estatusmae == "F") {
+                            if (dataJ.motivo == "existente") {
+                                Swal.fire(
+                                    'Ya se encuentra un tramite registrado con la misma clave, por motivo de Fallecimiento' + dataJ.fe>
+                                    'Verifique su clave'
+                                ).then((result)=>{
+                                    let pagAnterior = document.referrer;
+                                    if (pagAnterior.indexOf(window.location.host) !== -1) {
+                                        window.history.back();
+                                    }
+                                });
+                            }
+                        } else if (estatusmae == "P") {
                             Swal.fire(
-                                'Ya se encuentra un tramite registrado con la misma clave, por motivo de Fallecimiento' + dataJ.fechentrega,
-                                'Verifique su clave'                            
+                                'El maestro aun no esta activo en el programa de mutualidad'
+                            ).then((result)=>{
+                                let pagAnterior = document.referrer;
+                                if (pagAnterior.indexOf(window.location.host) !== -1) {
+                                    window.history.back();
+                                }
+                            });
+                        } else if (motivoC == "nuevo" || estatusmae == "F") {
+                            Swal.fire(
+                                'No se puede dar de alta un tramite con esta clave que tiene estatus de Fallecido'
                             ).then((result)=>{
                                 let pagAnterior = document.referrer;
                                 if (pagAnterior.indexOf(window.location.host) !== -1) {
@@ -271,27 +367,9 @@ $("#cveIMaeBusq").change(function() {
                                 }
                             });
                         }
-                    } else if (estatusmae == "P") {
-                        Swal.fire(
-                            'El maestro aun no esta activo en el programa de mutualidad'                            
-                        ).then((result)=>{
-                            let pagAnterior = document.referrer;
-                            if (pagAnterior.indexOf(window.location.host) !== -1) {
-                                window.history.back();
-                            }
-                        });
-                    } else if (motivo == "nuevo" || estatusmae == "F") {
-                        Swal.fire(
-                            'No se puede dar de alta un tramite con esta clave que tiene estatus de Fallecido'                            
-                        ).then((result)=>{
-                            let pagAnterior = document.referrer;
-                            if (pagAnterior.indexOf(window.location.host) !== -1) {
-                                window.history.back();
-                            }
-                        });
                     }
-                }
-            });
+                });
+            }
         }
     }
 });
@@ -366,7 +444,7 @@ $("#cspMaeBusq").change(function () {
                     document.getElementById('CURPMae').disabled = false;
                     document.getElementById('RFCMae').disabled = false;
 
-                    if (motivo == "FA") {
+                    if (motivo == "FRF") {
                         document.getElementById("OpcTestamento").disabled =  false;
                         document.getElementById("fechCTJuicio").disabled =  false;
                         document.getElementById("fechIniJuicio").disabled = false;
@@ -418,8 +496,6 @@ accionEditaNom.addEventListener("click", function (evento){
     $('#modal-title').html('Modificando nombre');
     $.post("../../controller/maestro.php?op=mostrarNom",{clavemae:clavemae},function(data){       
         data = JSON.parse(data);
-        //$('#cvemae').val(data.csp);
-		//document.getElementById('cvemae').value = data.csp;
 		$('#cvemae').val(data.csp);		
         $('#apepatModif').val(data.apepatmae);
         $('#apematModif').val(data.apematmae);
@@ -435,11 +511,10 @@ function actNomMae(e){
     nomComMae = $('#apepatModif').val() + " " + $('#apematModif').val() + " " + $('#nommaeModif').val();
     $('#nomcomModif').val(nomComMae);
 	
-	if($('#OpcCauRetiro').val() == "FJ"){
+	if(motivo == "FMJ" || motivo == "FFJ"){
 		$.post("../../controller/maestro.php?op=actNomMae",{apepatModif:$('#apepatModif').val(),apematModif:$('#apematModif').val(),nommaeModif:$('#nommaeModif').val(),nomcomModif:$('#nomcomModif').val(),cvemae:$('#cvemae').val()},function(data){ 
 			resultadoUpd = Object.values( JSON.parse(data));
 			if(resultadoUpd[0] == "actualizado"){
-				
 				swal.fire(
 					'Modificacion!',
 					'Los Datos se actualizaron correctamente!!!',
@@ -455,29 +530,21 @@ function actNomMae(e){
 				);
 			}
 		});
-		//$('#edita_NomMae')[0].reset();
-		//$("#editarNomMae").modal('hide');
-		
 		clavemae = $("#cveIMaeBusq").val();
-	
 		$.post("../../controller/maestro.php?op=buscarJub",{claveisemym:clavemae},function(data){ 
 			data = JSON.parse(data);
 			$('#apePatMae').val(data.apepatmae);
 			$('#apeMatMae').val(data.apematmae);
 			$('#nombreMae').val(data.nommae);
-			//$('#estLaboral').val(estatusMae);
 			$('#nomComplMae').val(data.nomcommae);
 			$('#nomSolic').val(data.nomcommae); 
 		});
 	}else{
 		var formData = new FormData($("#edita_NomMae")[0]);
-		
 		clavemae = $("#cveIMaeBusq").val();
-	
 		$.post("../../controller/maestro.php?op=actNomMae",{apepatModif:$('#apepatModif').val(),apematModif:$('#apematModif').val(),nommaeModif:$('#nommaeModif').val(),nomcomModif:$('#nomcomModif').val(),cvemae:$('#cspMaeBusq').val()},function(data){ 
 			resultadoUpd = Object.values( JSON.parse(data));
 			if(resultadoUpd[0] == "actualizado"){
-				
 				swal.fire(
 					'Modificacion!',
 					'Los Datos se actualizaron correctamente!!!',
@@ -493,26 +560,7 @@ function actNomMae(e){
 				);
 			}
 		});
-		
-		/*$.ajax({
-			url: '../../controller/maestro.php?op=actNomMae',
-			type: "POST",
-			data: formData,
-			contentType: false,
-			processData: false,
-			success: function(datos){
-				$('#edita_NomMae')[0].reset();
-				$("#editarNomMae").modal('hide');
-				swal.fire(
-					'Modificacion!',
-					'Los Datos se actualizaron correctamente!!!',
-					'success'
-				);
-			}
-		});*/
-		
 		clavemae = $("#cvemae").val();
-	
 		$.post("../../controller/maestro.php?op=buscar",{clavemae:clavemae},function(data){ 
 			data = JSON.parse(data);
 			$('#apePatMae').val(data.apepatmae);
@@ -528,8 +576,7 @@ function actNomMae(e){
 const accionFechBaja = document.querySelector("#fechBajaMae");
 accionFechBaja.addEventListener("blur", function (evento) {
     evento.preventDefault();
-
-    if (parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) < 2017 || parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) > 2024) {
+    if (parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) < 2022 || parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) > 2024) {
         document.getElementById("fechBajaMae").style.border =  ".1em red solid";
         Swal.fire(
             'ERROR',
@@ -546,7 +593,6 @@ accionFechBaja.addEventListener("blur", function (evento) {
 const accionFechBase = document.querySelector("#fechBaseMae");
 accionFechBase.addEventListener("blur", function (evento) {
     evento.preventDefault();
-
     if (parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) < 1930 || parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) > 2024) {
         document.getElementById("fechBaseMae").style.border =  ".1em red solid";
         Swal.fire(
@@ -563,13 +609,12 @@ var checkBoxTipTram = document.getElementById('tipTramNE');
 checkBoxTipTram.addEventListener("change", tramExtra, false);
 function tramExtra() {
     var checkedTE = checkBoxTipTram.checked;
-
     if (checkedTE) {
-        if (motivo == 'J' || motivo == 'I') {
-            document.getElementById("numfolioTEJI").style.display = "block";
-        } else {
+        if (motivo == 'FFJ' || motivo == 'FMJ' || motivo == 'FRF') {
             document.getElementById("numfolioTEJI").style.display = "none";
             document.getElementById("DivfolioBenef").style.display = "block";
+        } else {
+            document.getElementById("numfolioTEJI").style.display = "block";
         }
         tipTramite = '1';
     } else {
@@ -629,7 +674,6 @@ accionPSGS.addEventListener("click", function (evento){
 
 $("#edita_PSGS").on("submit",function(evento){
     evento.preventDefault();
-
     var diasActivo=0;
     var formDataPSGS = new FormData($("#edita_PSGS")[0]);
     $.ajax({
@@ -702,30 +746,13 @@ const accionCalculadora = document.querySelector('#calcDiasAnios');
 accionCalculadora.addEventListener("click", function (evento) {
     evento.preventDefault();
     var valorValid = 0;
-    
-    if (motivo == "I" || motivo == "J" || motivo == "FA") {
-        if (motivo == "I" || motivo == "J") {
-            var a_fechs = [
-                {fecha:"Recibido", nomvar:"fechRecibido", valorF:document.getElementById('fechRecibido').value},
-                {fecha:"Dictamen", nomvar:"fechDictamen", valorF:document.getElementById('fechDictamen').value},
-                {fecha:"Base", nomvar:"fechBaseMae", valorF:document.getElementById('fechBaseMae').value},
-                {fecha:"Baja", nomvar:"fechBajaMae", valorF:document.getElementById('fechBajaMae').value}
-            ]
-        } else {
-            var a_fechs = [
-                {fecha:"Recibido", nomvar:"fechRecibido", valorF:document.getElementById('fechRecibido').value},
-                {fecha:"Base", nomvar:"fechBaseMae", valorF:document.getElementById('fechBaseMae').value},
-                {fecha:"Baja", nomvar:"fechBajaMae", valorF:document.getElementById('fechBajaMae').value}
-            ]
-        }
-    } else {
-        var a_fechs = [
-            {fecha:"Recibido", nomvar:"fechRecibido", valorF:document.getElementById('fechRecibido').value},
-            {fecha:"Base", nomvar:"fechBaseMae", valorF:document.getElementById('fechBaseMae').value},
-            {fecha:"Baja", nomvar:"fechBajaMae", valorF:document.getElementById('fechBajaMae').value}
-        ]
-    } 
-    
+
+    var a_fechs = [
+        {fecha:"Recibido", nomvar:"fechRecibido", valorF:document.getElementById('fechRecibido').value},
+        {fecha:"Base", nomvar:"fechBaseMae", valorF:document.getElementById('fechBaseMae').value},
+        {fecha:"Baja", nomvar:"fechBajaMae", valorF:document.getElementById('fechBajaMae').value}
+    ]
+      
     a_fechs.forEach(element => {
         if (isNaN(Date.parse(element["valorF"])) || element["valorF"] == "") {
             a_fechs.push({validF:true,descerror:"La fecha de " + element["fecha"] + " no es valida"});
@@ -737,7 +764,6 @@ accionCalculadora.addEventListener("click", function (evento) {
             );
         } else {
             a_fechs.push({validF:true,descerror:""});
-            //parseInt(element["valorF"].slice(0,4)) > 1930 && parseInt(element["valorF"].slice(0,4)) < 2024
             if (parseInt(element["valorF"].split("-")[0]) > 1930 && parseInt(element["valorF"].split("-")[0]) < 2024) {
                 a_fechs.push({validA:true});
                 document.getElementById(element["nomvar"]).style.border =  ".1em black solid";
@@ -754,45 +780,239 @@ accionCalculadora.addEventListener("click", function (evento) {
         }
     });
     validaFechas(valorValid, a_fechs);
-    $("#ModoRetiro").val("");
-    document.getElementById("monRetEntr").value = "";
+    $("#ModoRetiro").val("C");
+    modalRetiro = "C";
 });
 
 function validaFechas(valorValid, a_fechs) {
-    if (valorValid == 4) {
-        motret = $("#OpcCauRetiro").val();
-        NumPersgs = $("#numPsgs").val();
-        diasInacPsgs = $("#diasPsgs").val();  
-        $.post("../../controller/tramites.php?op=validaFechs",{clavemae:clavemae,motret:motret,diasInacPsgs:diasInacPsgs,NumPersgs:NumPersgs,fechRecibido:a_fechs[0]["valorF"],fechDictamen:a_fechs[1]["valorF"],fechBaseMae:a_fechs[2]["valorF"],fechBajaMae:a_fechs[3]["valorF"]},function(data){
+    NumPersgs = $("#numPsgs").val();
+    diasInacPsgs = $("#diasPsgs").val();
+    if (causaRet=="FR") {
+        switch (motivo) {
+            case "FRI":
+            case "FRJ":
+            case "FRR":
+            case "FRD":
+                $.post("../../controller/tramites.php?op=validaFechs",{clavemae:clavemae,motret:motivo,diasInacPsgs:diasInacPsgs,NumPersgs:NumPersgs,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"]},function(data){
+                    data = JSON.parse(data);
+                    resultValid = data.descResult;
+                    switch (resultValid) {
+                        case 'vigenciaVal':
+                            diasServicio = data.diasServ;
+                            aniosServicio = Math.trunc(diasServicio/365);
+                            if (document.getElementById('numPsgs').value > 0 && document.getElementById('diasPsgs').value !== 0){
+                                document.getElementById('DiasServOriginal').value = diasServicio;
+                                document.getElementById('diasServMae').value = diasServicio;
+                                document.getElementById('aniosServMae').value = aniosServicio;
+                                document.getElementById("ModoRetiro").disabled =  false;
+                            }else{
+                                document.getElementById('numPsgs').value = 0;
+                                document.getElementById('diasPsgs').value = 0;
+                                document.getElementById('DiasServOriginal').value = diasServicio;
+                                document.getElementById('diasServMae').value = diasServicio;
+                                document.getElementById('aniosServMae').value = aniosServicio;
+                                document.getElementById("ModoRetiro").disabled =  false;
+                            }   
+                            var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
+                            $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
+                                data = JSON.parse(data);
+                                var montInteger = parseInt(data.montret);
+                                var montFloat = parseInt((data.montret % 1)*100);
+                                $('#montRet').val(montInteger + "." + montFloat);
+                                document.getElementById("agregaTramite").disabled =  false;
+                                montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                document.getElementById("monRetEntr").value = montoRetiro;
+                            });                 
+                            break;
+                        
+                        case 'noprocede':
+                            swal.fire({
+                                title:'TRAMITE NO PROCEDENTE',
+                                text:"La fecha del tramite excede la vigencia del retiro no solicito prorroga",
+                                showCancelButton: true,
+                                confirmButtonText:'OK',
+                                timer:15000
+                            }).then((result) => {
+                                if (result.isConfirmed){
+                                    let pagAnterior = document.referrer;
+                                    if (pagAnterior.indexOf(window.location.host) !== -1) {
+                                        window.history.back();
+                                    }
+                                }
+                            }); 
+                            break;    
+                        
+                        case 'errorFecha':
+                            notifError = data.diasServ;    
+                            Swal.fire(
+                                notifError,
+                                'por favor verifique las fechas'
+                            );
+                            break;
+            
+                        default:
+                            break;
+                    }
+                });
+                break;
+            
+            case "FRF":
+                var fechIniJuic = 0;
+                if ($("#fechIniJuicio").is(':visible')) {
+                    fechIniJuic = 1;
+                } 
+                $.post("../../controller/tramites.php?op=validaFechsFA",{clavemae:clavemae,motret:motivo,diasInacPsgs:diasInacPsgs,NumPersgs:NumPersgs,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"],fecInicioJuic:fechIniJuic,fechaIniJuic:document.getElementById('fechIniJuicio').value,tiptest:document.getElementById('OpcTestamento').value,fechJuiCTL:document.getElementById('fechCTJuicio').value},function(data){
+                    data = JSON.parse(data);
+                    resultValid = data.descResult;
+                    switch (resultValid) {
+                        case 'vigenciaVal':
+                            diasServicio = data.diasServ;
+                            aniosServicio = Math.trunc(diasServicio/365);
+                            if (document.getElementById('numPsgs').value > 0 && document.getElementById('diasPsgs').value !== 0){
+                                document.getElementById('DiasServOriginal').value = diasServicio;
+                                document.getElementById('diasServMae').value = diasServicio;
+                                document.getElementById('aniosServMae').value = aniosServicio;
+                            }else{
+                                document.getElementById('numPsgs').value = 0;
+                                document.getElementById('diasPsgs').value = 0;
+                                document.getElementById('DiasServOriginal').value = diasServicio;
+                                document.getElementById('diasServMae').value = diasServicio;
+                                document.getElementById('aniosServMae').value = aniosServicio;
+                            }   
+                            var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
+                            $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
+                                data = JSON.parse(data);
+                                var montInteger = parseInt(data.montret);
+                                var montFloat = parseInt((data.montret % 1)*100);
+                                document.getElementById("agregaTramite").disabled =  false;
+                                $('#montRet').val(montInteger + "." + montFloat);
+                                document.getElementById("monRetEntr").value =  $('#montRet').val();
+                                if (motivo == "FRF" || motivo == "FFJ" || motivo == "FMJ") {
+                                    document.getElementById("ModoRetiro").disabled =  true;
+                                    document.getElementById("ModoRetiro").value = "C";
+                                    modalRetiro = "C";
+                                    montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                    document.getElementById('monRetEntr').value = montoRetiro;
+                                }
+                            });       
+                            break;
+                        
+                        case 'vigenciaCad':
+                            diasServicio = data.diasServ
+                            aniosServicio = Math.trunc(diasServicio/365);
+                            
+                            swal.fire({
+                                title:'TRAMITE NO PROCEDENTE',
+                                text:"La fecha del tramite excede la vigencia del retiro. Tiene oficio o tarjeta de soporte de autorizacion",
+                                showCancelButton: true,
+                                confirmButtonText:'Si',
+                                cancelButtonText:'No',
+                                timer:15000
+                            }).then((result) => {
+                                if (result.isConfirmed){
+                                    var divOfTr = document.getElementById("DivExcepciones");
+                                    divOfTr.style.display = "block";
+                                    document.getElementById("ModoRetiro").disabled =  false;
+                                    document.getElementById("calcDiasAnios").disabled = true;
+        
+                                    document.getElementById('DiasServOriginal').value = diasServicio;
+                                    document.getElementById('diasServMae').value = diasServicio;
+                                    document.getElementById('aniosServMae').value = aniosServicio;
+        
+                                    var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
+                                    $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
+                                        data = JSON.parse(data);
+                                        var montInteger = parseInt(data.montret);
+                                        var montFloat = parseInt((data.montret % 1)*100);
+                                        document.getElementById("agregaTramite").disabled =  false;
+                                        $('#montRet').val(montInteger + "." + montFloat);
+                                        document.getElementById("monRetEntr").value =  $('#montRet').val();
+                                        if (motret == "FRF" || motret == "FFJ" || motret == "FMJ") {
+                                            document.getElementById("ModoRetiro").disabled =  true;
+                                            document.getElementById("ModoRetiro").value = "C";
+                                            modalRetiro = "C";
+                                            montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                            document.getElementById('monRetEntr').value = montoRetiro;
+                                        }
+                                    });  
+                                }else{
+                                    let pagAnterior = document.referrer;
+                                    if (pagAnterior.indexOf(window.location.host) !== -1) {
+                                        window.history.back();
+                                    }
+                                }
+                            });
+                            break;
+        
+                        case 'errorFecha':
+                            notifError = data.diasServ;    
+                            Swal.fire(
+                                notifError,
+                                'por favor verifique las fechas'
+                            );
+                            break;
+        
+                        default:
+                            break;
+                    }
+                });
+                break;
+            
+            default:
+                break;
+        }
+    } else if (causaRet=="FF" || causaRet=="FM"){
+        $.post("../../controller/tramites.php?op=validaFechsFJ",{clavemae:clavemae,motret:motret,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"],opTest:$("#OpcTestamento").val(),fechCTJuic:$("#fechCTJuicio").val(),fechIniJuic:document.getElementById("fechIniJuicio").value},function(data){
             data = JSON.parse(data);
             resultValid = data.descResult;
             switch (resultValid) {
                 case 'vigenciaVal':
-                    diasServicio = data.diasServ;
-                    aniosServicio = Math.trunc(diasServicio/365);
-                    if (document.getElementById('numPsgs').value > 0 && document.getElementById('diasPsgs').value !== 0){
-                        document.getElementById('DiasServOriginal').value = diasServicio;
-                        document.getElementById('diasServMae').value = diasServicio;
-                        document.getElementById('aniosServMae').value = aniosServicio;
-                        document.getElementById("ModoRetiro").disabled =  false;
-                    }else{
-                        document.getElementById('numPsgs').value = 0;
-                        document.getElementById('diasPsgs').value = 0;
-                        document.getElementById('DiasServOriginal').value = diasServicio;
-                        document.getElementById('diasServMae').value = diasServicio;
-                        document.getElementById('aniosServMae').value = aniosServicio;
-                        document.getElementById("ModoRetiro").disabled =  false;
-                    }   
+                    diasServicio = data.diasJub;
+                    aniosServicio = data.aniosJub;
+                    document.getElementById('DiasServOriginal').value = diasServicio;
+                    document.getElementById('diasServMae').value = diasServicio;
+                    document.getElementById('aniosServMae').value = aniosServicio;
+                    
                     var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                    $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
-                        data = JSON.parse(data);
-                        $('#montRet').val(data.montret.toFixed(2));
-                        montoRetiro = parseFloat(document.getElementById('montRet').value); //- adeudosMae).toFixed(2);
-                    });                 
+                    var programaF = $('#inputProgramFall').val();
+                    if (programaF==="M") {
+                        $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programF:"M"},function(data){       
+                            data = JSON.parse(data);
+                            var montInteger = parseInt(data.montret);
+                            var montFloat = parseInt((data.montret % 1)*100);
+                            document.getElementById("agregaTramite").disabled =  false;
+                            $('#montRet').val(montInteger + "." + montFloat);
+                            document.getElementById("monRetEntr").value =  $('#montRet').val();
+                            if (motret == "FRF" || motret == "FFJ" || motret == "FMJ") {
+                                document.getElementById("ModoRetiro").disabled =  true;
+                                document.getElementById("ModoRetiro").value = "C";
+                                modalRetiro = "C";
+                                montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                document.getElementById('monRetEntr').value = montoRetiro;
+                            }
+                        });  
+                    } else if (programaF==="FF") {
+                        $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programF:"FF"},function(data){       
+                            data = JSON.parse(data);
+                            var montInteger = parseInt(data.montret);
+                            var montFloat = parseInt((data.montret % 1)*100);
+                            document.getElementById("agregaTramite").disabled =  false;
+                            $('#montRet').val(montInteger + "." + montFloat);
+                            document.getElementById("monRetEntr").value =  $('#montRet').val();
+                            if (motret == "FRF" || motret == "FFJ" || motret == "FMJ") {
+                                document.getElementById("ModoRetiro").disabled =  true;
+                                document.getElementById("ModoRetiro").value = "C";
+                                modalRetiro = "C";
+                                montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                document.getElementById('monRetEntr').value = montoRetiro;
+                            }
+                        });  
+                    }
+                         
                     break;
                 
                 case 'vigenciaCad':
-                    diasServicio = data.diasServ
+                    diasServicio = data.diasJub
                     aniosServicio = Math.trunc(diasServicio/365);
                     
                     swal.fire({
@@ -814,11 +1034,40 @@ function validaFechas(valorValid, a_fechs) {
                             document.getElementById('aniosServMae').value = aniosServicio;
 
                             var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                            $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
-                                data = JSON.parse(data);
-                                $('#montRet').val(data.montret.toFixed(2));
-                                montoRetiro = parseFloat(document.getElementById('montRet').value); //- adeudosMae).toFixed(2);
-                            });  
+                            var programaF = $('#inputProgramFall').val();
+                            if (programaF==="M") {
+                                $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programF:"M"},function(data){       
+                                    data = JSON.parse(data);
+                                    var montInteger = parseInt(data.montret);
+                                    var montFloat = parseInt((data.montret % 1)*100);
+                                    document.getElementById("agregaTramite").disabled =  false;
+                                    $('#montRet').val(montInteger + "." + montFloat);
+                                    document.getElementById("monRetEntr").value =  $('#montRet').val();
+                                    if (motret == "FRF" || motret == "FFJ" || motret == "FMJ") {
+                                        document.getElementById("ModoRetiro").disabled =  true;
+                                        document.getElementById("ModoRetiro").value = "C";
+                                        modalRetiro = "C";
+                                        montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                        document.getElementById('monRetEntr').value = montoRetiro;
+                                    }
+                                });  
+                            } else if (programaF==="FF") {
+                                $.post("../../controller/tramites.php?op=obtenRetiroJubFF",{aniosserv:aniosserv,programF:"FF"},function(data){       
+                                    data = JSON.parse(data);
+                                    var montInteger = parseInt(data.montret);
+                                    var montFloat = parseInt((data.montret % 1)*100);
+                                    document.getElementById("agregaTramite").disabled =  false;
+                                    $('#montRet').val(montInteger + "." + montFloat);
+                                    document.getElementById("monRetEntr").value =  $('#montRet').val();
+                                    if (motret == "FRF" || motret == "FFJ" || motret == "FMJ") {
+                                        document.getElementById("ModoRetiro").disabled =  true;
+                                        document.getElementById("ModoRetiro").value = "C";
+                                        modalRetiro = "C";
+                                        montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                        document.getElementById('monRetEntr').value = montoRetiro;
+                                    }
+                                });  
+                            }
                         }else{
                             let pagAnterior = document.referrer;
                             if (pagAnterior.indexOf(window.location.host) !== -1) {
@@ -827,59 +1076,7 @@ function validaFechas(valorValid, a_fechs) {
                         }
                     });
                     break;
-                
-                case 'vigenciaCadD':
-                    diasServicio = data.diasServ
-                    aniosServicio = Math.trunc(diasServicio/365);
-                    if (data.prorroga == "SI") {
-                        swal.fire({
-                            title:'TRAMITE NO PROCEDENTE',
-                            text:"La fecha del tramite excede la vigencia del retiro. Tiene oficio o tarjeta de soporte de autorizacion",
-                            showCancelButton: true,
-                            confirmButtonText:'Si',
-                            cancelButtonText:'No',
-                            timer:15000
-                        }).then((result) => {
-                            if (result.isConfirmed){
-                                var divOfTr = document.getElementById("DivExcepciones");
-                                divOfTr.style.display = "block";
-                                document.getElementById("calcDiasAnios").disabled = true;
-                                
-                                document.getElementById('DiasServOriginal').value = diasServicio;
-                                document.getElementById('diasServMae').value = diasServicio;
-                                document.getElementById('aniosServMae').value = aniosServicio;
-                                
-                                var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                                $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
-                                    data = JSON.parse(data);
-                                    $('#montRet').val(data.montret.toFixed(2));
-                                    montoRetiro = parseFloat(document.getElementById('montRet').value); //- adeudosMae).toFixed(2);
-                                }); 
-                            }else{
-                                let pagAnterior = document.referrer;
-                                if (pagAnterior.indexOf(window.location.host) !== -1) {
-                                    window.history.back();
-                                }
-                            }
-                        });
-                    } else {
-                        swal.fire({
-                            title:'TRAMITE NO PROCEDENTE',
-                            text:"La fecha del tramite excede la vigencia del retiro y NO solicito prorroga",
-                            showCancelButton: true,
-                            confirmButtonText:'OK',
-                            timer:15000
-                        }).then((result) => {
-                            if (result.isConfirmed){
-                                let pagAnterior = document.referrer;
-                                if (pagAnterior.indexOf(window.location.host) !== -1) {
-                                    window.history.back();
-                                }
-                            }
-                        });
-                    }    
-                    break;    
-                
+
                 case 'errorFecha':
                     notifError = data.diasServ;    
                     Swal.fire(
@@ -887,277 +1084,44 @@ function validaFechas(valorValid, a_fechs) {
                         'por favor verifique las fechas'
                     );
                     break;
-                    
-                case 'noProcede':
-                    Swal.fire(
-                        'TRAMITE NO PROCEDENTE',
-                        'Tramite no procede, excede el limite de apoyo por oficio'
-                    );
-                    let pagAnterior = document.referrer;
-                            if (pagAnterior.indexOf(window.location.host) !== -1) {
-                                window.history.back();
-                            }
-                    break;
+
                 default:
                     break;
             }
-        });
-    } else if (valorValid == 3) {
-        motret = $("#OpcCauRetiro").val();
-        NumPersgs = $("#numPsgs").val();
-        diasInacPsgs = $("#diasPsgs").val();
-        
-        var fechIniJuic = 0;
-
-        if (motret == "FA") {
-            if ($("#fechIniJuicio").is(':visible')) {
-                fechIniJuic = 1;
-            } 
-
-            $.post("../../controller/tramites.php?op=validaFechsFA",{clavemae:clavemae,motret:motret,diasInacPsgs:diasInacPsgs,NumPersgs:NumPersgs,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"],fecInicioJuic:fechIniJuic,fechaIniJuic:document.getElementById('fechIniJuicio').value,tiptest:document.getElementById('OpcTestamento').value,fechJuiCTL:document.getElementById('fechCTJuicio').value},function(data){
-                data = JSON.parse(data);
-                resultValid = data.descResult;
-                switch (resultValid) {
-                    case 'vigenciaVal':
-                        diasServicio = data.diasServ;
-                        aniosServicio = Math.trunc(diasServicio/365);
-                        if (document.getElementById('numPsgs').value > 0 && document.getElementById('diasPsgs').value !== 0){
-                            document.getElementById('DiasServOriginal').value = diasServicio;
-                            document.getElementById('diasServMae').value = diasServicio;
-                            document.getElementById('aniosServMae').value = aniosServicio;
-                            //document.getElementById("ModoRetiro").disabled =  true;
-                        }else{
-                            document.getElementById('numPsgs').value = 0;
-                            document.getElementById('diasPsgs').value = 0;
-                            document.getElementById('DiasServOriginal').value = diasServicio;
-                            document.getElementById('diasServMae').value = diasServicio;
-                            document.getElementById('aniosServMae').value = aniosServicio;
-                            //document.getElementById("ModoRetiro").disabled =  false;
-                        }   
-                        var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                        $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
-                            data = JSON.parse(data);
-                            $('#montRet').val(data.montret.toFixed(2));
-                            if (motret == "FA" || motret == "FJ") {
-                                document.getElementById("ModoRetiro").disabled =  true;
-                                document.getElementById("ModoRetiro").value = "C";
-                                montoRetiro = parseFloat(document.getElementById('montRet').value); //- adeudosMae).toFixed(2);
-                                document.getElementById('monRetEntr').value = montoRetiro;
-                            }
-                        });       
-                        break;
-                    
-                    case 'vigenciaCad':
-                        diasServicio = data.diasServ
-                        aniosServicio = Math.trunc(diasServicio/365);
-                        
-                        swal.fire({
-                            title:'TRAMITE NO PROCEDENTE',
-                            text:"La fecha del tramite excede la vigencia del retiro. Tiene oficio o tarjeta de soporte de autorizacion",
-                            showCancelButton: true,
-                            confirmButtonText:'Si',
-                            cancelButtonText:'No',
-                            timer:15000
-                        }).then((result) => {
-                            if (result.isConfirmed){
-                                var divOfTr = document.getElementById("DivExcepciones");
-                                divOfTr.style.display = "block";
-                                document.getElementById("ModoRetiro").disabled =  false;
-                                document.getElementById("calcDiasAnios").disabled = true;
-    
-                                document.getElementById('DiasServOriginal').value = diasServicio;
-                                document.getElementById('diasServMae').value = diasServicio;
-                                document.getElementById('aniosServMae').value = aniosServicio;
-    
-                                var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                                $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
-                                    data = JSON.parse(data);
-                                    $('#montRet').val(data.montret.toFixed(2));
-                                    if (motret == "FA" || motret == "FJ") {
-                                        document.getElementById("ModoRetiro").disabled =  true;
-                                        document.getElementById("ModoRetiro").value = "C";
-                                        montoRetiro = parseFloat(document.getElementById('montRet').value); //- adeudosMae).toFixed(2);
-                                        document.getElementById('monRetEntr').value = montoRetiro;
-                                    }
-                                });  
-                            }else{
-                                let pagAnterior = document.referrer;
-                                if (pagAnterior.indexOf(window.location.host) !== -1) {
-                                    window.history.back();
-                                }
-                            }
-                        });
-                        break;
-    
-                    case 'errorFecha':
-                        notifError = data.diasServ;    
-                        Swal.fire(
-                            notifError,
-                            'por favor verifique las fechas'
-                        );
-                        break;
-    
-                    default:
-                        break;
-                }
-            });
-        }else if (motret == "FJ") {
-            
-            $.post("../../controller/tramites.php?op=validaFechsFJ",{clavemae:clavemae,motret:motret,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"],opTest:$("#OpcTestamento").val(),fechCTJuic:$("#fechCTJuicio").val(),fechIniJuic:document.getElementById("fechIniJuicio").value},function(data){
-                data = JSON.parse(data);
-                resultValid = data.descResult;
-                switch (resultValid) {
-                    case 'vigenciaVal':
-                        diasServicio = data.diasJub;
-                        //aniosServicio = Math.trunc(diasServicio/365);
-                        aniosServicio = data.aniosJub;
-                        document.getElementById('DiasServOriginal').value = diasServicio;
-                        document.getElementById('diasServMae').value = diasServicio;
-                        document.getElementById('aniosServMae').value = aniosServicio;
-                            //document.getElementById("ModoRetiro").disabled =  true;
-                        
-                        var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                        var programaF = $('#inputProgramFall').val();
-                        if (programaF==="M") {
-                            $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programF:"M"},function(data){       
-                                data = JSON.parse(data);
-                                $('#montRet').val(data.montret.toFixed(2));
-                                if (motret == "FA" || motret == "FJ") {
-                                    document.getElementById("ModoRetiro").disabled =  true;
-                                    document.getElementById("ModoRetiro").value = "C";
-                                    montoRetiro = parseFloat(document.getElementById('montRet').value);
-                                    document.getElementById('monRetEntr').value = montoRetiro;
-                                }
-                            });  
-                        } else if (programaF==="FF") {
-                            $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programF:"FF"},function(data){       
-                                data = JSON.parse(data);
-                                $('#montRet').val(data.montret.toFixed(2));
-                                if (motret == "FA" || motret == "FJ") {
-                                    document.getElementById("ModoRetiro").disabled =  true;
-                                    document.getElementById("ModoRetiro").value = "C";
-                                    montoRetiro = parseFloat(document.getElementById('montRet').value);
-                                    document.getElementById('monRetEntr').value = montoRetiro;
-                                }
-                            });  
-                        }
-                             
-                        break;
-                    
-                    case 'vigenciaCad':
-                        diasServicio = data.diasJub
-                        aniosServicio = Math.trunc(diasServicio/365);
-                        
-                        swal.fire({
-                            title:'TRAMITE NO PROCEDENTE',
-                            text:"La fecha del tramite excede la vigencia del retiro. Tiene oficio o tarjeta de soporte de autorizacion",
-                            showCancelButton: true,
-                            confirmButtonText:'Si',
-                            cancelButtonText:'No',
-                            timer:15000
-                        }).then((result) => {
-                            if (result.isConfirmed){
-                                var divOfTr = document.getElementById("DivExcepciones");
-                                divOfTr.style.display = "block";
-                                document.getElementById("ModoRetiro").disabled =  false;
-                                document.getElementById("calcDiasAnios").disabled = true;
-    
-                                document.getElementById('DiasServOriginal').value = diasServicio;
-                                document.getElementById('diasServMae').value = diasServicio;
-                                document.getElementById('aniosServMae').value = aniosServicio;
-    
-                                var aniosserv = Math.floor(document.getElementById('aniosServMae').value);
-                                var programaF = $('#inputProgramFall').val();
-                                if (programaF==="M") {
-                                    $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programF:"M"},function(data){       
-                                        data = JSON.parse(data);
-                                        $('#montRet').val(data.montret.toFixed(2));
-                                        if (motret == "FA" || motret == "FJ") {
-                                            document.getElementById("ModoRetiro").disabled =  true;
-                                            document.getElementById("ModoRetiro").value = "C";
-                                            montoRetiro = parseFloat(document.getElementById('montRet').value);
-                                            document.getElementById('monRetEntr').value = montoRetiro;
-                                        }
-                                    });  
-                                } else if (programaF==="FF") {
-                                    $.post("../../controller/tramites.php?op=obtenRetiroJub",{aniosserv:aniosserv,programF:"FF"},function(data){       
-                                        data = JSON.parse(data);
-                                        $('#montRet').val(data.montret.toFixed(2));
-                                        if (motret == "FA" || motret == "FJ") {
-                                            document.getElementById("ModoRetiro").disabled =  true;
-                                            document.getElementById("ModoRetiro").value = "C";
-                                            montoRetiro = parseFloat(document.getElementById('montRet').value);
-                                            document.getElementById('monRetEntr').value = montoRetiro;
-                                        }
-                                    });  
-                                }
-                            }else{
-                                let pagAnterior = document.referrer;
-                                if (pagAnterior.indexOf(window.location.host) !== -1) {
-                                    window.history.back();
-                                }
-                            }
-                        });
-                        break;
-    
-                    case 'errorFecha':
-                        notifError = data.diasServ;    
-                        Swal.fire(
-                            notifError,
-                            'por favor verifique las fechas'
-                        );
-                        break;
-    
-                    default:
-                        break;
-                }
-            });
-        }
-        
-    } else {
-        Swal.fire(
-            "Las Fechas ingresadas no son correctas",
-            'No puede haber fechas mayores a el año en curso o menores a 1900, verifique las que estan marcadas en color rojo'
-        );
+        });      
     }
 }
 
-/*$("#uploadImage").on("click", function (e) {
-    e.preventDefault();   
-})*/
-
 var imageExcepcion = '';
-    $("#imageOficTarj").change(function (evento) {
-        evento.preventDefault();
+$("#imageOficTarj").change(function (evento) {
+    evento.preventDefault();
 
-        var files = $('#imageOficTarj')[0].files[0];
+    var files = $('#imageOficTarj')[0].files[0];
 
-        var formData = new FormData($("#form_captTramite")[0]);
-        var imagensend = document.querySelector("#imageOficTarj");
-        $.ajax({
-            type: 'POST',
-            url: '../../controller/tramites.php?op=subirImgSoporte',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(datos){
-                data = JSON.parse(datos);
-                if (data["imagen"].length === 0) {
-                    swal.fire(
-                        'La imagen de soporte no se cargo correctamente!!'
-                    );
-                } else {
-                    imageExcepcion = data["imagen"];
-                    document.getElementById("ModoRetiro").disabled = false;
-                }
+    var formData = new FormData($("#form_captTramite")[0]);
+    var imagensend = document.querySelector("#imageOficTarj");
+    $.ajax({
+        type: 'POST',
+        url: '../../controller/tramites.php?op=subirImgSoporte',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(datos){
+            data = JSON.parse(datos);
+            if (data["imagen"].length === 0) {
+                swal.fire(
+                    'La imagen de soporte no se cargo correctamente!!'
+                );
+            } else {
+                imageExcepcion = data["imagen"];
+                document.getElementById("ModoRetiro").disabled = false;
             }
-        });
+        }
     });
-
-
+});
 
 const accionOpcTestamento = document.querySelector('#OpcTestamento');
-accionOpcTestamento.addEventListener("click", function (evento) {
+accionOpcTestamento.addEventListener("change", function (evento) {
     evento.preventDefault();
     var tipoTestamnt = document.getElementById("OpcTestamento").value;
 
@@ -1392,7 +1356,6 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
                                 }
                             });
                         }else if (resultValidVig == 'fechaIni') {
-                            //document.getElementById("fechCTJuicio").disabled = true;
                             document.getElementById("DivFechInicioJuicio").style.display = "block";
                             document.getElementById("editaBefens").disabled = true;
                             document.getElementById("calcDiasAnios").disabled = true;
@@ -1699,6 +1662,7 @@ function calculaRetiro() {
         document.getElementById("montRetFondFall").style.display = "none";
         document.getElementById("DivTpoDiferido").style.display = "none";
         document.getElementById('ModalRetiro').value = "C";
+        modalRetiro ="C";
     } else if (modalidad == "D") {
         document.getElementById("DivTpoDiferido").style.display = "block";
         document.getElementById("montRetFondFall").style.display = "block";
@@ -1707,10 +1671,13 @@ function calculaRetiro() {
             document.getElementById('monRetEntr').value = (montoRetiro / 2).toFixed(2);
             document.getElementById('montRetFF').value = (montoRetiro / 2).toFixed(2);
             document.getElementById('ModalRetiro').value = "D50";
+            modalRetiro ="D50";
+
         }else if(document.getElementById('ModRetDiferid100').checked){
             document.getElementById('monRetEntr').value = "0";
             document.getElementById('montRetFF').value = montoRetiro;
             document.getElementById('ModalRetiro').value = "D100";
+            modalRetiro ="D100";
         }
     }
 }
@@ -1723,6 +1690,7 @@ function calcMretDif100porc() {
         document.getElementById('monRetEntr').value = "0";
         document.getElementById('montRetFF').value = montoRetiro;
         document.getElementById('ModalRetiro').value = "D100";
+        modalRetiro ="D100";
     }
 }
 
@@ -1734,6 +1702,7 @@ function calcMretDif50porc() {
         document.getElementById('monRetEntr').value = (montoRetiro / 2).toFixed(2);
         document.getElementById('montRetFF').value = (montoRetiro / 2).toFixed(2);
         document.getElementById('ModalRetiro').value = "D50";
+        modalRetiro ="D50";
     }
 }
 
@@ -1747,19 +1716,21 @@ accionAgregar.addEventListener("click", function (event) {
     event.preventDefault();
 
     switch (motivo) {
-        case 'I':
+        case 'FRI':
+        case 'FRJ':
+        case 'FRR':
+        case 'FRD':
             agregajubilado();
             break;
 
-        case 'J':
-            agregajubilado();
-            break;
-
-        case 'FA':
+        case 'FRF':
             agregaRetFallecimiento();
             break;
 
-        case 'FJ':
+        case 'FFJ':
+            break;
+
+        case 'FMJ':
             agregaRetFallecimientoJ();
             break;
 
@@ -1768,79 +1739,6 @@ accionAgregar.addEventListener("click", function (event) {
     }
 });
 
-function agregaRetFallecimiento() {
-    $.post("../../controller/tramites.php?op=agregarF",{Ianioentr:$("#AnioEntr").val(),
-                                                        Inumentr:$("#numentr").val(),
-                                                        Iidentr:$("#IdEntrega").val(),
-                                                        Icvemae:$("#cspMaeBusq").val(),
-                                                        Icveissemym:document.getElementById('cveIMaeBusq').value,
-                                                        Iestatusmae:$("#estLaboral").val(),
-                                                        Imotret:$("#OpcCauRetiro").val(),
-                                                        IRegMae:$("#OpcRegSind").val(),
-                                                        Ifechbaj:$("#fechBajaMae").val(),
-                                                        InomSolic:$("#nomSolic").val(),
-                                                        INumCel:$("#TelCelMae").val(),
-                                                        InumPart:$("#TelPartiMae").val(),
-                                                        Ifechbase:$("#fechBaseMae").val(),
-                                                        IfechInipsgs:document.getElementById('fechsIniPSGS').value,
-                                                        IfechFinpsgs:document.getElementById('fechsFinPSGS').value,
-                                                        Inumpsgs:$("#numPsgs").val(),
-                                                        Idiaspsgs:$("#diasPsgs").val(),
-                                                        IdiasServ:$("#diasServMae").val(),
-                                                        IaniosServ:$('#aniosServMae').val(),
-                                                        ImodRet:$("#ModoRetiro").val(),
-                                                        Imonttotret:document.getElementById('montRet').value,
-                                                        ImontretEntr:$("#monRetEntr").val(),
-                                                        IfechRecibido:$("#fechRecibido").val(),
-                                                        InumOficTarj:$("#numOficTarj").val(),
-                                                        IfechOficAut:$("#fechOficAut").val(),
-                                                        IimageOficTarj:imageExcepcion,
-                                                        Inumbenefs:$("#numBenefs").val(),
-                                                        Idoctestamnt:$("#OpcTestamento").val(),
-                                                        Inomsbenefs:document.getElementById('nomsbenefs').value.split(","),
-                                                        Icurpsbenefs:document.getElementById('curpsbenefs').value.split(","),
-                                                        Iparentsbenefs:document.getElementById('parentsbenefs').value.split(","),
-                                                        Iporcnsbenefs:document.getElementById('porcentsbenefs').value.split(","),
-                                                        Iedadesbenefs:document.getElementById('edadesbenefs').value.split(","),
-                                                        Ividabenefs:document.getElementById('vidasbenefs').value.split(","),
-                                                        Ifechtestamnt:$("#fechCTJuicio").val(),
-                                                        Icurpmae:$("#CURPMae").val(),
-                                                        Irfcmae: $("#RFCMae").val(),
-                                                        IObserv: $("#observTramite").val(),
-                                                        ItipTram: tipTramite,
-                                                        IfolBenefs: $("#foliosbenefs").val().split(",")
-                                                        },function (data) {
-                                                            resultadoAdd = Object.values( JSON.parse(data));
-                                                            NumregsResult = resultadoAdd.length;
-                                                            switch (NumregsResult) {
-                                                                case 1:
-                                                                    Swal.fire(
-                                                                        "EL TRAMITE YA FUE INGRESADO CON ANTERIORIDAD",
-                                                                        'por favor ingrese un nuevo tramite'
-                                                                    );
-                                                                    javascript:history.go(-1);
-                                                                    break;
-
-                                                                case 4:
-                                                                    if (resultadoAdd[0] == "Agregado" && resultadoAdd[1] == "Actualizado" && resultadoAdd[2] == "Agregado" && resultadoAdd[3] == "Agregado") {
-                                                                        Swal.fire(
-                                                                            "TRAMITE INGRESADO CORRECTAMENTE"
-                                                                        );
-                                                                        javascript:history.go(-1);
-                                                                    } else {
-                                                                        Swal.fire(
-                                                                            "ALGO SALIO MAL",
-                                                                            'por favor verifique los datos'
-                                                                        );
-                                                                    }
-                                                                    break;
-
-                                                                default:
-                                                                    break;
-                                                            }
-                                                        });
-}
-
 function agregajubilado() {
     $.post("../../controller/tramites.php?op=agregar",{Ianioentr:$("#AnioEntr").val(),
                                                         Inumentr:$("#numentr").val(),
@@ -1848,7 +1746,7 @@ function agregajubilado() {
                                                         Icvemae:$("#cspMaeBusq").val(),
                                                         Icveissemym:document.getElementById('cveIMaeBusq').value,
                                                         Iestatusmae:$("#estLaboral").val(),
-                                                        Imotret:$("#OpcCauRetiro").val(),
+                                                        Imotret:motivo,
                                                         Iapepat:$("#apePatMae").val(),
                                                         Iapemat:$("#apeMatMae").val(),
                                                         Inombre:$("#nombreMae").val(),
@@ -1867,7 +1765,7 @@ function agregajubilado() {
                                                         Idiaspsgs:$("#diasPsgs").val(),
                                                         IdiasServ:$("#diasServMae").val(),
                                                         IaniosServ:$('#aniosServMae').val(),
-                                                        ImodRet:$("#ModalRetiro").val(),
+                                                        ImodRet:modalRetiro,
                                                         Imonttotret:document.getElementById('montRet').value,
                                                         ImontretEntr:$("#monRetEntr").val(),
                                                         ImontRetFF:document.getElementById('montRetFF').value,
@@ -1942,13 +1840,86 @@ function agregajubilado() {
                                                         });
 }
 
+function agregaRetFallecimiento() {
+    $.post("../../controller/tramites.php?op=agregarF",{Ianioentr:$("#AnioEntr").val(),
+                                                        Inumentr:$("#numentr").val(),
+                                                        Iidentr:$("#IdEntrega").val(),
+                                                        Icvemae:$("#cspMaeBusq").val(),
+                                                        Icveissemym:document.getElementById('cveIMaeBusq').value,
+                                                        Iestatusmae:$("#estLaboral").val(),
+                                                        Imotret:motivo,
+                                                        IRegMae:$("#OpcRegSind").val(),
+                                                        Ifechbaj:$("#fechBajaMae").val(),
+                                                        InomSolic:$("#nomSolic").val(),
+                                                        INumCel:$("#TelCelMae").val(),
+                                                        InumPart:$("#TelPartiMae").val(),
+                                                        Ifechbase:$("#fechBaseMae").val(),
+                                                        IfechInipsgs:document.getElementById('fechsIniPSGS').value,
+                                                        IfechFinpsgs:document.getElementById('fechsFinPSGS').value,
+                                                        Inumpsgs:$("#numPsgs").val(),
+                                                        Idiaspsgs:$("#diasPsgs").val(),
+                                                        IdiasServ:$("#diasServMae").val(),
+                                                        IaniosServ:$('#aniosServMae').val(),
+                                                        ImodRet:modalRetiro,
+                                                        Imonttotret:document.getElementById('montRet').value,
+                                                        ImontretEntr:$("#monRetEntr").val(),
+                                                        IfechRecibido:$("#fechRecibido").val(),
+                                                        InumOficTarj:$("#numOficTarj").val(),
+                                                        IfechOficAut:$("#fechOficAut").val(),
+                                                        IimageOficTarj:imageExcepcion,
+                                                        Inumbenefs:$("#numBenefs").val(),
+                                                        Idoctestamnt:$("#OpcTestamento").val(),
+                                                        Inomsbenefs:document.getElementById('nomsbenefs').value.split(","),
+                                                        Icurpsbenefs:document.getElementById('curpsbenefs').value.split(","),
+                                                        Iparentsbenefs:document.getElementById('parentsbenefs').value.split(","),
+                                                        Iporcnsbenefs:document.getElementById('porcentsbenefs').value.split(","),
+                                                        Iedadesbenefs:document.getElementById('edadesbenefs').value.split(","),
+                                                        Ividabenefs:document.getElementById('vidasbenefs').value.split(","),
+                                                        Ifechtestamnt:$("#fechCTJuicio").val(),
+                                                        Icurpmae:$("#CURPMae").val(),
+                                                        Irfcmae: $("#RFCMae").val(),
+                                                        IObserv: $("#observTramite").val(),
+                                                        ItipTram: tipTramite,
+                                                        IfolBenefs: $("#foliosbenefs").val().split(",")
+                                                        },function (data) {
+                                                            resultadoAdd = Object.values( JSON.parse(data));
+                                                            NumregsResult = resultadoAdd.length;
+                                                            switch (NumregsResult) {
+                                                                case 1:
+                                                                    Swal.fire(
+                                                                        "EL TRAMITE YA FUE INGRESADO CON ANTERIORIDAD",
+                                                                        'por favor ingrese un nuevo tramite'
+                                                                    );
+                                                                    javascript:history.go(-1);
+                                                                    break;
+
+                                                                case 4:
+                                                                    if (resultadoAdd[0] == "Agregado" && resultadoAdd[1] == "Actualizado" && resultadoAdd[2] == "Agregado" && resultadoAdd[3] == "Agregado") {
+                                                                        Swal.fire(
+                                                                            "TRAMITE INGRESADO CORRECTAMENTE"
+                                                                        );
+                                                                        javascript:history.go(-1);
+                                                                    } else {
+                                                                        Swal.fire(
+                                                                            "ALGO SALIO MAL",
+                                                                            'por favor verifique los datos'
+                                                                        );
+                                                                    }
+                                                                    break;
+
+                                                                default:
+                                                                    break;
+                                                            }
+                                                        });
+}
+
 function agregaRetFallecimientoJ() {
     $.post("../../controller/tramites.php?op=agregarFJ",{Ianioentr:$("#AnioEntr").val(),
                                                         Inumentr:$("#numentr").val(),
                                                         Iidentr:$("#IdEntrega").val(),
                                                         Icveissemym:document.getElementById('cveIMaeBusq').value,
                                                         Iestatusmae:$("#estLaboral").val(),
-                                                        Imotret:$("#OpcCauRetiro").val(),
+                                                        Imotret:motivo,
                                                         IRegMae:$("#OpcRegSind").val(),
                                                         Ifechbaj:$("#fechBajaMae").val(),
                                                         InomSolic:$("#nomSolic").val(),
@@ -1957,7 +1928,7 @@ function agregaRetFallecimientoJ() {
                                                         Ifechbase:$("#fechBaseMae").val(),
                                                         IdiasServ:$("#diasServMae").val(),
                                                         IaniosServ:$('#aniosServMae').val(),
-                                                        ImodRet:$("#ModoRetiro").val(),
+                                                        ImodRet:modalRetiro,
                                                         Imonttotret:document.getElementById('montRet').value,
                                                         ImontretEntr:$("#monRetEntr").val(),
                                                         IfechRecibido:$("#fechRecibido").val(),

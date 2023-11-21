@@ -17,7 +17,18 @@
             } catch (\Throwable $th) {
                 echo $th;
             }
-            
+        }
+        
+        public function obtenerRol($usuario){
+            try {
+                $statement = $this->PDO->prepare('SELECT usuario,idrol FROM usuarios WHERE usuario = :usuario');
+                $statement->bindParam(":usuario",$usuario);
+                $statement->execute();
+                $resultsRol = $statement->fetchAll(PDO::FETCH_ASSOC);
+                return $resultsRol;
+            } catch (\Throwable $th) {
+                echo $th;
+            }
         }
             
     }

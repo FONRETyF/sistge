@@ -31,6 +31,11 @@
                 return(false);
             }
         }
+
+        public function verificaRol($usuario){
+            $rolUsu = $this->MODEL->obtenerRol($usuario);
+            return $rolUsu;
+        }
     }
 
 ?>

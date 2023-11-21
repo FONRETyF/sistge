@@ -56,7 +56,7 @@
                 }
             }
             break;
-        
+
         case 'buscarJub':
             $a_get_maestroJub = $maestro->get_maestroJub($_POST["claveisemym"]);
             if (count($a_get_maestroJub)>0){
@@ -106,7 +106,6 @@
                             break;
                             
                         default:
-                            # code...
                             break;
                     }
                 }else if(count($a_get_TrmtsHist)>0){
@@ -147,9 +146,7 @@
                     }
                     echo json_encode($output, JSON_FORCE_OBJECT);
                 }
-            }
-            
-            
+            }            
             break;
         
         case "actNomMae":

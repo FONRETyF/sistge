@@ -660,6 +660,7 @@
 #informRetTram input{
   background-color: #d8dad8;
 }
+
 #DTIMotivRet{
   width: 210px;
   height: 25px;
@@ -1066,6 +1067,14 @@ input[type="date"]{
   font-size: 1em;
 }
 #OpcCauRetiro{
+  width: 145px;
+  height: 25px;
+  margin: 0 3px 0;
+  font-size: 12px;
+  font-weight:bold;
+  text-align: center;
+}
+#OpcMotivRetiro{
   width: 145px;
   height: 25px;
   margin: 0 3px 0;
@@ -1694,7 +1703,7 @@ margin: 0 110px;
 }
 #divAdeudos{
   margin: 8px auto;
-  width: 80%;
+  width: 90%;
   display: block;
 }
 #DivCheckAdeudos input{
