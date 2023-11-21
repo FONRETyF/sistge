@@ -16,14 +16,14 @@
         public function get_entregas()
         {
             try {
-                $statement = $this->db->prepare('SELECT identrega,numentrega,anioentrega,descentrega,fechentrega,estatentrega,numtramites,monttotentr FROM public.entregas_fonretyf ORDER BY identrega desc');
+                $consulta= 'SELECT identrega,numentrega,anioentrega,descentrega,fechentrega,estatentrega,numtramites,monttotentr FROM public.entregas_fonretyf ORDER BY identrega desc;';
+                $statement = $this->db->prepare($consulta);
                 $statement->execute();
                 $results = $statement->fetchAll(PDO::FETCH_ASSOC);
                 return $results;
             } catch (\Throwable $th) {
                 echo $th;
             }
-            
         }
         
         public function get_entrega_id($identrega){

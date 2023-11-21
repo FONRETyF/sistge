@@ -6,6 +6,7 @@
     switch ($_GET["op"]) {
         case "listar":
             $a_get_entregas = $entrega->get_entregas();
+            
             $a_Entregas = Array();
             foreach($a_get_entregas as $row){
                 $a_prep_entregas = array();

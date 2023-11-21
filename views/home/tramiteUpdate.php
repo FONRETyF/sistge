@@ -36,7 +36,7 @@
             </div>
             <div id="DivMotFolTram">
                 <div id="causaRetiro">Causa Retiro: &nbsp
-                    <input type="text" id="inputcausaret" name="inputcausaret">
+                    <input type="text" id="inputcausaret" name="inputcausaret" disabled>
                     <!--<select name="OpcCauRetiro" id="OpcCauRetiro" placeholder="MOTIVO RET" onchange="">
                         <option selected="true" disabled="disabled">Seleccione Motivo</option>
                         <option value="I">INHABILITACION</option>

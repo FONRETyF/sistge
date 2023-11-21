@@ -288,7 +288,8 @@ $(document).ready(function () {
                 idretiro = infoTramite[5];
                 var estatLabMae = "FALLECIDO";
 
-                $("#OpcCauRetiro").val(infoTramite[7]);
+                //$("#OpcCauRetiro").val(infoTramite[7]);
+                $("#inputcausaret").val(infoTramite[7]);
                 $("#numentr").val(infoTramite[2]);
 				
 				tipTramit = infoTramite[52];
@@ -453,7 +454,8 @@ $(document).ready(function () {
                 idretiro = infoTramite[4];
                 var estatLabMae = "FALLECIDO";
 
-                $("#OpcCauRetiro").val(infoTramite[7]);
+                //$("#OpcCauRetiro").val(infoTramite[7]);
+                $("#inputcausaret").val(infoTramite[7]);
                 $("#numentr").val(infoTramite[2]);
 				
 				tipTramit = infoTramite[52];
