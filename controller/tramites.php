@@ -1,5 +1,6 @@
 <?php
     session_start();
+    
 
     require_once "/var/www/html/sistge/model/Tramites.php";
     $tramite = new Tramite();
@@ -37,7 +38,8 @@
             break;
 
         case 'obtenRetiro':
-            $a_get_paramRet = $tramite->get_Retiro($_POST["aniosserv"],$_POST["fechBaja"]);
+            
+            $a_get_paramRet = $tramite->get_Retiro($_POST["aniosserv"]);
             if(is_array($a_get_paramRet)==true && count($a_get_paramRet)>0){
                 foreach($a_get_paramRet as $row){
                     $output["montret"] = $row["montRet"];
@@ -45,7 +47,7 @@
                 echo json_encode($output, JSON_FORCE_OBJECT);
             }
             break;
-        
+                   
         case 'obtenRetiroJub':
             $a_get_paramRetJub = $tramite->get_RetiroJub($_POST["aniosserv"],$_POST["programF"]);
             if(is_array($a_get_paramRetJub)==true && count($a_get_paramRetJub)>0){
@@ -80,8 +82,6 @@
             $a_getVigTramJuicio = $tramite -> validVigTramFA($_POST['tipoTestamento'],$_POST['ClaveMae'],$_POST['FBase'],$_POST['FBaja'],$_POST['FCTJuicio'],$_POST['FRecibido']);
             echo json_encode($a_getVigTramJuicio, JSON_FORCE_OBJECT);
             break;
-
-        
 
         case 'validaFechsFJ':
             $a_validFechasFJ = $tramite->validaFechasFJ($_POST["clavemae"],$_POST['motret'],$_POST["fechRecibido"],$_POST["fechBaseMae"],$_POST["fechBajaMae"],$_POST["opTest"],$_POST["fechCTJuic"],$_POST["fechIniJuic"]);
@@ -233,6 +233,7 @@
             $a_get_deleteProrg = $tramite->deleteProrroga($_POST['idprorg']);
             echo json_encode($a_get_updProrroga, JSON_FORCE_OBJECT);
             break;
+
         default:            
             break;
     }

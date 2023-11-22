@@ -61,7 +61,6 @@
                 $statement->execute();
                 $results = $statement->fetchAll(PDO::FETCH_ASSOC);
                 $resulInsert["resultado"] = "Agregado";
-                //return $results;
             } catch (\Throwable $th) {
                 $resulInsert["resultado"] = "Error";
                 echo $th;
@@ -133,7 +132,6 @@
             } catch (\Throwable $th) {
                 echo $th;
             }
-            
         }
 
         public function updateEntrImpCheques($identrega){

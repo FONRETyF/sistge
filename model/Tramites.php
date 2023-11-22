@@ -20,7 +20,7 @@ use function PHPSTORM_META\type;
             $this->retiros = array();
         }
 
-        public function get_Retiro($aniosserv,$fechBaja){
+        public function get_Retiro($aniosserv){
             $statement = $this->db->prepare("SELECT aportprom FROM public.parametros_retiro WHERE estatparam='ACTIVO'");
             $statement->execute();
             $results = $statement->fetchAll(PDO::FETCH_ASSOC);
