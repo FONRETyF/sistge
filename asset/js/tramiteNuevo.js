@@ -4,6 +4,7 @@ var programfallec = "";
 var clavemae;
 var validVig="";
 var modalRetiro="";
+var motret="";
 
 function init() {
     $("#edita_NomMae").on("submit",function(e){
@@ -102,7 +103,7 @@ $("#OpcCauRetiro").change(function () {
 });
 
 $("#OpcMotivRetiro").change(function () {
-    var motRet = $("#OpcMotivRetiro").val();
+    motRet = $("#OpcMotivRetiro").val();
 
     switch (motRet) {
         case "I":
@@ -962,7 +963,7 @@ function validaFechas(valorValid, a_fechs) {
                 break;
         }
     } else if (causaRet=="FF" || causaRet=="FM"){
-        $.post("../../controller/tramites.php?op=validaFechsFJ",{clavemae:clavemae,motret:motret,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"],opTest:$("#OpcTestamento").val(),fechCTJuic:$("#fechCTJuicio").val(),fechIniJuic:document.getElementById("fechIniJuicio").value},function(data){
+        $.post("../../controller/tramites.php?op=validaFechsFJ",{clavemae:clavemae,motret:motivo,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"],opTest:$("#OpcTestamento").val(),fechCTJuic:$("#fechCTJuicio").val(),fechIniJuic:document.getElementById("fechIniJuicio").value},function(data){
             data = JSON.parse(data);
             resultValid = data.descResult;
             switch (resultValid) {

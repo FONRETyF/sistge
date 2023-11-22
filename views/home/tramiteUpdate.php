@@ -37,14 +37,6 @@
             <div id="DivMotFolTram">
                 <div id="causaRetiro">Causa Retiro: &nbsp
                     <input type="text" id="inputcausaret" name="inputcausaret" disabled>
-                    <!--<select name="OpcCauRetiro" id="OpcCauRetiro" placeholder="MOTIVO RET" onchange="">
-                        <option selected="true" disabled="disabled">Seleccione Motivo</option>
-                        <option value="I">INHABILITACION</option>
-                        <option value="J">JUBILACION</option>
-                        <option value="FA">FALLECIMIENTO ACT</option>
-                        <option value="FJ">FALLECIMIENTO JUB</option>
-                    </select>
-                    <input type="text" id="causaret" name="causaret">-->
                     <input type="hidden" id="motvret" name="motvret">
                 </div>
                 <div id="DivFolioRet">Folio: &nbsp

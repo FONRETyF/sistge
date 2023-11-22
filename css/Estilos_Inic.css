@@ -1039,6 +1039,11 @@ input[type="date"]{
   justify-content: center;
   font-size: 1em;
 }
+#inputcausaret{
+  width: 100px;
+  text-align: center;
+  font-weight: bold;
+}
 .divTipTramNE{
   width: 100px;
 }
