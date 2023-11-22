@@ -38,7 +38,6 @@
             break;
 
         case 'obtenRetiro':
-            
             $a_get_paramRet = $tramite->get_Retiro($_POST["aniosserv"]);
             if(is_array($a_get_paramRet)==true && count($a_get_paramRet)>0){
                 foreach($a_get_paramRet as $row){
@@ -47,7 +46,17 @@
                 echo json_encode($output, JSON_FORCE_OBJECT);
             }
             break;
-                   
+        
+        case 'calculaRetiro':
+            $a_get_calculoRet = $tramite->get_Retiro($_POST["aniosserv"]);
+            if (is_array($a_get_calculoRet) == true && count($a_get_calculoRet)>0) {
+                foreach ($a_get_calculoRet as $row) {
+                   $resultMontRet["montret"] = $row["montRet"];
+                }
+            }
+            echo json_encode($resultMontRet, JSON_FORCE_OBJECT);
+            break;
+            
         case 'obtenRetiroJub':
             $a_get_paramRetJub = $tramite->get_RetiroJub($_POST["aniosserv"],$_POST["programF"]);
             if(is_array($a_get_paramRetJub)==true && count($a_get_paramRetJub)>0){

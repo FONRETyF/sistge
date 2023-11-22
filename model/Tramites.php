@@ -21,22 +21,24 @@ use function PHPSTORM_META\type;
         }
 
         public function get_Retiro($aniosserv){
-            $statement = $this->db->prepare("SELECT aportprom FROM public.parametros_retiro WHERE estatparam='ACTIVO'");
+            $consulta="SELECT aportprom FROM public.parametros_retiro WHERE estatparam='ACTIVO'";
+            $statement = $this->db->prepare($consulta);
             $statement->execute();
             $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-            $result = $this->calculaRet($aniosserv,$results[0]['aportprom']);
-            return $result;
+            $resultRet = $this->calculaRet($aniosserv,$results[0]['aportprom']);
+            return $resultRet;
         }  
 
         private function calculaRet($aniosserv,$montprom){
+            
             if ($aniosserv >= 30) {
-                $retiro = ((($montprom * 24) * 30) * 0.4) * .99;
+                $retiro = (((str_replace("$","",$montprom) * 24) * 30) * 0.4) * .99;
                 $dats_ret = array();
                 $dats_ret[] = [
                     "montRet" => $retiro
                 ];
             } else {
-                $retiro = ((($montprom * 24) * $aniosserv) * 0.4) * .99;
+                $retiro = (((str_replace("$","",$montprom) * 24) * $aniosserv) * 0.4) * .99;
                 $dats_ret = array();
                 $dats_ret[] = [
                     "montRet" => $retiro
