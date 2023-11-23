@@ -67,24 +67,23 @@ $(document).ready(function () {
                     default:
                         break;
                 }
-                alert(infoTramite.length);
                 
-                if (infoTramite.length == 79) {               
+                if (infoTramite.length == 81) {               
                     $("#inputcausaret").val(infoTramite[7]);
                     $("#numentr").val(infoTramite[5].substr(4,2));
                     $("#AnioEntr").val(infoTramite[5].substr(0,4));
                     $("#IdEntrega").val(infoTramite[5].substr(0,4) + infoTramite[5].substr(4,2));
                     $("#folioTram").val(infoTramite[43]);
                     $("#cspMaeBusq").val(infoTramite[6]);
-                    $("#cveIMaeBusq").val(infoTramite[73]);
+                    $("#cveIMaeBusq").val(infoTramite[74]);
                     $("#estLaboral").val(estatLabMae);
-                    $("#apePatMae").val(infoTramite[73]);
-                    $("#apeMatMae").val(infoTramite[74]);
-                    $("#nombreMae").val(infoTramite[75]);
-                    $("#nomComplMae").val(infoTramite[52]);  
-                    $("#CURPMae").val(infoTramite[53]);
-                    $("#RFCMae").val(infoTramite[54]);
-                    $("#regsindmae").val(infoTramite[55]);
+                    $("#apePatMae").val(infoTramite[75]);
+                    $("#apeMatMae").val(infoTramite[76]);
+                    $("#nombreMae").val(infoTramite[77]);
+                    $("#nomComplMae").val(infoTramite[54]);  
+                    $("#CURPMae").val(infoTramite[55]);
+                    $("#RFCMae").val(infoTramite[56]);
+                    $("#regsindmae").val(infoTramite[57]);
                     $("#TelPartiMae").val(infoTramite[13]);
                     $("#TelCelMae").val(infoTramite[12]);              
                     $("#nomSolic").val(infoTramite[11]);
@@ -92,27 +91,27 @@ $(document).ready(function () {
                     document.getElementById('fechRecibido').disabled = true;
                     $("#fechDictamen").val(infoTramite[9]);
                     $("#folioDictamen").val(infoTramite[8]);
-                    $("#fechBaseMae").val(infoTramite[56]);
-                    $("#fechBajaMae").val(infoTramite[58]);
-                    $("#DiasServOriginal").val(infoTramite[78]);
+                    $("#fechBaseMae").val(infoTramite[58]);
+                    $("#fechBajaMae").val(infoTramite[60]);
+                    $("#DiasServOriginal").val(infoTramite[80]);
 
                     clavemae = document.getElementById("cspMaeBusq").value;
 
-                    if (infoTramite[59] == 0) {
+                    if (infoTramite[61] == 0) {
                         document.getElementById('sinPSGS').checked = true;
                         document.getElementById('editaPSGS').disabled = true;
                     } else {
                         document.getElementById('sinPSGS').checked = false;
                         document.getElementById('editaPSGS').disabled = false;
                     }
-                    $("#numPsgs").val(infoTramite[59]);
+                    $("#numPsgs").val(infoTramite[61]);
                     document.getElementById('numPsgs').disabled = true;
                     
-                    $("#diasPsgs").val(infoTramite[60] );
+                    $("#diasPsgs").val(infoTramite[62] );
                     document.getElementById('diasPsgs').disabled = true;
 
-                    contPSGS = infoTramite[59];
-                    for (let index = 0; index < infoTramite[59]; index++) {
+                    contPSGS = infoTramite[61];
+                    for (let index = 0; index < infoTramite[61]; index++) {
                         $('#DivFechsPSGSIni').append(
                             '<div><input type="date" name="fechaIni['+ index +']" id="fechaIni['+ index +']"><a href="#" class="delete_fechaI"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar fecha" height="15" width="20"></a></input></div>'
                         );
@@ -121,11 +120,11 @@ $(document).ready(function () {
                         );                        
                     }
 
-                    $("#fechsIniPSGS").val(infoTramite[76]);
-                    $("#fechsFinPSGS").val(infoTramite[77]);
-                    $("#diasServMae").val(infoTramite[78]);
+                    $("#fechsIniPSGS").val(infoTramite[78]);
+                    $("#fechsFinPSGS").val(infoTramite[79]);
+                    $("#diasServMae").val(infoTramite[80]);
                     document.getElementById('diasServMae').disabled = true;
-                    $("#aniosServMae").val(infoTramite[57]);
+                    $("#aniosServMae").val(infoTramite[59]);
 
                     document.getElementById('aniosServMae').disabled = true;
                     $("#montRet").val(infoTramite[20].replace('$',''));
@@ -153,7 +152,10 @@ $(document).ready(function () {
                         if (infoTramite[41].replace('$','').replace(',','') > 0) {
                             $("#AdedTurismo").val(infoTramite[41].replace('$','').replace(',',''));
                         }
-
+                        if (infoTramite[53].replace('$','').replace(',','') > 0) {
+                            $("#AdedCeso").val(infoTramite[53].replace('$','').replace(',',''));
+                        }
+                        
                         $("#montRetSinAded").val(infoTramite[22]);
                         $("#montAdeudos").val(infoTramite[37]);
                     } else {
@@ -192,15 +194,15 @@ $(document).ready(function () {
                     $("#IdEntrega").val(infoTramite[3]);
                     $("#folioTram").val(infoTramite[43]);
                     $("#cspMaeBusq").val(infoTramite[6]);
-                    $("#cveIMaeBusq").val(infoTramite[73]);
+                    $("#cveIMaeBusq").val(infoTramite[74]);
                     $("#estLaboral").val(estatLabMae);
-                    $("#apePatMae").val(infoTramite[74]);
-                    $("#apeMatMae").val(infoTramite[75]);
-                    $("#nombreMae").val(infoTramite[76]);
-                    $("#nomComplMae").val(infoTramite[53]);  
-                    $("#CURPMae").val(infoTramite[54]);
-                    $("#RFCMae").val(infoTramite[55]);
-                    $("#regsindmae").val(infoTramite[56]);
+                    $("#apePatMae").val(infoTramite[75]);
+                    $("#apeMatMae").val(infoTramite[76]);
+                    $("#nombreMae").val(infoTramite[77]);
+                    $("#nomComplMae").val(infoTramite[54]);  
+                    $("#CURPMae").val(infoTramite[55]);
+                    $("#RFCMae").val(infoTramite[56]);
+                    $("#regsindmae").val(infoTramite[57]);
                     $("#TelPartiMae").val(infoTramite[13]);
                     $("#TelCelMae").val(infoTramite[12]);              
                     $("#nomSolic").val(infoTramite[11]);
@@ -208,12 +210,12 @@ $(document).ready(function () {
                     document.getElementById('fechRecibido').disabled = true;
                     $("#fechDictamen").val(infoTramite[9]);
                     $("#folioDictamen").val(infoTramite[8]);
-                    $("#fechBaseMae").val(infoTramite[57]);
-                    $("#fechBajaMae").val(infoTramite[59]);
+                    $("#fechBaseMae").val(infoTramite[58]);
+                    $("#fechBajaMae").val(infoTramite[60]);
                   					
 					clavemae = document.getElementById("cspMaeBusq").value;				
 					
-                    if (infoTramite[60] == 0) {
+                    if (infoTramite[61] == 0) {
                         document.getElementById('sinPSGS').checked = true;
                         document.getElementById('editaPSGS').disabled = true;
                     } else {
@@ -221,14 +223,14 @@ $(document).ready(function () {
                         document.getElementById('sinPSGS').checked = false;
                         document.getElementById('editaPSGS').disabled = false;
                     }
-                    $("#numPsgs").val(infoTramite[60]);
+                    $("#numPsgs").val(infoTramite[61]);
                     document.getElementById('numPsgs').disabled = true;
                     
-                    $("#diasPsgs").val(infoTramite[61] );
+                    $("#diasPsgs").val(infoTramite[62] );
                     document.getElementById('diasPsgs').disabled = true;
-                    contPSGS = infoTramite[60];
-
-                    for (let index = 0; index < infoTramite[60]; index++) {
+                    
+                    contPSGS = infoTramite[61];
+                    for (let index = 0; index < infoTramite[61]; index++) {
                         $('#DivFechsPSGSIni').append(
                             '<div><input type="date" name="fechaIni['+ index +']" id="fechaIni['+ index +']"><a href="#" class="delete_fechaI"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar fecha" height="15" width="20"></a></input></div>'
                         );
@@ -237,11 +239,11 @@ $(document).ready(function () {
                         );                        
                     }
                     
-                    $("#fechsIniPSGS").val(infoTramite[77]);
-                    $("#fechsFinPSGS").val(infoTramite[78]);
-                    $("#diasServMae").val(infoTramite[79]);
+                    $("#fechsIniPSGS").val(infoTramite[78]);
+                    $("#fechsFinPSGS").val(infoTramite[79]);
+                    $("#diasServMae").val(infoTramite[80]);
                     document.getElementById('diasServMae').disabled = true;
-                    $("#aniosServMae").val(infoTramite[58]);
+                    $("#aniosServMae").val(infoTramite[59]);
                     document.getElementById('aniosServMae').disabled = true;
                     $("#montRet").val(infoTramite[20].replace('$',''));
                     
@@ -300,43 +302,43 @@ $(document).ready(function () {
                 $("#IdEntrega").val(infoTramite[3]);
                 $("#folioTram").val(infoTramite[43]);
                 $("#cspMaeBusq").val(infoTramite[6]);
-                $("#cveIMaeBusq").val(infoTramite[64]);
+                $("#cveIMaeBusq").val(infoTramite[65]);
                 $("#estLaboral").val(estatLabMae);
-                $("#apePatMae").val(infoTramite[65]);
-                $("#apeMatMae").val(infoTramite[66]);
-                $("#nombreMae").val(infoTramite[67]);
-                $("#nomComplMae").val(infoTramite[53]);  
-                $("#CURPMae").val(infoTramite[54]);
-                $("#RFCMae").val(infoTramite[55]);
-                $("#regsindmae").val(infoTramite[56]);
+                $("#apePatMae").val(infoTramite[66]);
+                $("#apeMatMae").val(infoTramite[67]);
+                $("#nombreMae").val(infoTramite[68]);
+                $("#nomComplMae").val(infoTramite[54]);  
+                $("#CURPMae").val(infoTramite[55]);
+                $("#RFCMae").val(infoTramite[56]);
+                $("#regsindmae").val(infoTramite[57]);
                 $("#TelPartiMae").val(infoTramite[13]);
                 $("#TelCelMae").val(infoTramite[12]);              
                 $("#nomSolic").val(infoTramite[11]);
                 $("#fechRecibido").val(infoTramite[28]);
                 document.getElementById('fechRecibido').disabled = true;
-                $("#fechBaseMae").val(infoTramite[57]);
-                $("#fechBajaMae").val(infoTramite[59]);
-                $("#DiasServOriginal").val(infoTramite[70]);
+                $("#fechBaseMae").val(infoTramite[58]);
+                $("#fechBajaMae").val(infoTramite[60]);
+                $("#DiasServOriginal").val(infoTramite[71]);
 
                 $("#observTramite").val(infoTramite[27]);
 
                 clavemae = document.getElementById("cspMaeBusq").value;
 
-                if (infoTramite[60] == 0) {
+                if (infoTramite[61] == 0) {
                     document.getElementById('sinPSGS').checked = true;
                     document.getElementById('editaPSGS').disabled = true;
                 } else {
                     document.getElementById('sinPSGS').checked = false;
                     document.getElementById('editaPSGS').disabled = false;
                 }
-                $("#numPsgs").val(infoTramite[60]);
+                $("#numPsgs").val(infoTramite[61]);
                 document.getElementById('numPsgs').disabled = true;
                         
-                $("#diasPsgs").val(infoTramite[61] );
+                $("#diasPsgs").val(infoTramite[62] );
                 document.getElementById('diasPsgs').disabled = true;
     
-                contPSGS = infoTramite[60];
-                for (let index = 0; index < infoTramite[60]; index++) {
+                contPSGS = infoTramite[61];
+                for (let index = 0; index < infoTramite[61]; index++) {
                     $('#DivFechsPSGSIni').append(
                         '<div><input type="date" name="fechaIni['+ index +']" id="fechaIni['+ index +']"><a href="#" class="delete_fechaI"><img src="../../img/delete.png" alt="Eliminar" title="Eliminar fecha" height="15" width="20"></a></input></div>'
                     );
@@ -388,11 +390,11 @@ $(document).ready(function () {
 					$("#foliosbenefs").val(a_folsBenefs);
                 });
 
-                $("#fechsIniPSGS").val(infoTramite[68]);
-                $("#fechsFinPSGS").val(infoTramite[69]);
-                $("#diasServMae").val(infoTramite[70]);
+                $("#fechsIniPSGS").val(infoTramite[69]);
+                $("#fechsFinPSGS").val(infoTramite[70]);
+                $("#diasServMae").val(infoTramite[71]);
                 document.getElementById('diasServMae').disabled = true;
-                $("#aniosServMae").val(infoTramite[58]);
+                $("#aniosServMae").val(infoTramite[59]);
     
                 document.getElementById('aniosServMae').disabled = true;
                 $("#montRet").val(infoTramite[20].replace('$',''));
@@ -418,7 +420,10 @@ $(document).ready(function () {
                     if (infoTramite[41].replace('$','').replace(',','') > 0) {
                         $("#AdedTurismo").val(infoTramite[41].replace('$','').replace(',',''));
                     }
-    
+                    if (infoTramite[53].replace('$','').replace(',','') > 0) {
+                        $("#AdedCeso").val(infoTramite[53].replace('$','').replace(',',''));
+                    }
+
                     $("#montRetSinAded").val(infoTramite[22]);
                     $("#montAdeudos").val(infoTramite[37]);
                 }
@@ -427,6 +432,7 @@ $(document).ready(function () {
                     $("#ModoRetiro").val("C");
                     document.getElementById('DivTpoDiferido').style.display = "none";
                     document.getElementById('montRetFondFall').style.display = "none";
+                    document.getElementById('ModoRetiro').disabled = true;
                 }
             });
 
@@ -465,24 +471,24 @@ $(document).ready(function () {
                 $("#IdEntrega").val(infoTramite[3]);
                 $("#folioTram").val(infoTramite[43]);
                 document.getElementById('cspMaeBusq').disabled = true;
-                $("#cveIMaeBusq").val(infoTramite[53]);
+                $("#cveIMaeBusq").val(infoTramite[54]);
                 claveisemym =  $("#cveIMaeBusq").val();
                 $("#estLaboral").val(estatLabMae);
-                $("#apePatMae").val(infoTramite[54]);
-                $("#apeMatMae").val(infoTramite[55]);
-                $("#nombreMae").val(infoTramite[56]);
-                $("#nomComplMae").val(infoTramite[57]);  
-                $("#CURPMae").val(infoTramite[58]);
-                $("#RFCMae").val(infoTramite[59]);
-                $("#regsindmae").val(infoTramite[60]);
+                $("#apePatMae").val(infoTramite[55]);
+                $("#apeMatMae").val(infoTramite[56]);
+                $("#nombreMae").val(infoTramite[57]);
+                $("#nomComplMae").val(infoTramite[58]);  
+                $("#CURPMae").val(infoTramite[59]);
+                $("#RFCMae").val(infoTramite[60]);
+                $("#regsindmae").val(infoTramite[61]);
                 $("#TelPartiMae").val(infoTramite[13]);
                 $("#TelCelMae").val(infoTramite[12]);              
                 $("#nomSolic").val(infoTramite[11]);
                 $("#fechRecibido").val(infoTramite[28]);
                 document.getElementById('fechRecibido').disabled = true;
-                $("#fechBaseMae").val(infoTramite[61]);
-                $("#fechBajaMae").val(infoTramite[62]);
-                $("#DiasServOriginal").val(infoTramite[65]);
+                $("#fechBaseMae").val(infoTramite[62]);
+                $("#fechBajaMae").val(infoTramite[63]);
+                $("#DiasServOriginal").val(infoTramite[66]);
                 $("#OpcTestamento").val(infoTramite[14]);
                 $("#fechCTJuicio").val(infoTramite[15]);
                 $("#numBenefs").val(infoTramite[17]);
@@ -531,9 +537,9 @@ $(document).ready(function () {
 					
                 });
 
-                $("#diasServMae").val(infoTramite[65]);
+                $("#diasServMae").val(infoTramite[66]);
                 document.getElementById('diasServMae').disabled = true;
-                $("#aniosServMae").val(infoTramite[63]);
+                $("#aniosServMae").val(infoTramite[64]);
     
                 document.getElementById('aniosServMae').disabled = true;
                 $("#montRet").val(infoTramite[20].replace('$',''));
@@ -559,6 +565,9 @@ $(document).ready(function () {
                     if (infoTramite[41].replace('$','').replace(',','') > 0) {
                         $("#AdedTurismo").val(infoTramite[41].replace('$','').replace(',',''));
                     }
+                    if (infoTramite[53].replace('$','').replace(',','') > 0) {
+                        $("#AdedCeso").val(infoTramite[53].replace('$','').replace(',',''));
+                    }
     
                     $("#montRetSinAded").val(infoTramite[22]);
                     $("#montAdeudos").val(infoTramite[37]);
@@ -568,6 +577,8 @@ $(document).ready(function () {
                     $("#ModoRetiro").val("C");
                     document.getElementById('DivTpoDiferido').style.display = "none";
                     document.getElementById('montRetFondFall').style.display = "none";
+                    document.getElementById('ModoRetiro').disabled = true;
+                    
                 }
             });
         }
@@ -2079,18 +2090,18 @@ accionGuardar.addEventListener("click", function (event) {
         case 'FRJ':
         case 'FRR':
         case 'FRD':
-            agregajubilado();
+            actualizaJubInha();
             break;
 
         case 'FRF':
-            agregaRetFallecimiento();
+            actualizaFallAct();
             break;
 
         case 'FFJ':
             break;
 
         case 'FMJ':
-            agregaRetFallecimientoJ();
+            actualizaFallJub();
             break;
 
         default:

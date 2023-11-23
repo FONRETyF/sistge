@@ -30,7 +30,6 @@ use function PHPSTORM_META\type;
         }  
 
         private function calculaRet($aniosserv,$montprom){
-            
             if ($aniosserv >= 30) {
                 $retiro = (((str_replace("$","",$montprom) * 24) * 30) * 0.4) * .99;
                 $dats_ret = array();

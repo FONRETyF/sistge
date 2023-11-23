@@ -167,6 +167,7 @@
                                     $statementActEntr = $this->db->prepare($statementActEntr);
                                     $statementActEntr->execute();
                                     $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                                    $a_resultDeleteTram["updateEntrega"] = "Actualizada";
                                 }catch(\Throwable $th){
 									$a_resultDeleteTram["updateEntrega"] = "Fallo";
 									echo($th);
@@ -177,6 +178,7 @@
                                     $statementActEntr = $this->db->prepare($statementActEntr);
                                     $statementActEntr->execute();
                                     $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                                    $a_resultDeleteTram["updateEntrega"] = "Actualizada";
                                 }catch(\Throwable $th){
 									$a_resultDeleteTram["updateEntrega"] = "Fallo";
 									echo($th);
@@ -233,6 +235,7 @@
                                     $statementActEntr = $this->db->prepare($statementActEntr);
                                     $statementActEntr->execute();
                                     $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                                    $a_resultDeleteTram["updateEntrega"] = "Actualizada";
                                 } catch (\Throwable $th) {
                                     $a_resultDeleteTram["updateEntrega"] = "Fallo";
 									echo($th);
@@ -243,6 +246,7 @@
                                     $statementActEntr = $this->db->prepare($statementActEntr);
                                     $statementActEntr->execute();
                                     $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                                    $a_resultDeleteTram["updateEntrega"] = "Actualizada";
                                 } catch (\Throwable $th) {
                                     $a_resultDeleteTram["updateEntrega"] = "Fallo";
 									echo($th);
@@ -293,10 +297,16 @@
                     $a_resultDeleteTram["eliminaTramite"] = $eliminaTramite;
 
                     if ($a_resultDeleteTram["eliminaBenefs"] == "Eliminado" && $a_resultDeleteTram["eliminaCheque"] == "Eliminado" && $a_resultDeleteTram["actualizaMaestro"] == "Actualizado" && $a_resultDeleteTram["eliminaTramite"] == "Eliminado" ) {
-                        $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] - 1 .", numtramfall=". $get_entrega[0][15] - 1 .", numtramfallact=".$get_entrega[0][16] - 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) - str_replace(",","",str_replace("$","",$tramite[0]['montrettot'])) ."  WHERE identrega='".substr($identreret,0,6)."'";
-                        $statementActEntr = $this->db->prepare($statementActEntr);
-                        $statementActEntr->execute();
-                        $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                        try{
+                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] - 1 .", numtramfall=". $get_entrega[0][15] - 1 .", numtramfallact=".$get_entrega[0][16] - 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) - str_replace(",","",str_replace("$","",$tramite[0]['montrettot'])) ."  WHERE identrega='".substr($identreret,0,6)."'";
+                            $statementActEntr = $this->db->prepare($statementActEntr);
+                            $statementActEntr->execute();
+                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                            $a_resultDeleteTram["updateEntrega"] = "Actualizada";
+                        }catch(\Throwable $th){
+                            $a_resultDeleteTram["updateEntrega"] = "Fallo";
+                            echo($th);
+                        }
                     }
                     return $a_resultDeleteTram;
 
@@ -316,10 +326,16 @@
                         $a_resultDeleteTram["eliminaTramite"] = $eliminaTramite;
 
                         if ($a_resultDeleteTram["eliminaBenefs"] == "Eliminado" && $a_resultDeleteTram["eliminaCheque"] == "Eliminado" && $a_resultDeleteTram["actualizaMaestro"] == "Actualizado" && $a_resultDeleteTram["eliminaTramite"] == "Eliminado" ) {
-                            $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] - 1 .", numtramfall=". $get_entrega[0][15] - 1 .", numtramfalljubm=".$get_entrega[0][17] - 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) - str_replace(",","",str_replace("$","",$tramite[0]['montrettot'])) ."  WHERE identrega='".substr($identreret,0,6)."'";
-                            $statementActEntr = $this->db->prepare($statementActEntr);
-                            $statementActEntr->execute();
-                            $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                            try{
+                                $statementActEntr = "UPDATE public.entregas_fonretyf SET numtramites=". $get_entrega[0][12] - 1 .", numtramfall=". $get_entrega[0][15] - 1 .", numtramfalljubm=".$get_entrega[0][17] - 1 .", monttotentr=". str_replace(",","",str_replace("$","",$get_entrega[0][29])) - str_replace(",","",str_replace("$","",$tramite[0]['montrettot'])) ."  WHERE identrega='".substr($identreret,0,6)."'";
+                                $statementActEntr = $this->db->prepare($statementActEntr);
+                                $statementActEntr->execute();
+                                $resultsActEntr = $statementActEntr->fetchAll(PDO::FETCH_ASSOC);
+                                $a_resultDeleteTram["updateEntrega"] = "Actualizada";
+                            }catch(\Throwable $th){
+                                $a_resultDeleteTram["updateEntrega"] = "Fallo";
+                                echo($th);
+                            }
                         }
                         return $a_resultDeleteTram;
                     } elseif ($programaFallec == "FFJ") {

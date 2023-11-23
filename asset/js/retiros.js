@@ -288,25 +288,8 @@ function eliminarT(identret,cvemae) {
                 NumregsResult = resultadoDelete.length;
                 
                 switch (NumregsResult) {
-                    case 3:
-                        if (resultadoDelete[0] == "Eliminado" && resultadoDelete[1] == "Actualizado" && resultadoDelete[2] == "Eliminado" ) {
-                            tabla = $('#retiros_data').DataTable();
-                            tabla.ajax.reload();
-                            swal.fire(
-                                'Eliminado!',
-                                'El tramite se elimino correctamente!!!',
-                                'success'
-                            );
-                        } else {
-                            Swal.fire(
-                                "ALGO SALIO MAL",
-                                'por favor contacte al administrador del sistema'
-                            );
-                        }
-                        break;
-
                     case 4:
-                        if (resultadoDelete[0] == "Eliminado" && resultadoDelete[1] == "Eliminado" && resultadoDelete[2] == "Actualizado" && resultadoDelete[3] == "Eliminado" ) {
+                        if (resultadoDelete[0] == "Eliminado" && resultadoDelete[1] == "Actualizado" && resultadoDelete[2] == "Eliminado" && resultadoDelete[3] == "Actualizada") {
                             tabla = $('#retiros_data').DataTable();
                             tabla.ajax.reload();
                             swal.fire(
@@ -323,7 +306,24 @@ function eliminarT(identret,cvemae) {
                         break;
 
                     case 5:
-                        if (resultadoDelete[0] == "Eliminado" && resultadoDelete[1] == "Eliminado" && resultadoDelete[2] == "Eliminado" && resultadoDelete[3] == "Actualizado" && resultadoDelete[4] == "Eliminado" ) {
+                        if (resultadoDelete[0] == "Eliminado" && resultadoDelete[1] == "Eliminado" && resultadoDelete[2] == "Actualizado" && resultadoDelete[3] == "Eliminado" && resultadoDelete[4] == "Actualizada") {
+                            tabla = $('#retiros_data').DataTable();
+                            tabla.ajax.reload();
+                            swal.fire(
+                                'Eliminado!',
+                                'El tramite se elimino correctamente!!!',
+                                'success'
+                            );
+                        } else {
+                            Swal.fire(
+                                "ALGO SALIO MAL",
+                                'por favor contacte al administrador del sistema'
+                            );
+                        }
+                        break;
+
+                    case 6:
+                        if (resultadoDelete[0] == "Eliminado" && resultadoDelete[1] == "Eliminado" && resultadoDelete[2] == "Eliminado" && resultadoDelete[3] == "Actualizado" && resultadoDelete[4] == "Eliminado" && resultadoDelete[5] == "Actualizada") {
                             tabla = $('#retiros_data').DataTable();
                             tabla.ajax.reload();
                             swal.fire(
