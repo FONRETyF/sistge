@@ -495,8 +495,8 @@ use function PHPSTORM_META\type;
 
                 try {                                                                                                                                                                                                                                                                                                                                                                                                                                      
                     $consultaAdd = "INSERT INTO public.tramites_fonretyf(";
-                    $consultaAdd = $consultaAdd . "anioentrega, numentrega, identrega, idret, identret, cvemae,motvret, numdictam, fechdictam,fechbajfall, nomsolic, numcelsolic, numpartsolic, docttestamnt, fechdocttestmnt, numjuicio, numbenef, numbeneffall, modretiro, montrettot, montretletra, montretsinads, montretentr, montretentrletra, montretfall, montretfallletra, observtrami, fechrecib, fechentrega, estattramite, tramtexcepcion, numoficioaut, fechautori,imgautori, proceautori, numadeds, montadeudos, adfajam, adts, adfondpension, adturismo, montretnepfall, foliotramite, cveusureg, fechreg, montsalmin, imgacuerdo, estatacuerdo, cveusumodif, fechmodif, histmodif, tiptramne)";
-                    $consultaAdd = $consultaAdd . " VALUES (".$anioentr.", ".$numentre.", '".$identr."', ".$idretiro.", '".$identregRet."', '".$cvemae."', '".$motvret."', '".$numdictam."', '".$fechdictam."', '".$fechbajfall."', '".$nomsolic."', '".$numcel."', '".$numpart."', '', '1900-01-01','', 0, 0, '".$modret."', ".$montrettot.",'".$montrettotLet."',".$montrettot.", ".$montretentr.", '".$montretentrLet."', ".$montretfall.", '".$montretfallLet."', '".$observaciones."', '".$fechrecib."', '1900-01-01', 'PROCESADO', ".$exception.", '".$numoficautori."', '".$fechautori."', '".$imgautori."', '', 0, 0, 0, 0, 0, 0,0, '".$folioTram."', '".$cveusu."','".$fecha."',".$diaHaber.",'',0,'','1900-01-01','','".$tipTram."')";
+                    $consultaAdd = $consultaAdd . "anioentrega, numentrega, identrega, idret, identret, cvemae,motvret, numdictam, fechdictam,fechbajfall, nomsolic, numcelsolic, numpartsolic, docttestamnt, fechdocttestmnt, numjuicio, numbenef, numbeneffall, modretiro, montrettot, montretletra, montretsinads, montretentr, montretentrletra, montretfall, montretfallletra, observtrami, fechrecib, fechentrega, estattramite, tramtexcepcion, numoficioaut, fechautori,imgautori, proceautori, numadeds, montadeudos, adfajam, adts, adfondpension, adturismo, montretnepfall, foliotramite, cveusureg, fechreg, montsalmin, imgacuerdo, estatacuerdo, cveusumodif, fechmodif, histmodif, tiptramne, adceso)";
+                    $consultaAdd = $consultaAdd . " VALUES (".$anioentr.", ".$numentre.", '".$identr."', ".$idretiro.", '".$identregRet."', '".$cvemae."', '".$motvret."', '".$numdictam."', '".$fechdictam."', '".$fechbajfall."', '".$nomsolic."', '".$numcel."', '".$numpart."', '', '1900-01-01','', 0, 0, '".$modret."', ".$montrettot.",'".$montrettotLet."',".$montrettot.", ".$montretentr.", '".$montretentrLet."', ".$montretfall.", '".$montretfallLet."', '".$observaciones."', '".$fechrecib."', '1900-01-01', 'PROCESADO', ".$exception.", '".$numoficautori."', '".$fechautori."', '".$imgautori."', '', 0, 0, 0, 0, 0, 0,0, '".$folioTram."', '".$cveusu."','".$fecha."',".$diaHaber.",'',0,'','1900-01-01','','".$tipTram."',0)";
                     $consultaAdd = $this->db->prepare($consultaAdd);
                     $consultaAdd->execute();
                     $results = $consultaAdd->fetchAll(PDO::FETCH_ASSOC);              
@@ -654,8 +654,8 @@ use function PHPSTORM_META\type;
 
                 try {
                     $consultaAdd = "INSERT INTO public.tramites_fonretyf(";
-                    $consultaAdd = $consultaAdd . "anioentrega, numentrega, identrega, idret, identret, cvemae, motvret, numdictam, fechdictam, fechbajfall, nomsolic, numcelsolic, numpartsolic, docttestamnt, fechdocttestmnt, numjuicio, numbenef, numbeneffall, modretiro, montrettot, montretletra, montretsinads, montretentr, montretentrletra, montretfall, montretfallletra, observtrami, fechrecib, fechentrega, estattramite, tramtexcepcion, numoficioaut, fechautori, imgautori, proceautori, numadeds, montadeudos, adfajam, adts, adfondpension, adturismo, montretnepfall, foliotramite, cveusureg, fechreg, montsalmin, imgacuerdo, estatacuerdo, cveusumodif, fechmodif, histmodif, tiptramne)";
-                    $consultaAdd = $consultaAdd . " VALUES (".$anioentr.", ".$numentre.", '".$identr."', ".$idretiro.", '".$identregRet."', '".$cvemae."', '".$motvret."', '', '1900-01-01', '".$fechbajfall."', '".$nomsolic."', '".$numcel."', '".$numpart."', '".$testamento."', '".$fechtestamnt."', '', ".$numbenefs.", ".$benefsFallcs.", '".$modret."', ".$montrettot.",'".$montrettotLet."', ".$montretentr.", ".$montretentr.", '".$montretentrLet."', 0, '', '".$observaciones."', '".$fechrecib."', '1900-01-01', 'PROCESADO', ".$exception.", '".$numoficautori."', '".$fechautori."', '".$imgautori."', '', 0, 0, 0, 0, 0, 0, 0, '".$folioTram."', '".$cveusu."','".$fecha."',0,'', 0,'','1900-01-01','','".$tiptram."');";
+                    $consultaAdd = $consultaAdd . "anioentrega, numentrega, identrega, idret, identret, cvemae, motvret, numdictam, fechdictam, fechbajfall, nomsolic, numcelsolic, numpartsolic, docttestamnt, fechdocttestmnt, numjuicio, numbenef, numbeneffall, modretiro, montrettot, montretletra, montretsinads, montretentr, montretentrletra, montretfall, montretfallletra, observtrami, fechrecib, fechentrega, estattramite, tramtexcepcion, numoficioaut, fechautori, imgautori, proceautori, numadeds, montadeudos, adfajam, adts, adfondpension, adturismo, montretnepfall, foliotramite, cveusureg, fechreg, montsalmin, imgacuerdo, estatacuerdo, cveusumodif, fechmodif, histmodif, tiptramne, adceso)";
+                    $consultaAdd = $consultaAdd . " VALUES (".$anioentr.", ".$numentre.", '".$identr."', ".$idretiro.", '".$identregRet."', '".$cvemae."', '".$motvret."', '', '1900-01-01', '".$fechbajfall."', '".$nomsolic."', '".$numcel."', '".$numpart."', '".$testamento."', '".$fechtestamnt."', '', ".$numbenefs.", ".$benefsFallcs.", '".$modret."', ".$montrettot.",'".$montrettotLet."', ".$montretentr.", ".$montretentr.", '".$montretentrLet."', 0, '', '".$observaciones."', '".$fechrecib."', '1900-01-01', 'PROCESADO', ".$exception.", '".$numoficautori."', '".$fechautori."', '".$imgautori."', '', 0, 0, 0, 0, 0, 0, 0, '".$folioTram."', '".$cveusu."','".$fecha."',0,'', 0,'','1900-01-01','','".$tiptram."',0);";
                     $consultaAdd = $this->db->prepare($consultaAdd);
                     $consultaAdd->execute();
                     $results = $consultaAdd->fetchAll(PDO::FETCH_ASSOC);
@@ -729,8 +729,8 @@ use function PHPSTORM_META\type;
                     try {
 						
                         $consultaAdd = "INSERT INTO public.tramites_fonretyf(";
-                        $consultaAdd = $consultaAdd . "anioentrega, numentrega, identrega, idret, identret, cvemae, motvret, numdictam,fechdictam, fechbajfall, nomsolic, numcelsolic, numpartsolic, docttestamnt, fechdocttestmnt, numjuicio, numbenef, numbeneffall, modretiro, montrettot,montretletra, montretsinads, montretentr, montretentrletra, montretfall, montretfallletra, observtrami, fechrecib, fechentrega, estattramite, tramtexcepcion, numoficioaut, fechautori, imgautori, proceautori, numadeds, montadeudos, adfajam, adts, adfondpension, adturismo, montretnepfall, foliotramite, cveusureg, fechreg, montsalmin, imgacuerdo, estatacuerdo, cveusumodif, fechmodif, histmodif,tiptramne)";
-                        $consultaAdd = $consultaAdd . " VALUES (".$anioentr.", ".$numentre.", '".$identr."', ".$idretiro.", '".$identregRet."', '".$cveissemym."', '".$motvret."', '', '1900-01-01', '".$fechbajfall."', '".$nomsolic."', '".$numcel."', '".$numpart."', '".$testamento."', '".$fechtestamnt."', '', ".$numbenefs.", ".$benefsFallcs.", '".$modret."', ".$montrettot.",'". $montrettotLet . "', ".$montrettot.", ".$montretentr.",'". $montretentrLet."', 0, '', '".$observaciones."', '".$fechrecib."', '1900-01-01', 'PROCESADO', ".$exception.", '".$numoficautori."', '".$fechautori."', '".$imgautori."', '', 0, 0, 0, 0, 0, 0, 0, '".$folioTram."', '".$cveusu."','".$fecha."',0,'',0,'','1900-01-01','','".$tiptram."');";
+                        $consultaAdd = $consultaAdd . "anioentrega, numentrega, identrega, idret, identret, cvemae, motvret, numdictam,fechdictam, fechbajfall, nomsolic, numcelsolic, numpartsolic, docttestamnt, fechdocttestmnt, numjuicio, numbenef, numbeneffall, modretiro, montrettot,montretletra, montretsinads, montretentr, montretentrletra, montretfall, montretfallletra, observtrami, fechrecib, fechentrega, estattramite, tramtexcepcion, numoficioaut, fechautori, imgautori, proceautori, numadeds, montadeudos, adfajam, adts, adfondpension, adturismo, montretnepfall, foliotramite, cveusureg, fechreg, montsalmin, imgacuerdo, estatacuerdo, cveusumodif, fechmodif, histmodif,tiptramne,adceso)";
+                        $consultaAdd = $consultaAdd . " VALUES (".$anioentr.", ".$numentre.", '".$identr."', ".$idretiro.", '".$identregRet."', '".$cveissemym."', '".$motvret."', '', '1900-01-01', '".$fechbajfall."', '".$nomsolic."', '".$numcel."', '".$numpart."', '".$testamento."', '".$fechtestamnt."', '', ".$numbenefs.", ".$benefsFallcs.", '".$modret."', ".$montrettot.",'". $montrettotLet . "', ".$montrettot.", ".$montretentr.",'". $montretentrLet."', 0, '', '".$observaciones."', '".$fechrecib."', '1900-01-01', 'PROCESADO', ".$exception.", '".$numoficautori."', '".$fechautori."', '".$imgautori."', '', 0, 0, 0, 0, 0, 0, 0, '".$folioTram."', '".$cveusu."','".$fecha."',0,'',0,'','1900-01-01','','".$tiptram."',0);";
 					    $consultaAdd = $this->db->prepare($consultaAdd);
                         $consultaAdd->execute();
                         $results = $consultaAdd->fetchAll(PDO::FETCH_ASSOC);
@@ -1169,7 +1169,7 @@ use function PHPSTORM_META\type;
             }
         }
 
-        public function updateJubInha($anioentr,$numentre,$identr,$idretiro,$identregRet,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$numdictam,$fechdictam,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$montretfall,$fechrecib,$numoficautori,$fechautori,$imgautori,$diaHaber,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$curpmae,$rfcmae,$tiptramU,$folcheqBenefU,$cveusu){
+        public function updateJubInha($anioentr,$numentre,$identr,$idretiro,$identregRet,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$numdictam,$fechdictam,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$montretfall,$fechrecib,$numoficautori,$fechautori,$imgautori,$diaHaber,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$curpmae,$rfcmae,$tiptramU,$folcheqBenefU,$adedceso,$cveusu){
             require_once("/var/www/html/sistge/model/Entregas.php");
             $entrega = new Entrega();
             $get_entrega = $entrega -> get_entrega_id($identr);
@@ -1196,7 +1196,7 @@ use function PHPSTORM_META\type;
             try {                                                                                                                                                                                                                                                                                                                                                                                                                                      
                 $consultaUpdate = "UPDATE public.tramites_fonretyf";
                 $consultaUpdate = $consultaUpdate . " SET numdictam='".$numdictam."', fechdictam='".$fechdictam."', fechbajfall='".$fechbajfall."', nomsolic='".$nomsolic."', numcelsolic='".$numcel."', numpartsolic='".$numpart."', modretiro='".$modret."', montrettot=".$montrettot.", montretletra='".$montrettotLet."', montretsinads=".$montretsnadeds.", montretentr=".$montretentr.", montretentrletra='".$montretentrLet."', montretfall=".$montretfall.", montretfallletra='".$montretfallLet."',";
-                $consultaUpdate = $consultaUpdate . " fechrecib='".$fechrecib."', tramtexcepcion=".$exception.", numoficioaut='".$numoficautori."', fechautori='".$fechautori."', imgautori='".$imgautori."', adfajam=".$adedfajam.", adts=".$adedts.", adfondpension=".$adedfondpens.", adturismo=".$adedturismo.", montadeudos=".$montadeds.", montsalmin=".$diaHaber.", cveusumodif='".$cveusu."', fechmodif='".$fecha."', numadeds=".$numadeds.", tiptramne='".$tiptramU."' WHERE cvemae='".$cvemae."' AND identret='".$identregRet."';";
+                $consultaUpdate = $consultaUpdate . " fechrecib='".$fechrecib."', tramtexcepcion=".$exception.", numoficioaut='".$numoficautori."', fechautori='".$fechautori."', imgautori='".$imgautori."', adfajam=".$adedfajam.", adts=".$adedts.", adfondpension=".$adedfondpens.", adturismo=".$adedturismo.", montadeudos=".$montadeds.", montsalmin=".$diaHaber.", cveusumodif='".$cveusu."', fechmodif='".$fecha."', numadeds=".$numadeds.", tiptramne='".$tiptramU."', adceso=".$adedceso."  WHERE cvemae='".$cvemae."' AND identret='".$identregRet."';";
                 $consultaUpdate = $this->db->prepare($consultaUpdate);
                 $consultaUpdate->execute();
                 $results = $consultaUpdate->fetchAll(PDO::FETCH_ASSOC);              
@@ -1238,6 +1238,14 @@ use function PHPSTORM_META\type;
                     $montBenefAd[] = $adedturismo;
                     $adeudoOfic[] ="TURISMO";
                 }
+                if ($adedceso > 0) {
+                    $nombreBenefAd[] =$nomcom; 
+                    $estatEdadAd[] = "M";
+                    $porcsBenefAd[] = "100";
+                    $montBenefAd[] = $adedceso;
+                    $adeudoOfic[] ="CESO";
+                }
+
 
                 $insertaChequeAd = $this->insertaChequeAdeudo($anioentr,$numentre,$idretiro,$identregRet,$cvemae,$numadeds,$estatEdadAd,$porcsBenefAd,$nombreBenefAd,$montBenefAd,$cveusu,$fecha,$motvret,$adeudoOfic,$tiptramU);
                 $a_resultUpdTram["insertChequeA"] = $insertaChequeAd;
@@ -1276,6 +1284,13 @@ use function PHPSTORM_META\type;
                     $montBenefAd[] = $adedturismo;
                     $adeudoOfic[] ="TURISMO";
                 }
+                if ($adedceso > 0) {
+                    $nombreBenefAd[] =$nomcom; 
+                    $estatEdadAd[] = "M";
+                    $porcsBenefAd[] = "100";
+                    $montBenefAd[] = $adedceso;
+                    $adeudoOfic[] ="CESO";
+                }
 
                 $insertaChequeAd = $this->insertaChequeAdeudo($anioentr,$numentre,$idretiro,$identregRet,$cvemae,$numadeds,$estatEdadAd,$porcsBenefAd,$nombreBenefAd,$montBenefAd,$cveusu,$fecha,$motvret,$adeudoOfic,$tiptramU);
                 $a_resultUpdTram["insertChequeA"] = $insertaChequeAd;
@@ -1297,7 +1312,7 @@ use function PHPSTORM_META\type;
             return $a_resultUpdTram;
         }
 
-        public function updateFA($anioentr,$numentre,$identr,$idretiro,$identregRet,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidasbenefs,$testamento,$fechtestamnt,$curpmae,$rfcmae,$tipTramUFA,$folsCheqsBUFA,$cveusu){
+        public function updateFA($anioentr,$numentre,$identr,$idretiro,$identregRet,$cvemae,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$fechinipsgs,$fechfinpsgs,$numpsgs,$diaspsgs,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidasbenefs,$testamento,$fechtestamnt,$curpmae,$rfcmae,$tipTramUFA,$folsCheqsBUFA,$adedceso,$cveusu){
             require_once("/var/www/html/sistge/model/Entregas.php");
             $entrega = new Entrega();
             $get_entrega = $entrega -> get_entrega_id($identr);
@@ -1328,7 +1343,7 @@ use function PHPSTORM_META\type;
             try {                                                                                                                                                                                                                                                                                                                                                                                                                                      
                 $consultaUpdate = "UPDATE public.tramites_fonretyf";
                 $consultaUpdate = $consultaUpdate . " SET fechbajfall='".$fechbajfall."', nomsolic='".$nomsolic."', numcelsolic='".$numcel."', numpartsolic='".$numpart."', modretiro='".$modret."', montrettot=".$montrettot.", montretletra='".$montrettotLet."', montretsinads=".$montretsnadeds.", montretentr=".$montretentr.", montretentrletra='".$montretentrLet."', docttestamnt='".$testamento."', fechdocttestmnt='".$fechtestamnt."', numbenef=".$numbenefs.",";
-                $consultaUpdate = $consultaUpdate . " fechrecib='".$fechrecib."', tramtexcepcion=".$exception.", numoficioaut='".$numoficautori."', fechautori='".$fechautori."', imgautori='".$imgautori."', adfajam=".$adedfajam.", adts=".$adedts.", adfondpension=".$adedfondpens.", adturismo=".$adedturismo.", montadeudos=".$montadeds.", cveusumodif='".$cveusu."', fechmodif='".$fecha."', numadeds=".$numadeds.", tiptramne='".$tipTramUFA."' WHERE cvemae='".$cvemae."' AND identret='".$identregRet."';";
+                $consultaUpdate = $consultaUpdate . " fechrecib='".$fechrecib."', tramtexcepcion=".$exception.", numoficioaut='".$numoficautori."', fechautori='".$fechautori."', imgautori='".$imgautori."', adfajam=".$adedfajam.", adts=".$adedts.", adfondpension=".$adedfondpens.", adturismo=".$adedturismo.", montadeudos=".$montadeds.", cveusumodif='".$cveusu."', fechmodif='".$fecha."', numadeds=".$numadeds.", tiptramne='".$tipTramUFA."', adceso=".$adedceso."  WHERE cvemae='".$cvemae."' AND identret='".$identregRet."';";
                 $consultaUpdate = $this->db->prepare($consultaUpdate);
                 $consultaUpdate->execute();
                 $results = $consultaUpdate->fetchAll(PDO::FETCH_ASSOC);              
@@ -1395,6 +1410,13 @@ use function PHPSTORM_META\type;
                     $montBenefAd[] = $adedturismo;
                     $adeudoOfic[] ="TURISMO";
                 }
+                if ($adedceso > 0) {
+                    $nombreBenefAd[] =$nombresB[0]; 
+                    $estatEdadAd[] = "M";
+                    $porcsBenefAd[] = "100";
+                    $montBenefAd[] = $adedceso;
+                    $adeudoOfic[] ="CESO";
+                }
 
                 $insertaChequeAd = $this->insertaChequeAdeudoF($anioentr,$numentre,$idretiro,$identregRet,$cvemae,$numadeds,$estatEdadAd,$porcsBenefAd,$nombreBenefAd,$montBenefAd,$cveusu,$fecha,$motvret,$adeudoOfic,$tipTramUFA);
                 $a_resultUpdTramFA["insertChequeA"] = $insertaChequeAd;
@@ -1416,7 +1438,7 @@ use function PHPSTORM_META\type;
         }
 
         
-        public function updateFJ($anioentr,$numentre,$identr,$idretiro,$identregRet,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidasbenefs,$testamento,$fechtestamnt,$curpmae,$rfcmae,$tipTramUFJ,$folsCheqsBUFJ,$cveusu){
+        public function updateFJ($anioentr,$numentre,$identr,$idretiro,$identregRet,$cveissemym,$estatlaboral,$motvret,$apepat,$apemat,$nombre,$nomcom,$region,$fechbajfall,$nomsolic,$numcel,$numpart,$fechbase,$diasserv,$aniosserv,$modret,$montrettot,$montretentr,$fechrecib,$numoficautori,$fechautori,$imgautori,$numbenefs,$adedfajam,$adedts,$adedfondpens,$adedturismo,$montadeds,$montretsnadeds,$numadeds,$nomsbenefs,$curpsbenefs,$parentsbenefs,$porcsbenefs,$edadesbenefs,$vidasbenefs,$testamento,$fechtestamnt,$curpmae,$rfcmae,$tipTramUFJ,$folsCheqsBUFJ,$adedceso,$cveusu){
             require_once("/var/www/html/sistge/model/Entregas.php");
             
             $entrega = new Entrega();
@@ -1448,7 +1470,7 @@ use function PHPSTORM_META\type;
             try {                                                                                                                                                                                                                                                                                                                                                                                                                                      
                 $consultaUpdate = "UPDATE public.tramites_fonretyf";
                 $consultaUpdate = $consultaUpdate . " SET fechbajfall='".$fechbajfall."', nomsolic='".$nomsolic."', numcelsolic='".$numcel."', numpartsolic='".$numpart."', modretiro='".$modret."', montrettot=".$montrettot.", montretletra='".$montrettotLet."', montretsinads=".$montretsnadeds.", montretentr=".$montretentr.", montretentrletra='".$montretentrLet."', docttestamnt='".$testamento."', fechdocttestmnt='".$fechtestamnt."', numbenef=".$numbenefs.",";
-                $consultaUpdate = $consultaUpdate . " fechrecib='".$fechrecib."', tramtexcepcion=".$exception.", numoficioaut='".$numoficautori."', fechautori='".$fechautori."', imgautori='".$imgautori."', adfajam=".$adedfajam.", adts=".$adedts.", adfondpension=".$adedfondpens.", adturismo=".$adedturismo.", montadeudos=".$montadeds.", cveusumodif='".$cveusu."', fechmodif='".$fecha."', numadeds=".$numadeds.", tiptramne='".$tipTramUFJ."' WHERE cvemae='".$cveissemym."' AND identret='".$identregRet."';";
+                $consultaUpdate = $consultaUpdate . " fechrecib='".$fechrecib."', tramtexcepcion=".$exception.", numoficioaut='".$numoficautori."', fechautori='".$fechautori."', imgautori='".$imgautori."', adfajam=".$adedfajam.", adts=".$adedts.", adfondpension=".$adedfondpens.", adturismo=".$adedturismo.", montadeudos=".$montadeds.", cveusumodif='".$cveusu."', fechmodif='".$fecha."', numadeds=".$numadeds.", tiptramne='".$tipTramUFJ."', adceso=".$adedceso."   WHERE cvemae='".$cveissemym."' AND identret='".$identregRet."';";
                 $consultaUpdate = $this->db->prepare($consultaUpdate);
                 $consultaUpdate->execute();
                 $results = $consultaUpdate->fetchAll(PDO::FETCH_ASSOC);              
@@ -1515,6 +1537,13 @@ use function PHPSTORM_META\type;
                     $porcsBenefAd[] = "100";
                     $montBenefAd[] = $adedturismo;
                     $adeudoOfic[] ="TURISMO";
+                }
+                if ($adedceso > 0) {
+                    $nombreBenefAd[] =$nombresB[0]; 
+                    $estatEdadAd[] = "M";
+                    $porcsBenefAd[] = "100";
+                    $montBenefAd[] = $adedceso;
+                    $adeudoOfic[] ="CESO";
                 }
 
                 $insertaChequeAd = $this->insertaChequeAdeudoF($anioentr,$numentre,$idretiro,$identregRet,$cveissemym,$numadeds,$estatEdadAd,$porcsBenefAd,$nombreBenefAd,$montBenefAd,$cveusu,$fecha,$motvret,$adeudoOfic,$tipTramUFJ);

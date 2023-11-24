@@ -6,6 +6,7 @@ var idretiro = '';
 var paramidret = '';
 var numadedsM = 0;
 var tipTramit = '';
+var modalRetiro="";
 
 function init(){
 
@@ -50,7 +51,6 @@ $(document).ready(function () {
                 var infoTramite = Object.values(datUpdateTram[0]);
                 
                 idretiro = infoTramite[4];
-                
                 switch (infoTramite[7]) {
                     case 'FRI':
                         var estatLabMae = "INHABILITADO";
@@ -166,20 +166,37 @@ $(document).ready(function () {
                         $("#ModoRetiro").val("C");
                         document.getElementById('DivTpoDiferido').style.display = "none";
                         document.getElementById('montRetFondFall').style.display = "none";
+                        $("#ModalRetiro").val("C");
+                        modalRetiro = modretiro;
                     } else {
                         $("#ModoRetiro").val("D");
                         if (modretiro == "D50") {
                             document.getElementById('ModRetDiferid50').checked = true;
+                            $("#ModalRetiro").val("D50");
+                            modalRetiro = modretiro;
                         }else if (modretiro == "D100") {
                             document.getElementById('ModRetDiferid100').checked = true;
+                            $("#ModalRetiro").val("D100");
+                            modalRetiro = modretiro;
                         }
                     }
+
+                    tipTramit = infoTramite[52];
+					if ( tipTramit == '0') {
+						document.getElementById("tipTramNE").checked = false;
+						document.getElementById("numfolioTEJI").style.display = "none";
+                    } else{
+						document.getElementById("tipTramNE").checked = true;
+						document.getElementById("numfolioTEJI").style.display = "block";
+						$("#numfolcheqTEJI").val(infoTramite[68]);
+					}
+                    
                 } else {
                     $("#inputcausaret").val(infoTramite[7]);
                     $("#motvret").val(infoTramite[7]);
 					
 					tipTramit = infoTramite[52];
-					if ( tipTramit == 0) {
+					if ( tipTramit == '0') {
 						document.getElementById("tipTramNE").checked = false;
 						document.getElementById("numfolioTEJI").style.display = "none";
                     } else{
@@ -194,11 +211,11 @@ $(document).ready(function () {
                     $("#IdEntrega").val(infoTramite[3]);
                     $("#folioTram").val(infoTramite[43]);
                     $("#cspMaeBusq").val(infoTramite[6]);
-                    $("#cveIMaeBusq").val(infoTramite[74]);
+                    $("#cveIMaeBusq").val(infoTramite[65]);
                     $("#estLaboral").val(estatLabMae);
-                    $("#apePatMae").val(infoTramite[75]);
-                    $("#apeMatMae").val(infoTramite[76]);
-                    $("#nombreMae").val(infoTramite[77]);
+                    $("#apePatMae").val(infoTramite[66]);
+                    $("#apeMatMae").val(infoTramite[67]);
+                    $("#nombreMae").val(infoTramite[68]);
                     $("#nomComplMae").val(infoTramite[54]);  
                     $("#CURPMae").val(infoTramite[55]);
                     $("#RFCMae").val(infoTramite[56]);
@@ -239,9 +256,9 @@ $(document).ready(function () {
                         );                        
                     }
                     
-                    $("#fechsIniPSGS").val(infoTramite[78]);
-                    $("#fechsFinPSGS").val(infoTramite[79]);
-                    $("#diasServMae").val(infoTramite[80]);
+                    $("#fechsIniPSGS").val(infoTramite[69]);
+                    $("#fechsFinPSGS").val(infoTramite[70]);
+                    $("#diasServMae").val(infoTramite[71]);
                     document.getElementById('diasServMae').disabled = true;
                     $("#aniosServMae").val(infoTramite[59]);
                     document.getElementById('aniosServMae').disabled = true;
@@ -257,12 +274,18 @@ $(document).ready(function () {
                         $("#ModoRetiro").val("C");
                         document.getElementById('DivTpoDiferido').style.display = "none";
                         document.getElementById('montRetFondFall').style.display = "none";
+                        $("#ModalRetiro").val("C");
+                        modalRetiro = modretiro;
                     } else {
                         $("#ModoRetiro").val("D");
                         if (modretiro == "D50") {
                             document.getElementById('ModRetDiferid50').checked = true;
+                            modalRetiro = modretiro;
+                            $("#ModalRetiro").val("D50");
                         }else if (modretiro == "D100") {
                             document.getElementById('ModRetDiferid100').checked = true;
+                            modalRetiro = modretiro;
+                            $("#ModalRetiro").val("D100");
                         }
                     }
                 }
@@ -288,7 +311,7 @@ $(document).ready(function () {
                 $("#numentr").val(infoTramite[2]);
 				
 				tipTramit = infoTramite[52];
-				if ( tipTramit == 0) {
+				if ( tipTramit == '0') {
 					document.getElementById("tipTramNE").checked = false;
 					document.getElementById("numfolioTEJI").style.display = "none";
 					document.getElementById("DivfolioBenef").style.display = "none";
@@ -433,6 +456,8 @@ $(document).ready(function () {
                     document.getElementById('DivTpoDiferido').style.display = "none";
                     document.getElementById('montRetFondFall').style.display = "none";
                     document.getElementById('ModoRetiro').disabled = true;
+                    modalRetiro = modretiro;
+                    $("#ModalRetiro").val("C");
                 }
             });
 
@@ -457,7 +482,7 @@ $(document).ready(function () {
                 $("#numentr").val(infoTramite[2]);
 				
 				tipTramit = infoTramite[52];
-				if ( tipTramit == 0) {
+				if ( tipTramit == '0') {
 					document.getElementById("tipTramNE").checked = false;
 					document.getElementById("numfolioTEJI").style.display = "none";
 					document.getElementById("DivfolioBenef").style.display = "none";
@@ -578,7 +603,8 @@ $(document).ready(function () {
                     document.getElementById('DivTpoDiferido').style.display = "none";
                     document.getElementById('montRetFondFall').style.display = "none";
                     document.getElementById('ModoRetiro').disabled = true;
-                    
+                    modalRetiro = modretiro;
+                    $("#ModalRetiro").val("C");
                 }
             });
         }
@@ -956,7 +982,7 @@ const accionCalculadora = document.querySelector('#calcDiasAnios');
 accionCalculadora.addEventListener("click", function (evento) {
     evento.preventDefault();
     var valorValid = 0;
-    var motivo = document.getElementById('OpcCauRetiro').value;
+    var motivo = document.getElementById('inputcausaret').value;
 
     if (motivo == "FRI" || motivo == "FRJ" || motivo == "FRR" || motivo == "FRD" || motivo == "FRF") {
         if (motivo == "FRI" || motivo == "FRJ" || motivo == "FRR" || motivo == "FRD") {
@@ -1012,7 +1038,7 @@ accionCalculadora.addEventListener("click", function (evento) {
 function validaFechas(valorValid, a_fechs) {
     NumPersgs = $("#numPsgs").val();
     diasInacPsgs = $("#diasPsgs").val();
-    if (causaRet=="FR") {
+    if (motivo == "FRI" || motivo == "FRJ" || motivo == "FRR" || motivo == "FRD" || motivo == "FRF") {
         switch (motivo) {
             case "FRI":
             case "FRJ":
@@ -1044,9 +1070,21 @@ function validaFechas(valorValid, a_fechs) {
                                 var montInteger = parseInt(data.montret);
                                 var montFloat = parseInt((data.montret % 1)*100);
                                 $('#montRet').val(montInteger + "." + montFloat);
-                                document.getElementById("agregaTramite").disabled =  false;
-                                montoRetiro = parseFloat(document.getElementById('montRet').value);
-                                document.getElementById("monRetEntr").value = montoRetiro;
+                                document.getElementById("updateTramite").disabled =  false;
+
+                                if ($("#ModalRetiro").val() == "C") {
+                                    montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                    document.getElementById("monRetEntr").value = montoRetiro;
+                                } else if ($("#ModalRetiro").val() == "D50") {
+                                    montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                    document.getElementById("monRetEntr").value = montoRetiro / 2;
+                                    document.getElementById("montRetFF").value = montoRetiro / 2;
+                                } else if ($("#ModalRetiro").val() == "D100") {
+                                    montoRetiro = parseFloat(document.getElementById('montRet').value);
+                                    document.getElementById("monRetEntr").value = 0.00;
+                                    document.getElementById("montRetFF").value = montoRetiro;
+                                }
+                                
                             });                 
                             break;
                         
@@ -1109,7 +1147,7 @@ function validaFechas(valorValid, a_fechs) {
                                 data = JSON.parse(data);
                                 var montInteger = parseInt(data.montret);
                                 var montFloat = parseInt((data.montret % 1)*100);
-                                document.getElementById("agregaTramite").disabled =  false;
+                                document.getElementById("updateTramite").disabled =  false;
                                 $('#montRet').val(montInteger + "." + montFloat);
                                 document.getElementById("monRetEntr").value =  $('#montRet').val();
                                 if (motivo == "FRF" || motivo == "FFJ" || motivo == "FMJ") {
@@ -1149,7 +1187,7 @@ function validaFechas(valorValid, a_fechs) {
                                         data = JSON.parse(data);
                                         var montInteger = parseInt(data.montret);
                                         var montFloat = parseInt((data.montret % 1)*100);
-                                        document.getElementById("agregaTramite").disabled =  false;
+                                        document.getElementById("updateTramite").disabled =  false;
                                         $('#montRet').val(montInteger + "." + montFloat);
                                         document.getElementById("monRetEntr").value =  $('#montRet').val();
                                         if (motret == "FRF" || motret == "FFJ" || motret == "FMJ") {
@@ -1186,7 +1224,7 @@ function validaFechas(valorValid, a_fechs) {
             default:
                 break;
         }
-    } else if (causaRet=="FF" || causaRet=="FM"){
+    } else if (motivo == "FFJ" || motivo == "FMJ"){
         $.post("../../controller/tramites.php?op=validaFechsFJ",{clavemae:clavemae,motret:motivo,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"],opTest:$("#OpcTestamento").val(),fechCTJuic:$("#fechCTJuicio").val(),fechIniJuic:document.getElementById("fechIniJuicio").value},function(data){
             data = JSON.parse(data);
             resultValid = data.descResult;
@@ -1205,7 +1243,7 @@ function validaFechas(valorValid, a_fechs) {
                             data = JSON.parse(data);
                             var montInteger = parseInt(data.montret);
                             var montFloat = parseInt((data.montret % 1)*100);
-                            document.getElementById("agregaTramite").disabled =  false;
+                            document.getElementById("updateTramite").disabled =  false;
                             $('#montRet').val(montInteger + "." + montFloat);
                             document.getElementById("monRetEntr").value =  $('#montRet').val();
                             if (motret == "FRF" || motret == "FFJ" || motret == "FMJ") {
@@ -1221,7 +1259,7 @@ function validaFechas(valorValid, a_fechs) {
                             data = JSON.parse(data);
                             var montInteger = parseInt(data.montret);
                             var montFloat = parseInt((data.montret % 1)*100);
-                            document.getElementById("agregaTramite").disabled =  false;
+                            document.getElementById("updateTramite").disabled =  false;
                             $('#montRet').val(montInteger + "." + montFloat);
                             document.getElementById("monRetEntr").value =  $('#montRet').val();
                             if (motret == "FRF" || motret == "FFJ" || motret == "FMJ") {
@@ -1265,7 +1303,7 @@ function validaFechas(valorValid, a_fechs) {
                                     data = JSON.parse(data);
                                     var montInteger = parseInt(data.montret);
                                     var montFloat = parseInt((data.montret % 1)*100);
-                                    document.getElementById("agregaTramite").disabled =  false;
+                                    document.getElementById("updateTramite").disabled =  false;
                                     $('#montRet').val(montInteger + "." + montFloat);
                                     document.getElementById("monRetEntr").value =  $('#montRet').val();
                                     if (motret == "FRF" || motret == "FFJ" || motret == "FMJ") {
@@ -1281,7 +1319,7 @@ function validaFechas(valorValid, a_fechs) {
                                     data = JSON.parse(data);
                                     var montInteger = parseInt(data.montret);
                                     var montFloat = parseInt((data.montret % 1)*100);
-                                    document.getElementById("agregaTramite").disabled =  false;
+                                    document.getElementById("updateTramite").disabled =  false;
                                     $('#montRet').val(montInteger + "." + montFloat);
                                     document.getElementById("monRetEntr").value =  $('#montRet').val();
                                     if (motret == "FRF" || motret == "FFJ" || motret == "FMJ") {
@@ -1919,7 +1957,7 @@ accionActRetiro.addEventListener("click", function (event) {
     
     numadeds = 0
     adeudosMae = 0;
-    adeudosMae = parseFloat(document.getElementById('AdedFajam').value.replace(",","")) + parseFloat(document.getElementById('AdedTS').value.replace(",","")) + parseFloat(document.getElementById('AdedFondPension').value.replace(",","")) + parseFloat(document.getElementById('AdedTurismo').value.replace(",",""));
+    adeudosMae = parseFloat(document.getElementById('AdedFajam').value.replace(",","")) + parseFloat(document.getElementById('AdedTS').value.replace(",","")) + parseFloat(document.getElementById('AdedFondPension').value.replace(",","")) + parseFloat(document.getElementById('AdedTurismo').value.replace(",","")) + parseFloat(document.getElementById('AdedCeso').value.replace(",",""));
 
     if (parseFloat(document.getElementById('AdedFajam').value.replace(",","")) > 0) {
         numadeds++;
@@ -1931,6 +1969,9 @@ accionActRetiro.addEventListener("click", function (event) {
         numadeds++;
     }
     if (parseFloat(document.getElementById('AdedTurismo').value.replace(",","")) > 0) {
+        numadeds++;
+    }
+    if (parseFloat(document.getElementById('AdedCeso').value.replace(",","")) > 0) {
         numadeds++;
     }
 
@@ -2137,27 +2178,28 @@ function actualizaJubInha() {
                                                         Udiaspsgs:$("#diasPsgs").val(),
                                                         UdiasServ:$("#diasServMae").val(),
                                                         UaniosServ:$('#aniosServMae').val(),
-                                                        UmodRet:$("#ModoRetiro").val(),
-                                                        Umonttotret:document.getElementById('montRet').value.replace(',',''),
-                                                        UmontretEntr:$("#monRetEntr").val().replace(',',''),
-                                                        UmontRetFF:document.getElementById('montRetFF').value.replace(',',''),
+                                                        UmodRet:$("#ModalRetiro").val(),
+                                                        Umonttotret:document.getElementById('montRet').value.replace(',','').replace("$",""),
+                                                        UmontretEntr:$("#monRetEntr").val().replace(',','').replace("$",""),
+                                                        UmontRetFF:document.getElementById('montRetFF').value.replace(',','').replace("$",""),
                                                         UfechRecibido:$("#fechRecibido").val(),
                                                         UnumOficTarj:$("#numOficTarj").val(),
                                                         UfechOficAut:$("#fechOficAut").val(),
                                                         UimageOficTarj:$("#imageOficTarj").val(),
                                                         Unumbenefs:$("#numbenef").val(),
-                                                        UdiaHaber: $("#montSalMin").val().replace(",",""),
-                                                        UadedFajam: $("#AdedFajam").val().replace(",",""),
-                                                        UadedTS: $("#AdedTS").val().replace(",",""),
-                                                        UadedFondPens: $("#AdedFondPension").val().replace(",",""),
-                                                        UadedTurismo: $("#AdedTurismo").val().replace(",",""),
-                                                        UmontAdeds: $("#montAdeudos").val().replace(",",""),
-                                                        UmontretSnAdeds:$("#montRetSinAded").val().replace(",",""),
+                                                        UdiaHaber: $("#montSalMin").val().replace(",","").replace("$",""),
+                                                        UadedFajam: $("#AdedFajam").val().replace(",","").replace("$",""),
+                                                        UadedTS: $("#AdedTS").val().replace(",","").replace("$",""),
+                                                        UadedFondPens: $("#AdedFondPension").val().replace(",","").replace("$",""),
+                                                        UadedTurismo: $("#AdedTurismo").val().replace(",","").replace("$",""),
+                                                        UmontAdeds: $("#montAdeudos").val().replace(",","").replace("$",""),
+                                                        UmontretSnAdeds:$("#montRetSinAded").val().replace(",","").replace("$",""),
                                                         Unumadeds: numadeds,
                                                         Ucurpmae:document.getElementById('CURPMae').value,
                                                         Urfcmae:document.getElementById('RFCMae').value,
 														UtipTram:tipTramit,
-														UfolCheqBenef:document.getElementById('numfolcheqTEJI').value
+														UfolCheqBenef:document.getElementById('numfolcheqTEJI').value,
+                                                        UadedCeso: $("#AdedCeso").val().replace(",","").replace("$","")
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
@@ -2241,20 +2283,20 @@ function actualizaFallAct() {
                                                         Udiaspsgs:$("#diasPsgs").val(),
                                                         UdiasServ:$("#diasServMae").val(),
                                                         UaniosServ:$('#aniosServMae').val(),
-                                                        UmodRet:document.getElementById("ModoRetiro").value,
-                                                        Umonttotret:document.getElementById('montRet').value.replace(',',''),
-                                                        UmontretEntr:$("#monRetEntr").val().replace(',',''),
+                                                        UmodRet:document.getElementById("ModalRetiro").value,
+                                                        Umonttotret:document.getElementById('montRet').value.replace(',','').replace("$",""),
+                                                        UmontretEntr:$("#monRetEntr").val().replace(',','').replace("$",""),
                                                         UfechRecibido:$("#fechRecibido").val(),
                                                         UnumOficTarj:$("#numOficTarj").val(),
                                                         UfechOficAut:$("#fechOficAut").val(),
                                                         UimageOficTarj:$("#imageOficTarj").val(),
                                                         Unumbenefs:$("#numBenefs").val(),
-                                                        UadedFajam: $("#AdedFajam").val().replace(",",""),
-                                                        UadedTS: $("#AdedTS").val().replace(",",""),
-                                                        UadedFondPens: $("#AdedFondPension").val().replace(",",""),
-                                                        UadedTurismo: $("#AdedTurismo").val().replace(",",""),
-                                                        UmontAdeds: $("#montAdeudos").val().replace(",",""),
-                                                        UmontretSnAdeds:$("#montRetSinAded").val().replace(",",""),
+                                                        UadedFajam: $("#AdedFajam").val().replace(",","").replace("$",""),
+                                                        UadedTS: $("#AdedTS").val().replace(",","").replace("$",""),
+                                                        UadedFondPens: $("#AdedFondPension").val().replace(",","").replace("$",""),
+                                                        UadedTurismo: $("#AdedTurismo").val().replace(",","").replace("$",""),
+                                                        UmontAdeds: $("#montAdeudos").val().replace(",","").replace("$",""),
+                                                        UmontretSnAdeds:$("#montRetSinAded").val().replace(",","").replace("$",""),
                                                         Unumadeds: numadeds,
                                                         Unombenefs:$("#nomsbenefs").val(),
                                                         Ucurpbenefs:$("#curpsbenefs").val(),
@@ -2267,7 +2309,8 @@ function actualizaFallAct() {
                                                         Ucurpmae:document.getElementById('CURPMae').value,
                                                         Urfcmae:document.getElementById('RFCMae').value,
 														UtipTram:tipTramit,
-														UfolCheqBenef:document.getElementById('foliosbenefs').value
+														UfolCheqBenef:document.getElementById('foliosbenefs').value,
+                                                        UadedCeso: $("#AdedCeso").val().replace(",","").replace("$","")
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
@@ -2327,20 +2370,20 @@ function actualizaFallJub(){
                                                         Ufechbase:document.getElementById("fechBaseMae").value, //$("#fechBaseMae").val(),
                                                         UdiasServ:$("#diasServMae").val(),
                                                         UaniosServ:$('#aniosServMae').val(),
-                                                        UmodRet:document.getElementById("ModoRetiro").value,
+                                                        UmodRet:document.getElementById("ModalRetiro").value,
                                                         Umonttotret:document.getElementById('montRet').value.replace(',',''),
-                                                        UmontretEntr:$("#monRetEntr").val().replace(',',''),
+                                                        UmontretEntr:$("#monRetEntr").val().replace(',','').replace("$",""),
                                                         UfechRecibido:$("#fechRecibido").val(),
                                                         UnumOficTarj:$("#numOficTarj").val(),
                                                         UfechOficAut:$("#fechOficAut").val(),
                                                         UimageOficTarj:$("#imageOficTarj").val(),
                                                         Unumbenefs:$("#numBenefs").val(),
-                                                        UadedFajam: $("#AdedFajam").val().replace(",",""),
-                                                        UadedTS: $("#AdedTS").val().replace(",",""),
-                                                        UadedFondPens: $("#AdedFondPension").val().replace(",",""),
-                                                        UadedTurismo: $("#AdedTurismo").val().replace(",",""),
-                                                        UmontAdeds: $("#montAdeudos").val().replace(",",""),
-                                                        UmontretSnAdeds:$("#montRetSinAded").val().replace(",",""),
+                                                        UadedFajam: $("#AdedFajam").val().replace(",","").replace("$",""),
+                                                        UadedTS: $("#AdedTS").val().replace(",","").replace("$",""),
+                                                        UadedFondPens: $("#AdedFondPension").val().replace(",","").replace("$",""),
+                                                        UadedTurismo: $("#AdedTurismo").val().replace(",","").replace("$",""),
+                                                        UmontAdeds: $("#montAdeudos").val().replace(",","").replace("$",""),
+                                                        UmontretSnAdeds:$("#montRetSinAded").val().replace(",","").replace("$",""),
                                                         Unumadeds: numadeds,
                                                         Unombenefs:$("#nomsbenefs").val(),
                                                         Ucurpbenefs:$("#curpsbenefs").val(),
@@ -2353,7 +2396,8 @@ function actualizaFallJub(){
                                                         Ucurpmae:document.getElementById('CURPMae').value,
                                                         Urfcmae:document.getElementById('RFCMae').value,
                                                         UtipTram:tipTramit,
-                                                        UfolCheqBenef:document.getElementById('foliosbenefs').value
+                                                        UfolCheqBenef:document.getElementById('foliosbenefs').value,
+                                                        UadedCeso: $("#AdedCeso").val().replace(",","").replace("$","")
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;

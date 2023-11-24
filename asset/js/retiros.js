@@ -258,7 +258,8 @@ function imprimir(identret,cvemae) {
         var motivoRet = datTramite.motvret;
         if (motivoRet == "FRJ" || motivoRet == "FRI" || motivoRet == "FRR" || motivoRet == "FRD") {
             location.href = "../../views/home/acuerdoRetiro.php" + "?identret=" + identret;
-        } else if (motivoRet == "FRF" || motivoRet == "FFJ" || motivoRet == "FFM") {
+        } else if (motivoRet == "FRF" || motivoRet == "FFJ" || motivoRet == "FMJ") {
+            
             location.href = "../../views/home/sheetRecib.php" + "?identret=" + identret;
         } 
     });
