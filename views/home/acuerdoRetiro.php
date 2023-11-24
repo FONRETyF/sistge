@@ -182,9 +182,9 @@
                 $this->Ln(8);
                 $this->SetFont('Arial','B',12);
                 $this->SetTextColor(15,83,183);
-                $this->Cell(40, 7.5,$resultsT[0]['montrettot'],0, 0, 'R');
+                $this->Cell(40, 7.5,$resultsT[0]['montretentr'],0, 0, 'R');
                 $this->SetFont('Arial','B',9.5);
-                $this->Cell(139, 7.5,"(". $resultsT[0]['montretletra'] .")",0, 0, 'L');
+                $this->Cell(139, 7.5,"(". $resultsT[0]['montretentrletra'] .")",0, 0, 'L');
                 
                 /*   FORMATO PARA ACUERDO SIN PSGS Y RETIRO COMPLETO   */
                 if ($resultsT[0]['modretiro'] == "C") {
@@ -392,9 +392,9 @@
                     $this->Ln(8);
                     $this->SetFont('Arial','B',12);
                     $this->SetTextColor(15,83,183);
-                    $this->Cell(40, 7.5,$resultsT[0]['montrettot'],0, 0, 'R');
+                    $this->Cell(40, 7.5,$resultsT[0]['montretentr'],0, 0, 'R');
                     $this->SetFont('Arial','B',9.5);
-                    $this->Cell(139, 7.5,"(". $resultsT[0]['montretletra'] .")",0, 0, 'L');
+                    $this->Cell(139, 7.5,"(". $resultsT[0]['montretentrletra'] .")",0, 0, 'L');
 
                     $this->Ln(8);
                     $this->SetFont('Arial','',12);
@@ -519,9 +519,9 @@
                         $this->Ln(8);
                         $this->SetFont('Arial','B',12);
                         $this->SetTextColor(15,83,183);
-                        $this->Cell(40, 7.5,$resultsT[0]['montrettot'],0, 0, 'R');
+                        $this->Cell(40, 7.5,$resultsT[0]['montretentr'],0, 0, 'R');
                         $this->SetFont('Arial','B',9.5);
-                        $this->Cell(139, 7.5,"(". $resultsT[0]['montretletra'] .")",0, 0, 'L');
+                        $this->Cell(139, 7.5,"(". $resultsT[0]['montretentrletra'] .")",0, 0, 'L');
 
                         $this->Ln(8);
                         $this->SetFont('Arial','',12);
@@ -652,9 +652,9 @@
                         $this->Ln(8);
                         $this->SetFont('Arial','B',12);
                         $this->SetTextColor(15,83,183);
-                        $this->Cell(40, 7.5,$resultsT[0]['montrettot'],0, 0, 'R');
+                        $this->Cell(40, 7.5,$resultsT[0]['montretentr'],0, 0, 'R');
                         $this->SetFont('Arial','B',9.5);
-                        $this->Cell(139, 7.5,"(". $resultsT[0]['montretletra'] .")",0, 0, 'L');
+                        $this->Cell(139, 7.5,"(". $resultsT[0]['montretentrletra'] .")",0, 0, 'L');
 
                         $this->Ln(8);
                         $this->SetFont('Arial','',12);
