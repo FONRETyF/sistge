@@ -1,6 +1,7 @@
 <?php
     require('/var/www/html/sistge/fpdf/fpdf.php');
     require('/var/www/html/sistge/config/dbfonretyf.php');
+    require('/var/www/html/sistge/model/cantidadLetras.php');
 
     class PDF extends FPDF
     {
@@ -13,7 +14,9 @@
             $pdo = new dbfonretyf();
             $this->db=$pdo->conexfonretyf();
 
-            $statementT = $this->db->prepare("SELECT cvemae,motvret,fechbajfall,nomsolic,modretiro,montrettot,montretletra,montretentr,montretentrletra,montretfall,montretfallletra,foliotramite FROM public.tramites_fonretyf WHERE identret='".$identretiro."'");
+            $funcCantLet = new cantidadLetras;
+
+            $statementT = $this->db->prepare("SELECT cvemae,motvret,fechbajfall,nomsolic,modretiro,montrettot,montretletra,montretsinads,montretentr,montretentrletra,montretfall,montretfallletra,foliotramite,numadeds,montadeudos,adfajam,adts,adfondpension,adturismo,adceso FROM public.tramites_fonretyf WHERE identret='".$identretiro."'");
             $statementT->execute();
             $resultsT = $statementT->fetchAll(PDO::FETCH_ASSOC);
             if ($resultsT[0]['motvret'] == "FRI") {
@@ -29,6 +32,8 @@
                 $motivoRetiroLower = "Rescisión";
                 $motivoRetiro = "RESCISIÓN";
             }
+
+            $montsindAdeudos = $funcCantLet->cantcantidadLetras(str_replace(",",(str_replace("$",$resultsT[0]['montretsinads']))));
 
             $statementM = $this->db->prepare("SELECT csp,curpmae,regescmae,fcbasemae,aservactmae,numpsgs,numcelmae,diaspsgs,fechsinipsgs,fechsfinpsgs FROM public.maestros_smsem WHERE csp='".$resultsT[0]['cvemae']."'");
             $statementM->execute();
@@ -182,9 +187,9 @@
                 $this->Ln(8);
                 $this->SetFont('Arial','B',12);
                 $this->SetTextColor(15,83,183);
-                $this->Cell(40, 7.5,$resultsT[0]['montretentr'],0, 0, 'R');
+                $this->Cell(40, 7.5,$resultsT[0]['montretsinads'],0, 0, 'R');
                 $this->SetFont('Arial','B',9.5);
-                $this->Cell(139, 7.5,"(". $resultsT[0]['montretentrletra'] .")",0, 0, 'L');
+                $this->Cell(139, 7.5,"(". $montsindAdeudos .")",0, 0, 'L');
                 
                 /*   FORMATO PARA ACUERDO SIN PSGS Y RETIRO COMPLETO   */
                 if ($resultsT[0]['modretiro'] == "C") {
@@ -392,9 +397,9 @@
                     $this->Ln(8);
                     $this->SetFont('Arial','B',12);
                     $this->SetTextColor(15,83,183);
-                    $this->Cell(40, 7.5,$resultsT[0]['montretentr'],0, 0, 'R');
+                    $this->Cell(40, 7.5,$resultsT[0]['montretsinads'],0, 0, 'R');
                     $this->SetFont('Arial','B',9.5);
-                    $this->Cell(139, 7.5,"(". $resultsT[0]['montretentrletra'] .")",0, 0, 'L');
+                    $this->Cell(139, 7.5,"(". $montsindAdeudos.")",0, 0, 'L');
 
                     $this->Ln(8);
                     $this->SetFont('Arial','',12);
@@ -519,9 +524,9 @@
                         $this->Ln(8);
                         $this->SetFont('Arial','B',12);
                         $this->SetTextColor(15,83,183);
-                        $this->Cell(40, 7.5,$resultsT[0]['montretentr'],0, 0, 'R');
+                        $this->Cell(40, 7.5,$resultsT[0]['montretsinads'],0, 0, 'R');
                         $this->SetFont('Arial','B',9.5);
-                        $this->Cell(139, 7.5,"(". $resultsT[0]['montretentrletra'] .")",0, 0, 'L');
+                        $this->Cell(139, 7.5,"(". $montsindAdeudos .")",0, 0, 'L');
 
                         $this->Ln(8);
                         $this->SetFont('Arial','',12);
@@ -652,9 +657,9 @@
                         $this->Ln(8);
                         $this->SetFont('Arial','B',12);
                         $this->SetTextColor(15,83,183);
-                        $this->Cell(40, 7.5,$resultsT[0]['montretentr'],0, 0, 'R');
+                        $this->Cell(40, 7.5,$resultsT[0]['montretsinads'],0, 0, 'R');
                         $this->SetFont('Arial','B',9.5);
-                        $this->Cell(139, 7.5,"(". $resultsT[0]['montretentrletra'] .")",0, 0, 'L');
+                        $this->Cell(139, 7.5,"(". $montsindAdeudos .")",0, 0, 'L');
 
                         $this->Ln(8);
                         $this->SetFont('Arial','',12);
