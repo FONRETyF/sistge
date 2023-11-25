@@ -1,25 +1,26 @@
 <?php
     require('/var/www/html/sistge/fpdf/fpdf.php');
     require('/var/www/html/sistge/config/dbfonretyf.php');
-    require('/var/www/html/sistge/model/cantidadLetras.php');
+    require("/var/www/html/sistge/model/cantidadLetras.php");
 
     class PDF extends FPDF
     {
         private $db;
+        private $cantletra;
        
         function Header()
         {
             $identretiro = $_GET['identret'];
             
             $pdo = new dbfonretyf();
-            $this->db=$pdo->conexfonretyf();
+            $this->cantletra = new cantidadLetras();
 
-            $funcCantLet = new cantidadLetras;
+            $this->db=$pdo->conexfonretyf();
 
             $statementT = $this->db->prepare("SELECT cvemae,motvret,fechbajfall,nomsolic,modretiro,montrettot,montretletra,montretsinads,montretentr,montretentrletra,montretfall,montretfallletra,foliotramite,numadeds,montadeudos,adfajam,adts,adfondpension,adturismo,adceso FROM public.tramites_fonretyf WHERE identret='".$identretiro."'");
             $statementT->execute();
             $resultsT = $statementT->fetchAll(PDO::FETCH_ASSOC);
-            if ($resultsT[0]['motvret'] == "FRI") {
+           if ($resultsT[0]['motvret'] == "FRI") {
                 $motivoRetiroLower = "Inhabilitación";
                 $motivoRetiro = "INHABILITACIÓN";
             } elseif ($resultsT[0]['motvret'] == "FRJ") {
@@ -33,7 +34,13 @@
                 $motivoRetiro = "RESCISIÓN";
             }
 
-            $montsindAdeudos = $funcCantLet->cantcantidadLetras(str_replace(",",(str_replace("$",$resultsT[0]['montretsinads']))));
+            $montototal = str_replace("$","",(str_replace(",", "", $resultsT[0]['montrettot'])));
+            $montoAdeudos = str_replace("$","",(str_replace(",", "", $resultsT[0]['montadeudos'])));
+            $retsinadeudos = $montototal - $montoAdeudos; 
+            $montoretsinAdeudos =  number_format($retsinadeudos,2);
+                                    
+            $montsindAdeudos = $this->cantletra->cantidadLetras($retsinadeudos);
+            
 
             $statementM = $this->db->prepare("SELECT csp,curpmae,regescmae,fcbasemae,aservactmae,numpsgs,numcelmae,diaspsgs,fechsinipsgs,fechsfinpsgs FROM public.maestros_smsem WHERE csp='".$resultsT[0]['cvemae']."'");
             $statementM->execute();
@@ -106,7 +113,7 @@
             $this->Cell(70, 8, utf8_decode("Toluca, México a  " .$fecha), 0, 0, 'R');
 
 
-            /*   FORMATO PARA MAESTROS SIN PERMISOS SIN GOCE DE SUELDO   */
+           
             if ($resultsM[0]['numpsgs'] == 0) {
                 $sltL = 6;
                 $pXLs = 3;
@@ -187,11 +194,11 @@
                 $this->Ln(8);
                 $this->SetFont('Arial','B',12);
                 $this->SetTextColor(15,83,183);
-                $this->Cell(40, 7.5,$resultsT[0]['montretsinads'],0, 0, 'R');
+                $this->Cell(40, 7.5,"$".$montoretsinAdeudos,0, 0, 'R');
                 $this->SetFont('Arial','B',9.5);
                 $this->Cell(139, 7.5,"(". $montsindAdeudos .")",0, 0, 'L');
                 
-                /*   FORMATO PARA ACUERDO SIN PSGS Y RETIRO COMPLETO   */
+                
                 if ($resultsT[0]['modretiro'] == "C") {
                     $this->Ln(9);
                     $this->SetFont('Arial','',12);
@@ -227,7 +234,7 @@
                     $this->Image('/var/www/html/sistge/img/lineaoficio.png',10,258,197,0.5);
 
                 }   else {
-                    /*   FORMATO PARA ACUERDO SIN PSGS Y RETIRO PRORROGADO A 50%   */ 
+                    
                     if ($resultsT[0]['modretiro'] == "D50") {
                         $this->Ln(8);
                         $this->SetFont('Arial','',12);
@@ -269,7 +276,7 @@
                         
                         $this->Image('/var/www/html/sistge/img/lineaoficio.png',10,258,197,0.5);
                     } 
-                    /*   FORMATO PARA ACUERDO SIN PSGS Y RETIRO PRORROGADO A 100 %   */ 
+                     
                     elseif ($resultsT[0]['modretiro'] == "D100") {
                         $this->Ln(9);
                         $this->SetFont('Arial','',12);
@@ -305,7 +312,7 @@
                 }            
             }
 
-            /*   FORMATO PARA MAESTROS CON PERMISOS SIN GOCE DE SUELDO   */
+            
             else {
                 
                 if ($resultsT[0]['modretiro'] == "C") {
@@ -397,7 +404,7 @@
                     $this->Ln(8);
                     $this->SetFont('Arial','B',12);
                     $this->SetTextColor(15,83,183);
-                    $this->Cell(40, 7.5,$resultsT[0]['montretsinads'],0, 0, 'R');
+                    $this->Cell(40, 7.5,"$".$montoretsinAdeudos,0, 0, 'R');
                     $this->SetFont('Arial','B',9.5);
                     $this->Cell(139, 7.5,"(". $montsindAdeudos.")",0, 0, 'L');
 
@@ -524,7 +531,7 @@
                         $this->Ln(8);
                         $this->SetFont('Arial','B',12);
                         $this->SetTextColor(15,83,183);
-                        $this->Cell(40, 7.5,$resultsT[0]['montretsinads'],0, 0, 'R');
+                        $this->Cell(40, 7.5,"$".$montoretsinAdeudos,0, 0, 'R');
                         $this->SetFont('Arial','B',9.5);
                         $this->Cell(139, 7.5,"(". $montsindAdeudos .")",0, 0, 'L');
 
@@ -657,7 +664,7 @@
                         $this->Ln(8);
                         $this->SetFont('Arial','B',12);
                         $this->SetTextColor(15,83,183);
-                        $this->Cell(40, 7.5,$resultsT[0]['montretsinads'],0, 0, 'R');
+                        $this->Cell(40, 7.5,"$".$montoretsinAdeudos,0, 0, 'R');
                         $this->SetFont('Arial','B',9.5);
                         $this->Cell(139, 7.5,"(". $montsindAdeudos .")",0, 0, 'L');
 
@@ -709,6 +716,7 @@
             $this->cell(-5);
             $this->Cell(196.5, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
         }
+    
     }
 
     function fechactual(){
@@ -718,11 +726,12 @@
         $fechaCompleta = explode("-",$fecha)[0] . " de ". $mesesA[$mes - 1] . " de 20" . explode("-",$fecha)[2];
         return $fechaCompleta;
     }
-    
+
     $pdf = new PDF("P","mm","letter");
     $pdf->AliasNbPages();
     $pdf->SetAutoPageBreak(false);
     $pdf->SetMargins(15,10,15);
     
     $pdf->Output();
+
 ?>
