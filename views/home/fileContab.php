@@ -1,5 +1,5 @@
 <?php
-
+    echo("dskjhsfhd");
     require '/var/www/html/sistge/vendor/autoload.php'; //'vendor/autoload.php';
     require '/var/www/html/sistge/config/dbfonretyf.php';
 
@@ -38,10 +38,7 @@
     $statement->execute();
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
     $fechaEntrega = $results[0]["fechentrega"];
-    //echo(strlen($fechaEntrega)) --> longitud 10 conformato 2022-01-01
     
-    $fechaEntrega = '';//substr($fechaEntrega,8,2) . " DE " . $meses[intval(substr($fechaEntrega,5,2))] . " DE " . substr($fechaEntrega,0,4);
-
     $activeWorksheet->setCellValue('A3',$fechaEntrega);
     $activeWorksheet->mergeCells('A3:D3')->getStyle('A3:D3')->getAlignment()->setHorizontal('center');
 
@@ -54,14 +51,14 @@
     /* INHABILITADOS */
     $consultacheques = "select DISTINCT tab1.identret,tab3.nomcommae,tab1.motvret,tab2.nombenef from public.tramites_fonretyf as tab1 left join public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret left join (";
     $consultacheques = $consultacheques . "select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
-    $consultacheques = $consultacheques . " where tab1.identrega='".$identrega."' and tab1.motvret='I' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc, nombenef asc;";
-
+    $consultacheques = $consultacheques . " where tab1.identrega='".$identrega."' and tab1.motvret='FRI' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc, nombenef asc;";
+    
     $arregloMaestrosCheques = array();
 
     $statementCheques = $db->prepare($consultacheques);
     $statementCheques->execute();
     $resultsCheques = $statementCheques->fetchAll(PDO::FETCH_ASSOC);
-
+ 
     foreach ($resultsCheques as $key => $row) {
         $aux[$key]=$row["nomcommae"];
     }
@@ -72,17 +69,17 @@
     foreach ($aux as $row) {
         foreach ($resultsCheques as $key => $row1) {
             if ($row === $row1['nomcommae']) {
-                //$arregloMaestrosCheques[$key] = $row1;
+                
                 array_push($arregloMaestrosCheques, $row1);
                 break;
             } 
         }    
     }
-
+    
      /* JUBILADOS */
     $consultacheques = "select DISTINCT tab1.identret,tab3.nomcommae,tab1.motvret,tab2.nombenef from public.tramites_fonretyf as tab1 left join public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret left join (";
     $consultacheques = $consultacheques . "select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
-    $consultacheques = $consultacheques . " where tab1.identrega='".$identrega."' and tab1.motvret='J' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc, nombenef asc;";
+    $consultacheques = $consultacheques . " where tab1.identrega='".$identrega."' and tab1.motvret='FRJ' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc, nombenef asc;";
 
     $statementCheques = $db->prepare($consultacheques);
     $statementCheques->execute();
@@ -107,7 +104,7 @@
      /* FALLECIMIENTOS */
     $consultacheques = "select distinct tab1.identret, tab1.cvemae, tab1.motvret, tab3.nomcommae from public.tramites_fonretyf as tab1 left join (";
     $consultacheques = $consultacheques . "select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
-    $consultacheques = $consultacheques . " where tab1.identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc;";
+    $consultacheques = $consultacheques . " where tab1.identrega='".$identrega."' and (tab1.motvret='FRF' or tab1.motvret='FMJ') and tab1.modretiro='C' and tiptramne='0' order by nomcommae asc;";
 
     $statementChequesF = $db->prepare($consultacheques);
     $statementChequesF->execute();
@@ -194,7 +191,6 @@
     $writer->save('php://output');
 
     try {
-        //$writer->save('hello world.xlsx');
         $writer = new Xls($spreadsheet);
         exit;
     } catch (\Throwable $th) {

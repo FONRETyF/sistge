@@ -40,7 +40,6 @@
             $montoretsinAdeudos =  number_format($retsinadeudos,2);
                                     
             $montsindAdeudos = $this->cantletra->cantidadLetras($retsinadeudos);
-            
 
             $statementM = $this->db->prepare("SELECT csp,curpmae,regescmae,fcbasemae,aservactmae,numpsgs,numcelmae,diaspsgs,fechsinipsgs,fechsfinpsgs FROM public.maestros_smsem WHERE csp='".$resultsT[0]['cvemae']."'");
             $statementM->execute();
@@ -115,189 +114,114 @@
 
            
             if ($resultsM[0]['numpsgs'] == 0) {
-                $sltL = 6;
-                $pXLs = 3;
-                $this->Ln(20 + $pXLs);
-                
-                $this->Image('/var/www/html/sistge/img/lineafirma.png',22,90.5 + $pXLs,117,0.4);
-                $this->SetFont('Arial','',12);
-                $this->Cell(8, 7.5, "Yo ", 0, 0, 'L');
-                $this->SetFont('Arial','B',11);
-                $this->Cell(115, 7.5, $resultsT[0]['nomsolic'], 0, 0, 'C');
-                $this->SetFont('Arial','',12);
-                $this->Cell(62.9, 7.5, " con  clave  de  servidor   publico", 0, 0, 'L');
-
-                $this->Ln(6);
-                $this->Image('/var/www/html/sistge/img/lineafirma.png',16,96.5 + $pXLs,24,0.4);
-                $this->SetFont('Arial','B',11);
-                $this->Cell(25, 7.5,$resultsT[0]['cvemae'], 0, 0, 'C');
-                $this->Image('/var/www/html/sistge/img/lineafirma.png',57,96.5 + $pXLs,55,0.4);
-                $this->SetFont('Arial','',12);
-                $this->Cell(17, 7.5,", CURP  ", 0, 0, 'L');
-                $this->SetFont('Arial','B',11);
-                $this->Cell(55, 7.5,$resultsM[0]['curpmae'], 0, 0, 'C');
-                $this->SetFont('Arial','',12);
-                $this->Image('/var/www/html/sistge/img/lineafirma.png',145,96.5 + $pXLs,27,0.4);
-                $this->Cell(32, 7.5, utf8_decode("y número celular "), 0, 0, 'L');
-                $this->SetFont('Arial','B',11);
-                $this->Cell(28, 7.5,$resultsM[0]['numcelmae'], 0, 0, 'C');
-                $this->SetFont('Arial','',12);
-                $this->Cell(28.9, 7.5, utf8_decode(",  labore  en  la"), 0, 0, 'L');
-
-                $this->Ln(6);
-                $this->Cell(44, 7.5, utf8_decode("región sindical número"), 0, 0, 'L');
-                $this->SetFont('Arial','B',11);
-                $this->Image('/var/www/html/sistge/img/lineafirma.png',59,102.5 + $pXLs,9,0.4);
-                $this->Cell(9, 7.5,$resultsM[0]['regescmae'], 0, 0, 'C');
-                $this->SetFont('Arial','',12);
-                $this->Cell(62, 7.5,"como docente basificado (a) del ", 0, 0, 'L');
-                $this->Image('/var/www/html/sistge/img/lineafirma.png',130,102.5 + $pXLs,25.5,0.4);
-                $this->SetFont('Arial','B',11);
-                $this->Cell(25.5, 7.5,date("d-m-Y",strtotime($resultsM[0]['fcbasemae'])), 0, 0, 'C');
-                $this->SetFont('Arial','',12);
-                $this->Cell(4, 7.5," al ", 0, 0, 'C');
-                $this->Image('/var/www/html/sistge/img/lineafirma.png',159.5,102.5 + $pXLs,25.5,0.4);
-                $this->SetFont('Arial','B',11);
-                $this->Cell(25.5, 7.5,date("d-m-Y",strtotime($resultsT[0]['fechbajfall'])) ,0, 0, 'C');
-                $this->SetFont('Arial','',12);
-                $this->Cell(15.9, 7.5,", periodo", 0, 0, 'C');
-
-                $this->Ln(6);
-                $this->SetFont('Arial','',12);
-                $this->Cell(38, 7.5,"durante el cual tuve ",0, 0, 'L');
-                $this->SetFont('Arial','B',11);
-                $this->Image('/var/www/html/sistge/img/lineafirma.png',53,108.5 + $pXLs,10,0.4);
-                $this->Cell(10, 7.5,$resultsM[0]['numpsgs'], 0, 0, 'C');
-                $this->SetFont('Arial','',12);
-                $this->Cell(137.9, 7.5,utf8_decode("permisos  sin  goce de sueldo,  por lo cual  solicito el Fondo de Retiro  en"), 0, 0, 'L');
-                
-                $this->Ln(6);
-                $this->Cell(24, 7.5,utf8_decode("virtud de mi"), 0, 0, 'L');
-                $this->SetFont('Arial','I',12);
-                $this->Cell(29, 7.5,utf8_decode($motivoRetiroLower), 0, 0, 'C');
-                $this->SetFont('Arial','',12);
-                $this->Cell(12, 7.5,utf8_decode("con"), 0, 0, 'C');
-                $this->Image('/var/www/html/sistge/img/lineafirma.png',80,117.5,11,0.5);
-                $this->SetFont('Arial','B',11);
-                $this->Cell(11, 7.5,$resultsM[0]['aservactmae'], 0, 0, 'C');
-                $this->SetFont('Arial','',12);
-                $this->Cell(109.9, 7.5, utf8_decode("años de servicio cotizados al SMSEM, con fundamento en"), 0, 0, 'L');
+                if ($resultsT[0]['numadeds'] == 0) {
+                    $sltL = 6;
+                    $pXLs = 3;
+                    $this->Ln(20 + $pXLs);
                     
-                $this->Ln(6);
-                $this->SetFont('Arial','',12);
-                $this->MultiCell(185.9, 7.5, utf8_decode("los artículos 30, 31, 32, 35, 36, 37, 38, 39, 43 y 44 del  Reglamento del  Fondo  de Retiro y Fallecimiento (FONRETyF)."), 0, 'J');         
-                
-                $this->Ln($sltL + 1);
-                $this->SetFont('Arial','',12);
-                $this->Cell(185.9, 7.5,utf8_decode("Habiendo especificado lo anterior, acepto el monto que me corresponde por la cantidad de: "),0, 0, 'L');
-                
-                $this->Ln(8);
-                $this->SetFont('Arial','B',12);
-                $this->SetTextColor(15,83,183);
-                $this->Cell(40, 7.5,"$".$montoretsinAdeudos,0, 0, 'R');
-                $this->SetFont('Arial','B',9.5);
-                $this->Cell(139, 7.5,"(". $montsindAdeudos .")",0, 0, 'L');
-                
-                
-                if ($resultsT[0]['modretiro'] == "C") {
-                    $this->Ln(9);
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',22,90.5 + $pXLs,117,0.4);
                     $this->SetFont('Arial','',12);
-                    $this->SetTextColor(0,0,0);
-                    $this->Cell(185.9, 7.5,"Hago  de  su  conocimiento  que  el  equivalente  al  Fondo de Retiro  me sea  entregado de  forma", 0, 0, 'L');
-                    
-                    $this->Ln($sltL);
-                    $this->SetFont('Arial','B',12);
-                    $this->Cell(27, 7.5, "COMPLETA", 0, 0, 'C');
-                    $this->SetFont('Arial','',12);
-                    $this->Cell(158.9, 7.5,", asi  mismo, firmo  de enterado (a) y  de  conformidad  al  respecto, que  a  partir de", 0, 0, 'L');
-                    
-                    $this->Ln($sltL);
-                    $this->Cell(185.9, 7.5,utf8_decode("que me  sea entregado, se  rescinde toda  obligación por  parte  del  FONRETyF de  contar con  el"),0, 0, 'L');
-                    $this->Ln($sltL);
-                    $this->Cell(185.9, 7.5,utf8_decode("beneficio de Fondo por Fallecimiento."),0, 0, 'L');
-
-                    $this->Ln($sltL + 8);
-                    $this->SetFont('Arial','',9);
-                    $this->MultiCell(185.9, 4, utf8_decode("NOTA: El monto aquí especificado está sujeto a cambios posteriores, ya que se realiza una exhaustiva y detallada revisión del expediente para la solicitud del Fondo de Retiro."), 0, 'J');
-
-                    $this->Image('/var/www/html/sistge/img/lineafirma.png',64,233,90,0.4);
-                    $this->SetY(232);
+                    $this->Cell(8, 7.5, "Yo ", 0, 0, 'L');
                     $this->SetFont('Arial','B',11);
-                    $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
-                    $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
-                    $this->SetY(245);
-                    
-                    $this->SetFont('Arial','I',8);
-                    $this->Ln(4);
-                    $this->MultiCell(157, 2.5, utf8_decode("AVISO: Sus datos personales, serán tratados y protegidos por el Sindicato de Maestros al Servicio del Estado de México, en apego a lo establecido por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."), 0, 'J');
-                    
-                    $this->Image('/var/www/html/sistge/img/lineaoficio.png',10,258,197,0.5);
+                    $this->Cell(115, 7.5, $resultsT[0]['nomsolic'], 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(62.9, 7.5, " con  clave  de  servidor   publico", 0, 0, 'L');
 
-                }   else {
+                    $this->Ln(6);
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',16,96.5 + $pXLs,24,0.4);
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(25, 7.5,$resultsT[0]['cvemae'], 0, 0, 'C');
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',57,96.5 + $pXLs,55,0.4);
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(17, 7.5,", CURP  ", 0, 0, 'L');
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(55, 7.5,$resultsM[0]['curpmae'], 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',145,96.5 + $pXLs,27,0.4);
+                    $this->Cell(32, 7.5, utf8_decode("y número celular "), 0, 0, 'L');
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(28, 7.5,$resultsM[0]['numcelmae'], 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(28.9, 7.5, utf8_decode(",  labore  en  la"), 0, 0, 'L');
+
+                    $this->Ln(6);
+                    $this->Cell(44, 7.5, utf8_decode("región sindical número"), 0, 0, 'L');
+                    $this->SetFont('Arial','B',11);
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',59,102.5 + $pXLs,9,0.4);
+                    $this->Cell(9, 7.5,$resultsM[0]['regescmae'], 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(62, 7.5,"como docente basificado (a) del ", 0, 0, 'L');
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',130,102.5 + $pXLs,25.5,0.4);
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(25.5, 7.5,date("d-m-Y",strtotime($resultsM[0]['fcbasemae'])), 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(4, 7.5," al ", 0, 0, 'C');
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',159.5,102.5 + $pXLs,25.5,0.4);
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(25.5, 7.5,date("d-m-Y",strtotime($resultsT[0]['fechbajfall'])) ,0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(15.9, 7.5,", periodo", 0, 0, 'C');
+
+                    $this->Ln(6);
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(38, 7.5,"durante el cual tuve ",0, 0, 'L');
+                    $this->SetFont('Arial','B',11);
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',53,108.5 + $pXLs,10,0.4);
+                    $this->Cell(10, 7.5,$resultsM[0]['numpsgs'], 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(137.9, 7.5,utf8_decode("permisos  sin  goce de sueldo,  por lo cual  solicito el Fondo de Retiro  en"), 0, 0, 'L');
                     
-                    if ($resultsT[0]['modretiro'] == "D50") {
-                        $this->Ln(8);
-                        $this->SetFont('Arial','',12);
-                        $this->SetTextColor(0,0,0);
-                        $this->Cell(185.9, 7.5,"Hago  de  su  conocimiento  que  el equivalente al  Fondo de Retiro  me  sea  entregado  de  forma", 0, 0, 'L');
+                    $this->Ln(6);
+                    $this->Cell(24, 7.5,utf8_decode("virtud de mi"), 0, 0, 'L');
+                    $this->SetFont('Arial','I',12);
+                    $this->Cell(29, 7.5,utf8_decode($motivoRetiroLower), 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(12, 7.5,utf8_decode("con"), 0, 0, 'C');
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',80,117.5,11,0.5);
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(11, 7.5,$resultsM[0]['aservactmae'], 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(109.9, 7.5, utf8_decode("años de servicio cotizados al SMSEM, con fundamento en"), 0, 0, 'L');
                         
-                        $this->Ln($sltL);
-                        $this->SetFont('Arial','B',12);
-                        $this->Cell(28, 7.5, "DIFERIDA", 0, 0, 'C');
-                        $this->SetFont('Arial','',12);
-                        $this->Cell(33, 7.5,", dejando el 50% del monto total", 0, 0, 'L');
-                        $this->Ln($sltL-1);
-                        $this->SetFont('Arial','',9);
-                        $this->Cell(185.9, 7.5,$resultsT[0]["montretfall"] . " (" . $resultsT[0]["montretfallletra"] . ")", 0, 0, 'C');
-                        $this->Ln($sltL-1);
-                        $this->SetFont('Arial','',12);
-                        $this->Cell(185.9, 7.5,utf8_decode("al resguardo del FONRETyF  para mis beneficiarios, y llevándome el  50% restante"), 0, 0, 'L');
-                        $this->Ln($sltL-1);
-                        $this->SetFont('Arial','',9);
-                        $this->Cell(185.9, 7.5,$resultsT[0]["montretentr"] . " (" . $resultsT[0]["montretentrletra"] . ")", 0, 0, 'C');
-                        $this->Ln($sltL);
-                        $this->SetFont('Arial','',12);
-                        $this->MultiCell(185.9, 6, utf8_decode(", asi mismo, firmo de enterado (a) y conformidad  al respecto, y que a partir de este momento se me realice el descuento anual, correspondiente a un día de mi pensión, para contar con el beneficio de Fondo por Fallecimiento."), 0, 'J');
-
-                        $this->Ln($sltL);
-                        $this->SetFont('Arial','',9);
-                        $this->MultiCell(185.9, 4, utf8_decode("NOTA: El monto aquí especificado está sujeto a cambios posteriores, ya que se realiza una exhaustiva y detallada revisión del expediente para la solicitud del Fondo de Retiro."), 0, 'J');
-
-                        $this->Image('/var/www/html/sistge/img/lineafirma.png',64,238,90,0.4);
-                        $this->SetY(237);
-                        $this->SetFont('Arial','B',11);
-                        $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
-                        $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
-                        $this->SetY(245);
-                        
-                        $this->SetFont('Arial','I',8);
-                        $this->Ln(4);
-                        $this->MultiCell(157, 2.5, utf8_decode("AVISO: Sus datos personales, serán tratados y protegidos por el Sindicato de Maestros al Servicio del Estado de México, en apego a lo establecido por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."), 0, 'J');
-                        
-                        $this->Image('/var/www/html/sistge/img/lineaoficio.png',10,258,197,0.5);
-                    } 
-                     
-                    elseif ($resultsT[0]['modretiro'] == "D100") {
+                    $this->Ln(6);
+                    $this->SetFont('Arial','',12);
+                    $this->MultiCell(185.9, 6, utf8_decode("los artículos 30, 31, 32, 35, 36, 37, 38, 39, 43 y 44 del  Reglamento del  Fondo  de Retiro y Fallecimiento (FONRETyF)."), 0, 'J');         
+                    
+                    $this->Ln($sltL + 1);
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(185.9, 7.5,utf8_decode("Habiendo especificado lo anterior, acepto el monto que me corresponde por la cantidad de: "),0, 0, 'L');
+                    
+                    $this->Ln(8);
+                    $this->SetFont('Arial','B',12);
+                    $this->SetTextColor(15,83,183);
+                    $this->Cell(40, 7.5,"$".$montoretsinAdeudos,0, 0, 'R');
+                    $this->SetFont('Arial','B',9.5);
+                    $this->Cell(139, 7.5,"(". $montsindAdeudos .")",0, 0, 'L');
+                    
+                    
+                    if ($resultsT[0]['modretiro'] == "C") {
                         $this->Ln(9);
                         $this->SetFont('Arial','',12);
                         $this->SetTextColor(0,0,0);
-                        $this->Cell(185.9, 7.5,"Hago  de  su conocimiento  que  el equivalente  al  Fondo de Retiro  me  sea  entregado de  forma", 0, 0, 'L');
+                        $this->Cell(185.9, 7.5,"Hago  de  su  conocimiento  que  el  equivalente  al  Fondo de Retiro  me sea  entregado de  forma", 0, 0, 'L');
                         
                         $this->Ln($sltL);
                         $this->SetFont('Arial','B',12);
-                        $this->Cell(36, 7.5, "PRORROGADA", 0, 0, 'C');
+                        $this->Cell(27, 7.5, "COMPLETA", 0, 0, 'C');
                         $this->SetFont('Arial','',12);
-                        $this->Cell(149.9, 7.5,", dejando  el  100%  del  monto  total  al  resguardo  del  FONRETyF  para  mis", 0, 0, 'L');
+                        $this->Cell(158.9, 7.5,", asi  mismo, firmo  de enterado (a) y  de  conformidad  al  respecto, que  a  partir de", 0, 0, 'L');
                         
                         $this->Ln($sltL);
-                        $this->MultiCell(185.9, 6, utf8_decode("beneficiarios, asi mismo, firmo de enterado (a) y  conformidad al respecto, y que a partir de este momento se me realice el descuento anual, correspondiente a un día de mi pensión,  para contar con el beneficio de Fondo por Fallecimiento."), 0, 'J');
-
+                        $this->Cell(185.9, 7.5,utf8_decode("que me  sea entregado, se  rescinde toda  obligación por  parte  del  FONRETyF de  contar con  el"),0, 0, 'L');
                         $this->Ln($sltL);
+                        $this->Cell(185.9, 7.5,utf8_decode("beneficio de Fondo por Fallecimiento."),0, 0, 'L');
+
+                        $this->Ln($sltL + 8);
                         $this->SetFont('Arial','',9);
                         $this->MultiCell(185.9, 4, utf8_decode("NOTA: El monto aquí especificado está sujeto a cambios posteriores, ya que se realiza una exhaustiva y detallada revisión del expediente para la solicitud del Fondo de Retiro."), 0, 'J');
 
-                        $this->Image('/var/www/html/sistge/img/lineafirma.png',64,236,90,0.4);
-                        $this->SetY(235);
+                        $this->Image('/var/www/html/sistge/img/lineafirma.png',64,233,90,0.4);
+                        $this->SetY(232);
                         $this->SetFont('Arial','B',11);
                         $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
                         $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
@@ -308,12 +232,283 @@
                         $this->MultiCell(157, 2.5, utf8_decode("AVISO: Sus datos personales, serán tratados y protegidos por el Sindicato de Maestros al Servicio del Estado de México, en apego a lo establecido por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."), 0, 'J');
                         
                         $this->Image('/var/www/html/sistge/img/lineaoficio.png',10,258,197,0.5);
-                    }
-                }            
-            }
 
-            
-            else {
+                    }   else {
+                        
+                        if ($resultsT[0]['modretiro'] == "D50") {
+                            $this->Ln(8);
+                            $this->SetFont('Arial','',12);
+                            $this->SetTextColor(0,0,0);
+                            $this->Cell(185.9, 7.5,"Hago  de  su  conocimiento  que  el equivalente al  Fondo de Retiro  me  sea  entregado  de  forma", 0, 0, 'L');
+                            
+                            $this->Ln($sltL);
+                            $this->SetFont('Arial','B',12);
+                            $this->Cell(28, 7.5, "DIFERIDA", 0, 0, 'C');
+                            $this->SetFont('Arial','',12);
+                            $this->Cell(33, 7.5,", dejando el 50% del monto total", 0, 0, 'L');
+                            $this->Ln($sltL-1);
+                            $this->SetFont('Arial','',9);
+                            $this->Cell(185.9, 7.5,$resultsT[0]["montretfall"] . " (" . $resultsT[0]["montretfallletra"] . ")", 0, 0, 'C');
+                            $this->Ln($sltL-1);
+                            $this->SetFont('Arial','',12);
+                            $this->Cell(185.9, 7.5,utf8_decode("al resguardo del FONRETyF  para mis beneficiarios, y llevándome el  50% restante"), 0, 0, 'L');
+                            $this->Ln($sltL-1);
+                            $this->SetFont('Arial','',9);
+                            $this->Cell(185.9, 7.5,$resultsT[0]["montretentr"] . " (" . $resultsT[0]["montretentrletra"] . ")", 0, 0, 'C');
+                            $this->Ln($sltL);
+                            $this->SetFont('Arial','',12);
+                            $this->MultiCell(185.9, 6, utf8_decode(", asi mismo, firmo de enterado (a) y conformidad  al respecto, y que a partir de este momento se me realice el descuento anual, correspondiente a un día de mi pensión, para contar con el beneficio de Fondo por Fallecimiento."), 0, 'J');
+
+                            $this->Ln($sltL);
+                            $this->SetFont('Arial','',9);
+                            $this->MultiCell(185.9, 4, utf8_decode("NOTA: El monto aquí especificado está sujeto a cambios posteriores, ya que se realiza una exhaustiva y detallada revisión del expediente para la solicitud del Fondo de Retiro."), 0, 'J');
+
+                            $this->Image('/var/www/html/sistge/img/lineafirma.png',64,238,90,0.4);
+                            $this->SetY(237);
+                            $this->SetFont('Arial','B',11);
+                            $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                            $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
+                            $this->SetY(245);
+                            
+                            $this->SetFont('Arial','I',8);
+                            $this->Ln(4);
+                            $this->MultiCell(157, 2.5, utf8_decode("AVISO: Sus datos personales, serán tratados y protegidos por el Sindicato de Maestros al Servicio del Estado de México, en apego a lo establecido por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."), 0, 'J');
+                            
+                            $this->Image('/var/www/html/sistge/img/lineaoficio.png',10,258,197,0.5);
+                        } 
+                        
+                        elseif ($resultsT[0]['modretiro'] == "D100") {
+                            $this->Ln(9);
+                            $this->SetFont('Arial','',12);
+                            $this->SetTextColor(0,0,0);
+                            $this->Cell(185.9, 7.5,"Hago  de  su conocimiento  que  el equivalente  al  Fondo de Retiro  me  sea  entregado de  forma", 0, 0, 'L');
+                            
+                            $this->Ln($sltL);
+                            $this->SetFont('Arial','B',12);
+                            $this->Cell(36, 7.5, "PRORROGADA", 0, 0, 'C');
+                            $this->SetFont('Arial','',12);
+                            $this->Cell(149.9, 7.5,", dejando  el  100%  del  monto  total  al  resguardo  del  FONRETyF  para  mis", 0, 0, 'L');
+                            
+                            $this->Ln($sltL);
+                            $this->MultiCell(185.9, 6, utf8_decode("beneficiarios, asi mismo, firmo de enterado (a) y  conformidad al respecto, y que a partir de este momento se me realice el descuento anual, correspondiente a un día de mi pensión,  para contar con el beneficio de Fondo por Fallecimiento."), 0, 'J');
+
+                            $this->Ln($sltL);
+                            $this->SetFont('Arial','',9);
+                            $this->MultiCell(185.9, 4, utf8_decode("NOTA: El monto aquí especificado está sujeto a cambios posteriores, ya que se realiza una exhaustiva y detallada revisión del expediente para la solicitud del Fondo de Retiro."), 0, 'J');
+
+                            $this->Image('/var/www/html/sistge/img/lineafirma.png',64,236,90,0.4);
+                            $this->SetY(235);
+                            $this->SetFont('Arial','B',11);
+                            $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                            $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
+                            $this->SetY(245);
+                            
+                            $this->SetFont('Arial','I',8);
+                            $this->Ln(4);
+                            $this->MultiCell(157, 2.5, utf8_decode("AVISO: Sus datos personales, serán tratados y protegidos por el Sindicato de Maestros al Servicio del Estado de México, en apego a lo establecido por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."), 0, 'J');
+                            
+                            $this->Image('/var/www/html/sistge/img/lineaoficio.png',10,258,197,0.5);
+                        }
+                    } 
+                } else {
+                    /*   TIENEN ADEUDOS Y SIN PSGS   */
+                    $sltL = 6;
+                    $pXLs = 3;
+                    $this->Ln(20 + $pXLs);
+                    
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',22,90.5 + $pXLs,117,0.4);
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(8, 7.5, "Yo ", 0, 0, 'L');
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(115, 7.5, $resultsT[0]['nomsolic'], 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(62.9, 7.5, " con  clave  de  servidor   publico", 0, 0, 'L');
+
+                    $this->Ln(6);
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',16,96.5 + $pXLs,24,0.4);
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(25, 7.5,$resultsT[0]['cvemae'], 0, 0, 'C');
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',57,96.5 + $pXLs,55,0.4);
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(17, 7.5,", CURP  ", 0, 0, 'L');
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(55, 7.5,$resultsM[0]['curpmae'], 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',145,96.5 + $pXLs,27,0.4);
+                    $this->Cell(32, 7.5, utf8_decode("y número celular "), 0, 0, 'L');
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(28, 7.5,$resultsM[0]['numcelmae'], 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(28.9, 7.5, utf8_decode(",  labore  en  la"), 0, 0, 'L');
+
+                    $this->Ln(6);
+                    $this->Cell(44, 7.5, utf8_decode("región sindical número"), 0, 0, 'L');
+                    $this->SetFont('Arial','B',11);
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',59,102.5 + $pXLs,9,0.4);
+                    $this->Cell(9, 7.5,$resultsM[0]['regescmae'], 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(62, 7.5,"como docente basificado (a) del ", 0, 0, 'L');
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',130,102.5 + $pXLs,25.5,0.4);
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(25.5, 7.5,date("d-m-Y",strtotime($resultsM[0]['fcbasemae'])), 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(4, 7.5," al ", 0, 0, 'C');
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',159.5,102.5 + $pXLs,25.5,0.4);
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(25.5, 7.5,date("d-m-Y",strtotime($resultsT[0]['fechbajfall'])) ,0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(15.9, 7.5,", periodo", 0, 0, 'C');
+
+                    $this->Ln(6);
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(38, 7.5,"durante el cual tuve ",0, 0, 'L');
+                    $this->SetFont('Arial','B',11);
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',53,108.5 + $pXLs,10,0.4);
+                    $this->Cell(10, 7.5,$resultsM[0]['numpsgs'], 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(137.9, 7.5,utf8_decode("permisos  sin  goce de sueldo,  por lo cual  solicito el Fondo de Retiro  en"), 0, 0, 'L');
+                    
+                    $this->Ln(6);
+                    $this->Cell(24, 7.5,utf8_decode("virtud de mi"), 0, 0, 'L');
+                    $this->SetFont('Arial','I',12);
+                    $this->Cell(29, 7.5,utf8_decode($motivoRetiroLower), 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(12, 7.5,utf8_decode("con"), 0, 0, 'C');
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',80,117.5,11,0.5);
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(11, 7.5,$resultsM[0]['aservactmae'], 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(109.9, 7.5, utf8_decode("años de servicio cotizados al SMSEM, con fundamento en"), 0, 0, 'L');
+                        
+                    $this->Ln(6);
+                    $this->SetFont('Arial','',12);
+                    $this->MultiCell(185.9, 6, utf8_decode("los artículos 30, 31, 32, 35, 36, 37, 38, 39, 43 y 44 del  Reglamento del  Fondo  de Retiro y Fallecimiento (FONRETyF)."), 0, 'J');         
+                    
+                    $this->Ln($sltL - 2);
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(185.9, 7.5,utf8_decode("Habiendo especificado lo anterior, acepto el monto que me corresponde por la cantidad de: "),0, 0, 'L');
+                    
+                    $this->Ln(8);
+                    $this->SetFont('Arial','B',12);
+                    $this->SetTextColor(15,83,183);
+                    $this->Cell(40, 7.5,"$".$montoretsinAdeudos,0, 0, 'R');
+                    $this->SetFont('Arial','B',9.5);
+                    $this->Cell(139, 7.5,"(". $montsindAdeudos .")",0, 0, 'L');
+                    
+                    
+                    if ($resultsT[0]['modretiro'] == "C") {
+                        $this->Ln(9);
+                        $this->SetFont('Arial','',12);
+                        $this->SetTextColor(0,0,0);
+                        $this->Cell(185.9, 7.5,"Hago  de  su  conocimiento  que  el  equivalente  al  Fondo de Retiro  me sea  entregado de  forma", 0, 0, 'L');
+                        
+                        $this->Ln($sltL);
+                        $this->SetFont('Arial','B',12);
+                        $this->Cell(27, 7.5, "COMPLETA", 0, 0, 'C');
+                        $this->SetFont('Arial','',12);
+                        $this->Cell(158.9, 7.5,", asi  mismo, firmo  de enterado (a) y  de  conformidad  al  respecto, que  a  partir de", 0, 0, 'L');
+                        
+                        $this->Ln($sltL);
+                        $this->Cell(185.9, 7.5,utf8_decode("que me  sea entregado, se  rescinde toda  obligación por  parte  del  FONRETyF de  contar con  el"),0, 0, 'L');
+                        $this->Ln($sltL);
+                        $this->Cell(185.9, 7.5,utf8_decode("beneficio de Fondo por Fallecimiento."),0, 0, 'L');
+
+                        $this->Ln($sltL + 8);
+                        $this->SetFont('Arial','',9);
+                        $this->MultiCell(185.9, 4, utf8_decode("NOTA: El monto aquí especificado está sujeto a cambios posteriores, ya que se realiza una exhaustiva y detallada revisión del expediente para la solicitud del Fondo de Retiro."), 0, 'J');
+
+                        $this->Image('/var/www/html/sistge/img/lineafirma.png',64,233,90,0.4);
+                        $this->SetY(232);
+                        $this->SetFont('Arial','B',11);
+                        $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                        $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
+                        $this->SetY(245);
+                        
+                        $this->SetFont('Arial','I',8);
+                        $this->Ln(4);
+                        $this->MultiCell(157, 2.5, utf8_decode("AVISO: Sus datos personales, serán tratados y protegidos por el Sindicato de Maestros al Servicio del Estado de México, en apego a lo establecido por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."), 0, 'J');
+                        
+                        $this->Image('/var/www/html/sistge/img/lineaoficio.png',10,258,197,0.5);
+
+                    }   else {
+                        
+                        if ($resultsT[0]['modretiro'] == "D50") {
+                            $this->Ln(8);
+                            $this->SetFont('Arial','',12);
+                            $this->SetTextColor(0,0,0);
+                            $this->Cell(185.9, 7.5,"Hago  de  su  conocimiento  que  el equivalente al  Fondo de Retiro  me  sea  entregado  de  forma", 0, 0, 'L');
+                            
+                            $this->Ln($sltL);
+                            $this->SetFont('Arial','B',12);
+                            $this->Cell(28, 7.5, "DIFERIDA", 0, 0, 'C');
+                            $this->SetFont('Arial','',12);
+                            $this->Cell(33, 7.5,", dejando el 50% del monto total", 0, 0, 'L');
+                            $this->Ln($sltL-1);
+                            $this->SetFont('Arial','',9);
+                            $this->Cell(185.9, 7.5,$resultsT[0]["montretfall"] . " (" . $resultsT[0]["montretfallletra"] . ")", 0, 0, 'C');
+                            $this->Ln($sltL-1);
+                            $this->SetFont('Arial','',12);
+                            $this->Cell(185.9, 7.5,utf8_decode("al resguardo del FONRETyF  para mis beneficiarios, y llevándome el  50% restante"), 0, 0, 'L');
+                            $this->Ln($sltL-1);
+                            $this->SetFont('Arial','',9);
+                            $this->Cell(185.9, 7.5,$resultsT[0]["montretentr"] . " (" . $resultsT[0]["montretentrletra"] . ")", 0, 0, 'C');
+                            $this->Ln($sltL);
+                            $this->SetFont('Arial','',12);
+                            $this->MultiCell(185.9, 6, utf8_decode(", asi mismo, firmo de enterado (a) y conformidad  al respecto, y que a partir de este momento se me realice el descuento anual, correspondiente a un día de mi pensión, para contar con el beneficio de Fondo por Fallecimiento."), 0, 'J');
+
+                            $this->Ln($sltL);
+                            $this->SetFont('Arial','',9);
+                            $this->MultiCell(185.9, 4, utf8_decode("NOTA: El monto aquí especificado está sujeto a cambios posteriores, ya que se realiza una exhaustiva y detallada revisión del expediente para la solicitud del Fondo de Retiro."), 0, 'J');
+
+                            $this->Image('/var/www/html/sistge/img/lineafirma.png',64,238,90,0.4);
+                            $this->SetY(237);
+                            $this->SetFont('Arial','B',11);
+                            $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                            $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
+                            $this->SetY(245);
+                            
+                            $this->SetFont('Arial','I',8);
+                            $this->Ln(4);
+                            $this->MultiCell(157, 2.5, utf8_decode("AVISO: Sus datos personales, serán tratados y protegidos por el Sindicato de Maestros al Servicio del Estado de México, en apego a lo establecido por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."), 0, 'J');
+                            
+                            $this->Image('/var/www/html/sistge/img/lineaoficio.png',10,258,197,0.5);
+                        } 
+                        
+                        elseif ($resultsT[0]['modretiro'] == "D100") {
+                            $this->Ln(9);
+                            $this->SetFont('Arial','',12);
+                            $this->SetTextColor(0,0,0);
+                            $this->Cell(185.9, 7.5,"Hago  de  su conocimiento  que  el equivalente  al  Fondo de Retiro  me  sea  entregado de  forma", 0, 0, 'L');
+                            
+                            $this->Ln($sltL);
+                            $this->SetFont('Arial','B',12);
+                            $this->Cell(36, 7.5, "PRORROGADA", 0, 0, 'C');
+                            $this->SetFont('Arial','',12);
+                            $this->Cell(149.9, 7.5,", dejando  el  100%  del  monto  total  al  resguardo  del  FONRETyF  para  mis", 0, 0, 'L');
+                            
+                            $this->Ln($sltL);
+                            $this->MultiCell(185.9, 6, utf8_decode("beneficiarios, asi mismo, firmo de enterado (a) y  conformidad al respecto, y que a partir de este momento se me realice el descuento anual, correspondiente a un día de mi pensión,  para contar con el beneficio de Fondo por Fallecimiento."), 0, 'J');
+
+                            $this->Ln($sltL);
+                            $this->SetFont('Arial','',9);
+                            $this->MultiCell(185.9, 4, utf8_decode("NOTA: El monto aquí especificado está sujeto a cambios posteriores, ya que se realiza una exhaustiva y detallada revisión del expediente para la solicitud del Fondo de Retiro."), 0, 'J');
+
+                            $this->Image('/var/www/html/sistge/img/lineafirma.png',64,236,90,0.4);
+                            $this->SetY(235);
+                            $this->SetFont('Arial','B',11);
+                            $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                            $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
+                            $this->SetY(245);
+                            
+                            $this->SetFont('Arial','I',8);
+                            $this->Ln(4);
+                            $this->MultiCell(157, 2.5, utf8_decode("AVISO: Sus datos personales, serán tratados y protegidos por el Sindicato de Maestros al Servicio del Estado de México, en apego a lo establecido por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.Consulte de aviso de privacidad integral en la página: www.ipomex.org.mx/ipo/lgt/indice/smsem/otrainfo.web."), 0, 'J');
+                            
+                            $this->Image('/var/www/html/sistge/img/lineaoficio.png',10,258,197,0.5);
+                        }
+                    }
+                }           
+            } else {
                 
                 if ($resultsT[0]['modretiro'] == "C") {
                     $sltL = 6;
@@ -373,7 +568,6 @@
                     $this->Cell(137.9, 7.5,utf8_decode("permisos  sin  goce de sueldo:"), 0, 0, 'L');
                     
                     $this->Ln($sltL+3);
-                    //$this->SetXY(25,120);
                     $this->SetFont('Arial','',10);
                     $this->SetDrawColor(123,123,123);
                     $this->SetLineWidth(0.2);
@@ -500,7 +694,6 @@
                         $this->Cell(137.9, 7.5,utf8_decode("permisos  sin  goce de sueldo:"), 0, 0, 'L');
                         
                         $this->Ln($sltL+3);
-                        //$this->SetXY(25,120);
                         $this->SetFont('Arial','',10);
                         $this->SetDrawColor(123,123,123);
                         $this->SetLineWidth(0.2);

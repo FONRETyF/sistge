@@ -1973,16 +1973,25 @@ accionActRetiro.addEventListener("click", function (event) {
     }
     if (parseFloat(document.getElementById('AdedCeso').value.replace(",","")) > 0) {
         numadeds++;
-    }
+    }   
 
     var montTotRet = document.getElementById('montRet').value.replace(",","");
-    document.getElementById('montRetSinAded').value = montTotRet - adeudosMae;
+    var montoRetiroSinAdeudos = montTotRet - adeudosMae;
+    
+    var montRetSinAdedsInt = parseInt(montoRetiroSinAdeudos);
+    let montRetSinAdedsFlt = montoRetiroSinAdeudos.toString();
+    let indice = montRetSinAdedsFlt.indexOf(".");
+    
+    var montRetSAds = montRetSinAdedsInt + "." + montRetSinAdedsFlt.slice((indice + 1), (indice + 3));
+  
+    document.getElementById('montRetSinAded').value = montRetSAds;
     document.getElementById('montAdeudos').value = adeudosMae;
+    
     if (adeudosMae > 0) {
         var modalidadAct = document.getElementById('ModoRetiro').value;
         var montRetSinAded =  document.getElementById('montRetSinAded').value;
         if (modalidadAct == "C") {
-            document.getElementById('monRetEntr').value = montRetSinAded;
+            document.getElementById('monRetEntr').value = montRetSAds;
             document.getElementById("montRetFondFall").style.display = "none";
             document.getElementById("DivTpoDiferido").style.display = "none";
         } else if (modalidadAct == "D") {
@@ -1990,11 +1999,11 @@ accionActRetiro.addEventListener("click", function (event) {
             document.getElementById("montRetFondFall").style.display = "block";
             document.getElementById("montSalMin").disabled =  false;
             if (document.getElementById('ModRetDiferid50').checked){
-                document.getElementById('monRetEntr').value = (montRetSinAded / 2).toFixed(2);
-                document.getElementById('montRetFF').value = (montRetSinAded / 2).toFixed(2);
+                document.getElementById('monRetEntr').value = (montRetSAds / 2).toFixed(2);
+                document.getElementById('montRetFF').value = (montRetSAds / 2).toFixed(2);
             }else if(document.getElementById('ModRetDiferid100').checked){
                 document.getElementById('monRetEntr').value = "0";
-                document.getElementById('montRetFF').value = montRetSinAded;
+                document.getElementById('montRetFF').value = montRetSAds;
             }
         }    
     }else{
@@ -2003,7 +2012,7 @@ accionActRetiro.addEventListener("click", function (event) {
         var modalidadAct = document.getElementById('ModoRetiro').value;
         var montRetSinAded =  document.getElementById('montRet').value;
         if (modalidadAct == "C") {
-            document.getElementById('monRetEntr').value = montRetSinAded;
+            document.getElementById('monRetEntr').value = montRetSAds;
             document.getElementById("montRetFondFall").style.display = "none";
             document.getElementById("DivTpoDiferido").style.display = "none";
         } else if (modalidadAct == "D") {
@@ -2011,11 +2020,11 @@ accionActRetiro.addEventListener("click", function (event) {
             document.getElementById("montRetFondFall").style.display = "block";
             document.getElementById("montSalMin").disabled =  false;
             if (document.getElementById('ModRetDiferid50').checked){
-                document.getElementById('monRetEntr').value = (montRetSinAded / 2).toFixed(2);
-                document.getElementById('montRetFF').value = (montRetSinAded / 2).toFixed(2);
+                document.getElementById('monRetEntr').value = (montRetSAds / 2).toFixed(2);
+                document.getElementById('montRetFF').value = (montRetSAds / 2).toFixed(2);
             }else if(document.getElementById('ModRetDiferid100').checked){
                 document.getElementById('monRetEntr').value = "0";
-                document.getElementById('montRetFF').value = montRetSinAded;
+                document.getElementById('montRetFF').value = montRetSAds;
             }
         }    
     }

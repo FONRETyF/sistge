@@ -818,8 +818,10 @@ function validaFechas(valorValid, a_fechs) {
                             $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
                                 data = JSON.parse(data);
                                 var montInteger = parseInt(data.montret);
-                                var montFloat = parseInt((data.montret % 1)*100);
-                                $('#montRet').val(montInteger + "." + montFloat);
+                                var montRetString = data.montret.toString();
+                                var indxPoint = montRetString.indexOf(".");
+                            
+                                $('#montRet').val(montInteger + "." + montRetString.slice((indxPoint + 1), (indxPoint + 3)));
                                 document.getElementById("agregaTramite").disabled =  false;
                                 montoRetiro = parseFloat(document.getElementById('montRet').value);
                                 document.getElementById("monRetEntr").value = montoRetiro;
@@ -884,9 +886,13 @@ function validaFechas(valorValid, a_fechs) {
                             $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
                                 data = JSON.parse(data);
                                 var montInteger = parseInt(data.montret);
-                                var montFloat = parseInt((data.montret % 1)*100);
+                                //var montFloat = parseInt((data.montret % 1)*100);
+                                var montRetString = data.montret.toString();
+                                var indxPoint = montRetString.indexOf(".");
+    
+                                $('#montRet').val(montInteger + "." + montRetString.slice((indxPoint + 1), (indxPoint + 3)));
+
                                 document.getElementById("agregaTramite").disabled =  false;
-                                $('#montRet').val(montInteger + "." + montFloat);
                                 document.getElementById("monRetEntr").value =  $('#montRet').val();
                                 if (motivo == "FRF" || motivo == "FFJ" || motivo == "FMJ") {
                                     document.getElementById("ModoRetiro").disabled =  true;
@@ -924,9 +930,14 @@ function validaFechas(valorValid, a_fechs) {
                                     $.post("../../controller/tramites.php?op=obtenRetiro",{aniosserv:aniosserv},function(data){       
                                         data = JSON.parse(data);
                                         var montInteger = parseInt(data.montret);
-                                        var montFloat = parseInt((data.montret % 1)*100);
+                                        //var montFloat = parseInt((data.montret % 1)*100);
+
+                                        var montRetString = data.montret.toString();
+                                        var indxPoint = montRetString.indexOf(".");
+    
+                                        $('#montRet').val(montInteger + "." + montRetString.slice((indxPoint + 1), (indxPoint + 3)));
+
                                         document.getElementById("agregaTramite").disabled =  false;
-                                        $('#montRet').val(montInteger + "." + montFloat);
                                         document.getElementById("monRetEntr").value =  $('#montRet').val();
                                         if (motret == "FRF" || motret == "FFJ" || motret == "FMJ") {
                                             document.getElementById("ModoRetiro").disabled =  true;
