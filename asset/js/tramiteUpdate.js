@@ -2380,7 +2380,7 @@ function actualizaFallJub(){
                                                         UdiasServ:$("#diasServMae").val(),
                                                         UaniosServ:$('#aniosServMae').val(),
                                                         UmodRet:document.getElementById("ModalRetiro").value,
-                                                        Umonttotret:document.getElementById('montRet').value.replace(',',''),
+                                                        Umonttotret:document.getElementById('montRet').value.replace(',','').replace("$",""),
                                                         UmontretEntr:$("#monRetEntr").val().replace(',','').replace("$",""),
                                                         UfechRecibido:$("#fechRecibido").val(),
                                                         UnumOficTarj:$("#numOficTarj").val(),

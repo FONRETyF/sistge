@@ -36,19 +36,19 @@
             $fechaEntrega = substr($resultsE[0]['fechentrega'],8,2) . " DE " . $meses[intval(substr($resultsE[0]['fechentrega'],5,2))] . " DE " . substr($resultsE[0]['fechentrega'],0,4);
             $this->entregaOrdinal= $funciones->numordinales([intval(substr($identr,4,2))]);
 
-            $statementTI = $this->db->prepare("SELECT COUNT(*), SUM(montretentr) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and motvret='I'");
+            $statementTI = $this->db->prepare("SELECT COUNT(*), SUM(montretentr) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and motvret='FRI'");
             $statementTI->execute();
             $resultsTI = $statementTI->fetchAll(PDO::FETCH_ASSOC);
 
-            $statementTJ = $this->db->prepare("SELECT COUNT(*), SUM(montretentr) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and motvret='J'");
+            $statementTJ = $this->db->prepare("SELECT COUNT(*), SUM(montretentr) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and motvret='FRJ'");
             $statementTJ->execute();
             $resultsTJ = $statementTJ->fetchAll(PDO::FETCH_ASSOC);
             
-            $statementTF = $this->db->prepare("SELECT COUNT(*), SUM(montretentr) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and (motvret='FA' or motvret='FJ')");
+            $statementTF = $this->db->prepare("SELECT COUNT(*), SUM(montretentr) FROM public.tramites_fonretyf WHERE identrega='".$identr."' and (motvret='FRF' or motvret='FMJ')");
             $statementTF->execute();
             $resultsTF = $statementTF->fetchAll(PDO::FETCH_ASSOC);
 
-            $consulta="SELECT COUNT(*) FROM public.beneficiarios_cheques as tab1 INNER JOIN public.tramites_fonretyf as tab2 on tab1.cvemae=tab2.cvemae WHERE tab2.numentrega=".intval(substr($identr,4,2)). " and tab2.anioentrega=".substr($identr,0,4) ." and motvret<>'I' and motvret<>'J'";
+            $consulta="SELECT COUNT(*) FROM public.beneficiarios_cheques as tab1 INNER JOIN public.tramites_fonretyf as tab2 on tab1.cvemae=tab2.cvemae WHERE tab2.numentrega=".intval(substr($identr,4,2)). " and tab2.anioentrega=".substr($identr,0,4) ." and motvret<>'FRI' and motvret<>'FRJ'";
             $statementTB = $this->db->prepare($consulta);
             $statementTB->execute();
             $resultsTB = $statementTB->fetchAll(PDO::FETCH_ASSOC);

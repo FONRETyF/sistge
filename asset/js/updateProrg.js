@@ -21,7 +21,7 @@ $(document).ready(function () {
         document.getElementById('OpcCauRetiroTExc').value = infoProrroga[3];
         document.getElementById('OpcCauRetiroTExc').disabled=true;
 
-        if (infoProrroga[3] == 'I' || infoProrroga[3] == 'J' || infoProrroga[3] == 'FA') {
+        if (infoProrroga[3] == 'FRI' || infoProrroga[3] == 'FRJ' || infoProrroga[3] == 'FRR' || infoProrroga[3] == 'FRD' || infoProrroga[3] == 'FRF') {
             document.getElementById("cspMaeBusq").disabled =  true;
             document.getElementById("EditaNombre").disabled =  false;
             document.getElementById("TelPartiMae").disabled =  false;
@@ -60,7 +60,7 @@ $(document).ready(function () {
 
             $("#observTramite").val(infoProrroga[9]);
 
-        }else if (infoProrroga[3] == 'FJ') {
+        }else if (infoProrroga[3] == 'FMJ') {
             document.getElementById("cspMaeBusq").disabled =  true;
             document.getElementById("EditaNombre").disabled =  false;
             document.getElementById("cveIMaeBusq").disabled =  false; 
@@ -101,7 +101,7 @@ $("#OpcCauRetiroTExc").change(function () {
     motivo= $("#OpcCauRetiroTExc").val();
 
     switch (motivo) {
-        case "I":
+        case "FRI":
             document.getElementById("cspMaeBusq").disabled =  false;
             document.getElementById("EditaNombre").disabled =  false;
             document.getElementById("cveIMaeBusq").disabled =  false;
@@ -109,7 +109,7 @@ $("#OpcCauRetiroTExc").change(function () {
 			document.getElementById('divcveissemym').style.display = "none";
             break;
 
-        case "J":
+        case "FRJ":
             document.getElementById("cspMaeBusq").disabled =  false;
             document.getElementById("EditaNombre").disabled =  false;
             document.getElementById("cveIMaeBusq").disabled =  false;  
@@ -117,7 +117,23 @@ $("#OpcCauRetiroTExc").change(function () {
 			document.getElementById('divcveissemym').style.display = "none";
             break;
 
-        case "FA":
+        case "FRR":
+            document.getElementById("cspMaeBusq").disabled =  false;
+            document.getElementById("EditaNombre").disabled =  false;
+            document.getElementById("cveIMaeBusq").disabled =  false;  
+			document.getElementById('divcsp').style.display = "block";			
+			document.getElementById('divcveissemym').style.display = "none";
+            break;
+
+        case "FRD":
+            document.getElementById("cspMaeBusq").disabled =  false;
+            document.getElementById("EditaNombre").disabled =  false;
+            document.getElementById("cveIMaeBusq").disabled =  false;  
+			document.getElementById('divcsp').style.display = "block";			
+			document.getElementById('divcveissemym').style.display = "none";
+            break;
+
+        case "FRF":
             document.getElementById("cspMaeBusq").disabled =  false;
             document.getElementById("EditaNombre").disabled =  false;
             document.getElementById("cveIMaeBusq").disabled =  false;
@@ -125,7 +141,7 @@ $("#OpcCauRetiroTExc").change(function () {
 			document.getElementById('divcveissemym').style.display = "none";
             break;
 
-        case "FJ":
+        case "FMJ":
             document.getElementById("cspMaeBusq").disabled =  true;
             document.getElementById("EditaNombre").disabled =  false;
             document.getElementById("cveIMaeBusq").disabled =  false; 
@@ -200,7 +216,7 @@ $("#cveIMaeBusq").change(function() {
         )
     }
     
-    if (motivo == "FJ") {
+    if (motivo == "FMJ") {
         clavemae = $("#cveIMaeBusq").val();
         if (claveisemym.length <= 6 && $("#cveIMaeBusq").val() != ""){
             $.post("../../controller/maestro.php?op=buscarJub",{claveisemym:claveisemym},function(dataJ){ 
@@ -380,7 +396,7 @@ function actNomMae(e){
     nomComMae = $('#apepatModif').val() + " " + $('#apematModif').val() + " " + $('#nommaeModif').val();
     $('#nomcomModif').val(nomComMae);
 	
-	if($('#OpcCauRetiro').val() == "FJ"){
+	if($('#OpcCauRetiro').val() == "FMJ"){
 		$.post("../../controller/maestro.php?op=actNomMae",{apepatModif:$('#apepatModif').val(),apematModif:$('#apematModif').val(),nommaeModif:$('#nommaeModif').val(),nomcomModif:$('#nomcomModif').val(),cvemae:$('#cvemae').val()},function(data){ 
 			resultadoUpd = Object.values( JSON.parse(data));
 			if(resultadoUpd[0] == "actualizado"){

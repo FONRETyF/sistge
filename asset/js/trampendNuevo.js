@@ -14,14 +14,14 @@ $(document).ready(function () {
         motivo= $("#OpcCauRetiro").val();
 
         switch (motivo) {
-            case 'FA':
+            case 'FRF':
                 document.getElementById("cspMaeBusq").disabled =  false;
                 document.getElementById("EditaNombre").disabled =  false;
                 document.getElementById("cveIMaeBusq").disabled =  false;
                 document.getElementById("nomSolic").disabled = false;
                 document.getElementById('fechRecibido').value = fechaRecibido;
                 break;
-            case 'FJ':
+            case 'FMJ':
                 document.getElementById("cspMaeBusq").disabled =  true;
                 document.getElementById("EditaNombre").disabled =  false;
                 document.getElementById("cveIMaeBusq").disabled =  false;
@@ -108,7 +108,7 @@ $(document).ready(function () {
                         document.getElementById("fechRecibido").disabled =  false;
                         document.getElementById("fechBajaMae").disabled =  false;
     
-                        if (motivo == "FA") {
+                        if (motivo == "FRF") {
                             document.getElementById("fechIniJuicio").disabled = false;
                         }
                     }
@@ -142,7 +142,7 @@ $(document).ready(function () {
             )
         }
         
-        if (motivo == "FJ") {
+        if (motivo == "FMJ") {
             clavemae = $("#cveIMaeBusq").val();
             if (claveisemym.length <= 6 && $("#cveIMaeBusq").val() != ""){
                 $.post("../../controller/maestro.php?op=buscarJub",{claveisemym:claveisemym},function(dataJ){ 

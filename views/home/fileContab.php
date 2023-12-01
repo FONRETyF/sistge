@@ -161,16 +161,16 @@
         $activeWorksheet->setCellValue('B'. $numregExcel,$rowTB["nomcommae"]);
         $activeWorksheet->setCellValue('C'. $numregExcel,$rowTB["nombenef"]);
         switch ($rowTB["motvret"]) {
-            case 'I':
+            case 'FRI':
                 $descmotivo = "INHABILITACION";
                 break;
-            case 'J':
+            case 'FRJ':
                 $descmotivo = "JUBILACION";
                 break;
-            case 'FA':
+            case 'FRF':
                 $descmotivo = "FALLECIMIENTO";
                 break;
-            case 'FJ':
+            case 'FMJ':
                 $descmotivo = "FALLECIMIENTO";
                 break;
             default:

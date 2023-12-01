@@ -25,8 +25,9 @@
             <div id="causaRetiro">Causa Retiro: &nbsp
                         <select name="OpcCauRetiro" id="OpcCauRetiro" placeholder="MOTIVO RET" onchange="">
                             <option selected="true" disabled="disabled">Seleccione Motivo</option>
-                            <option value="FA">FALLECIMIENTO ACT</option>
-                            <option value="FJ">FALLECIMIENTO JUB</option>
+                            <option value="FRF">FALLECIMIENTO ACT</option>
+                            <option value="FFJ">FONDO FALLEC JUB</option>
+                            <option value="FMJ">FONDO MUTUAL JUB</option>
                         </select>
             </div>
             <div class="CapturaJub">

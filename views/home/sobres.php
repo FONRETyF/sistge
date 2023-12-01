@@ -16,7 +16,7 @@
 	 /* INHABILITADOS */
     $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab1.motvret,tab2.idbenefcheque,tab2.nombenef,tab3.nomcommae FROM public.tramites_fonretyf as tab1 LEFT JOIN public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae FROM";
     $consultacheques = $consultacheques . " public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
-    $consultacheques = $consultacheques . " WHERE tab1.identrega='".$identrega."' and tab1.motvret='I' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' and tab2.statedad = 'M' and tab2.chequeadeudo = 'N' ORDER  BY nomcommae ASC;";
+    $consultacheques = $consultacheques . " WHERE tab1.identrega='".$identrega."' and tab1.motvret='FRI' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' and tab2.statedad = 'M' and tab2.chequeadeudo = 'N' ORDER  BY nomcommae ASC;";
 
     $arregloMaestrosCheques = array();
 
@@ -44,7 +44,7 @@
      /* JUBILADOS */
     $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab1.motvret,tab2.idbenefcheque,tab2.nombenef,tab3.nomcommae FROM public.tramites_fonretyf as tab1 LEFT JOIN public.beneficiarios_cheques as tab2 on tab1.identret = tab2.identret LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae FROM";
     $consultacheques = $consultacheques . " public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
-    $consultacheques = $consultacheques . " WHERE tab1.identrega='".$identrega."' and tab1.motvret='J' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' and tab2.statedad = 'M' and tab2.chequeadeudo = 'N' ORDER  BY nomcommae ASC;";
+    $consultacheques = $consultacheques . " WHERE tab1.identrega='".$identrega."' and tab1.motvret='FRJ' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' and tab2.statedad = 'M' and tab2.chequeadeudo = 'N' ORDER  BY nomcommae ASC;";
 
     $statementCheques = $db->prepare($consultacheques);
     $statementCheques->execute();
@@ -69,7 +69,7 @@
      /* FALLECIMIENTOS */
     $consultachequesF = "SELECT tab1.identret,tab1.cvemae,tab1.motvret,tab3.nomcommae FROM public.tramites_fonretyf as tab1 LEFT JOIN (SELECT tab1.cvemae,tab2.nomcommae,tab2.numcelmae,tab2.numfijmae FROM public.tramites_fonretyf as tab1,";
     $consultachequesF = $consultachequesF . " public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab2.numcelmae,tab2.numfijmae FROM public.tramites_fonretyf as tab1, public.mutualidad as tab2";
-    $consultachequesF = $consultachequesF . " WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') and tiptramne='0' and (tab1.modretiro='C' or tab1.modretiro='D50') ORDER  BY nomcommae ASC;";
+    $consultachequesF = $consultachequesF . " WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and (tab1.motvret='FRF' or tab1.motvret='FMJ') and tiptramne='0' and (tab1.modretiro='C' or tab1.modretiro='D50') ORDER  BY nomcommae ASC;";
 
     $statementChequesF = $db->prepare($consultachequesF);
     $statementChequesF->execute();
@@ -124,7 +124,7 @@
 	/* MENORES DE EDAD */
     $consultachequesME = "SELECT DISTINCT tab1.identret,tab1.cvemae,tab1.motvret,tab3.nomcommae FROM public.tramites_fonretyf as tab1 LEFT JOIN public.beneficiarios_cheques as tab2 on tab1.cvemae=tab2.cvemae LEFT JOIN";
     $consultachequesME = $consultachequesME . " (SELECT tab1.cvemae,tab2.nomcommae,tab2.numcelmae,tab2.numfijmae FROM public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae,tab2.numcelmae,tab2.numfijmae FROM public.tramites_fonretyf as tab1,";
-    $consultachequesME = $consultachequesME . " public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' and tab2.statedad = 'N' ORDER  BY nomcommae ASC;";
+    $consultachequesME = $consultachequesME . " public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae WHERE tab1.identrega='".$identrega."' and (tab1.motvret='FRF' or tab1.motvret='FMJ') and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' and tab2.statedad = 'N' ORDER  BY nomcommae ASC;";
             
     $statementChequesME = $db->prepare($consultachequesME);
     $statementChequesME->execute();

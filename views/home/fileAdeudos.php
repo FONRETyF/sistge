@@ -56,7 +56,7 @@ require '/var/www/html/sistge/vendor/autoload.php'; //'vendor/autoload.php';
             /* INHABILITADOS */
             $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1 left join (Select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2";
             $consultacheques = $consultacheques . " WHERE tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
-            $consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and tab1.motvret='I' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc;";
+            $consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and tab1.motvret='FRI' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc;";
 
             $statementCheques = $db->prepare($consultacheques);
             $statementCheques->execute();
@@ -81,7 +81,7 @@ require '/var/www/html/sistge/vendor/autoload.php'; //'vendor/autoload.php';
             /* JUBILADOS */
             $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1 left join (Select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2";
             $consultacheques = $consultacheques . " WHERE tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
-            $consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and tab1.motvret='J' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc;";
+            $consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and tab1.motvret='FRJ' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc;";
 
             $statementCheques = $db->prepare($consultacheques);
             $statementCheques->execute();
@@ -106,7 +106,7 @@ require '/var/www/html/sistge/vendor/autoload.php'; //'vendor/autoload.php';
              /* FALLECIDOS */
              $consultacheques = "SELECT tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret FROM public.tramites_fonretyf as tab1 left join (Select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2";
              $consultacheques = $consultacheques . " WHERE tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym) as tab3 on tab1.cvemae= tab3.cvemae";
-             $consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc;";
+             $consultacheques = $consultacheques . " WHERE identrega='".$identrega."' and (tab1.motvret='FRF' or tab1.motvret='FMJ') and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc;";
  
              $statementChequesF = $db->prepare($consultacheques);
              $statementChequesF->execute();
@@ -135,16 +135,16 @@ require '/var/www/html/sistge/vendor/autoload.php'; //'vendor/autoload.php';
                 $activeWorksheet->setCellValue('B'. $numregExcel,$row["cvemae"]);
                 $activeWorksheet->setCellValue('C'. $numregExcel,$row["nomcommae"]);
                 switch ($row["motvret"]) {
-                    case 'I':
+                    case 'FRI':
                         $descmotivo = "INHABILITACION";
                         break;
-                    case 'J':
+                    case 'FRJ':
                         $descmotivo = "JUBILACION";
                         break;
-                    case 'FA':
+                    case 'FRF':
                         $descmotivo = "FALLECIMIENTO";
                         break;
-                    case 'FJ':
+                    case 'FMJ':
                         $descmotivo = "FALLECIMIENTO";
                         break;
                     default:

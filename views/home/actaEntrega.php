@@ -28,7 +28,7 @@
     /* INHABILITADOS */
     $consultacheques = "select tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
     $consultacheques = $consultacheques . " from public.tramites_fonretyf as tab1 left join (select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym)";
-    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and tab1.motvret='I' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc;";
+    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and tab1.motvret='FRI' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc;";
     $statement = $db->prepare($consultacheques);
     $statement->execute();
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -53,7 +53,7 @@
     /* JUBILADOS */
     $consultacheques = "select tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
     $consultacheques = $consultacheques . " from public.tramites_fonretyf as tab1 left join (select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym)";
-    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and tab1.motvret='J' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc;";
+    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and tab1.motvret='FRJ' and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc;";
     $statement = $db->prepare($consultacheques);
     $statement->execute();
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -78,7 +78,7 @@
     /* FALLECIDOS */
     $consultacheques = "select tab1.identret,tab1.cvemae,tab3.nomcommae,tab1.motvret,tab1.numpartsolic,tab1.numcelsolic,tab1.modretiro,tab1.montrettot,tab1.montretletra,tab1.montretentr,tab1.montretentrletra,tab1.foliotramite";
     $consultacheques = $consultacheques . " from public.tramites_fonretyf as tab1 left join (select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.maestros_smsem as tab2 where tab1.cvemae = tab2.csp union select tab1.cvemae,tab2.nomcommae from public.tramites_fonretyf as tab1, public.mutualidad as tab2 where tab1.cvemae = tab2.cveissemym)";
-    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and (tab1.motvret='FA' or tab1.motvret='FJ') and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc;";
+    $consultacheques = $consultacheques . " as tab3 on tab1.cvemae= tab3.cvemae where tab1.identrega='".$identrega."' and (tab1.motvret='FRF' or tab1.motvret='FMJ') and (tab1.modretiro='C' or tab1.modretiro='D50') and tiptramne='0' order by nomcommae asc;";
     
     $statement = $db->prepare($consultacheques);
     $statement->execute();
@@ -108,15 +108,15 @@
         $pdf->SetFont('Arial','B',11);
 
         $motivo = $regTraAct['motvret'];
-        if ($motivo== "I") {
+        if ($motivo== "FRI") {
             $motivoRetiro = "INHABILITACIÓN";
-        } elseif ($motivo == "J") {
+        } elseif ($motivo == "FRJ") {
             $motivoRetiro = "JUBILACIÓN";
-        }elseif ($motivo == "FA" || $motivo == "FJ") {
+        }elseif ($motivo == "FRF" || $motivo == "FMJ") {
             $motivoRetiro = "FALLECIMIENTO";
         }
 
-        if ($motivo == "I" || $motivo == "J") {
+        if ($motivo == "FRI" || $motivo == "FRJ") {
             $pdf->SetXY(17.59,1);
             $pdf->SetFont('Arial','',11);
             $pdf->SetTextColor(150,150,150);
@@ -340,7 +340,7 @@
                 $pdf->SetFont('Arial','B',9.5);
                 $pdf->cell(15.59,0.5,utf8_decode($regTraAct["nomcommae"]),0,0, 'C');
             }
-        }elseif ($regTraAct['motvret'] == "FA" || $regTraAct['motvret'] == "FJ") {
+        }elseif ($regTraAct['motvret'] == "FRF" || $regTraAct['motvret'] == "FMJ") {
             $pdf->SetDrawColor(0,0,0);
 
             $pdf->SetXY(17.59,1);

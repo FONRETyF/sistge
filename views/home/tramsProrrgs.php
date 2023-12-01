@@ -54,8 +54,6 @@
     </form>
 </section>
 
-<!--<script src="../../libs/datatables/jquery-1.12.4.js"></script>
-<script src="../../libs/datatables/jquery-1.12.4.min.js"></script>-->
 <script src="../../libs/datatables/jquery-3.6.0.js"></script>
 <script src="../../libs/datatables/jquery-3.6.0.min.js"></script>  
 
@@ -64,7 +62,6 @@
 <script src="../../libs/datatables/jquery.peity.js"></script>
 <script src="../../libs/datatables/jquery.dataTables.js"></script>
 <script src="../../libs/datatables/jquery.dataTables.min.js"></script>
-
 
 <script src="../../libs/datatables-responsive/dataTables.responsive.js"></script>
 <script src="../../libs/datatables/dataTables.buttons.min.js"></script>
@@ -76,6 +73,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <script type="text/javascript" src="../../asset/js/tramProrrg.js"></script>
-
 
 <?php require_once("/var/www/html/sistge/views/head/footer.php"); ?>
