@@ -63,6 +63,10 @@
                 }
             }
 
+            $statementB = $this->db->prepare("SELECT * FROM public.beneficiarios_cheques WHERE cvemae='".$resultsT[0]['cvemae']."' and chequeadeudo='S';");
+            $statementB->execute();
+            $resultsB = $statementB->fetchAll(PDO::FETCH_ASSOC);
+
             $this->Image('/var/www/html/sistge/img/escudooficio.png',10,7,37,45);
             $this->Image('/var/www/html/sistge/img/escudofondoAcuerdo.jpg',50,85,122,130);
             
@@ -384,7 +388,40 @@
                     $this->SetFont('Arial','',12);
                     $this->MultiCell(185.9, 6, utf8_decode("los artículos 30, 31, 32, 35, 36, 37, 38, 39, 43 y 44 del  Reglamento del  Fondo  de Retiro y Fallecimiento (FONRETyF)."), 0, 'J');         
                     
-                    $this->Ln($sltL - 2);
+                    $this->Ln($sltL - 5);
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(108, 7.5,utf8_decode("Del  mismo  modo, reconozco  que tengo  un  adeudo de"),0, 0, 'L');
+                    $this->Image('/var/www/html/sistge/img/lineafirma.png',123,136.5,30,0.5);
+                    $this->SetFont('Arial','B',11);
+                    $this->Cell(30, 7.5,$resultsT[0]['montadeudos'], 0, 0, 'C');
+                    $this->SetFont('Arial','',12);
+                    $this->Cell(47.9, 7.5,utf8_decode(" correspondiente  a la (s)"),0, 0, 'L');
+
+                    $this->Ln(6);
+                    $this->Cell(108, 7.5,utf8_decode("siguente (s) oficina (s) del SMSEM:"),0, 0, 'L');
+
+                    /* DESGLOSE DE ADEUDOS*/
+                    $this->Ln(6.5);
+                    $this->SetX(70);
+                    $this->SetFont('Arial','B',8);
+                    $this->cell(50,4,'Oficina',0,0,'C');
+                    $this->cell(28,4,'Monto de Adeudo',0,0,'C');
+                    $this->SetDrawColor(150,150,150);
+                    $this->SetLineWidth(0.5);
+                    $this->SetFillColor(200,200,200);
+                    $this->SetDrawColor(100,100,100);
+                    $this->Ln(3.5);
+
+                    foreach ($resultsB as $rowBenef) {
+                        $this->SetX(70);
+                        $this->SetFont('Arial','',8);
+                        $this->SetLineWidth(0.01);
+                        $this->cell(50,4,utf8_decode($rowBenef["adeudo"]),1,0,'C');
+                        $this->cell(28,4,$rowBenef["montbenef"],1,0,'C');
+                        $this->Ln(4);
+                    }
+                   
+                    $this->Ln($sltL -4);
                     $this->SetFont('Arial','',12);
                     $this->Cell(185.9, 7.5,utf8_decode("Habiendo especificado lo anterior, acepto el monto que me corresponde por la cantidad de: "),0, 0, 'L');
                     

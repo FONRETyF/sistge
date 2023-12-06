@@ -648,8 +648,10 @@
                         $pdf->SetFont('Arial','',10);
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[4]["nombenef"]),0,0, 'C');
                         $pdf->cell(7.795,0.5,utf8_decode($resultsBenefs[5]["nombenef"]),0,0, 'C');
-                        $pdf->cell(1.8);
+                        $pdf->Ln(1.8);
+                        $pdf->SetFont('Arial','',10);
                         $pdf->cell(15.59,0.5,utf8_decode($resultsBenefs[6]["nombenef"]),0,0, 'C');
+                        $pdf->cell(2.8);
                         $pdf->Image('/var/www/html/sistge/img/logoplanilla.png',16.59,24.44,2,2);   
                         break;
 

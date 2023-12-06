@@ -763,24 +763,27 @@
         $pdf->Ln(0.5);
         $pdf->Cell(18.59, 0.5,$docTest.":", 0, 0, 'L');
 
-        $pdf->Ln(0.3);
-        $pdf->SetFont('Arial','B',8);
-        $pdf->SetX(5);
-        $pdf->cell(8,0.4,'Beneficiario',0,0,'C');
-        $pdf->cell(3.3,0.4,'Porcentaje',0,0,'C');
-        $pdf->SetDrawColor(150,150,150);
-        $pdf->SetLineWidth(0.05);
-        $pdf->SetFillColor(200,200,200);
-        $pdf->SetDrawColor(100,100,100);
-        $pdf->Ln(0.35);
-
         if (count($resultsB) < 7) {
+
+            $pdf->Ln(0.3);
+            $pdf->SetFont('Arial','B',8);
+            $pdf->SetX(4.5);
+            $pdf->cell(9,0.4,'Beneficiario',0,0,'C');
+            $pdf->cell(1.8,0.4,'Porcentaje',0,0,'C');
+            $pdf->cell(2,0.4,'Monto',0,0,'C');
+            $pdf->SetDrawColor(150,150,150);
+            $pdf->SetLineWidth(0.05);
+            $pdf->SetFillColor(200,200,200);
+            $pdf->SetDrawColor(100,100,100);
+            $pdf->Ln(0.35);
+
             foreach ($resultsB as $rowBenef) {
-                $pdf->SetX(5);
+                $pdf->SetX(4.5);
                 $pdf->SetFont('Arial','',8);
                 $pdf->SetLineWidth(0.01);
-                $pdf->cell(8,0.4,utf8_decode($rowBenef["nombenef"]),1,0,'C');
-                $pdf->cell(3.3,0.4,$rowBenef["porcretbenef"],1,0,'C');
+                $pdf->cell(9,0.4,utf8_decode($rowBenef["nombenef"]),1,0,'C');
+                $pdf->cell(1.8,0.4,$rowBenef["porcretbenef"],1,0,'C');
+                $pdf->cell(2,0.4,$rowBenef["montbenef"],1,0,'C');
                 $pdf->Ln(0.4);
             }
 
@@ -814,12 +817,25 @@
             $pdf->Cell(17.9, 5,utf8_decode("                            2-12-79-09               2-70-13-45               2-70-28-32               2-70-28-33               2-70-28-34               2-70-43-80               2-70-66-97               2-70-78-37"),0,0,'C');
         
         } elseif (count($resultsB) > 6 && count($resultsB) < 11) {
+            $pdf->Ln(0.5);
+            $pdf->SetFont('Arial','B',8);
+            $pdf->SetX(4.5);
+            $pdf->cell(9,0.4,'Beneficiario',0,0,'C');
+            $pdf->cell(1.8,0.4,'Porcentaje',0,0,'C');
+            $pdf->cell(2,0.4,'Monto',0,0,'C');
+            $pdf->SetDrawColor(150,150,150);
+            $pdf->SetLineWidth(0.05);
+            $pdf->SetFillColor(200,200,200);
+            $pdf->SetDrawColor(100,100,100);
+            $pdf->Ln(0.35);
+
             foreach ($resultsB as $rowBenef) {
-                $pdf->SetX(5);
+                $pdf->SetX(4.5);
                 $pdf->SetFont('Arial','',7.5);
                 $pdf->SetLineWidth(0.01);
-                $pdf->cell(8,0.4,utf8_decode($rowBenef["nombenef"]),1,0,'C');
-                $pdf->cell(3.3,0.4,$rowBenef["porcretbenef"],1,0,'C');
+                $pdf->cell(9,0.4,utf8_decode($rowBenef["nombenef"]),1,0,'C');
+                $pdf->cell(1.8,0.4,$rowBenef["porcretbenef"],1,0,'C');
+                $pdf->cell(2,0.4,$rowBenef["montbenef"],1,0,'C');
                 $pdf->Ln(0.4);
             }
 
