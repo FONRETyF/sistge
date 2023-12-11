@@ -577,18 +577,19 @@ function actNomMae(e){
 const accionFechBaja = document.querySelector("#fechBajaMae");
 accionFechBaja.addEventListener("blur", function (evento) {
     evento.preventDefault();
-    if (parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) < 2022 || parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) > 2024) {
+
+
+    document.getElementById("fechBajaMae").style.border =  ".1em black solid";
+    if (motivo == "FRF" || motivo == "FI" || motivo == "FRR" || motivo == "FRD") {
+        document.getElementById("editaBefens").disabled = false;
+    } 
+    /*if (parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) < 2022 || parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) > 2024) {
         document.getElementById("fechBajaMae").style.border =  ".1em red solid";
         Swal.fire(
             'ERROR',
             'el año de la fecha no es correcto!!!'
         );
-    }else{
-        document.getElementById("fechBajaMae").style.border =  ".1em black solid";
-        if (motivo == "FJ") {
-            document.getElementById("editaBefens").disabled = false;
-        } 
-    }
+    }*/
 });
 
 const accionFechBase = document.querySelector("#fechBaseMae");

@@ -127,7 +127,7 @@
                     $this->SetFont('Arial','',12);
                     $this->Cell(8, 7.5, "Yo ", 0, 0, 'L');
                     $this->SetFont('Arial','B',11);
-                    $this->Cell(115, 7.5, $resultsT[0]['nomsolic'], 0, 0, 'C');
+                    $this->Cell(115, 7.5, utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                     $this->SetFont('Arial','',12);
                     $this->Cell(62.9, 7.5, " con  clave  de  servidor   publico", 0, 0, 'L');
 
@@ -324,7 +324,7 @@
                     $this->SetFont('Arial','',12);
                     $this->Cell(8, 7.5, "Yo ", 0, 0, 'L');
                     $this->SetFont('Arial','B',11);
-                    $this->Cell(115, 7.5, $resultsT[0]['nomsolic'], 0, 0, 'C');
+                    $this->Cell(115, 7.5, utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                     $this->SetFont('Arial','',12);
                     $this->Cell(62.9, 7.5, " con  clave  de  servidor   publico", 0, 0, 'L');
 
@@ -556,7 +556,7 @@
                     $this->SetFont('Arial','',12);
                     $this->Cell(8, 7.5, "Yo ", 0, 0, 'L');
                     $this->SetFont('Arial','B',11);
-                    $this->Cell(115, 7.5, $resultsT[0]['nomsolic'], 0, 0, 'C');
+                    $this->Cell(115, 7.5, utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                     $this->SetFont('Arial','',12);
                     $this->Cell(62.9, 7.5, " con  clave  de  servidor   publico", 0, 0, 'L');
     
@@ -682,7 +682,7 @@
                         $this->SetFont('Arial','',12);
                         $this->Cell(8, 7.5, "Yo ", 0, 0, 'L');
                         $this->SetFont('Arial','B',11);
-                        $this->Cell(115, 7.5, $resultsT[0]['nomsolic'], 0, 0, 'C');
+                        $this->Cell(115, 7.5, utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                         $this->SetFont('Arial','',12);
                         $this->Cell(62.9, 7.5, " con  clave  de  servidor   publico", 0, 0, 'L');
         
@@ -814,7 +814,7 @@
                         $this->SetFont('Arial','',12);
                         $this->Cell(8, 7.5, "Yo ", 0, 0, 'L');
                         $this->SetFont('Arial','B',11);
-                        $this->Cell(115, 7.5, $resultsT[0]['nomsolic'], 0, 0, 'C');
+                        $this->Cell(115, 7.5, utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                         $this->SetFont('Arial','',12);
                         $this->Cell(62.9, 7.5, " con  clave  de  servidor   publico", 0, 0, 'L');
         
