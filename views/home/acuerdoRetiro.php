@@ -227,7 +227,7 @@
                         $this->Image('/var/www/html/sistge/img/lineafirma.png',64,233,90,0.4);
                         $this->SetY(232);
                         $this->SetFont('Arial','B',11);
-                        $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                        $this->Cell(185.9, 7,"C. " . utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                         $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
                         $this->SetY(245);
                         
@@ -270,7 +270,7 @@
                             $this->Image('/var/www/html/sistge/img/lineafirma.png',64,238,90,0.4);
                             $this->SetY(237);
                             $this->SetFont('Arial','B',11);
-                            $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                            $this->Cell(185.9, 7,"C. " . utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                             $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
                             $this->SetY(245);
                             
@@ -303,7 +303,7 @@
                             $this->Image('/var/www/html/sistge/img/lineafirma.png',64,236,90,0.4);
                             $this->SetY(235);
                             $this->SetFont('Arial','B',11);
-                            $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                            $this->Cell(185.9, 7,"C. " . utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                             $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
                             $this->SetY(245);
                             
@@ -457,7 +457,7 @@
                         $this->Image('/var/www/html/sistge/img/lineafirma.png',64,233,90,0.4);
                         $this->SetY(232);
                         $this->SetFont('Arial','B',11);
-                        $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                        $this->Cell(185.9, 7,"C. " . utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                         $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
                         $this->SetY(245);
                         
@@ -500,7 +500,7 @@
                             $this->Image('/var/www/html/sistge/img/lineafirma.png',64,238,90,0.4);
                             $this->SetY(237);
                             $this->SetFont('Arial','B',11);
-                            $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                            $this->Cell(185.9, 7,"C. " . utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                             $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
                             $this->SetY(245);
                             
@@ -533,7 +533,7 @@
                             $this->Image('/var/www/html/sistge/img/lineafirma.png',64,236,90,0.4);
                             $this->SetY(235);
                             $this->SetFont('Arial','B',11);
-                            $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                            $this->Cell(185.9, 7,"C. " . utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                             $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
                             $this->SetY(245);
                             
@@ -662,7 +662,7 @@
                     $this->Image('/var/www/html/sistge/img/lineafirma.png',64,236,90,0.4);
                     $this->SetY(235);
                     $this->SetFont('Arial','B',11);
-                    $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                    $this->Cell(185.9, 7,"C. " . utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                     $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,223,27,26.5);
                     $this->SetY(245);
                         
@@ -795,7 +795,7 @@
                         $this->Image('/var/www/html/sistge/img/lineafirma.png',64,241,90,0.4);
                         $this->SetY(240);
                         $this->SetFont('Arial','B',11);
-                        $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                        $this->Cell(185.9, 7,"C. " . utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                         $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,230,27,26.5);
                         $this->SetY(245);
                         
@@ -919,7 +919,7 @@
                         $this->Image('/var/www/html/sistge/img/lineafirma.png',64,241,90,0.4);
                         $this->SetY(240);
                         $this->SetFont('Arial','B',11);
-                        $this->Cell(185.9, 7,"C. " . $resultsT[0]['nomsolic'], 0, 0, 'C');
+                        $this->Cell(185.9, 7,"C. " . utf8_decode($resultsT[0]['nomsolic']), 0, 0, 'C');
                         $this->Image('/var/www/html/sistge/img/logoplanilla.png',174,230,27,26.5);
                         $this->SetY(245);
                         
