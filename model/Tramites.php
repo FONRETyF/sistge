@@ -84,7 +84,7 @@ use function PHPSTORM_META\type;
             return $diasPSGS;
         }
 
-        public function validaFechasIJR($clavemae,$motret,$diasInacPsgs,$NumPersgs,$fechRecibido,$fechBaseMae,$fechBajaMae){
+        public function validaFechasIJR($clavemae,$motret,$diasInacPsgs,$NumPersgs,$fechRecibido,$fechBaseMae,$fechBajaMae,$fechaDictamen){
             $validesFechs = array();
             $dias_Serv = array();
             $i=0;
@@ -98,14 +98,21 @@ use function PHPSTORM_META\type;
                         return $dias_Serv;
                     } else {
                         $get_prorrogas = $this->getTramsProrg($clavemae);
+
                         if ($get_prorrogas > 0 && $get_prorrogas[0]['autorizada'] == '0') {
                             # code...
                         } else {
-                            $validesFechs["descResult"] = "noprocede";
-                            $validesFechs["diasServ"] = "Tramite no procedente, excede limite de vigencia y no tiene prorroga autorizada";
-                            $validesFechs["excepcion"] = "NO";
-                            $validesFechs["prorroga"] = "NO";
-                            return $validesFechs;
+                            if ($fechaDictamen > $fechBajaMae && $fechaDictamen <= $fechRecibido) {
+                                $dias_Serv["descResult"] = "vigenciaVal";
+                                $dias_Serv["diasServ"] = $this -> calculaDiasServ($fechBaseMae,$fechBajaMae,$diasInacPsgs);
+                                return $dias_Serv;
+                            } else {
+                                $validesFechs["descResult"] = "noprocede";
+                                $validesFechs["diasServ"] = "Tramite no procedente, excede limite de vigencia y no tiene prorroga autorizada";
+                                $validesFechs["excepcion"] = "NO";
+                                $validesFechs["prorroga"] = "NO";
+                                return $validesFechs;
+                            }
                         }
                     }
                 }else{
@@ -1623,10 +1630,11 @@ use function PHPSTORM_META\type;
 		
 		public function getTramsProrg($cvemae){		
 			try {                                                                                                                                                                                                                                                                                                                                                                                                                               
-                $consultaProrgs = "SELECT id, cvemae, autorizada FROM public.prorrogas FROM public.prorrogas WHERE cvemae = '".$cvemae."';";
-				$consultaProrgs = $this->db->prepare($consultaProrgs);
+                $consultaProrgs = "SELECT id, cvemae, autorizada FROM public.prorrogas WHERE cvemae = '".$cvemae."';";
+                $consultaProrgs = $this->db->prepare($consultaProrgs);
                 $consultaProrgs->execute();
                 $resultsProgs = $consultaProrgs->fetchAll(PDO::FETCH_ASSOC); 
+                
             } catch (\Throwable $th) {
                 echo($th);
             }

@@ -795,7 +795,7 @@ function validaFechas(valorValid, a_fechs) {
             case "FRJ":
             case "FRR":
             case "FRD":
-                $.post("../../controller/tramites.php?op=validaFechs",{clavemae:clavemae,motret:motivo,diasInacPsgs:diasInacPsgs,NumPersgs:NumPersgs,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"]},function(data){
+                $.post("../../controller/tramites.php?op=validaFechs",{clavemae:clavemae,motret:motivo,diasInacPsgs:diasInacPsgs,NumPersgs:NumPersgs,fechRecibido:a_fechs[0]["valorF"],fechBaseMae:a_fechs[1]["valorF"],fechBajaMae:a_fechs[2]["valorF"],fechdictam:$("#fechDictamen").val()},function(data){
                     data = JSON.parse(data);
                     resultValid = data.descResult;
                     switch (resultValid) {

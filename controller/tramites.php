@@ -28,7 +28,7 @@
             break;
 
         case 'validaFechs':
-            $a_validFechas = $tramite->validaFechasIJR($_POST["clavemae"],$_POST["motret"],$_POST["diasInacPsgs"],$_POST["NumPersgs"],$_POST["fechRecibido"],$_POST["fechBaseMae"],$_POST["fechBajaMae"]);
+            $a_validFechas = $tramite->validaFechasIJR($_POST["clavemae"],$_POST["motret"],$_POST["diasInacPsgs"],$_POST["NumPersgs"],$_POST["fechRecibido"],$_POST["fechBaseMae"],$_POST["fechBajaMae"],$_POST["fechdictam"]);
             echo json_encode($a_validFechas, JSON_FORCE_OBJECT);
             break;
 
