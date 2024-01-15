@@ -149,7 +149,7 @@
             break;
             
 		case 'listarProrg':
-			$a_get_tramsProrg = $tramite->getTramsProrg();
+			$a_get_tramsProrg = $tramite->getTramsProrgs();
 			
 			$a_Prorrogas = Array();
             $contador=0;
@@ -159,7 +159,7 @@
                 $a_prep_prorrogas[] = $contador;
                 $a_prep_prorrogas[] = $row["motivret"];
                 $a_prep_prorrogas[] = $row["cvemae"];
-                $a_prep_prorrogas[] = $row["nomcommae"];
+                $a_prep_prorrogas[] = $row["nomsolic"];
                 $a_prep_prorrogas[] = $row["fechsolic"];
                 switch ($row["estatprorg"]) {
                     case 'R':

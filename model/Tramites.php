@@ -432,7 +432,7 @@ use function PHPSTORM_META\type;
                     break;
 
                 case 'J':
-                    if ($fechactjuic > $fechabase && $fechactjuic > $fechabaja && $fechactjuic < $fecharecibido) {
+                    if ($fechactjuic > $fechabase && $fechactjuic > $fechabaja && $fechactjuic <= $fecharecibido) {
                         $resultValidCTJuic['resultValid'] = "correcto";
                         $resultValidCTJuic['descValid'] = "correcto";
                         return $resultValidCTJuic;
@@ -1628,6 +1628,19 @@ use function PHPSTORM_META\type;
             return $a_resultAddTram;
         }
 		
+        public function getTramsProrgs(){		
+			try {                                                                                                                                                                                                                                                                                                                                                                                                                               
+                $consultaProrgs = "SELECT id, motivret, cvemae, fechsolic, nomsolic, estatprorg, autorizada FROM public.prorrogas;";
+                $consultaProrgs = $this->db->prepare($consultaProrgs);
+                $consultaProrgs->execute();
+                $resultsProgs = $consultaProrgs->fetchAll(PDO::FETCH_ASSOC); 
+                
+            } catch (\Throwable $th) {
+                echo($th);
+            }
+			return $resultsProgs;
+		}
+        
 		public function getTramsProrg($cvemae){		
 			try {                                                                                                                                                                                                                                                                                                                                                                                                                               
                 $consultaProrgs = "SELECT id, cvemae, autorizada FROM public.prorrogas WHERE cvemae = '".$cvemae."';";
@@ -1699,3 +1712,4 @@ use function PHPSTORM_META\type;
 
 
 ?>
+
