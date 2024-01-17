@@ -24,10 +24,13 @@
             <div id="causaRetiroTExc">Causa Retiro: &nbsp
                         <select name="OpcCauRetiroTExc" id="OpcCauRetiroTExc" placeholder="MOTIVO RET" onchange="">
                             <option selected="true" disabled="disabled">Seleccione Motivo</option>
-                            <option value="I">INHABILITACION</option>
-                            <option value="J">JUBILACION</option>
-                            <option value="FA">FALLECIMIENTO ACT</option>
-                            <option value="FJ">FALLECIMIENTO JUB</option>
+                            <option value="FRI">INHABILITACION</option>
+                            <option value="FRJ">JUBILACION</option>
+                            <option value="FRR">RENUNCIA</option>
+                            <option value="FRD">RESCESION</option>
+                            <option value="FRF">FALLECIMIENTO ACT</option>
+                            <option value="FFJ">FONDO FALLEC JUB</option>
+                            <option value="FMJ">FALLEC MUT JUB</option>
                         </select>
             </div>
             <section id="SecDatProrrogaTExc">

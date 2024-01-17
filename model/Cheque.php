@@ -54,7 +54,7 @@
                 }
             }
 
-            public function reponerCheque($folioAnt,$folionuevo,$fechaRepos,$observRepos,$nombenef,$montbenef,$monbeneflet,$cveusu){
+            public function reponerCheque($folioAnt,$folioNuevo,$fechaRepos,$observRepos,$nombenef,$montbenef,$monbeneflet,$cveusu){
                 $resultRepos = array();
                 $resultTemp = array();
 

@@ -273,7 +273,7 @@ $("#cspMaeBusq").change(function () {
                     document.getElementById("fechBajaMae").disabled =  false;
 					document.getElementById("docSoport").disabled =  false;
 
-                    if (motivo == "FA") {
+                    if (motivo == "FRF") {
 						document.getElementById("nomSolic").disabled =  false;
                         $("#nomSolic").val();
                     }
