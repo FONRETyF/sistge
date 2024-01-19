@@ -65,6 +65,7 @@
                 $fecha = "";
                 $fecha = date("Y-m-d");
                 $fechaH = date("Y-m-d H:i:s");
+                
 
                 if ($resultadoCheqC[1] == "Actual") {
                     try {
@@ -89,7 +90,7 @@
                     if ($resultRepos["insertCancel"] == "Agregado") {
                         try {
                             $statement = $this->db->prepare("UPDATE public.beneficiarios_cheques SET folcheque=?, fechreposcn=?, folanterior=?, usureposcn=?, observreposcn=?, nombenef=?, montbenef=?, montbenefletra=?, estatcheque=?, movimtscheque=?, observcheque='REPOSICION', motvcancel=0, fechcancel='1900-01-01' WHERE folcheque=?");
-                            $statement -> bindValue(1,$folionuevo);
+                            $statement -> bindValue(1,$folioNuevo);
                             $statement -> bindValue(2,$fechaRepos);
                             $statement -> bindValue(3,$folioAnt);
                             $statement -> bindValue(4,$cveusu);
@@ -139,7 +140,7 @@
                     if ($resultRepos["insertCancel"] == "Agregado") {
                         try {
                             $statement = $this->db->prepare("UPDATE public.beneficiarios_cheques_hist SET folcheque=?, fechreposcn=?, folanterior=?, usureposcn=?, observreposcn=?, nombenef=?, montbenef=?, montbenefletra=?, estatcheque=?, movimtscheque=?, observcheque='REPOSICION', motvcancel=0, fechcancel='1900-01-01' WHERE folcheque=?");
-                            $statement -> bindValue(1,$folionuevo);
+                            $statement -> bindValue(1,$folioNuevo);
                             $statement -> bindValue(2,$fechaRepos);
                             $statement -> bindValue(3,$folioAnt);
                             $statement -> bindValue(4,$cveusu);
@@ -164,7 +165,6 @@
                     } else {
                         # code...
                     }
-
                     return $resultRepos;
                 }
             }

@@ -2208,7 +2208,8 @@ function actualizaJubInha() {
                                                         Urfcmae:document.getElementById('RFCMae').value,
 														UtipTram:tipTramit,
 														UfolCheqBenef:document.getElementById('numfolcheqTEJI').value,
-                                                        UadedCeso: $("#AdedCeso").val().replace(",","").replace("$","")
+                                                        UadedCeso: $("#AdedCeso").val().replace(",","").replace("$",""),
+                                                        Uobserv: $("#observTramite").val()
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
@@ -2319,7 +2320,8 @@ function actualizaFallAct() {
                                                         Urfcmae:document.getElementById('RFCMae').value,
 														UtipTram:tipTramit,
 														UfolCheqBenef:document.getElementById('foliosbenefs').value,
-                                                        UadedCeso: $("#AdedCeso").val().replace(",","").replace("$","")
+                                                        UadedCeso: $("#AdedCeso").val().replace(",","").replace("$",""),
+                                                        Uobserv: $("#observTramite").val()
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
@@ -2406,7 +2408,8 @@ function actualizaFallJub(){
                                                         Urfcmae:document.getElementById('RFCMae').value,
                                                         UtipTram:tipTramit,
                                                         UfolCheqBenef:document.getElementById('foliosbenefs').value,
-                                                        UadedCeso: $("#AdedCeso").val().replace(",","").replace("$","")
+                                                        UadedCeso: $("#AdedCeso").val().replace(",","").replace("$",""),
+                                                        Uobserv: $("#observTramite").val()
                                                         },function (data) {
                                                             resultadoAdd = Object.values( JSON.parse(data));
                                                             NumregsResult = resultadoAdd.length;
@@ -2417,7 +2420,7 @@ function actualizaFallJub(){
                                                                         Swal.fire(
                                                                             "TRAMITE MODIFICADO CORRECTAMENTE"
                                                                         );
-                                                                        javascript:history.go(-1);xx
+                                                                        javascript:history.go(-1);
                                                                     } else {
                                                                         Swal.fire(
                                                                             "ALGO SALIO MAL",
