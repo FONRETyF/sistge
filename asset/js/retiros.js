@@ -7,6 +7,7 @@ function init() {
 
 $(document).ready(function () {
     var varstat = obtenEstatEntr(identrega);
+    
     $('#retiros_data').dataTable({
         "aProcessing": true, //procesamiento dle datatable
         "aServerSide": true, //paginacion y filtrado por el servidor
@@ -82,8 +83,10 @@ function obtenEstatEntr(identrega) {
         datEntr = JSON.parse(data);
         if (datEntr.EstatEnt == "CERRADA") {
             document.getElementById("operationsEntr").style.display = "none";
+            document.getElementById("DivEstatEntr").style.display = "none";
         }else{
             document.getElementById("operationsEntr").style.display = "block";
+            document.getElementById("DivEstatEntr").style.display = "block";          
         }
     });
 }

@@ -1,5 +1,4 @@
 <?php
-
     session_start();
     require_once "/var/www/html/sistge/model/Retiros.php";
     $retiro = new Retiros();
@@ -10,6 +9,7 @@
     switch ($_GET["op"]) {
         case "listar":
             $a_get_retiros = $retiro->get_retiros($_GET["identrega"]);
+            
             $a_Prep_Retiros = Array();
             $a_Retiros = Array();
             $a_get_statentr = $retiro->get_EntRet($_GET["identrega"]);
@@ -29,11 +29,9 @@
                 $a_prep_retiros['folcheque'] = $row["folcheque"];
                 $a_prep_retiros['estattramite'] = $row["estattramite"];
                 $a_prep_retiros['btnE'] = "<button type='button' onclick='editar(".$row['identret'].");' id='".$row['identret']."'class='BtIcEdit' ".$estatEntrega."><div><img src='../../img/lapiz.png' alt='edita' title='editar' height='20' width='20'></div></button>";
-                //$a_prep_retiros[] = "<button type='button' onclick='detallar(".$row['identret'].",".$row['cvemae'].");'  id='".$row['identret']."'class='BtIcDetail' ".$estatEntrega."><div><i class='fa fa-eye'></i></div></button>";
-                $a_prep_retiros['btnM'] = "<button type='button' onclick='mostrar(".$row['identret'].",".$row["cvemae"].")'  id='".$row['identret']."'class='BtIcDetail' ".$estatEntrega."><div><img src='../../img/file.png' alt='muestra' title='mostrar' height='20' width='20'></div></button>";
+                $a_prep_retiros['btnM'] = "<button type='button' onclick='mostrar(".$row['identret'].",".$row["cvemae"].")'  id='".$row['identret']."'class='BtIcDetail'><div><img src='../../img/file.png' alt='muestra' title='mostrar' height='20' width='20'></div></button>";
                 $a_prep_retiros['btnD'] = "<button type='button' onclick='eliminarT(".$row['identret'].",".$row['cvemae'].");'  id='".$row['identret']."'class='BtIcDelete' ".$estatEntrega."><div><img src='../../img/goma-de-borrar.png' alt='eliminar' title='eliminar' height='21' width='21'></div></button>";
                 $a_prep_retiros['btnP'] = "<button type='button' onclick='imprimir(".$row['identret'].",".$row["cvemae"].");'  id='".$row['identret']."'class='BtIcPrint' ".$estatEntrega."><div><img src='../../img/impresora.png' alt='acuerdo' title='imprime acuerdo' height='23' width='23'></div></button>";
-                //$a_prep_retiros['btnS'] = "<button type='button' onclick='printRecib(".$row['identret'].",".$row["cvemae"].");'  id='".$row['identret']."'class='BtPrintRb' ".$estatEntrega."><div><img src='../../img/recibido.png' alt='recibido' title='hoja de recibido' height='20' width='20'></div></button>";
                 $a_Prep_Retiros[] = $a_prep_retiros;
             }
 
@@ -47,11 +45,9 @@
                 $a_prep_retirosF['folcheque'] = "0";
                 $a_prep_retirosF['estattramite'] = $row["estattramite"];
                 $a_prep_retirosF['btnE'] = "<button type='button' onclick='editar(".$rowF['identret'].");' id='".$rowF['identret']."'class='BtIcEdit' ".$estatEntrega."><div><img src='../../img/lapiz.png' alt='edita' title='editar' height='20' width='20'></div></button>";
-                //$a_prep_retirosF[] = "<button type='button' onclick='detallar(".$rowF['identret'].",".$rowF['cvemae'].");'  id='".$rowF['identret']."'class='BtIcDetail' ".$estatEntrega."><div><i class='fa fa-eye'></i></div></button>";
-                $a_prep_retirosF['btnM'] = "<button type='button' onclick='mostrar(".$rowF['identret'].",".$rowF["cvemae"].")'  id='".$rowF['identret']."'class='BtIcDetail' ".$estatEntrega."><div><img src='../../img/file.png' alt='muestra' title='mostrar' height='20' width='20'></div></button>";
+                $a_prep_retirosF['btnM'] = "<button type='button' onclick='mostrar(".$rowF['identret'].",".$rowF["cvemae"].")'  id='".$rowF['identret']."'class='BtIcDetail'><div><img src='../../img/file.png' alt='muestra' title='mostrar' height='20' width='20'></div></button>";
                 $a_prep_retirosF['btnD'] = "<button type='button' onclick='eliminarT(".$rowF['identret'].",".$rowF['cvemae'].");'  id='".$rowF['identret']."'class='BtIcDelete' ".$estatEntrega."><div><img src='../../img/goma-de-borrar.png' alt='eliminar' title='eliminar' height='21' width='21'></div></button>";
                 $a_prep_retirosF['btnP'] = "<button type='button' onclick='imprimir(".$rowF['identret'].",".$rowF["cvemae"].");'  id='".$rowF['identret']."'class='BtIcPrint' ".$estatEntrega."><div><img src='../../img/impresora.png' alt='acuerdo' title='imprime acuerdo' height='23' width='23'></div></button>";
-                //$a_prep_retirosF['btnS'] = "<button type='button' onclick='printRecib(".$rowF['identret'].",".$rowF["cvemae"].");'  id='".$rowF['identret']."'class='BtPrintRb' ".$estatEntrega."><div><img src='../../img/recibido.png' alt='recibido' title='hoja de recibido' height='20' width='20'></div></button>";
                 $a_Prep_Retiros[] = $a_prep_retirosF;
             }
 
@@ -69,11 +65,10 @@
                 $a_prep_retirosOrd[] = $rowRet["montrettot"];
                 $a_prep_retirosOrd[] = $rowRet["folcheque"];
                 $a_prep_retirosOrd[] = $rowRet["estattramite"];
-                $a_prep_retirosOrd[] = $rowRet["btnE"];;
-                $a_prep_retirosOrd[] = $rowRet["btnM"];;
-                $a_prep_retirosOrd[] = $rowRet["btnD"];;
-                $a_prep_retirosOrd[] = $rowRet["btnP"];;
-                //$a_prep_retirosOrd[] = $rowRet["btnS"];;
+                $a_prep_retirosOrd[] = $rowRet["btnE"];
+                $a_prep_retirosOrd[] = $rowRet["btnM"];
+                $a_prep_retirosOrd[] = $rowRet["btnD"];
+                $a_prep_retirosOrd[] = $rowRet["btnP"];
                 $a_Retiros[] = $a_prep_retirosOrd;
             }
 

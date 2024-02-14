@@ -98,7 +98,10 @@ function guardaryeditar(e){
     e.preventDefault();
 
     var numentrega = $("#numentrega").val();
-   
+    var anioEntr = $("#Anioentrega").val();
+    var descEntr = $("#descentrega").val();
+    var observEntr = $("#observaciones").val();
+
     if ($("#numentrega").val() < 10) {
         numentrega = 0 + $("#numentrega").val();
     }
@@ -106,41 +109,78 @@ function guardaryeditar(e){
     var identrega = $("#Anioentrega").val() + numentrega;
     document.getElementById("identrega").value = identrega; 
 
-    $.post("../../controller/entregas.php?op=agregar",{identrega:identrega,Anioentrega:$("#Anioentrega").val(),numentrega:$("#numentrega").val(),descentrega:$("#descentrega").val(),fechentrega:$("#fechentrega").val(),observaciones:$("#observaciones").val()},function (data) {
-        resultadoAdd = Object.values( JSON.parse(data));
-        var resultado = resultadoAdd[0] ;
-        switch (resultado) {
-            case "Agregado":
-                swal.fire(
-                    'Registrada!',
-                    'La entrega se ingreso correctamente!!!',
-                    'success'
-                );
-                windowsModalEntrega.classList.remove('modalE--show');
-                $('#entrega_data').DataTable().ajax.reload();
-                break;
-                       
-            case "Existente":
-                Swal.fire(
-                    'EXISTENTE!',
-                    'Ya esta registrada una entrega con los datos proporcionados!!!',
-                    'success'
-                );
-                windowsModalEntrega.classList.remove('modalE--show');
-                $('#entrega_data').DataTable().ajax.reload();
-                break;
-            
-            case "Error":
-                Swal.fire(
-                    "LA ENTREGA NO SE AGREGO",
-                    'surgio un error'
-                );
-                break;
+    if (numentrega > 0 & anioEntr > 0 & descEntr !== "") {
+        document.getElementById("numentrega").style.border =  ".1em black solid";
+        document.getElementById("Anioentrega").style.border =  ".1em black solid";
+        document.getElementById("descentrega").style.border =  ".1em black solid";
+        var datsFormNE = [anioEntr,numentrega,descEntr,observEntr];
 
-            default:
-                break;
+        if (anioEntr === $("#fechentrega").val().substr(0,4)) {
+            document.getElementById("Anioentrega").style.border =  ".1em black solid";
+            $.post("../../controller/entregas.php?op=validFormNE",{datosformNE:datsFormNE},function (data) {
+                $resultValNE=Object.values( JSON.parse(data));
+                if ($resultValNE[0] == "Correcto") {
+                    $.post("../../controller/entregas.php?op=agregar",{identrega:identrega,Anioentrega:$("#Anioentrega").val(),numentrega:$("#numentrega").val(),descentrega:$("#descentrega").val(),fechentrega:$("#fechentrega").val(),observaciones:$("#observaciones").val()},function (data) {
+                        resultadoAdd = Object.values( JSON.parse(data));
+                        var resultado = resultadoAdd[0] ;
+                        switch (resultado) {
+                            case "Agregado":
+                                swal.fire(
+                                    'Registrada!',
+                                    'La entrega se ingreso correctamente!!!',
+                                    'success'
+                                );
+                                windowsModalEntrega.classList.remove('modalE--show');
+                                $('#entrega_data').DataTable().ajax.reload();
+                                break;
+                                       
+                            case "Existente":
+                                Swal.fire(
+                                    'EXISTENTE!',
+                                    'Ya esta registrada una entrega con los datos proporcionados!!!',
+                                    'success'
+                                );
+                                windowsModalEntrega.classList.remove('modalE--show');
+                                $('#entrega_data').DataTable().ajax.reload();
+                                break;
+                            
+                            case "Error":
+                                Swal.fire(
+                                    "LA ENTREGA NO SE AGREGO",
+                                    'surgio un error'
+                                );
+                                break;
+                
+                            default:
+                                break;
+                            }
+                        });
+                } else {
+
+                    swal.fire(
+                        '¡A T E N C I O N!',
+                        $resultValNE[1]
+                    );
+                }
+            });
+        } else {
+            swal.fire(
+                '¡A T E N C I O N!',
+                'El año no es correcto'
+            );
+            document.getElementById("Anioentrega").style.border =  ".1em red solid";
         }
-    });
+    } else {
+        swal.fire(
+            '¡A T E N C I O N!',
+            'Faltan Datos, Los datos marcados en rojo son obligatorios',
+            ''
+        );
+        document.getElementById("numentrega").style.border =  ".1em red solid";
+        document.getElementById("Anioentrega").style.border =  ".1em red solid";
+        document.getElementById("descentrega").style.border =  ".1em red solid";
+    }
+
 }
 
 function editar(identrega){
@@ -157,7 +197,6 @@ function editar(identrega){
     document.getElementById('numentrega').disabled = true;
     document.getElementById('Anioentrega').disabled = true;
   
-    //$('#editarEntrega').modal('show');
     windowsModalEntrega.classList.add('modalE--show');
     document.getElementById('DivAsignaFecha').style.display = "block";
     document.querySelector('.addEntrega').style.display = "none";
@@ -170,69 +209,67 @@ function updateEntr(e){
     var actionFechEntr = document.getElementById('CheckAsigFech');
     var checked = actionFechEntr.checked;
 
+    var numentrega = $("#numentrega").val();
+    var anioEntr = $("#Anioentrega").val();
+    var descEntr = $("#descentrega").val();
+    var observEntr = $("#observaciones").val();
+
     var fechaentrega = $("#fechentrega").val();
+            
+    if (descEntr !== "") {
+        var datsFormNE = [anioEntr,numentrega,descEntr,observEntr];
 
-    if (checked) {
-        $.post("../../controller/entregas.php?op=updateFech",{identrega:$("#identrega").val(),fechEntrega:fechaentrega},function(data){
-            resultadoAdd = Object.values(JSON.parse(data));
-            if (resultadoAdd[0] == "Actualizado" && resultadoAdd[1] == "Actualizado" && resultadoAdd[2] == "Actualizado") {
-                Swal.fire(
-                    "LA FECHA SE MODIFICO CORRECTAMENTE"
-                );
-                windowsModalEntrega.classList.remove('modalE--show');
-            } else {
-                Swal.fire(
-                    "ALGO SALIO MAL",
-                    'por favor verifique los datos'
-                );
-            }
-        });
-    } else {
-        /*var formData = new FormData($("#edita_Entrega")[0]);
-        $.ajax({
-            url: '../../controller/entregas.php?op=guardaryeditar',
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(datos){
-                $('#edita_Entrega')[0].reset();
-                $("#editarEntrega").modal('hide');
-                $('#entrega_data').DataTable().ajax.reload();
-
-                swal.fire(
-                    'Registro!',
-                    'La entrega se ingreso correctamente!!!',
-                    'success'
-                )
-            }
-        });*/
-        $.post("../../controller/entregas.php?op=guardaryeditar",{identrega:$("#identrega").val(),Anioentrega:$("#Anioentrega").val(),numentrega:$("#numentrega").val(),descentrega:$("#descentrega").val(),fechentrega:$("#fechentrega").val(),observaciones:$("#observaciones").val()},function (data) {
-            resultadoAdd = Object.values( JSON.parse(data));
-            var resultado = resultadoAdd[0] ;
-            switch (resultado) {
-                case "Actualizado":
-                    swal.fire(
-                        'Registrada!',
-                        'La entrega se ingreso correctamente!!!',
-                        'success'
-                    );
-                    windowsModalEntrega.classList.remove('modalE--show');
-                    $('#entrega_data').DataTable().ajax.reload();
-                    break;
+        $.post("../../controller/entregas.php?op=validFormNE",{datosformNE:datsFormNE},function (data) {
+            $resultValNE=Object.values( JSON.parse(data));
+            if ($resultValNE[0] == "Correcto") {
+                if (checked) {
+                    $.post("../../controller/entregas.php?op=updateFech",{identrega:$("#identrega").val(),fechEntrega:fechaentrega},function(data){
+                        resultadoAdd = Object.values(JSON.parse(data));
+                        if (resultadoAdd[0] == "Actualizado" && resultadoAdd[1] == "Actualizado" && resultadoAdd[2] == "Actualizado") {
+                            swal.fire(
+                                'Modificada!',
+                                'La entrega se modifico correctamente!!!',
+                                'success'
+                            );
+                            windowsModalEntrega.classList.remove('modalE--show');
+                            $('#entrega_data').DataTable().ajax.reload();
+                        } else {
+                            Swal.fire(
+                                "ALGO SALIO MAL",
+                                'por favor verifique los datos'
+                            );
+                        }
+                    });
+                } else {
+                    $.post("../../controller/entregas.php?op=guardaryeditar",{identrega:$("#identrega").val(),Anioentrega:$("#Anioentrega").val(),numentrega:$("#numentrega").val(),descentrega:$("#descentrega").val(),fechentrega:$("#fechentrega").val(),observaciones:$("#observaciones").val()},function (data) {
+                        resultadoAdd = Object.values( JSON.parse(data));
+                        var resultado = resultadoAdd[0] ;
+                        switch (resultado) {
+                            case "Actualizado":
+                                swal.fire(
+                                    'Modificada!',
+                                    'La entrega se modifico correctamente!!!',
+                                    'success'
+                                );
+                                windowsModalEntrega.classList.remove('modalE--show');
+                                $('#entrega_data').DataTable().ajax.reload();
+                                break;
+                            
+                            case "Error":
+                                Swal.fire(
+                                    "ALGO SALIO MAL",
+                                    'por favor verifique los datos'
+                                );
+                                break;
                 
-                case "Error":
-                    Swal.fire(
-                        "LA ENTREGA NO SE AGREGO",
-                        'surgio un error'
-                    );
-                    break;
-    
-                default:
-                    break;
+                            default:
+                                break;
+                        }
+                    });
+                }
             }
         });
-    }
+    } 
 }
 
 function eliminar(identrega){
@@ -264,19 +301,17 @@ function detalleRetiros(identrega){
 }
 
 $(document).on("click","#entrNueva",function(e) {
-   /* $('#modal-title').html('Nueva entrega');
-    $('#edita_Entrega')[0].reset();
-    $('#editarEntrega').modal('show');
-    document.getElementById('DivAsignaFecha').style.display = "none";*/
-
     e.preventDefault();
     $('.modal_title').html('Alta de entregas');
-
+    
+    var fechaAct = new Date();
+    
     $("#Anioentrega").val("");
     $("#numentrega").val("");
     $("#descentrega").val("");
     $("#fechentrega").val("");
     $("#observaciones").val("");
+    $("#fechentrega").val(fechaAct.toISOString().split('T')[0]);
 
     document.getElementById('Anioentrega').disabled = false;
 	document.getElementById('numentrega').disabled = false;
@@ -285,6 +320,10 @@ $(document).on("click","#entrNueva",function(e) {
 	document.querySelector('.addEntrega').style.display = 'block';
 	
     windowsModalEntrega.classList.add('modalE--show');
+
+    document.getElementById("numentrega").style.border =  ".1em black solid";
+    document.getElementById("Anioentrega").style.border =  ".1em black solid";
+    document.getElementById("descentrega").style.border =  ".1em black solid";
 });
 
 $(document).on("click",".modalE_close",function (e) {
@@ -294,7 +333,7 @@ $(document).on("click",".modalE_close",function (e) {
 
 var accionRegresa = document.querySelector('.Btnregresar');
 accionRegresa.addEventListener("click", function (e) {
-    e.preventDefault;
+    e.preventDefault();
 
     let pagAnterior = document.referrer;
     if (pagAnterior.indexOf(window.location.host) !== -1) {
@@ -302,6 +341,14 @@ accionRegresa.addEventListener("click", function (e) {
     }
 });
 
+var accionAsignFech = document.querySelector('.CheckAsigFech');
+accionAsignFech.addEventListener("click", function () {
+    if (accionAsignFech.checked) {
+        document.getElementById('fechentrega').disabled = false;
+    } else {
+        document.getElementById('fechentrega').disabled = true;
+    }
+});
 
 
 init();

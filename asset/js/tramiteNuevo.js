@@ -595,7 +595,7 @@ accionFechBaja.addEventListener("blur", function (evento) {
 const accionFechBase = document.querySelector("#fechBaseMae");
 accionFechBase.addEventListener("blur", function (evento) {
     evento.preventDefault();
-    if (parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) < 1930 || parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) > 2024) {
+    if (parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) < 1930 || parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) > 2025) {
         document.getElementById("fechBaseMae").style.border =  ".1em red solid";
         Swal.fire(
             'ERROR',
@@ -766,7 +766,7 @@ accionCalculadora.addEventListener("click", function (evento) {
             );
         } else {
             a_fechs.push({validF:true,descerror:""});
-            if (parseInt(element["valorF"].split("-")[0]) > 1930 && parseInt(element["valorF"].split("-")[0]) < 2024) {
+            if (parseInt(element["valorF"].split("-")[0]) > 1930 && parseInt(element["valorF"].split("-")[0]) < 2025) {
                 a_fechs.push({validA:true});
                 document.getElementById(element["nomvar"]).style.border =  ".1em black solid";
                 valorValid = valorValid + 1;
@@ -1158,7 +1158,7 @@ accioFechTEstmnt.addEventListener("blur", function (evento) {
     var tipTestamento = document.getElementById('OpcTestamento').value;
     var validAnioFechCTJuic = false;
 
-    if (parseInt(document.getElementById('fechCTJuicio').value.split("-")[0]) > 1930 && parseInt(document.getElementById('fechCTJuicio').value.split("-")[0]) < 2024) {
+    if (parseInt(document.getElementById('fechCTJuicio').value.split("-")[0]) > 1930 && parseInt(document.getElementById('fechCTJuicio').value.split("-")[0]) < 2025) {
         document.getElementById("fechCTJuicio").style.border =  ".1em black solid";
         validAnioFechCTJuic = true;
 
@@ -1413,7 +1413,7 @@ const accioFechIniJuic = document.querySelector("#fechIniJuicio");
 accioFechIniJuic.addEventListener("blur", function (evento) {
     evento.preventDefault();
 
-    if (parseInt(document.getElementById('fechIniJuicio').value.slice(0,4)) > 2019 && parseInt(document.getElementById('fechIniJuicio').value.slice(0,4)) < 2024) {
+    if (parseInt(document.getElementById('fechIniJuicio').value.slice(0,4)) > 2019 && parseInt(document.getElementById('fechIniJuicio').value.slice(0,4)) < 2025) {
         document.getElementById("fechCTJuicio").style.border =  ".1em black solid";
         $.post("../../controller/tramites.php?op=validaVigFechas",{fechRecibido:document.getElementById('fechRecibido').value,fechBaja:document.getElementById('fechBajaMae').value,fechIniJuic:document.getElementById('fechIniJuicio').value,fechCTJuic:document.getElementById('fechCTJuicio').value},function(data){
             data = JSON.parse(data);

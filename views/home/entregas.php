@@ -45,52 +45,55 @@
                 </table>
             </div>
         </section>
-
+    
 
         <section class="modalEntrega">
-            <div class="modal_contenedorEntr">
-                <h2 class="modal_title"></h2>
-                <div class="divseparador"></div>
-                <section class="DatsEntregaDetalle">
-                    <input type="hidden" id="identrega" name="identrega">      
-                    <section id="ContenEntregas">
-                        <section id="DatsEntrDetalle">
-                            <div class="DatsEntrNuv">
-                                <div id="DvAnioEntrNuev">Año: 
-                                    <input type="text" class="Anioentrega" name="Anioentrega" id="Anioentrega" minlength="4" maxlength="4" required>
+            <form class="FormnewEntr" action="" method="POST" name="" id="form_newentr">
+                <div class="modal_contenedorEntr">
+                    <h2 class="modal_title"></h2>
+                    <div class="divseparador"></div>
+                    <section class="DatsEntregaDetalle">
+                        <input type="hidden" id="identrega" name="identrega">      
+                        <section id="ContenEntregas">
+                            <section id="DatsEntrDetalle">
+                                <div class="DatsEntrNuv">
+                                    <div id="DvAnioEntrNuev">Año: 
+                                        <input type="text" class="Anioentrega" name="Anioentrega" id="Anioentrega" minlength="4" maxlength="4" required>
+                                    </div>
+                                    <div id="DvNumEntrNuev">Num. Entrega:
+                                        <input type="text" class="numentrega" name="numentrega" id="numentrega" minlength="1" maxlength="2" required>
+                                    </div>
                                 </div>
-                                <div id="DvNumEntrNuev">Num. Entrega:
-                                    <input type="text" class="numentrega" name="numentrega" id="numentrega" minlength="1" maxlength="2" required>
+                                <div class="DatsEntrNuv">
+                                    <div id="DvDescEntrNuv">Descripcion:
+                                        <input type="text" id="descentrega" name="descentrega" onblur="soloconvierteMayusc(this)" required>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="DatsEntrNuv">
-                                <div id="DvDescEntrNuv">Descripcion:
-                                    <input type="text" id="descentrega" name="descentrega">
+                                <div id="divFechaEntrega">
+                                    <div class="fechEntrEdit">Fecha Entrega:
+                                        <input type="date" id="fechentrega" name="fechentrega" pattern="\d{4}-\d{2}-\d{2}" disabled>
+                                    </div>
+                                    <div id="DivAsignaFecha">
+                                        <label><input type="checkbox" class="CheckAsigFech" id="CheckAsigFech" value="checkfechentr"> Asigna Fecha</label for="checkfechentr"><br>
+                                    </div>
                                 </div>
-                            </div>
-                            <div id="divFechaEntrega">
-                                <div class="fechEntrEdit">Fecha Entrega:
-                                    <input type="date" id="fechentrega" name="fechentrega" pattern="\d{4}-\d{2}-\d{2}">
+                                <div class="obsrEntrEdit">Observaciones:
+                                    <input type="text" id="observaciones" name="observaciones" onblur="soloconvierteMayusc(this)">
                                 </div>
-                                <div id="DivAsignaFecha">
-                                    <label><input type="checkbox" id="CheckAsigFech" value="checkfechentr"> Asigna Fecha</label for="checkfechentr"><br>
-                                </div>
-                            </div>
-                            <div class="obsrEntrEdit">Observaciones:
-                                <input type="text" id="observaciones" name="observaciones">
-                            </div>
+                            </section>
                         </section>
                     </section>
-                </section>
-                <section class="divaddEntr">
-                    <a href="#" class="addEntrega">Agregar</a>
-                    <a href="#" id="updateEntr" class="updateEntr">Guardar</a>
-                </section>
-                <section class="closeWindowEntr">
-                    <a href="#" class="modalE_close">Cerrar</a>
-                </section>
-            </div>
+                    <section class="divaddEntr">
+                        <a href="#" class="addEntrega" disabled>Agregar</a>
+                        <a href="#" id="updateEntr" class="updateEntr" disabled>Guardar</a>
+                    </section>
+                    <section class="closeWindowEntr">
+                        <a href="#" class="modalE_close">Cerrar</a>
+                    </section>
+                </div>
+            </form>
         </section>
+
 
 
     </form>

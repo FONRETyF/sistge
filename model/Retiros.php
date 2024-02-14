@@ -18,19 +18,19 @@
             $estatentr = $this->get_EntRet($identrega);
             if ($estatentr =="CERRADA") {
                 $consulta= "SELECT tab1.identrega,tab1.numentrega,tab1.anioentrega,tab1.identret,tab1.cvemae,tab1.motvret,tab2.nomcommae,tab1.montrettot,tab1.estattramite,tab3.folcheque FROM public.tramites_fonretyf_hist as tab1 LEFT JOIN public.beneficiarios_cheques_hist as tab3 on tab1.cvemae = tab3.cvemae LEFT JOIN(SELECT tab1.cvemae,tab2.nomcommae";
-                $consulta = $consulta . " FROM public.tramites_fonretyf_hist as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf_hist as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 on tab1.cvemae= tab2.cvemae WHERE identrega='" . $identrega . "' and (motvret='I' or motvret='J') ORDER BY identret DESC;";
+                $consulta = $consulta . " FROM public.tramites_fonretyf_hist as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf_hist as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 on tab1.cvemae= tab2.cvemae WHERE identrega='" . $identrega . "' and (motvret='I' or motvret='J' or motvret='FRI' or motvret='FRJ' or motvret='FRR' or motvret='FRD') ORDER BY identret DESC;";
                 $statement = $this->db->prepare($consulta);
                 $statement->execute();
                 $resultsJub = $statement->fetchAll(PDO::FETCH_ASSOC);
                 $results_rets[] = $resultsJub;
 
                 $consultaF= "SELECT tab1.identrega,tab1.numentrega,tab1.anioentrega,tab1.identret,tab1.cvemae,tab1.motvret,tab2.nomcommae,tab1.montrettot,tab1.estattramite FROM public.tramites_fonretyf_hist as tab1 LEFT JOIN(SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf_hist as tab1, public.maestros_smsem as tab2 WHERE tab1.cvemae = tab2.csp UNION";
-                $consultaF = $consultaF . " SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf_hist as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 on tab1.cvemae= tab2.cvemae WHERE identrega= '".$identrega."' and (motvret='FA' or motvret='FJ' or motvret='F') ORDER BY identret DESC;";
+                $consultaF = $consultaF . " SELECT tab1.cvemae,tab2.nomcommae FROM public.tramites_fonretyf_hist as tab1, public.mutualidad as tab2 WHERE tab1.cvemae = tab2.cveissemym) as tab2 on tab1.cvemae= tab2.cvemae WHERE identrega= '".$identrega."' and (motvret='FA' or motvret='FJ' or motvret='FRF' or motvret='FMJ' or motvret='FFJ') ORDER BY identret DESC;";
                 $statementF = $this->db->prepare($consultaF);
                 $statementF->execute();
                 $resultsFall = $statementF->fetchAll(PDO::FETCH_ASSOC);
                 $results_rets[] = $resultsFall;
-
+                
                 return $results_rets;
 
             } else if ($estatentr=="ACTIVA") {

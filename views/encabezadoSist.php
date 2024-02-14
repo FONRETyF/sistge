@@ -15,9 +15,9 @@
 
 <div class="fondo_menu">
     <div class="container-fluid">
-        <nav class="navbar fixed-top headencabezado">
+        <nav class="navbar fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img id="imgAhorro" src="/../../img/cash.png" alt="" width="70" height="40"></a>
+                <!--<a class="navbar-brand" href="#"><img id="imgAhorro" src="/../../img/cash.png" alt="" width="70" height="40"></a>-->
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>

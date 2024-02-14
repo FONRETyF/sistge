@@ -1,7 +1,10 @@
 <?php
     session_start();
     require_once "/var/www/html/sistge/model/Entregas.php";
+    require_once "/var/www/html/sistge/model/formulariosValds.php";
+
     $entrega = new Entrega();
+    $formValid = new formulariosValds();
 
     switch ($_GET["op"]) {
         case "listar":
@@ -47,15 +50,15 @@
             }
             echo json_encode($resulInsert);
             break;
+
+        case 'validFormNE':
+                $resultValidFormNE = $formValid->validFormNE($_POST["datosformNE"]);
+                echo json_encode($resultValidFormNE, JSON_FORCE_OBJECT);
+            break;
         
         case "guardaryeditar":
             $result_insertEntrega = $entrega->update_entrega($_POST["identrega"],$_POST["numentrega"],$_POST["Anioentrega"],$_POST["descentrega"],$_POST["fechentrega"],$_POST["observaciones"],$_SESSION['usuario']);
             echo json_encode($result_insertEntrega);
-            /*if(empty($a_get_entrega)){
-                if(is_array($a_get_entrega)==true and count($a_get_entrega)==0){
-                    $entrega->insert_entrega($_POST["identrega"],$_POST["numentrega"],$_POST["Anioentrega"],$_POST["descentrega"],$_SESSION['usuario'],$_POST["fechentrega"],$_POST["observaciones"]);
-                }
-            }*/
             break;
             
         case "mostrar":
@@ -111,14 +114,6 @@
             echo json_encode($a_result_parametros_DT);
             break;
         
-        case 'updataEntrTraspaso':
-                
-            break;
-
-        case 'updataEntrSolicCheqs':
-            
-            break;
-        
         case 'updataEntrImpCheqs':
             $a_get_update_Entr = $entrega->updateEntrImpCheques($_POST['identrega']);
             break;
@@ -134,7 +129,6 @@
 			break;
 		
 		case 'addFolInex':
-			
 			$a_get_addfolsNew = $entrega->addFolsInexs($_POST['folCheq'],$_POST['nombreMae'],$_POST['nomBenef'],$_POST['montBenef'],$_POST['observCheque'],$_POST['concepCheq'],$_POST['estatCheq'],$_SESSION['usuario']);
 			echo json_encode($a_get_addfolsNew, JSON_FORCE_OBJECT);
 			break;
@@ -163,9 +157,17 @@
             echo json_encode($a_getParam, JSON_FORCE_OBJECT);
             break;
 
+        case 'updataEntrTraspaso':
+                
+            break;
+    
+        case 'updataEntrSolicCheqs':
+                
+            break;
+        
         default:
             
             break;
-
     }
+
 ?>

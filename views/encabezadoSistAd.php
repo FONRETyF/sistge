@@ -15,9 +15,9 @@
 
 <div class="fondo_menu">
     <div class="container-fluid">
-        <nav class="navbar fixed-top headencabezado">
+        <nav class="navbar fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img id="imgAhorro" src="../../img/cash.png" alt="" width="70" height="40"></a>
+                <a class="navbar-brand" href="#"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -60,6 +60,39 @@
                     </div>
                 </div>
             </div>
+            
+            
+            <!--<div class="btn-group btnDropRets">
+                <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">RETIROS</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="entregas.php">ENTREGAS</a></li>
+                    <li><a class="dropdown-item" href="consultRetiros.php">CONSULTAS</a></li>
+                    <li><a class="dropdown-item" href="pendientes.php">PENDIENTES</a></li>
+                    <li><a class="dropdown-item" href="tramsProrrgs.php">PRORROGAS</a></li>
+                    <li><a class="dropdown-item" href="cancelCheqs.php">CANCELACIONES</a></li>
+                    <li><a class="dropdown-item" href="reposiciones.php">REPOSICIONES</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <div class="btn-group btnDropJubs">
+                <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">JUBILADOS</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="consultaEdosCtaMut.php">CONSULTAS</a></li>
+                    <li><a class="dropdown-item" href="emisionesMut.php">MUTUALIDAD</a></li>
+                    <li><a class="dropdown-item" href="emisionesFF.php">FONDO FALLECIMIENTO</a></li>                    
+                </ul>
+            </div>
+            <div class="btn-group btnDropProcs">
+                <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">PROCESOS</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="parametros.php" >PARAMETROS RET</a></li>
+                    <li><a class="dropdown-item" href="#">NOMINAS ISSEMYM</a></li>
+                    <li><a class="dropdown-item" href="altMaestro.php">ALTA DE MAESTROS</a></li>
+                </ul>
+            </div>-->
+           
+
         </nav>
     </div>
 </div>

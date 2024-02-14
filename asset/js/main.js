@@ -12,6 +12,11 @@ function mostrarContraseña(idPassword,idIcon){
     }
 }
 
+function soloconvierteMayusc(elemento){
+    if (elemento.value != "") {
+        elemento.value = elemento.value.toUpperCase();
+    } 
+}
 
 function convierteMayusc(elemento){
     if (elemento.value != "") {
