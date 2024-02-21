@@ -44,7 +44,6 @@
                         }   
                     }
                     echo json_encode($output, JSON_FORCE_OBJECT); 
-
                 }else if(count($a_get_TrmtsHist)>0){
                     foreach($a_get_TrmtsHist as $row){
                         $output["motivo"] = "existente";
@@ -64,7 +63,6 @@
                 $a_get_TrmtsHist = $maestroTramites->buscaTrsmitesHist($_POST["claveisemym"]);
                 
                 if(is_array($a_get_maestro)==true and count($a_get_TrmtsHist)==0){
-                    
                     foreach($a_get_maestro as $row){
                         $programFallec = $row["programfallec"];
                     }

@@ -1,3 +1,4 @@
+/* Variables globales */
 var motivo = "";
 var causaRet = "";
 var programfallec = "";
@@ -42,6 +43,20 @@ $(document).ready(function(){
     });
 });
 
+function prepareElemntsFR(){
+    document.getElementById("cspMaeBusq").disabled =  false;
+    document.getElementById("EditaNombre").disabled =  false;
+    document.getElementById("cveIMaeBusq").disabled =  false;
+    document.getElementById("OpcRegSind").disabled =  false;
+    document.getElementById("tipTramNE").disabled = false;
+    document.getElementById("DivPsgs").style.display =  "block";
+    document.getElementById("DivDictamen").style.display = "block";
+    document.getElementById("DivTestBenefsMae").style.display = "none";
+    document.getElementById("nomSolic").disabled = true;
+    $('#tituto_BasJubBajFall').html('BASE Y BAJA');
+    $('#tituto_InptBasJub').html('Base: &nbsp');
+    $('#tituto_InptBajFall').html('Baja: &nbsp');
+}
 
 $("#OpcCauRetiro").change(function () {
     causaRet= $("#OpcCauRetiro").val();
@@ -103,74 +118,31 @@ $("#OpcCauRetiro").change(function () {
 });
 
 $("#OpcMotivRetiro").change(function () {
-    motRet = $("#OpcMotivRetiro").val();
+    motret = $("#OpcMotivRetiro").val();
 
-    switch (motRet) {
+    switch (motret) {
         case "I":
             motivo="FRI";
-            document.getElementById("cspMaeBusq").disabled =  false;
-            document.getElementById("EditaNombre").disabled =  false;
-            document.getElementById("cveIMaeBusq").disabled =  false;
-            document.getElementById("OpcRegSind").disabled =  false;
-            document.getElementById("tipTramNE").disabled = false;
-            document.getElementById("DivPsgs").style.display =  "block";
-            document.getElementById("DivDictamen").style.display = "block";
-            document.getElementById("DivTestBenefsMae").style.display = "none";
-            document.getElementById("nomSolic").disabled = true;
-            $('#tituto_BasJubBajFall').html('BASE Y BAJA');
-            $('#tituto_InptBasJub').html('Base: &nbsp');
-            $('#tituto_InptBajFall').html('Baja: &nbsp');   
+            prepareElemntsFR();
             break;
         
         case "J":
-            document.getElementById("cspMaeBusq").disabled =  false;
-            document.getElementById("EditaNombre").disabled =  false;
-            document.getElementById("cveIMaeBusq").disabled =  false;
-            document.getElementById("OpcRegSind").disabled =  false;
-            document.getElementById("tipTramNE").disabled = false;
-            document.getElementById("DivPsgs").style.display =  "block";
-            document.getElementById("DivDictamen").style.display = "block";
-            document.getElementById("DivTestBenefsMae").style.display = "none"; 
-            document.getElementById("nomSolic").disabled = true; 
-            $('#tituto_BasJubBajFall').html('BASE Y BAJA'); 
-            $('#tituto_InptBasJub').html('Base: &nbsp');  
-            $('#tituto_InptBajFall').html('Baja: &nbsp'); 
-            motivo="FRJ";    
+            motivo="FRJ";
+            prepareElemntsFR();
             break;
         
         case "R":
-            document.getElementById("cspMaeBusq").disabled =  false;
-            document.getElementById("EditaNombre").disabled =  false;
-            document.getElementById("cveIMaeBusq").disabled =  false;
-            document.getElementById("OpcRegSind").disabled =  false;
-            document.getElementById("tipTramNE").disabled = false;
-            document.getElementById("DivPsgs").style.display =  "block";
-            document.getElementById("DivDictamen").style.display = "block";
-            document.getElementById("DivTestBenefsMae").style.display = "none"; 
-            document.getElementById("nomSolic").disabled = true; 
-            $('#tituto_BasJubBajFall').html('BASE Y BAJA'); 
-            $('#tituto_InptBasJub').html('Base: &nbsp');  
-            $('#tituto_InptBajFall').html('Baja: &nbsp');  
-            motivo="FRR";   
+            motivo="FRR";  
+            prepareElemntsFR(); 
             break;
             
         case "D":
-            document.getElementById("cspMaeBusq").disabled =  false;
-            document.getElementById("EditaNombre").disabled =  false;
-            document.getElementById("cveIMaeBusq").disabled =  false;
-            document.getElementById("OpcRegSind").disabled =  false;
-            document.getElementById("tipTramNE").disabled = false;
-            document.getElementById("DivPsgs").style.display =  "block";
-            document.getElementById("DivDictamen").style.display = "block";
-            document.getElementById("DivTestBenefsMae").style.display = "none"; 
-            document.getElementById("nomSolic").disabled = true; 
-            $('#tituto_BasJubBajFall').html('BASE Y BAJA'); 
-            $('#tituto_InptBasJub').html('Base: &nbsp');  
-            $('#tituto_InptBajFall').html('Baja: &nbsp');  
             motivo="FRD";   
+            prepareElemntsFR();  
             break;
 
         case "F":
+            motivo="FRF";
             document.getElementById("cspMaeBusq").disabled =  false;
             document.getElementById("EditaNombre").disabled =  false;
             document.getElementById("cveIMaeBusq").disabled =  false;
@@ -183,13 +155,32 @@ $("#OpcMotivRetiro").change(function () {
             $('#tituto_BasJubBajFall').html('JUBILACION Y FALLECIMIENTO');
             $('#tituto_InptBasJub').html('Base: &nbsp');
             $('#tituto_InptBajFall').html('Fallecim.: &nbsp'); 
-            motivo="FRF";
             break;
     
         default:
             break;
     }        
 });
+
+var tipTramite = '0';
+var checkBoxTipTram = document.getElementById('tipTramNE');
+checkBoxTipTram.addEventListener("change", tramExtra, false);
+function tramExtra() {
+    var checkedTE = checkBoxTipTram.checked;
+    if (checkedTE) {
+        if (motivo == 'FFJ' || motivo == 'FMJ' || motivo == 'FRF') {
+            document.getElementById("numfolioTEJI").style.display = "none";
+            document.getElementById("DivfolioBenef").style.display = "block";
+        } else {
+            document.getElementById("numfolioTEJI").style.display = "block";
+        }
+        tipTramite = '1';
+    } else {
+        document.getElementById("numfolioTEJI").style.display = "none";
+        document.getElementById("DivfolioBenef").style.display = "none";
+        tipTramite = '0';
+    }
+}
 
 $(".CSPMae").keydown(function (event) {
     var key = window.event ? event.which : event.keyCode;
@@ -212,37 +203,10 @@ $('#CURPMae').keydown(function (event) {
     }
 });
 
-$('#CURPMae').change(function () {
-    document.getElementById('RFCMae').value = document.getElementById('CURPMae').value.substr(0,10).toUpperCase();
-    if ($("#CURPMae").val().length < 18 ) {
-        Swal.fire(
-            'LA CLAVE CURP ES INCORRECTA',
-            'deben ser 18 caracteres'
-        );
-        $("#CURPMae").focus();
-        document.getElementById('CURPMae').style.border =  ".1em red solid";
-    }else{
-        document.getElementById('CURPMae').style.border =  ".1em black solid";
-    }
-});
-
 $('#RFCMae').keydown(function (event) {
     var key = window.event ? event.which : event.keyCode;
     if((key < 65 || key > 90)  && (key < 97 || key > 122) && (key < 48 || key > 57) && (key < 96 || key > 105) && key !== 37 && key !==39 && key !==8 && key!==9 && key !==46){
         return false;
-    }
-});
-
-$('#RFCMae').change(function () {
-    if ($("#RFCMae").val().length < 10 || $("#RFCMae").val().length > 13) {
-        Swal.fire(
-            'LA CLAVE RFC ES INCORRECTA',
-            'deben ser 10 o 13 caracteres'
-        );
-        $("#RFCMae").focus();
-        document.getElementById('RFCMae').style.border =  ".1em red solid";
-    }else{
-        document.getElementById('RFCMae').style.border =  ".1em black solid";
     }
 });
 
@@ -283,14 +247,28 @@ $("#TelCelMae").change(function () {
     }
 });
 
+function cleanCveInex(){
+    document.getElementById("cspMaeBusq").value="";
+    document.getElementById("cveIMaeBusq").value="";
+    document.getElementById("apePatMae").value="";
+    document.getElementById("apeMatMae").value="";
+    document.getElementById("nombreMae").value="";
+    document.getElementById("estLaboral").value="";
+    document.getElementById("nomComplMae").value="";
+    document.getElementById("nomSolic").value="";
+    document.getElementById("RFCMae").value="";
+    document.getElementById("TelPartiMae").value="";
+    document.getElementById("TelCelMae").value="";
+}
+
 $("#cveIMaeBusq").change(function() {
     claveisemym = document.getElementById("cveIMaeBusq").value;
 
     if (claveisemym.length < 3 ) {
         Swal.fire(
             'LA CLAVE DE ISSEMYM ES INCORRECTA',
-            'debe tener un maximo de 6 digitos y minimo 3 digitos'
-        )
+            'debe tener maximo 7 digitos y minimo 3 digitos'
+        );
     }else{
         if (causaRet == "FF" || causaRet == "FM") {
             clavemae = $("#cveIMaeBusq").val();
@@ -298,20 +276,10 @@ $("#cveIMaeBusq").change(function() {
                 $.post("../../controller/maestro.php?op=buscarJub",{claveisemym:claveisemym},function(dataJ){
                     if(jQuery.isEmptyObject(dataJ)){
                         Swal.fire(
-                            'LA CLAVE ES INCORRECTA',
-                            'no esta afiliado al programa de MUTUALIDAD'
-                        )
-                        document.getElementById("cspMaeBusq").value="";
-                        document.getElementById("cveIMaeBusq").value="";
-                        document.getElementById("apePatMae").value="";
-                        document.getElementById("apeMatMae").value="";
-                        document.getElementById("nombreMae").value="";
-                        document.getElementById("estLaboral").value="";
-                        document.getElementById("nomComplMae").value="";
-                        document.getElementById("nomSolic").value="";
-                        document.getElementById("RFCMae").value="";
-                        document.getElementById("TelPartiMae").value="";
-                        document.getElementById("TelCelMae").value="";
+                            'A T E N C I O N',
+                            'Clave no registrada en el sistema, verifiquela'
+                        );
+                        cleanCveInex();
                     }else{
                         dataJ = JSON.parse(dataJ);
                         var motivoC = dataJ.motivo;
@@ -340,8 +308,8 @@ $("#cveIMaeBusq").change(function() {
                         } else if (motivoC == "existente" || estatusmae == "F") {
                             if (dataJ.motivo == "existente") {
                                 Swal.fire(
-                                    'Ya se encuentra un tramite registrado con la misma clave, por motivo de Fallecimiento' + dataJ.fe>
-                                    'Verifique su clave'
+                                    '¡A T E N C I O N!',
+                                    'Ya se encuentra un tramite registrado con la misma clave, con fecha: ' + dataJ.fechentrega
                                 ).then((result)=>{
                                     let pagAnterior = document.referrer;
                                     if (pagAnterior.indexOf(window.location.host) !== -1) {
@@ -351,7 +319,8 @@ $("#cveIMaeBusq").change(function() {
                             }
                         } else if (estatusmae == "P") {
                             Swal.fire(
-                                'El maestro aun no esta activo en el programa de mutualidad'
+                                '¡A T E N C I O N!',
+                                'El maestro aun no se encuentra activo en el programa de mutualidad'
                             ).then((result)=>{
                                 let pagAnterior = document.referrer;
                                 if (pagAnterior.indexOf(window.location.host) !== -1) {
@@ -360,7 +329,8 @@ $("#cveIMaeBusq").change(function() {
                             });
                         } else if (motivoC == "nuevo" || estatusmae == "F") {
                             Swal.fire(
-                                'No se puede dar de alta un tramite con esta clave que tiene estatus de Fallecido'
+                                '¡A T E N C I O N!',
+                                'Inconsistencia con la clave, esta registrada como estatus Fallecido, comuniquese con al Admin. del sistema'
                             ).then((result)=>{
                                 let pagAnterior = document.referrer;
                                 if (pagAnterior.indexOf(window.location.host) !== -1) {
@@ -382,27 +352,17 @@ $("#cspMaeBusq").change(function () {
         $.post("../../controller/maestro.php?op=buscar",{clavemae:clavemae},function(data){ 
             if(jQuery.isEmptyObject(data)){
                 Swal.fire(
-                    'LA CLAVE ES INCORRECTA',
-                    'no esta afiliado al SMSEM'
+                    'A T E N C I O N',
+                    'Clave no registrada en el sistema, verifiquela'
                 )
-                document.getElementById("cspMaeBusq").value="";
-                document.getElementById("cveIMaeBusq").value="";
-                document.getElementById("apePatMae").value="";
-                document.getElementById("apeMatMae").value="";
-                document.getElementById("nombreMae").value="";
-                document.getElementById("estLaboral").value="";
-                document.getElementById("nomComplMae").value="";
-                document.getElementById("nomSolic").value="";
-                document.getElementById("RFCMae").value="";
-                document.getElementById("TelPartiMae").value="";
-                document.getElementById("TelCelMae").value="";
+                cleanCveInex();
             }else{
                 data = JSON.parse(data);
                 if(data.motivo == "existente" || data.estatlabmae != "A"){
                     if (data.motivo == "existente") {
                         Swal.fire(
-                            'Ya se encuentra un tramite registrado con la misma clave, por motivo de: ' + data.motvret +  ' el ' + data.fechentrega,
-                            'Verifique su clave'                            
+                            '¡A T E N C I O N!',
+                            'Ya se encuentra un tramite registrado con la misma clave, por motivo de: ' + data.motvret +  ', con fecha: ' + data.fechentrega                            
                         ).then((result)=>{
                             let pagAnterior = document.referrer;
                             if (pagAnterior.indexOf(window.location.host) !== -1) {
@@ -411,7 +371,8 @@ $("#cspMaeBusq").change(function () {
                         });
                     }else if (data.estatlabmae != "A" && data.motivo == "inconsistencia") {
                         Swal.fire(
-                            'El maestro (a) no es activo verifique el expediente y la clave'                            
+                            '¡A T E N C I O N!',
+                            'El maestro (a) no es activo, verifique el expediente y la clave'                            
                         ).then((result)=>{
                             let pagAnterior = document.referrer;
                             if (pagAnterior.indexOf(window.location.host) !== -1) {
@@ -449,47 +410,18 @@ $("#cspMaeBusq").change(function () {
                         document.getElementById("OpcTestamento").disabled =  false;
                         document.getElementById("fechCTJuicio").disabled =  false;
                         document.getElementById("fechIniJuicio").disabled = false;
-                        
                     }
                 }
             }
         });
     } else {
         Swal.fire(
-            'La clave es incorrecta, debe tener 9 digitos',
-            'Verifique y corrija la clave!!!'
+            '¡A T E N C I O N!',
+            'La clave es incorrecta, debe tener 9 digitos'
         );
-        document.getElementById("cspMaeBusq").value = "";
-        document.getElementById("cveIMaeBusq").value = "";
-        document.getElementById("apePatMae").value = "";
-        document.getElementById("apeMatMae").value = "";
-        document.getElementById("nombreMae").value = "";
-        document.getElementById("estLaboral").value = "";
-        document.getElementById("nomComplMae").value = "";
-        document.getElementById("nomSolic").value = "";
-        document.getElementById("RFCMae").value = "";
-        document.getElementById("TelPartiMae").value = "";
-        document.getElementById("TelCelMae").value = "";
+        cleanCveInex();
     }
 });
-
-function validacurpBenef(inputCurpBenef){
-    if (inputCurpBenef.value.length != 18 ) {
-        Swal.fire(
-            'DATO INVALIDO',
-            'Proporcione la CURP correcta'
-        );
-    }
-}
-
-function validaNomBenef(inputNomBenef) {
-    if (inputNomBenef.value.length == "" && inputNomBenef.value.length < 10 ) {
-        Swal.fire(
-            'DATO INVALIDO',
-            'Proporcione un NOMBRE correcto'
-        );
-    }
-}
 
 const accionEditaNom = document.querySelector("#EditaNombre");
 accionEditaNom.addEventListener("click", function (evento){
@@ -504,35 +436,35 @@ accionEditaNom.addEventListener("click", function (evento){
         $('#nomcomModif').val(data.nomcommae);
     });
     $('#editarNomMae').modal('show');
-	
 });
 
 function actNomMae(e){
     e.preventDefault();
     nomComMae = $('#apepatModif').val() + " " + $('#apematModif').val() + " " + $('#nommaeModif').val();
     $('#nomcomModif').val(nomComMae);
-	
+	var cvemaeBusqUpdate = '';
+
 	if(motivo == "FMJ" || motivo == "FFJ"){
-		$.post("../../controller/maestro.php?op=actNomMae",{apepatModif:$('#apepatModif').val(),apematModif:$('#apematModif').val(),nommaeModif:$('#nommaeModif').val(),nomcomModif:$('#nomcomModif').val(),cvemae:$('#cvemae').val()},function(data){ 
+		$.post("../../controller/maestro.php?op=actNomMae",{apepatModif:$('#apepatModif').val(),apematModif:$('#apematModif').val(),nommaeModif:$('#nommaeModif').val(),nomcomModif:$('#nomcomModif').val(),cvemae:$('#cveIMaeBusq').val()},function(data){ 
 			resultadoUpd = Object.values( JSON.parse(data));
-			if(resultadoUpd[0] == "actualizado"){
+			if(resultadoUpd[0] == "Actualizado"){
 				swal.fire(
-					'Modificacion!',
-					'Los Datos se actualizaron correctamente!!!',
+					'¡M O D I F I C A C I Ó N!',
+					'El nombre se actualizo correctamente.',
 					'success'
 				);
 				$('#edita_NomMae')[0].reset();
 				$("#editarNomMae").modal('hide');
-			}else{
-				swal.fire(
-					'ERROR!!!',
-					'Surgio un error consultelo con el administrador dle sistema!!!',
+			}else if (resultadoUpd[0] == "Fallo") {
+                swal.fire(
+					'¡E R R O R!',
+					'Surgio un error, consultelo con el administrador del sistema!!!',
 					'success'
 				);
 			}
 		});
-		clavemae = $("#cveIMaeBusq").val();
-		$.post("../../controller/maestro.php?op=buscarJub",{claveisemym:clavemae},function(data){ 
+		cvemaeBusqUpdate = $("#cveIMaeBusq").val();
+		$.post("../../controller/maestro.php?op=buscarJub",{claveisemym:cvemaeBusqUpdate},function(data){ 
 			data = JSON.parse(data);
 			$('#apePatMae').val(data.apepatmae);
 			$('#apeMatMae').val(data.apematmae);
@@ -541,28 +473,27 @@ function actNomMae(e){
 			$('#nomSolic').val(data.nomcommae); 
 		});
 	}else{
-		var formData = new FormData($("#edita_NomMae")[0]);
-		clavemae = $("#cveIMaeBusq").val();
+		cvemaeBusqUpdate = $("#cspMaeBusq").val();
 		$.post("../../controller/maestro.php?op=actNomMae",{apepatModif:$('#apepatModif').val(),apematModif:$('#apematModif').val(),nommaeModif:$('#nommaeModif').val(),nomcomModif:$('#nomcomModif').val(),cvemae:$('#cspMaeBusq').val()},function(data){ 
 			resultadoUpd = Object.values( JSON.parse(data));
-			if(resultadoUpd[0] == "actualizado"){
+			if(resultadoUpd[0] == "Actualizado"){
 				swal.fire(
-					'Modificacion!',
-					'Los Datos se actualizaron correctamente!!!',
+					'¡M O D I F I C A C I Ó N!',
+					'El nombre se actualizo correctamente.',
 					'success'
 				);
 				$('#edita_NomMae')[0].reset();
 				$("#editarNomMae").modal('hide');
 			}else{
 				swal.fire(
-					'ERROR!!!',
-					'Surgio un error consultelo con el administrador dle sistema!!!',
+					'¡E R R O R!',
+					'Surgio un error, consultelo con el administrador del sistema!!!',
 					'success'
 				);
 			}
 		});
-		clavemae = $("#cvemae").val();
-		$.post("../../controller/maestro.php?op=buscar",{clavemae:clavemae},function(data){ 
+		cvemaeBusqUpdate = $("#cspMaeBusq").val();
+		$.post("../../controller/maestro.php?op=buscar",{clavemae:cvemaeBusqUpdate},function(data){ 
 			data = JSON.parse(data);
 			$('#apePatMae').val(data.apepatmae);
 			$('#apeMatMae').val(data.apematmae);
@@ -574,57 +505,52 @@ function actNomMae(e){
 	}
 }
 
-const accionFechBaja = document.querySelector("#fechBajaMae");
-accionFechBaja.addEventListener("blur", function (evento) {
-    evento.preventDefault();
-
-
-    document.getElementById("fechBajaMae").style.border =  ".1em black solid";
-    if (motivo == "FRF" || motivo == "FI" || motivo == "FRR" || motivo == "FRD") {
-        document.getElementById("editaBefens").disabled = false;
-    } 
-    /*if (parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) < 2022 || parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) > 2024) {
-        document.getElementById("fechBajaMae").style.border =  ".1em red solid";
-        Swal.fire(
-            'ERROR',
-            'el año de la fecha no es correcto!!!'
-        );
-    }*/
-});
-
 const accionFechBase = document.querySelector("#fechBaseMae");
 accionFechBase.addEventListener("blur", function (evento) {
     evento.preventDefault();
-    if (parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) < 1930 || parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) > 2025) {
+    if (parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) < 1930 || parseInt(document.getElementById('fechBaseMae').value.split("-")[0]) >= parseInt(fechaActual().split("-")[0])) {
         document.getElementById("fechBaseMae").style.border =  ".1em red solid";
         Swal.fire(
-            'ERROR',
-            'el año de la fecha no es correcto!!!'
+            '¡E R R O R!',
+            'El año de la fecha no es correcto.'
         );
     }else{
         document.getElementById("fechBaseMae").style.border =  ".1em black solid";
     }
 });
 
-var tipTramite = '0';
-var checkBoxTipTram = document.getElementById('tipTramNE');
-checkBoxTipTram.addEventListener("change", tramExtra, false);
-function tramExtra() {
-    var checkedTE = checkBoxTipTram.checked;
-    if (checkedTE) {
-        if (motivo == 'FFJ' || motivo == 'FMJ' || motivo == 'FRF') {
-            document.getElementById("numfolioTEJI").style.display = "none";
-            document.getElementById("DivfolioBenef").style.display = "block";
-        } else {
-            document.getElementById("numfolioTEJI").style.display = "block";
+const accionFechBaja = document.querySelector("#fechBajaMae");
+accionFechBaja.addEventListener("blur", function (evento) {
+    evento.preventDefault();
+
+    document.getElementById("fechBajaMae").style.border =  ".1em black solid";
+    if (parseInt(document.getElementById('fechBajaMae').value.split("-")[0]) > parseInt(fechaActual().split("-")[0])) {
+        document.getElementById("fechBajaMae").style.border =  ".1em red solid";
+        Swal.fire(
+            '¡E R R O R!',
+            'El año de la fecha no es correcto.'
+        );
+    }else{
+        if (motivo == "FRF" || motivo == "FI" || motivo == "FRR" || motivo == "FRD") {
+            document.getElementById("editaBefens").disabled = false;
         }
-        tipTramite = '1';
-    } else {
-        document.getElementById("numfolioTEJI").style.display = "none";
-        document.getElementById("DivfolioBenef").style.display = "none";
-        tipTramite = '0';
+        document.getElementById("fechBajaMae").style.border =  ".1em black solid";
     }
-}
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var checkboxPSGS = document.getElementById('sinPSGS');
 checkboxPSGS.addEventListener("change", validaCheckPSGS, false);

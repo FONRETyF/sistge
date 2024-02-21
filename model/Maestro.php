@@ -50,19 +50,19 @@
         public function update_nomMae($apepatmae,$apematmae,$nommae,$nomcommae,$cvemae,$cveusu){
             $fecha = date("Y-m-d");
             $nomcommae = $apepatmae . " " . $apematmae . " " . $nommae;
-            $datsInsert=array($apepatmae, $apematmae, $nommae, $nomcommae, $cveusu, $fecha,$cvemae);
+            $datsUpdate=array($apepatmae, $apematmae, $nommae, $nomcommae, $cveusu, $fecha,$cvemae);
 			
 			$resultUPNomMae = array();
 			
 			if(strlen($cvemae) === 9){
 				try{
 					$statement = $this->db->prepare("UPDATE public.maestros_smsem SET apepatmae=?, apematmae=?, nommae=?, nomcommae=?, cveusu=?, fechmodif= ?  WHERE csp=?");
-					$statement->execute($datsInsert);
-					$resultUPNomMae["updateMae"] = 'actualizado';
+					$statement->execute($datsUpdate);
+					$resultUPNomMae["updateMae"] = 'Actualizado';
 				} catch (\Throwable $th) {
 					echo($th);
 					
-					$resultUPNomMae["updateMae"] = 'fallo';
+					$resultUPNomMae["updateMae"] = 'Fallo';
 				}
 				return $resultUPNomMae;
 			}else{
@@ -70,14 +70,14 @@
 				if ($maejub[0]['programfallec'] == 'M'){
 					try{
 						$statement = $this->db->prepare("UPDATE public.jubilados_smsem SET apepatjub=?, apematjub=?, nomjub=?, nomcomjub=?, cveusumodif=?, fechmodif= ?  WHERE cveissemym=?");
-						$statement->execute($datsInsert);
+						$statement->execute($datsUpdate);
 						$statement = $this->db->prepare("UPDATE public.mutualidad SET apepatmae=?, apematmae=?, nommae=?, nomcommae=?, cveusu=?, fechmodif= ?  WHERE cveissemym=?");
-						$statement->execute($datsInsert);
+						$statement->execute($datsUpdate);
 						
-						$resultUPNomMae["updateMae"] = 'actualizado';
+						$resultUPNomMae["updateMae"] = 'Actualizado';
 					} catch (\Throwable $th) {
 						echo($th);
-						$resultUPNomMae["updateMae"] = 'fallo';
+						$resultUPNomMae["updateMae"] = 'Fallo';
 					}
 					return $resultUPNomMae;
 				}else{

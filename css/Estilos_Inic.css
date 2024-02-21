@@ -1197,13 +1197,13 @@ input[type="date"]{
 }
 #SecDatTramite{
   width: 80%;
-  height: 210px;
+  height: 250px;
   margin: 1px auto;
   border-bottom: .1em solid #034203;
   border-radius: 3px;
 }
 .DatosCapTram{
-  height: 210px;
+  height: 250px;
 }
 .DatosCapTram input{
   height: 27px;
@@ -2958,8 +2958,6 @@ input[type="date"]{
 #sueldBaseProfrTit{
   text-align: center;
 }
-
-
 #form_emisionesMut{
   text-align: center;
 }
@@ -3682,7 +3680,72 @@ input[type="date"]{
 /*   ------------------------------------   */
 
 
-
+/* MODAL EDITA NOMBRE 
+.divsTitsNomMae{
+  width: 150px;
+}
+.divsInputsNomMae{
+  width: 250px;
+}
+.modalEditNom input{
+  height: 30px;
+  border-radius: 4px;
+}
+#divTitEditNom{
+  text-align: center;
+}
+.divsDatsNomMae{
+  display: inline-flex;
+  margin: 10px auto;
+}
+.secEditNom{
+  text-align: center;
+}
+.modalEditNom{
+  position: fixed;
+  top:150px;
+  left: 0;
+  right:0 ;
+  bottom: 0;
+  /*display: flex; 
+  opacity: 0;
+  pointer-events: none; 
+  transition: opacity .5s;
+}*/
+.ContenNomMae{
+  display: inline-block;
+  width: 100%;
+  height: 200px;
+}
+.modalEditNom_close{
+  text-decoration: none;
+  color: #0428f3;
+  font-size: 17px;
+  margin-left: 430px;
+}
+.modalEditNom_close:hover{
+  color: #f4f7f3;
+  background-color: #045808;
+  border-radius: 4px;
+}
+.modalEN--show{
+  opacity: 1;
+  pointer-events: unset;
+  transition: opacity .5s;
+}
+.modal_contentEditNom{
+  margin: auto;
+  width: 40%;
+  max-width: 750px;
+  max-height: 90%;
+  background-color: #c5dbc9;
+  border-radius: 6px;
+  border-top: 1px solid rgb(9, 39, 1);
+  border-bottom: 1px solid rgb(9, 39, 1);
+  padding: 1.5em 1.5em;
+  gap: 1em;
+  place-items: center;
+}
 
 /*   MODAL ENTREGAS   */
 .modalEntrega{
